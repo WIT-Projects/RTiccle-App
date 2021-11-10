@@ -9,6 +9,7 @@ const  ZeroTiccle = () => {
   return(
     <>
         <View style={styles.comtainer}>
+        <View style={styles.image}></View>
             <Text style={styles.font1}>작성된 티끌이 없네요.</Text>
             <Text style={styles.font1}>첫 티끌을 생성해보세요!</Text>
             <View style={styles.button}>
@@ -32,6 +33,12 @@ const styles = StyleSheet.create({
     font2:{
         fontSize: 16,
         color: colors.white,
+    },
+    image:{
+        width:68,
+        height:68,
+        backgroundColor:colors.gray2,
+        marginBottom: 10,
     },
     button:{
         backgroundColor:colors.main,
