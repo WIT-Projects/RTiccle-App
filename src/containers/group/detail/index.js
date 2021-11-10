@@ -1,10 +1,12 @@
 import React from 'react';
-import {Text} from "react-native";
+import {Text, View, StyleSheet, Dimensions, KeyboardAvoidingView} from "react-native";
 
 import GroupInfo from './components/groupInfo';
 import Search from './components/search';
 import Bottom from './components/bottom';
 import ZeroTiccle from './components/zeroTiccle';
+
+
 
 export default function GroupDetail(){
   return(
@@ -16,3 +18,11 @@ export default function GroupDetail(){
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  rootContainer: {
+      flex: 1,
+      backgroundColor: "#ffffff"
+  },
+})
+
