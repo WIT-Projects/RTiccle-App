@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {StyleSheet, TextInput , View, Image} from "react-native";
+import React from 'react';
+import {StyleSheet, View, Image} from "react-native";
 import colors from '../../../../theme/colors'
 
 const  Bottom = () => {

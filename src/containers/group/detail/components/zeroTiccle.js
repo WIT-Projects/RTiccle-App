@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, Dimensions,ImageBackground, View, Image} from "react-native";
+import {StyleSheet, Text, Dimensions, View} from "react-native";
 import colors from '../../../../theme/colors'
 
-const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const  ZeroTiccle = () => {

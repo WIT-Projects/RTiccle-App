@@ -1,12 +1,10 @@
 import React from 'react';
-import {Text, View, Image, TouchableOpacity, StyleSheet, Dimensions, KeyboardAvoidingView} from "react-native";
+import {Image, TouchableOpacity, StyleSheet} from "react-native";
 
 import GroupInfo from './components/groupInfo';
 import Search from './components/search';
 import Bottom from './components/bottom';
 import ZeroTiccle from './components/zeroTiccle';
-
-
 
 export default function GroupDetail(){
   return(

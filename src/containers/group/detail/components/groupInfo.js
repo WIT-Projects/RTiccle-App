@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, ImageBackground, View, Image} from "react-native";
 import colors from '../../../../theme/colors'
+
 const  GroupInfo = ({title, imgUrl, content}) => {
   return(
     <>
@@ -21,9 +22,6 @@ const  GroupInfo = ({title, imgUrl, content}) => {
             </View>
         </View>
     </ImageBackground>
-    
-    
-    
     </>
   )
 }
