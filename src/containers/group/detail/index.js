@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, StyleSheet, Dimensions, KeyboardAvoidingView} from "react-native";
+import {Text, View, Image, TouchableOpacity, StyleSheet, Dimensions, KeyboardAvoidingView} from "react-native";
 
 import GroupInfo from './components/groupInfo';
 import Search from './components/search';
@@ -15,14 +15,28 @@ export default function GroupDetail(){
       <Search></Search>
       <ZeroTiccle></ZeroTiccle>
       <Bottom></Bottom>
+      {/* Floating Button */}
+      <TouchableOpacity activeOpacity={0.5} style={styles.touchableOpacityStyle} >
+        <Image source={require('../../../assets/icon/make.png')}  style={styles.floatingButtonStyle} />
+      </TouchableOpacity>
     </>
   )
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-      flex: 1,
-      backgroundColor: "#ffffff"
+  // Floating button css
+  touchableOpacityStyle:{
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 30,
+    bottom: 90,
+  },
+  floatingButtonStyle: {
+    resizeMode: 'contain',
+    width: 60,
+    height: 60,
   },
 })
-
