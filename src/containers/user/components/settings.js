@@ -47,12 +47,9 @@ const category = [
 const styles = StyleSheet.create({
     container:{
         paddingHorizontal: 20,
-        paddingVertical: 2,
-        borderBottomColor: 'transparent',
-        borderBottomWidth: 1,
+        paddingVertical: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: 10,
     },
 })
 

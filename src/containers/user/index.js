@@ -6,8 +6,10 @@ import Icon from 'react-native-vector-icons/Feather';
 import colors from '../../theme/colors';
 
 import Setting from './components/settings';
+import GuestInfo, { GuestGuide } from './components/guest';
 
 const Stack = createStackNavigator();
+const isGuest = true;
 
 function MyPage() {
   return (
@@ -34,10 +36,12 @@ function MyPage() {
 
 function MyPageScreen( {navigation}) {
     return (
-        <View>
+        <View style={{flex:1}}>
               <Text style={styles.myInfo}>내 정보</Text>
+              { isGuest ? <GuestInfo /> : <View></View> }
               <View style={styles.block}></View>
               <Setting />
+              { isGuest ? <GuestGuide /> : <View></View> }
         </View>
       );
 }
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
         height: 10,
         backgroundColor: colors.gray2,
         marginVertical: 10,
-    }
+    },
 })
 
 export default MyPage;
