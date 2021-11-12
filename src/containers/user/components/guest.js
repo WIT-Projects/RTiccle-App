@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
 import colors from '../../../theme/colors';
+import { googleLoginAndLink } from '../../../firebase/auth';
 
 function GuestInfo() {
     return (
         <View style={styles.rowContainer}>
             <Text style={styles.font1}>게스트</Text>
             <Text style={styles.font2}>님</Text>
-            <Text style={styles.font3}>계정연동</Text>
+            <Text style={styles.font3} onPress={() => googleLoginAndLink()}>계정연동</Text>
         </View>
     )
 }
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     font2:{
-        fontSize: 20,
+        fontSize: 15,
         marginLeft: 10,
     },
     font3:{
@@ -45,7 +46,10 @@ const styles = StyleSheet.create({
     guideContainer:{
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1
+        alignSelf: 'center',
+        flex: 1,
+        position: 'absolute',
+        bottom: 30,
     },
     grayFont:{
         fontSize: 14,

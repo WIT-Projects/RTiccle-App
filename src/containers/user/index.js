@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
 import { createStackNavigator, } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import colors from '../../theme/colors';
+import auth from "@react-native-firebase/auth";
 
 import Setting from './components/settings';
 import GuestInfo, { GuestGuide } from './components/guest';
 
 const Stack = createStackNavigator();
-const isGuest = true;
 
 function MyPage() {
   return (
@@ -35,6 +35,16 @@ function MyPage() {
 }
 
 function MyPageScreen( {navigation}) {
+    const [isGuest, setIsGuest] = useState(true);
+
+    // Handle user state changes
+    function onAuthStateChanged(user) {
+        setIsGuest(user.isAnonymous);
+    }
+    useEffect(() => {
+        auth().onAuthStateChanged(onAuthStateChanged); // init listener
+    }, []);
+
     return (
         <View style={{flex:1}}>
               <Text style={styles.myInfo}>내 정보</Text>
