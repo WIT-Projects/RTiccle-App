@@ -8,6 +8,7 @@ import auth from "@react-native-firebase/auth";
 
 import Setting from './components/settings';
 import GuestInfo, { GuestGuide } from './components/guest';
+import UserInfo from './components/user';
 
 const Stack = createStackNavigator();
 
@@ -48,7 +49,7 @@ function MyPageScreen( {navigation}) {
     return (
         <View style={{flex:1}}>
               <Text style={styles.myInfo}>내 정보</Text>
-              { isGuest ? <GuestInfo /> : <View></View> }
+              { isGuest ? <GuestInfo /> : <UserInfo /> }
               <View style={styles.block}></View>
               <Setting />
               { isGuest ? <GuestGuide /> : <View></View> }
