@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import colors from '../../theme/colors';
 
+import Setting from './components/settings';
+
 const Stack = createStackNavigator();
 
 function MyPage() {
@@ -35,6 +37,7 @@ function MyPageScreen( {navigation}) {
         <View>
               <Text style={styles.myInfo}>내 정보</Text>
               <View style={styles.block}></View>
+              <Setting />
         </View>
       );
 }
