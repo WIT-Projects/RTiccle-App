@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet} from 'react-native';
+import { View, StyleSheet, ScrollView} from 'react-native';
 
 import TopBar from './phase2/TopBar';
 import TextInfo from './phase2/TextInfo';
@@ -15,9 +15,13 @@ function GroupCreatePhaseTwo(){
   return(
     <View style={styles.container}>
       <TopBar></TopBar>
-      <TextInfo></TextInfo>
-      <TextInputGroup setButtonDisable={setGroupCreateButtonDisable}></TextInputGroup>
-      <SaveButton buttonDisabled={groupCreateButtonDisable}></SaveButton>
+
+      <ScrollView>
+        <TextInfo></TextInfo>
+        <TextInputGroup setButtonDisable={setGroupCreateButtonDisable}></TextInputGroup>
+        <SaveButton buttonDisabled={groupCreateButtonDisable}></SaveButton>
+      </ScrollView>
+      
     </View>
   )
 }
