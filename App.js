@@ -9,11 +9,14 @@ function App(){
     anonSignIn(); // tmp
   }, []);
 
+ 
   return(
     <>
     <MyPage/>
+
     </>
   )
 }
 
 export default App;
+
