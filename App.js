@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import GroupCreatePhaseTwo from './src/containers/group/create/phase2';
+import GroupDetail from './src/containers/group/detail/index';
+import MyPage from './src/containers/user';
+import { anonSignIn } from './src/firebase/auth';
 
-function App() {
-  return (
+function App(){
+  useEffect(() => {
+    anonSignIn(); // tmp
+  }, []);
+
+ 
+  return(
     <>
-      <GroupCreatePhaseTwo/>
+    <MyPage/>
+
     </>
   )
 }
 
 export default App;
+
