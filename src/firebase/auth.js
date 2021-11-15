@@ -27,4 +27,4 @@ function googleLoginAndLink() {
 export { 
     anonSignIn,
     googleLoginAndLink,
-}
+};
