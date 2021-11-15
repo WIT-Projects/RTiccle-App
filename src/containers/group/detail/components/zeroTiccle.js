@@ -3,11 +3,12 @@ import {StyleSheet, Text, Dimensions, View} from "react-native";
 import colors from '../../../../theme/colors'
 
 const windowHeight = Dimensions.get('window').height;
+const remainder = 256 + 48 + 66; //GroupInfo + search + bottom 의 height
 
 const  ZeroTiccle = () => {
   return(
     <>
-        <View style={styles.comtainer}>
+        <View style={styles.container}>
         <View style={styles.image}></View>
             <Text style={styles.font1}>작성된 티끌이 없네요.</Text>
             <Text style={styles.font1}>첫 티끌을 생성해보세요!</Text>
@@ -20,10 +21,10 @@ const  ZeroTiccle = () => {
 }
 
 const styles = StyleSheet.create({
-    comtainer:{
+    container:{
         alignItems: 'center',
         justifyContent: 'center',
-        height: windowHeight-370,
+        height: windowHeight-remainder,
     },
     font1:{
         fontSize: 16,
