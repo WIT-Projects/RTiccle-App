@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {  Text,  View, StyleSheet, TextInput} from 'react-native';
 
-import colors from '../../../../../theme/colors';
-import fonts from '../../../../../theme/fonts';
+import colors from '../../../../../../theme/colors';
+import fonts from '../../../../../../theme/fonts';
 
 function DescriptionInput() {
   const [createGroupDescription, setCreateGroupDescirption] = useState("");
   var groupDescriptionLength = createGroupDescription.length
+  const maxLengthOfDescription = 23;
 
   return(
     <View style={styles.container}>
@@ -15,7 +16,7 @@ function DescriptionInput() {
     onChangeText = {setCreateGroupDescirption}
     placeholder="설명 (선택)"
     placeholderTextColor = {colors.gray2}
-    maxLength = {23}
+    maxLength = {maxLengthOfDescription}
     >
     </TextInput>
 

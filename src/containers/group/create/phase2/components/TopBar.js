@@ -1,15 +1,15 @@
 import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
-import metrics from '../../../../theme/metrices';
-import fonts from '../../../../theme/fonts';
-import colors from '../../../../theme/colors';
+import metrics from '../../../../../theme/metrices';
+import fonts from '../../../../../theme/fonts';
+import colors from '../../../../../theme/colors';
 
 function TopBar(){
   return(
     <View style={styles.container}>
       <TouchableOpacity style= {styles.tocuhableOpacity}>
-        <Image style={styles.image} source={require('../../../../assets/images/chevron-left.png')}></Image>
+        <Image style={styles.image} source={require('../../../../../assets/images/chevron-left.png')}></Image>
       </TouchableOpacity>
 
       <Text style={styles.title}>설정</Text>

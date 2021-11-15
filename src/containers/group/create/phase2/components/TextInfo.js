@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Text,  View, StyleSheet} from 'react-native';
 
-import colors from '../../../../theme/colors';
+import colors from '../../../../../theme/colors';
 
 function TextInfo() {
   return(

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GroupCreatePhaseTwo from './src/containers/group/create/index2';
+import GroupCreatePhaseTwo from './src/containers/group/create/phase2';
 
 function App() {
   return (

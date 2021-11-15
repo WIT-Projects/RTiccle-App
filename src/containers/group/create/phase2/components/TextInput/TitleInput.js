@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, View, Text} from 'react-native';
 
-import colors from '../../../../../theme/colors';
-import fonts from '../../../../../theme/fonts';
+import colors from '../../../../../../theme/colors';
+import fonts from '../../../../../../theme/fonts';
 
 function TitleInput({setButtonDisable}) {
   const [createGroupName, onCreateGroupName] = useState("")
   var groupNameLength = createGroupName.length;
+  const maxLengthOfTitle = 15;
 
   useEffect(() => {
     (groupNameLength > 0) ? setButtonDisable(false) : setButtonDisable(true);
@@ -19,7 +20,7 @@ function TitleInput({setButtonDisable}) {
       onChangeText ={onCreateGroupName}
       placeholder="음식, 공부, 전시 등"
       placeholderTextColor = {colors.gray2}
-      maxLength = {15}
+      maxLength = {maxLengthOfTitle}
       >
       </TextInput>
 

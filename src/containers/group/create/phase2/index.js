@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView} from 'react-native';
 
-import TopBar from './phase2/TopBar';
-import TextInfo from './phase2/TextInfo';
-import TextInputGroup from './phase2/TextInputGroup';
-import SaveButton from './phase2/SaveButton';
+import TopBar from './components/TopBar';
+import TextInfo from './components/TextInfo';
+import TextInputGroup from './components/TextInputGroup';
+import SaveButton from './components/SaveButton';
 
-import colors from '../../../theme/colors';
+import colors from '../../../../theme/colors';
 
 function GroupCreatePhaseTwo(){
 
