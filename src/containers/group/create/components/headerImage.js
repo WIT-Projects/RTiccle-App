@@ -74,7 +74,7 @@ const HeaderImage = () => {
             </View>
             <ImageBackground
                                 source={source}
-                                style={{height: 256,marginTop: 57, marginBottom: 128}}>
+                                style={{height: 256, marginTop: 57, marginBottom: 128}}>
                                     <View
                                     style={{
                                         flex: 1,
@@ -95,10 +95,10 @@ const HeaderImage = () => {
             </ImageBackground>
 
             <View style={{alignItems:'center'}}>
-                <TouchableOpacity style={styles.button} onPress={() => alert('저장 완료')}>
-                    <Text style={{color:'#68696B'}}>저장하기</Text>
+                <TouchableOpacity style={styles.button1} onPress={() => alert('저장 완료')}>
+                    <Text style={{color:'#ffffff'}}>저장하기</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button1} onPress={() => alert('건너뛰기')}>
+                <TouchableOpacity style={styles.button2} onPress={() => alert('건너뛰기')}>
                     <Text style={{color:'#68696B'}}>건너뛰기</Text>
                 </TouchableOpacity>
             </View>
@@ -128,33 +128,24 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
-      },
-      button: {
+    },
+    modalText: {
+        textAlign: "center"
+    },
+    button1: {
           borderRadius: 20,
           width:168,
           padding: 10,
-          elevation: 2,
-          backgroundColor: '#E5E6EA',
+          backgroundColor: '#000000',
           alignItems: 'center',
           justifyContent: 'center',
     },
-      button1: {
+    button2: {
           borderRadius: 20,
           width:168,
           padding: 10,
           backgroundColor: '#ffffff',
           alignItems: 'center',
           justifyContent: 'center',
-    },
-      buttonOpen: {
-        backgroundColor: "#6BDCC2",
-      },
-      textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-      },
-      modalText: {
-        textAlign: "center"
-    },
+    }
 });
