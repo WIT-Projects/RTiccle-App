@@ -10,36 +10,38 @@ import Setting from './components/settings';
 import GuestInfo, { GuestGuide } from './components/guest';
 import UserInfo from './components/user';
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
+
+// function MyPage() {
+//   return (
+    // <NavigationContainer>
+        // <Stack.Navigator initialRouteName="MyPage">
+        //     <Stack.Screen 
+        //         name="MyPage" 
+        //         component={MyPageScreen}
+        //         options={{                
+        //             title: "마이페이지",
+        //             headerTitleAlign: 'center',
+        //             headerStyle: {
+        //                 backgroundColor: colors.main,
+        //             },
+        //             headerTintColor: colors.white,
+        //             headerLeft: () => (
+        //                 <Icon name="chevron-left" size={30} style={{ paddingLeft: 20 }} color={colors.white}/>
+        //             )
+        //         }} />
+        // </Stack.Navigator>
+    // </NavigationContainer>
+//   );
+// }
 
 function MyPage() {
-  return (
-    <NavigationContainer>
-        <Stack.Navigator initialRouteName="MyPage">
-            <Stack.Screen 
-                name="MyPage" 
-                component={MyPageScreen}
-                options={{                
-                    title: "마이페이지",
-                    headerTitleAlign: 'center',
-                    headerStyle: {
-                        backgroundColor: colors.main,
-                    },
-                    headerTintColor: colors.white,
-                    headerLeft: () => (
-                        <Icon name="chevron-left" size={30} style={{ paddingLeft: 20 }} color={colors.white}/>
-                    )
-                }} />
-        </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-function MyPageScreen( {navigation}) {
+// function MyPageScreen( {navigation}) {
     const [isGuest, setIsGuest] = useState(true);
 
     // Handle user state changes
     function onAuthStateChanged(user) {
+        // TypeError: null is not an object (evaluating 'user.isAnonymous') error 발생. 확인 부탁드려요!
         setIsGuest(user.isAnonymous);
     }
     useEffect(() => {
