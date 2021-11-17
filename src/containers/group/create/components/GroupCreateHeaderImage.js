@@ -12,7 +12,7 @@ import {
 
 import ImagePicker from 'react-native-image-crop-picker';
 
-const HeaderImage = () => {
+const GroupCreateHeaderImage = () => {
     const [image, setImage] = useState('');
     let source;
     image === '' ? source = require('../../../../assets/images/blankImage.png') : source = {uri: image}
@@ -68,30 +68,24 @@ const HeaderImage = () => {
                     </View>
                 </View>
             </Modal>
+
             <View style={{paddingHorizontal:20, paddingTop:57}}>
-                <Text style={{fontSize:24, color:'#313233', fontWeight:'bold'}}>마지막 단계예요.</Text>
-                <Text style={{fontSize:16, color:'#68696B', paddingTop:10}}>나만의 커버 이미지을 추가해 보세요!</Text>
+                <Text style={styles.textInfo1}>마지막 단계예요.</Text>
+                <Text style={styles.textInfo2}>나만의 커버 이미지을 추가해 보세요!</Text>
             </View>
             <ImageBackground
-                                source={source}
-                                style={{height: 256, marginTop: 57, marginBottom: 128}}>
-                                    <View
-                                    style={{
-                                        flex: 1,
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                    }}>
-                                    </View>
-                <View style={{flexDirection:'row', paddingHorizontal:20, alignItems:'flex-end', justifyContent:'space-between' , paddingBottom:18}}>
-                    <View>
-                        <Text style={{fontSize:24, fontWeight:'bold', color:'#ffffff'}}>현판</Text>
-                        <Text style={{fontSize:16, paddingTop:8, color:'#ffffff'}}>데못죽 같은 거 모아두는 곳</Text>
+                source={source}
+                style={styles.headerImage}>
+                    <View style={styles.headerImageInner}>
+                        <View>
+                            <Text style={styles.title}>현판</Text>
+                            <Text style={styles.subtitle}>데못죽 같은 거 모아두는 곳</Text>
+                        </View>
+                        <Pressable
+                        onPress={() => setModalVisible(true)}>
+                            <Image source={require('../../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
+                        </Pressable>
                     </View>
-                    <Pressable
-                    onPress={() => setModalVisible(true)}>
-                    <Image source={require('../../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
-                    </Pressable>
-                </View>
             </ImageBackground>
 
             <View style={{alignItems:'center'}}>
@@ -105,8 +99,8 @@ const HeaderImage = () => {
         </View>
     );
 };
-    
-export default HeaderImage;
+
+export default GroupCreateHeaderImage;
 
 const styles = StyleSheet.create({
     container: {
@@ -131,6 +125,39 @@ const styles = StyleSheet.create({
     },
     modalText: {
         textAlign: "center"
+    },
+    textInfo1: {
+        fontSize: 24,
+        color: '#313233',
+        fontWeight: 'bold'
+    },
+    textInfo2: {
+        fontSize: 16,
+        color: '#68696B',
+        paddingTop: 10
+    },
+    headerImage: {
+        height: 256,
+        marginTop: 57,
+        marginBottom: 128
+    },
+    headerImageInner: {
+        flexDirection: 'row',
+        paddingHorizontal: 20,
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        paddingTop: 180,
+        paddingBottom: 18
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#ffffff'
+    },
+    subtitle: {
+        fontSize: 16,
+        paddingTop: 8,
+        color: '#ffffff'
     },
     button1: {
           borderRadius: 20,
