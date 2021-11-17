@@ -1,8 +1,10 @@
 import React from 'react';
 import {Text} from 'react-native';
+import HeaderImage from './components/headerImage';
+
 const Create = () => {
     return (
-      <Text>Create입니다.</Text>  
+      <HeaderImage></HeaderImage>
     );
 }
 

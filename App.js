@@ -15,9 +15,6 @@ function App(){
   const Tab = createBottomTabNavigator();
 
   return(
-    // <>
-    // <MyPage/>
-    // </>
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={Home} />
