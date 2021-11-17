@@ -61,9 +61,9 @@ const HeaderImage = () => {
             onRequestClose={() => {
             setModalVisible(!modalVisible);
             }}>
-                <View style={styles.centeredView}>
+                <View style={{alignItems:'center'}}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText} onPress={takePhotoFromCamera} >사진 촬영</Text>
+                        <Text style={styles.modalText} style={{marginBottom:24}} onPress={takePhotoFromCamera} >사진 촬영</Text>
                         <Text style={styles.modalText} onPress={choosePhotoFromLibrary}>앨범에서 사진 선택</Text>
                     </View>
                 </View>
@@ -98,7 +98,7 @@ const HeaderImage = () => {
                 <TouchableOpacity style={styles.button} onPress={() => alert('저장 완료')}>
                     <Text style={{color:'#68696B'}}>저장하기</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button1} onPress={() => alert('저장 완료')}>
+                <TouchableOpacity style={styles.button1} onPress={() => alert('건너뛰기')}>
                     <Text style={{color:'#68696B'}}>건너뛰기</Text>
                 </TouchableOpacity>
             </View>
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     modalView: {
         marginTop: 250,
         width: 300,
-        marginLeft: '12%',
         backgroundColor: "white",
         borderRadius: 10,
         padding: 30,
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
       button: {
           borderRadius: 20,
           width:168,
-        padding: 10,
+          padding: 10,
           elevation: 2,
           backgroundColor: '#E5E6EA',
           alignItems: 'center',
@@ -156,7 +155,6 @@ const styles = StyleSheet.create({
         textAlign: "center"
       },
       modalText: {
-        marginBottom: 15,
         textAlign: "center"
     },
 });
