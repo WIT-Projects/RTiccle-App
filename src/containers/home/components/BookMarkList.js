@@ -4,7 +4,7 @@ import colors from '../../../theme/colors';
 import fonts from '../../../theme/fonts';
 import MarkTiccle from './MarkTiccle';
 
-const BookMark = ({userName, imgUrl}) => {
+const BookMarkList = ({userName, imgUrl}) => {
     const data = [
         {
             id: 1,
@@ -38,7 +38,7 @@ const BookMark = ({userName, imgUrl}) => {
                 <Text style={styles.blackBoldFont}>티끌 바로가기</Text>
                 <Text style={styles.blackRegularFont}>{userName} 님이 즐겨찾는 티끌들이에요.</Text>
             </View>
-            <ScrollView horizontal={true} style={{marginLeft: 11.5}}>
+            <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{marginLeft: 11.5}}>
                 {data.map((item) => {return (<MarkTiccle key={item.id} imgUrl={item.imgUrl} title={item.title} count={item.count}></MarkTiccle>)})}
             </ScrollView>
         </>
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default BookMark;
+export default BookMarkList;
