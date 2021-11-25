@@ -9,7 +9,7 @@ const MyMount = ({mount, imgUrl}) => {
         <ImageBackground source={{uri:imgUrl}}
             resizeMode="cover"
             style={{ width: "100%", height: 243 }}>
-            <View style={styles.comtainer}>
+            <View style={styles.container}>
                 <Text style={styles.blackFont}>곧 {mount}으로 갈 수 있어요.</Text>
                 <Text style={styles.whiteFont}>{mount}</Text>
             </View>
@@ -19,7 +19,7 @@ const MyMount = ({mount, imgUrl}) => {
 }
 
 const styles = StyleSheet.create({
-    comtainer:{
+    container:{
         flex: 1,
     },
     blackFont:{
