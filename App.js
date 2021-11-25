@@ -17,7 +17,7 @@ function App(){
   return(
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="RTICCLE" component={Home} />
         <Tab.Screen name="GroupCreate" component={GroupCreate} />
         <Tab.Screen name="MyPage" component={MyPage} />
       </Tab.Navigator>
