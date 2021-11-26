@@ -2,8 +2,11 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import fonts from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
+import { useNavigation } from '@react-navigation/native';
 
 const NewTiccleGroupList = ({userName, imgUrl}) => {
+    const navigateTo = useNavigation();
+
     const data = [
         {
             id: 1,
@@ -38,7 +41,7 @@ const NewTiccleGroupList = ({userName, imgUrl}) => {
     return (
         <>
             <Text style={styles.blackBoldFont}>신규 티끌이 생성된 그룹</Text>
-            <View style={styles.container}>
+            <View onTouchEnd={() => { navigateTo.navigate('GroupDetail') }} style={styles.container}>
                 {data.map((item) => {return (<TiccleGroup key={item.id} imgUrl={item.imgUrl} groupTitle={item.groupTitle} ticcleTitle={item.ticcleTitle} count={item.count}></TiccleGroup>)})}
             </View>
         </>
