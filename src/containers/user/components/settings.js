@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, } from 'react-native';
+import { View, Text, StyleSheet, ImageComponent, } from 'react-native';
 //import { Card, CardItem, Body, Left, Right, Thumbnail, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/Feather';
 import colors from '../../../theme/colors';
