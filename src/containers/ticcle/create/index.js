@@ -30,14 +30,14 @@ const TiccleCreate = () => {
         <View style={styles.container}>
             <View style={styles.textinputContainer}>
                 <TiccleCreateTextInput
-                fontSize={24} fontWeight={'bold'} color ={colors.gray3}
+                fontSize={24} fontWeight={'bold'} placeHolderTextcolor ={colors.gray3}
                 placeholder ={"제목"} onChangeText={setTextTitle}
                 />
                 <TiccleCreateTextInput
-                fontSize={18} fontWeight={'normal'} color ={colors.gray3}
+                fontSize={18} fontWeight={'normal'} placeHolderTextcolor ={colors.gray3}
                 placeholder ={"URL 링크"} onChangeText={setLink}/>
                 <TiccleCreateTextInput
-                fontSize={18} fontWeight={'normal'} color ={colors.gray3}
+                fontSize={18} fontWeight={'normal'} placeHolderTextcolor ={colors.gray3}
                 placeholder ={"태그 ex. #경제 #마케팅"} onChangeText={setTag}/>
             </View>
         </View>

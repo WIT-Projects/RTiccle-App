@@ -3,17 +3,18 @@ import { TextInput, StyleSheet,View } from 'react-native'
 
 import colors from '../../../../theme/colors'
 
-const TiccleCreateTextInput = ({fontWeight, fontSize, color, placeholder, onChangeText}) => {
+const TiccleCreateTextInput = ({fontWeight, fontSize, placeHolderTextcolor, placeholder, onChangeText}) => {
 
     return (
         <View style={styles.container}>
             <TextInput
             placeholder = {placeholder}
+            placeholderTextColor = {placeHolderTextcolor}
             onChangeText = {onChangeText}
             style={{
                 fontWeight : fontWeight,
                 fontSize: fontSize,
-                color : color
+                color : colors.main
                 }}>
             </TextInput>
         </View>
