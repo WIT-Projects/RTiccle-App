@@ -5,11 +5,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './src/containers/home';
 import GroupCreate from './src/containers/group/create/GroupCreate';
 import MyPage from './src/containers/user/MyPage';
-import { anonSignIn } from './src/firebase/Auth';
+import { anonSignIn, googleSigninConfigure } from './src/firebase/Auth';
 
 function App(){
   useEffect(() => {
     anonSignIn(); // tmp
+    googleSigninConfigure();
   }, []);
 
   const Tab = createBottomTabNavigator();
