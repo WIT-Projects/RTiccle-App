@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
-import { createStackNavigator, } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Feather';
 import colors from '../../theme/colors';
 import auth from "@react-native-firebase/auth";
 
-import Setting from './components/settings';
-import GuestInfo, { GuestGuide } from './components/guest';
-import UserInfo from './components/user';
+import Setting from './components/Settings';
+import GuestInfo, { GuestGuide } from './components/Guest';
+import UserInfo from './components/User';
 
 // const Stack = createStackNavigator();
 
-// function MyPage() {
+// const MyPage = () => {
 //   return (
     // <NavigationContainer>
         // <Stack.Navigator initialRouteName="MyPage">
@@ -35,13 +32,12 @@ import UserInfo from './components/user';
 //   );
 // }
 
-function MyPage() {
+const MyPage = () => {
 // function MyPageScreen( {navigation}) {
     const [isGuest, setIsGuest] = useState(true);
 
     // Handle user state changes
     function onAuthStateChanged(user) {
-        // TypeError: null is not an object (evaluating 'user.isAnonymous') error 발생. 확인 부탁드려요!
         setIsGuest(user.isAnonymous);
     }
     useEffect(() => {

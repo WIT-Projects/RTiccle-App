@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import colors from '../../../theme/colors';
 
-function Setting() {
+const Setting = () => {
     return (
         <View style={{ position: 'relative'}}>
             {
@@ -16,7 +16,7 @@ function Setting() {
     )
 }
 
-function SettingItem ( props ) {
+const SettingItem = ( props ) => {
     return (
         <View style={styles.container}>
             <Icon name={props.info.icon} size={20} style={{ paddingRight: 10 }} />

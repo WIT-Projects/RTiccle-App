@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../../../theme/colors';
 
-function UserInfo() {
+const UserInfo = () => {
     return (
         <View>
             <View style={styles.rowContainer}>
