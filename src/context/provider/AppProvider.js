@@ -29,16 +29,16 @@ const AppProvider = ({children}) => {
 
 
     const setImage = () => {
-        setTiccleCreateImage(state => {return [require('../../assets/images/example_group.png')]  }) 
+        setTiccleCreateImage(state => {return [...ticcleCreateImage ,require('../../assets/images/example_group.png')]  }) 
     }
-    const setImageNone = () => {
-        setTiccleCreateImage(state => {return []}) 
+    const setImageDelete = () => {
+        setTiccleCreateImage(image => {return []}) 
     }
 
 
 
     return(
-        <AppContext.Provider value={{setTitle, setLink, setTag, setContent, setImage, setImageNone, ticcleCreateImage}}>
+        <AppContext.Provider value={{setTitle, setLink, setTag, setContent, setImage, setImageDelete, ticcleCreateImage}}>
             {children}
         </AppContext.Provider>
     )

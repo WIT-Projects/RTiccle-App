@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 
 import TiccleImageCreateButton from './components/ticcleImageCreateButton';
 import TiccleContentTextInput from './components/ticcleContentTextInput';
 import TiccleCreateTextInputGroup from './group/ticcleCreateTextInputGroup';
 import TiccleImageGroup from './group/ticcleImageGroup';
-
 import colors from '../../../theme/colors';
 
 import useTiccleCreateText from '../../../context/hook/useTiccleCreateText';
@@ -16,7 +14,7 @@ import useTiccleCreateImage from '../../../context/hook/useTiccleCreateImage';
 const TiccleCreate = () => {
 
     const {setContent} = useTiccleCreateText();
-    const {setImage, setImageNone, ticcleCreateImage} = useTiccleCreateImage();
+    const {setImage, ticcleCreateImage} = useTiccleCreateImage();
 
     return(
         <View style={styles.container}>
@@ -25,7 +23,7 @@ const TiccleCreate = () => {
 
             <View style={styles.imageCreateButtonContainer}>
                 {(ticcleCreateImage && ticcleCreateImage.length > 0) ?
-                <TiccleImageGroup onPress={setImageNone} imageSource={ticcleCreateImage[0]}/> :
+                <TiccleImageGroup/> :
                 <TiccleImageCreateButton onPress={setImage}/>
                 }
             </View>

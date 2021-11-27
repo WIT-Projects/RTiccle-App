@@ -11,6 +11,7 @@ import MyPage from '../containers/user';
 import colors from '../theme/colors';
 import metrics from '../theme/metrices';
 import { type } from '../theme/fonts';
+import TiccleDetail from '../containers/ticcle/detail';
 
 const NavTab = () => {
 

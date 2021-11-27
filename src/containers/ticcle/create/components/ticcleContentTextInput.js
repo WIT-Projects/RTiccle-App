@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextInput, Text, StyleSheet } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 import colors from '../../../../theme/colors';
 

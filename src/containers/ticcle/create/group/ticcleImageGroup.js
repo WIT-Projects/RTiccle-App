@@ -1,12 +1,24 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import useTiccleCreateImage from '../../../../context/hook/useTiccleCreateImage';
 import TiccleImage from '../components/ticcleImage';
 
-const TiccleImageGroup = ({onPress, imageSource}) => {
+const TiccleImageGroup = () => {
+
+    const {setImage, setImageDelete, ticcleCreateImage} = useTiccleCreateImage();
+
+    const ticcleImageList = ticcleCreateImage.map(
+        (imageSource, index) => (
+            <TiccleImage key={index}
+            setImage={setImage} deleteImage={setImageDelete} imageSource={imageSource}/>
+            ))
+
     return(
         <View style={styles.container}>
-            <TiccleImage onPress={onPress} imageSource={imageSource}/>
-            <TiccleImage onPress={onPress}/>
+
+            {ticcleImageList}
+            {ticcleCreateImage.length < 3 ? <TiccleImage setImage={setImage} deleteImage={setImageDelete}/> : <></>}
+            
         </View>
     )
 }
