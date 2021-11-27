@@ -1,55 +1,33 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-import TiccleCreateTextInput from './components/ticcleCreateTextInput';
+
 import TiccleImageCreateButton from './components/ticcleImageCreateButton';
 import TiccleContentTextInput from './components/ticcleContentTextInput';
+import TiccleCreateTextInputGroup from './group/ticcleCreateTextInputGroup';
+import TiccleImageGroup from './group/ticcleImageGroup';
 
 import colors from '../../../theme/colors';
+
+import useTiccleCreateText from '../../../context/hook/useTiccleCreateText';
+import useTiccleCreateImage from '../../../context/hook/useTiccleCreateImage';
 
 
 const TiccleCreate = () => {
 
-    const [ticcleCreateText, setTiccleCreateText] = useState({
-        title: "",
-        link: "",
-        tag : "",
-        content : "",
-    })
-
-    const setTextTitle = (text) => {
-        setTiccleCreateText(state => {return {...state, title: text}})
-    }
-
-    const setLink = (text) => {
-        setTiccleCreateText(state => {return {...state, link: text}})
-    }
-
-    const setTag = (text) => {
-        setTiccleCreateText(state => {return {...state, tag: text}})
-    }
-
-    const setContent = (text) => {
-        setTiccleCreateText(state => {return { ...state, content: text}})
-    }
+    const {setContent} = useTiccleCreateText();
+    const {setImage, setImageNone, ticcleCreateImage} = useTiccleCreateImage();
 
     return(
         <View style={styles.container}>
-            <View style={styles.textinputContainer}>
-                <TiccleCreateTextInput
-                fontSize={24} fontWeight={'bold'} placeHolderTextcolor ={colors.gray3}
-                placeholder ={"제목"} onChangeText={setTextTitle}
-                />
-                <TiccleCreateTextInput
-                fontSize={18} fontWeight={'normal'} placeHolderTextcolor ={colors.gray3}
-                placeholder ={"URL 링크"} onChangeText={setLink}/>
-                <TiccleCreateTextInput
-                fontSize={18} fontWeight={'normal'} placeHolderTextcolor ={colors.gray3}
-                placeholder ={"태그 ex. #경제 #마케팅"} onChangeText={setTag}/>
-            </View>
+
+            <TiccleCreateTextInputGroup/>
 
             <View style={styles.imageCreateButtonContainer}>
-                <TiccleImageCreateButton/>
+                {(ticcleCreateImage && ticcleCreateImage.length > 0) ?
+                <TiccleImageGroup onPress={setImageNone} imageSource={ticcleCreateImage[0]}/> :
+                <TiccleImageCreateButton onPress={setImage}/>
+                }
             </View>
 
             <View style={styles. ticcleContentContainer}>
@@ -65,9 +43,6 @@ const styles = StyleSheet.create({
         flex : 1,
         backgroundColor : colors.white,
         paddingHorizontal : 18
-    },
-    textinputContainer: {
-        marginTop : 6,
     },
     imageCreateButtonContainer: {
         marginTop : 16,
