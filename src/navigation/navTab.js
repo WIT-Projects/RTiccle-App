@@ -22,7 +22,7 @@ const NavTab = () => {
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="GroupCreate" component={GroupCreate} />
             <Tab.Screen name="티끌 작성" component={TiccleCreate}
-                options={{
+                options={ ({navigation}) =>  ({
                     headerStyle :{
                         backgroundColor: colors.main,
                         height : metrics.topNavigationHeight,
@@ -34,7 +34,7 @@ const NavTab = () => {
                         fontSize : 20,
                     },
                     headerLeft : () => (
-                        <TouchableOpacity style={styles.headerLeftTouchable}>
+                        <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
                             <Image source={require('../assets/images/chevron-left.png')}
                                 style={styles.headerLeftImage}
                             />
@@ -45,7 +45,7 @@ const NavTab = () => {
                             <Text style={styles.headerRightText}>저장</Text>
                         </TouchableOpacity>
                     )
-                }}
+                })}
             />
             <Tab.Screen name="MyPage" component={MyPage} />
         </Tab.Navigator>

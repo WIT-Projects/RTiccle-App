@@ -7,6 +7,7 @@ const colors = {
     gray3: '#939498',
     gray4: '#68696B',
     gray5: '#313233',
+    gray6: '#F4F4F4',
     white: '#FFFFFF',
     red: '#FB5353',
 };
