@@ -24,7 +24,7 @@ const TiccleCreate = () => {
             <View style={styles.imageCreateButtonContainer}>
                 {(ticcleCreateImage && ticcleCreateImage.length > 0) ?
                 <TiccleImageGroup/> :
-                <TiccleImageCreateButton onPress={setImage}/>
+                <TiccleImageCreateButton setImage={setImage}/>
                 }
             </View>
 

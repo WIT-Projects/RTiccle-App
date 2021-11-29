@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState } from 'react/cjs/react.development';
 import AppContext from '../AppContext';
 
@@ -12,7 +12,10 @@ const AppProvider = ({children}) => {
         content : '',
     })
 
-    const [ticcleCreateImage, setTiccleCreateImage] = useState([])
+    const [ticcleCreateImage, setTiccleCreateImage] = useState([{
+        
+    },
+])
 
     const setTitle = (text) => {
         setTiccleCreateText(state => {return {...state, title: text}})
@@ -27,12 +30,20 @@ const AppProvider = ({children}) => {
         setTiccleCreateText(state => {return { ...state, content: text}})
     }
 
+    const imageId = useRef(0);
 
-    const setImage = () => {
-        setTiccleCreateImage(state => {return [...ticcleCreateImage ,require('../../assets/images/example_group.png')]  }) 
+    const setImage = (imagePath) => {
+        const newImage = {
+            id :imageId.current,
+            path : imagePath
+        }
+        setTiccleCreateImage([...ticcleCreateImage , newImage])
+        imageId.current += 1;
     }
-    const setImageDelete = () => {
-        setTiccleCreateImage(image => {return []}) 
+
+
+    const setImageDelete = (id) => {
+        setTiccleCreateImage(ticcleCreateImage.filter(ticcleImage => ticcleImage.id !== id) ) 
     }
 
 
