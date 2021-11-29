@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Image} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import Home from './src/containers/home';
 import GroupCreate from './src/containers/group/create/GroupCreate';
@@ -10,7 +10,14 @@ import MyPage from './src/containers/user';
 import { anonSignIn } from './src/firebase/auth';
 
 import GroupDetail from './src/containers/group/detail';
+import TiccleCreate from './src/containers/ticcle/create';
+import AppProvider from './src/context/provider/AppProvider';
 
+import colors from './src/theme/colors';
+import { type } from './src/theme/fonts';
+import metrics from './src/theme/metrices';
+
+const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
 
 const HomeStackNavigatior = () => (
@@ -38,6 +45,7 @@ function App(){
 
   return(
     <>
+    <AppProvider>
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen options={{ headerShown: false }} name="HomeStack" component={HomeStackNavigatior} />
@@ -71,6 +79,7 @@ function App(){
         <Tab.Screen name="MyPage" component={MyPage} />
       </Tab.Navigator>
     </NavigationContainer>
+    </AppProvider>
     </>
   )
 }

@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     blackBoldFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        // fontFamily : fonts.type.spoqaHanSansNeo,
         fontSize : 18,
         fontWeight: 'bold',
     },
     blackRegularFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        // fontFamily : fonts.type.spoqaHanSansNeo,
         fontSize : 12,
         marginTop: 6,
     },
