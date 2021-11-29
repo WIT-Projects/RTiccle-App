@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     blackBoldFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        // fontFamily : fonts.type.spoqaHanSansNeo,
         fontSize : 18,
         fontWeight: 'bold',
         marginTop: 36,

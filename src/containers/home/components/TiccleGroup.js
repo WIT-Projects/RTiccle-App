@@ -35,20 +35,20 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     subFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        // fontFamily : fonts.type.spoqaHanSansNeo,
         fontSize : 16,
         color: colors.sub,
         fontWeight: 'bold',
         marginBottom: 6,
     },
     whiteFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        // fontFamily : fonts.type.spoqaHanSansNeo,
         fontSize : 12,
         color: colors.white,
         marginBottom: 6,
     },
     blackFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        // fontFamily : fonts.type.spoqaHanSansNeo,
         fontSize : 12,
     },
 })

@@ -9,7 +9,7 @@ const TiccleImageGroup = () => {
 
     const {setImage, setImageDelete, ticcleCreateImage} = useTiccleCreateImage();
 
-    const ticcleImageList = ticcleCreateImage.map(
+    const ticcleImageList = ticcleCreateImage.filter(image => image.id !== 0).map(
         (imageSource, index) => (
             <TiccleImage key={index}
             setImage={setImage} deleteImage={setImageDelete} imageSource={imageSource.path} imageId={imageSource.id}/>
@@ -19,7 +19,7 @@ const TiccleImageGroup = () => {
         <View style={styles.container}>
 
             {ticcleImageList}
-            {ticcleCreateImage.length < 3 ? <TiccleImage setImage={setImage} deleteImage={setImageDelete}/> : <></>}
+            {ticcleCreateImage.length <= 3 ? <TiccleImage setImage={setImage} deleteImage={setImageDelete}/> : <></>}
             
         </View>
     )

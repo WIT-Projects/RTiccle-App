@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
         alignSelf:'flex-end',
     },
     blackRegularFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        // fontFamily : fonts.type.spoqaHanSansNeo,
         fontSize : 16,
         marginTop: 10,
     },
     blackBoldFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        // fontFamily : fonts.type.spoqaHanSansNeo,
         fontSize : 12,
         fontWeight: 'bold',
         marginTop: 5,
