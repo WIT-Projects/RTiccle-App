@@ -13,7 +13,7 @@ const type = {
     notoSansKR: 'Noto-Sans-KR',
 };
 
-export default {
+export  {
     size,
     type,
 };

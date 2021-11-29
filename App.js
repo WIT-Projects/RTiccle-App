@@ -36,20 +36,75 @@ function App(){
     anonSignIn(); // tmp
   }, []);
 
-  const Tab = createBottomTabNavigator();
-
   return(
     <>
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen options={{ headerShown: false }} name="HomeStack" component={HomeStackNavigatior} />
         <Tab.Screen name="GroupCreate" component={GroupCreate} />
+        <Tab.Screen name="티끌 작성" component={TiccleCreate}
+                options={ ({navigation}) =>  ({
+                    headerStyle :{
+                        backgroundColor: colors.main,
+                        height : metrics.topNavigationHeight,
+                        
+                    },
+                    headerTintColor : colors.white ,
+                    headerTitleAlign : 'center',
+                    headerTitleStyle : {
+                        fontSize : 20,
+                    },
+                    headerLeft : () => (
+                        <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
+                            <Image source={require('./src/assets/images/chevron-left.png')}
+                                style={styles.headerLeftImage}
+                            />
+                        </TouchableOpacity>
+                    ),
+                    headerRight : () => (
+                        <TouchableOpacity style={styles.headerRightTouchable}>
+                            <Text style={styles.headerRightText}>저장</Text>
+                        </TouchableOpacity>
+                    )
+                })}
+            />
         <Tab.Screen name="MyPage" component={MyPage} />
       </Tab.Navigator>
     </NavigationContainer>
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  headerLeftTouchable :{
+      alignItems: 'center',
+      justifyContent : 'center',
+      width: 40,
+      height : 40
+  },
+  headerLeftImage : {
+      resizeMode : 'cover',
+      width : 12, 
+      height: 20, 
+      tintColor : colors.white
+  }
+  ,
+  headerRightTouchable : {
+      alignItems: 'center',
+      justifyContent : 'center',
+      width : 60,
+      height : 40,
+      marginRight : 14,
+
+  },
+  headerRightText : {
+      color : colors.white,
+      fontFamily: type.notoSansKR,
+      fontSize : 20,
+
+  }
+
+})
 
 export default App;
 
