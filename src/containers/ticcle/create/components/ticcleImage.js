@@ -27,8 +27,6 @@ const TiccleImage = ({setImage, deleteImage ,imageSource, imageId}) => {
             :
             <></>
             }
-
-
         </View>
 
     )
