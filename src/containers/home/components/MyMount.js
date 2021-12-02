@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom:0,
         alignSelf:'flex-end',
-        fontFamily : type.spoqaHanSansNeo_Regular,
+        fontFamily : type.spoqaHanSansNeo_Bold,
         fontSize : 18,
         fontWeight: 'bold',
         color: colors.white,
