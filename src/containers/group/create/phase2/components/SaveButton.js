@@ -2,7 +2,7 @@ import React from 'react';
 import {  Text,  View, StyleSheet, TouchableOpacity} from 'react-native';
 
 import colors from '../../../../../theme/colors';
-import fonts from '../../../../../theme/fonts';
+import { type } from '../../../../../theme/fonts';
 
 function SaveButton({buttonDisabled}) {
   return(
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor : colors.gray1,
   },
   buttonText:{
-    fontFamily : fonts.type.spoqaHanSansNeo,
+    fontFamily : type.spoqaHanSansNeo_Regular,
     fontSize : 16,
   },
   textColor:{

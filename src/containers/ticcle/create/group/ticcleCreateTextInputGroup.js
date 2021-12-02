@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import TiccleCreateTextInput from '../components/ticcleCreateTextInput';
+import TiccleCreateTextInput from '../components/TiccleCreateTextInput';
 import colors from '../../../../theme/colors';
 
 import useTiccleCreateText from '../../../../context/hook/useTiccleCreateText';
