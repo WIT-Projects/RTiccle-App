@@ -13,7 +13,8 @@ const AppProvider = ({children}) => {
     })
 
     const [ticcleCreateImage, setTiccleCreateImage] = useState([{
-        
+        id : 0,
+        path : ''
     },
 ])
 
@@ -30,7 +31,7 @@ const AppProvider = ({children}) => {
         setTiccleCreateText(state => {return { ...state, content: text}})
     }
 
-    const imageId = useRef(0);
+    const imageId = useRef(1);
 
     const setImage = (imagePath) => {
         const newImage = {
