@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, Image, ImageBackground, View, ScrollView,  StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
-import fonts from '../../../theme/fonts';
+import { type } from '../../../theme/fonts';
 
 const MarkTiccle = ({imgUrl, title, count}) => {
     return (
@@ -31,14 +31,13 @@ const styles = StyleSheet.create({
         alignSelf:'flex-end',
     },
     blackRegularFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Regular,
         fontSize : 16,
         marginTop: 10,
     },
     blackBoldFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Bold,
         fontSize : 12,
-        fontWeight: 'bold',
         marginTop: 5,
     },
     

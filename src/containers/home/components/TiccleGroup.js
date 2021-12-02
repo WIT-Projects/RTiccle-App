@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
-import fonts from '../../../theme/fonts';
+import { type } from '../../../theme/fonts';
 
 const TiccleGroup = ({imgUrl, groupTitle, ticcleTitle, count}) => {
     return (
@@ -35,20 +35,19 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     subFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Bold,
         fontSize : 16,
         color: colors.sub,
-        fontWeight: 'bold',
         marginBottom: 6,
     },
     whiteFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Regular,
         fontSize : 12,
         color: colors.white,
         marginBottom: 6,
     },
     blackFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Regular,
         fontSize : 12,
     },
 })

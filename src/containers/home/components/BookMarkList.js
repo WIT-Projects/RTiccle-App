@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, ImageBackground, View, ScrollView,  StyleSheet} from 'react-native';
-import colors from '../../../theme/colors';
-import fonts from '../../../theme/fonts';
+import { type } from '../../../theme/fonts';
 import MarkTiccle from './MarkTiccle';
 
 const BookMarkList = ({userName, imgUrl}) => {
@@ -52,12 +51,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     blackBoldFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Bold,
         fontSize : 18,
-        fontWeight: 'bold',
     },
     blackRegularFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Regular,
         fontSize : 12,
         marginTop: 6,
     },

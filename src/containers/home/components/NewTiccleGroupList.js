@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import fonts from '../../../theme/fonts';
+import { type } from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
 import { useNavigation } from '@react-navigation/native';
 
@@ -53,9 +53,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     blackBoldFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Bold,
         fontSize : 18,
-        fontWeight: 'bold',
         marginTop: 36,
         marginHorizontal: 18,
         marginBottom: 18,

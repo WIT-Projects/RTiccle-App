@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 import metrics from '../../../../../theme/metrices';
-import fonts from '../../../../../theme/fonts';
+import { type } from '../../../../../theme/fonts';
 import colors from '../../../../../theme/colors';
 
 function TopBar(){
@@ -42,9 +42,8 @@ const styles = StyleSheet.create({
     height : 22
   },
   title :{
-    fontFamily: fonts.type.notoSansKR,
+    fontFamily: type.notoSansKR_Bold,
     fontSize : 20,
-    fontWeight: 'bold',
   },
 })
 

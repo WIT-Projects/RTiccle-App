@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import useTiccleCreateImage from '../../../../context/hook/useTiccleCreateImage';
-import TiccleImage from '../components/ticcleImage';
+import TiccleImage from '../components/TiccleImage';
 
 import ImagePicker from 'react-native-image-crop-picker';
 

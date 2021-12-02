@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
-import fonts from '../../../theme/fonts';
+import { type } from '../../../theme/fonts';
 
 const MyMount = ({mount, imgUrl}) => {
     return (
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     blackFont:{
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Bold,
         fontSize : 18,
         fontWeight: 'bold',
         marginLeft: 18,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom:0,
         alignSelf:'flex-end',
-        fontFamily : fonts.type.spoqaHanSansNeo,
+        fontFamily : type.spoqaHanSansNeo_Regular,
         fontSize : 18,
         fontWeight: 'bold',
         color: colors.white,

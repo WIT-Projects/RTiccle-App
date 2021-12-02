@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import TiccleImageCreateButton from './components/ticcleImageCreateButton';
-import TiccleContentTextInput from './components/ticcleContentTextInput';
-import TiccleCreateTextInputGroup from './group/ticcleCreateTextInputGroup';
-import TiccleImageGroup from './group/ticcleImageGroup';
+import TiccleImageCreateButton from './components/TiccleImageCreateButton';
+import TiccleContentTextInput from './components/TiccleContentTextInput';
+import TiccleCreateTextInputGroup from './group/TiccleCreateTextInputGroup';
+import TiccleImageGroup from './group/TiccleImageGroup';
 import colors from '../../../theme/colors';
 
 import useTiccleCreateText from '../../../context/hook/useTiccleCreateText';
