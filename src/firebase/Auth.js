@@ -7,12 +7,11 @@ function anonSignIn() {
     auth().signInAnonymously()
       .then((res) => {
         // Signed in
-        ToastAndroid.show(res.user.uid, ToastAndroid.SHORT)
+        console.log('[Auth] Successfully created anonUserID')
       })
       .catch((error) => {
-        var errorCode = error.code;
         var errorMessage = error.message;
-        ToastAndroid.show(errorMessage, ToastAndroid.SHORT)
+        console.log('[Auth] Failed to create anonUserID with ex:', errorMessage);
       });
     // [END auth_anon_sign_in]
 };

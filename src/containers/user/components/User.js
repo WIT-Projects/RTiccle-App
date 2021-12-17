@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Image, } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../../../theme/colors';
 
-const UserInfo = () => {
+const UserInfo = (props) => {
+    const email = props.email;
     return (
         <View>
             <View style={styles.rowContainer}>
@@ -12,7 +13,7 @@ const UserInfo = () => {
             </View>
             <View style={styles.rowContainer}>
                 <Image style={styles.icon} source={require('../../../assets/images/Google_Logo.png')}></Image>
-                <Text style={styles.font2}>email@gmail.com</Text>
+                <Text style={styles.font2}>{email}</Text>
                 <View style={styles.right}>
                     <Text style={styles.font3}>계정연동</Text>
                     <Icon name="checkmark-circle-outline" size={20} color={colors.sub}></Icon>
