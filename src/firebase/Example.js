@@ -15,7 +15,7 @@ function testCreateGroup() {
     .then((ref) => console.log(ref));
 }
 
-function testCreateTiccle() {
+async function testCreateTiccle() {
     const ticcleName = 'newTiccle';
     let newTiccle =  {
         lastModifiedTime: firestore.Timestamp.fromDate(new Date()),
@@ -26,8 +26,8 @@ function testCreateTiccle() {
         content: 'this is testing ticcle',
         tagList: ['테스트', '가자']
     }
-    createTiccle(ticcleName, newTiccle)
-    .then((ref) => console.log(ref));
+    const id = await createTiccle(ticcleName, newTiccle);
+    console.log(id);
 }
 
 export {
