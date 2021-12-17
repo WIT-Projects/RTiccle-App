@@ -39,8 +39,13 @@ async function googleLoginAndLink() {
   })
 };
 
+function getCurrentUser() {
+  return auth().currentUser;
+}
+
 export {
   anonSignIn,
   googleSigninConfigure,
   googleLoginAndLink,
+  getCurrentUser,
 };
