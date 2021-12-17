@@ -1,5 +1,5 @@
 import storage from '@react-native-firebase/storage';
-import { getCurrentUser } from './auth';
+import { getCurrentUser } from './Auth';
 
 /**
  * @param {string} imageName: fileName
