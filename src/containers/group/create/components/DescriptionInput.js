@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {  Text,  View, StyleSheet, TextInput} from 'react-native';
 
-import colors from '../../../../../../theme/colors';
-import { type } from '../../../../../../theme/fonts';
+import colors from '../../../../theme/colors';
+import { type } from '../../../../theme/fonts';
 
 function DescriptionInput() {
   const [createGroupDescription, setCreateGroupDescirption] = useState("");
@@ -11,17 +11,14 @@ function DescriptionInput() {
 
   return(
     <View style={styles.container}>
-      
-    <TextInput style={styles.textinput}
-    onChangeText = {setCreateGroupDescirption}
-    placeholder="설명 (선택)"
-    placeholderTextColor = {colors.gray2}
-    maxLength = {maxLengthOfDescription}
-    >
-    </TextInput>
-
-    <Text style={styles.textCount}>{groupDescriptionLength}/23</Text>
-
+      <TextInput style={styles.textinput}
+      onChangeText = {setCreateGroupDescirption}
+      placeholder="설명 (선택)"
+      placeholderTextColor = {colors.gray2}
+      maxLength = {maxLengthOfDescription}
+      >
+      </TextInput>
+      <Text style={styles.textCount}>{groupDescriptionLength}/23</Text>
   </View>
 
   )
@@ -49,4 +46,3 @@ const styles = StyleSheet.create({
 })
 
 export default DescriptionInput
-

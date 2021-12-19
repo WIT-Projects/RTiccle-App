@@ -19,7 +19,7 @@ const HomeStackNavigatior = () => (
                 ),
                 headerRight:() => (
                     <Image source={require('../../assets/icon/searchBlack.png')}/>
-                )
+                ),
         }} />
         <HomeStack.Screen options={{ headerShown: false }} name="GroupDetail" component={GroupDetail} />
     </HomeStack.Navigator>

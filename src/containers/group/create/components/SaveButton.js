@@ -1,36 +1,29 @@
 import React from 'react';
 import {  Text,  View, StyleSheet, TouchableOpacity} from 'react-native';
 
-import colors from '../../../../../theme/colors';
-import { type } from '../../../../../theme/fonts';
+import colors from '../../../../theme/colors';
+import { type } from '../../../../theme/fonts';
 
-function SaveButton({buttonDisabled}) {
+function SaveButton({ buttonDisabled, navigation }) {
   return(
-    <View style={styles.container}>
       <TouchableOpacity
       style={[styles.touchableOpacitiy,
         buttonDisabled ? styles.touchableDisableColor : styles.touchableColor
-      ]}
+        ]}
+      onPress={() => navigation.navigate('GroupCreateImage')}
       disabled={buttonDisabled}>
-
         <Text style={[styles.buttonText,
           buttonDisabled ? styles.textDisabledColor : styles.textColor
           ]}>
           저장하기
         </Text>
-
       </TouchableOpacity>
-    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container :{
-    alignItems: 'center',
-    justifyContent : 'center',
-    marginTop : 146,
-  },
   touchableOpacitiy:{
+    marginTop : 146,
     alignItems: 'center',
     justifyContent : 'center',
     width : 168,
@@ -56,4 +49,3 @@ const styles = StyleSheet.create({
 })
 
 export default SaveButton
-

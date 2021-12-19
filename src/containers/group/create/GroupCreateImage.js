@@ -1,10 +1,10 @@
 import React from 'react';
 import GroupCreateHeaderImage from './components/GroupCreateHeaderImage';
 
-const GroupCreate = () => {
+const GroupCreateImage = () => {
     return (
       <GroupCreateHeaderImage></GroupCreateHeaderImage>
     );
 }
 
-export default GroupCreate;
+export default GroupCreateImage;

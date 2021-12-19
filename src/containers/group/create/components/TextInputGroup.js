@@ -1,8 +1,8 @@
 import React from 'react';
 import {  View, StyleSheet} from 'react-native';
 
-import TitleInput from './TextInput/TitleInput';
-import DescriptionInput from './TextInput/DescriptionInput';
+import TitleInput from './TitleInput';
+import DescriptionInput from './DescriptionInput';
 
 function TextInputGroup({setButtonDisable}) {
   return(
@@ -23,4 +23,3 @@ const styles = StyleSheet.create({
 })
 
 export default TextInputGroup
-

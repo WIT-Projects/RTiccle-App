@@ -6,7 +6,8 @@ import colors from '../theme/colors';
 import { type } from '../theme/fonts';
 import metrics from '../theme/metrices';
 
-import GroupCreate from '../containers/group/create/GroupCreate';
+import GroupCreateName from '../containers/group/create/GroupCreateName';
+import GroupCreateImage from '../containers/group/create/GroupCreateImage';
 import MyPage from '../containers/user';
 import TiccleCreate from '../containers/ticcle/create';
 
@@ -19,14 +20,51 @@ const TabNav = () => {
         <NavigationContainer>
             <Tab.Navigator>
                 <Tab.Screen options={{ headerShown: false }} name="HomeStack" component={HomeStackNavigatior} />
-                <Tab.Screen name="GroupCreate" component={GroupCreate} />
+                <Tab.Screen name="GroupCreateName" options={ ({navigation}) =>  ({
+                        headerStyle :{
+                        backgroundColor: colors.white,
+                        height : metrics.topNavigationHeight,
+                        },
+                        title: '그룹 생성',
+                        headerTintColor : colors.main,
+                        headerTitleAlign : 'center',
+                        headerTitleStyle : {
+                        fontSize : 20,
+                        },
+                        headerLeft : () => (
+                            <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
+                                <Image source={require('../assets/images/chevron_left.png')}
+                                    style={styles.headerLeftImage, styles.black}
+                                />
+                            </TouchableOpacity>
+                        ),
+                })} component={GroupCreateName} />
+                <Tab.Screen name="GroupCreateImage" options={ ({navigation}) =>  ({
+                        headerStyle :{
+                        backgroundColor: colors.white,
+                        height : metrics.topNavigationHeight,
+                        },
+                        title: '그룹 생성',
+                        headerTintColor : colors.main,
+                        headerTitleAlign : 'center',
+                        headerTitleStyle : {
+                        fontSize : 20,
+                        },
+                        headerLeft : () => (
+                            <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
+                                <Image source={require('../assets/images/chevron_left.png')}
+                                    style={styles.headerLeftImage, styles.black}
+                                />
+                            </TouchableOpacity>
+                        ),
+                })} component={GroupCreateImage} />
                 <Tab.Screen name="티끌 작성" component={TiccleCreate}
                         options={ ({navigation}) =>  ({
                             headerStyle :{
                             backgroundColor: colors.main,
                             height : metrics.topNavigationHeight,
                         },
-                            headerTintColor : colors.white ,
+                            headerTintColor : colors.main ,
                         headerTitleAlign : 'center',
                         headerTitleStyle : {
                         fontSize : 20,
@@ -63,23 +101,25 @@ const styles = StyleSheet.create({
         width : 12, 
         height: 20, 
         tintColor : colors.white
-    }
-    ,
+    },
+    black: {
+        tintColor: colors.main,
+        resizeMode : 'cover',
+        width : 12, 
+        height: 20, 
+    },
     headerRightTouchable : {
         alignItems: 'center',
         justifyContent : 'center',
         width : 60,
         height : 40,
         marginRight : 14,
-
     },
     headerRightText : {
         color : colors.white,
         fontFamily: type.notoSansKR_Regular,
         fontSize : 20,
-
     }
-
 })
 
 export default TabNav;

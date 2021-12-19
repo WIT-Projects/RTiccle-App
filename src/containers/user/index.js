@@ -27,7 +27,7 @@ import UserInfo from './components/user';
         //             },
         //             headerTintColor: colors.white,
         //             headerLeft: () => (
-        //                 <Icon name="chevron-left" size={30} style={{ paddingLeft: 20 }} color={colors.white}/>
+        //                 <Icon name="chevron_left" size={30} style={{ paddingLeft: 20 }} color={colors.white}/>
         //             )
         //         }} />
         // </Stack.Navigator>

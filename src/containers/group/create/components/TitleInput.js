@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, View, Text} from 'react-native';
 
-import colors from '../../../../../../theme/colors';
-import { type } from '../../../../../../theme/fonts';
+import colors from '../../../../theme/colors';
+import { type } from '../../../../theme/fonts';
 
 function TitleInput({setButtonDisable}) {
   const [createGroupName, onCreateGroupName] = useState("")
@@ -15,7 +15,6 @@ function TitleInput({setButtonDisable}) {
 
   return(
     <View style={styles.container}>
-      
       <TextInput style={styles.textinput}
       onChangeText ={onCreateGroupName}
       placeholder="음식, 공부, 전시 등"
@@ -23,9 +22,7 @@ function TitleInput({setButtonDisable}) {
       maxLength = {maxLengthOfTitle}
       >
       </TextInput>
-
       <Text style={styles.textCount}>{groupNameLength}/15</Text>
-
     </View>
   )
 }
@@ -54,4 +51,3 @@ const styles = StyleSheet.create({
 })
 
 export default TitleInput
-
