@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, Dimensions, View} from "react-native";
-import colors from '../../../../theme/colors'
+import colors from '../../../../theme/colors';
+import { type } from '../../../../theme/fonts';
 
 const windowHeight = Dimensions.get('window').height;
 const remainder = 256 + 48 + 66; //GroupInfo + search + bottom 의 height
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     font1:{
         fontSize: 16,
         color: colors.gray4,
+        fontFamily: type.spoqaHanSansNeo_Regular,
     },
     image:{
         width:68,

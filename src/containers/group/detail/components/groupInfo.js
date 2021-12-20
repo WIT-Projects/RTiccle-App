@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, ImageBackground, View, Image} from "react-native";
-import colors from '../../../../theme/colors'
+import colors from '../../../../theme/colors';
+import { type } from '../../../../theme/fonts';
 
 const  GroupInfo = ({title, imgUrl, content}) => {
   return(
@@ -21,7 +22,6 @@ const  GroupInfo = ({title, imgUrl, content}) => {
                             <Text style={styles.content}>{content}</Text>
                             <Image style={styles.star} source={require('../../../../assets/icon/star.png')}></Image>
                         </View>
-                        
                     </View>
                 </View>
             </ImageBackground>
@@ -61,13 +61,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 18,
         marginTop:8,
-        marginRight: 8, 
+        marginRight: 8,
+        fontFamily: type.spoqaHanSansNeo_Bold,
     },
     content:{
         fontSize: 16,
         color: colors.white,
         marginLeft: 18,
         marginBottom: 18,
+        fontFamily: type.spoqaHanSansNeo_Regular,
     }
 })
 

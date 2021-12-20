@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from "react-native";
-import colors from '../../../../theme/colors'
+import colors from '../../../../theme/colors';
+import { type } from '../../../../theme/fonts';
 
-const  GroupDetailTiccle = ({index, title, hashTag}) => {
+const  GroupDetailTiccle = ({index, title, tag}) => {
   return(
     <>
         <View style={styles.container}>
@@ -10,7 +11,7 @@ const  GroupDetailTiccle = ({index, title, hashTag}) => {
             <View style={styles.container2}>
                 <Text style={styles.font2}>{title}</Text>
                 <View style={styles.container3}>
-                    {hashTag.map((item, index) => {return (<Text style={styles.font3} key={index}>#{item} </Text>)})}
+                    {tag.map((item, index) => {return (<Text style={styles.font3} key={index}>#{item} </Text>)})}
                 </View>
             </View>
             
@@ -39,15 +40,18 @@ const styles = StyleSheet.create({
         marginLeft:18,
         marginTop:13,
         marginBottom:21,
+        fontFamily: type.spoqaHanSansNeo_Regular,
     },
     font2:{
         fontSize: 16,
         color: colors.white,
         marginBottom: 6,
+        fontFamily: type.spoqaHanSansNeo_Bold,
     },
     font3:{
         fontSize: 12,
         color: colors.sub,
+        fontFamily: type.spoqaHanSansNeo_Regular,
     },
 })
 
