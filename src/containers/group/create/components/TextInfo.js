@@ -3,11 +3,11 @@ import {  Text,  View, StyleSheet} from 'react-native';
 
 import colors from '../../../../theme/colors';
 
-function TextInfo() {
+function TextInfo({title, subtitle}) {
   return(
     <View style={styles.container}>
-      <Text style={styles.text1}>그룹의 이름은 무엇인가요?</Text>
-      <Text style={styles.text2}>나만의 그룹 이름을 입력해보세요!</Text>
+      <Text style={styles.text1}>{title}</Text>
+      <Text style={styles.text2}>{subtitle}</Text>
     </View>
   )
 }
@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     justifyContent : 'center',
     width : '100%',
     height : 180,
-    paddingHorizontal : 18
+    paddingHorizontal: 18,
+    backgroundColor:'pink'
   },
   text1:{
     color : colors.gray5,

@@ -4,8 +4,9 @@ import {  Text,  View, StyleSheet, TouchableOpacity} from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-function SaveButton({ buttonDisabled, navigation }) {
+function SaveButton({ buttonDisabled, navigation, text }) {
   return(
+    <View style={{alignItems:'center', backgroundColor:'red'}}>
       <TouchableOpacity
       style={[styles.touchableOpacitiy,
         buttonDisabled ? styles.touchableDisableColor : styles.touchableColor
@@ -15,20 +16,20 @@ function SaveButton({ buttonDisabled, navigation }) {
         <Text style={[styles.buttonText,
           buttonDisabled ? styles.textDisabledColor : styles.textColor
           ]}>
-          저장하기
+          {text}
         </Text>
       </TouchableOpacity>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   touchableOpacitiy:{
-    marginTop : 146,
     alignItems: 'center',
     justifyContent : 'center',
     width : 168,
     height : 40,
-    borderRadius : 24,
+    borderRadius: 24,
   },
   touchableColor:{
     backgroundColor : colors.main,

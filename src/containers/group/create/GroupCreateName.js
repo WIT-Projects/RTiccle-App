@@ -14,9 +14,9 @@ function GroupCreateName({navigation}){
   return(
     <View style={styles.container}>
       <ScrollView>
-        <TextInfo></TextInfo>
+        <TextInfo title='그룹의 이름은 무엇인가요?' subtitle='나만의 그룹 이름을 입력해보세요!'></TextInfo>
         <TextInputGroup setButtonDisable={setGroupCreateButtonDisable}></TextInputGroup>
-        <SaveButton buttonDisabled={groupCreateButtonDisable} navigation={navigation}></SaveButton>
+        <SaveButton text='다음으로' buttonDisabled={groupCreateButtonDisable} navigation={navigation}></SaveButton>
       </ScrollView>
     </View>
   )
