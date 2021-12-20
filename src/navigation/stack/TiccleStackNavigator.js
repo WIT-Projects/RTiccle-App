@@ -11,15 +11,17 @@ import TiccleDetail from '../../containers/ticcle/detail';
 const TiccleStack = createStackNavigator();
 
 const TiccleStackNavigator = () => (
-    <TiccleStack.Navigator initialRouteName="티끌 작성">
+    <TiccleStack.Navigator initialRouteName="ticcleCreate">
         <TiccleStack.Screen 
-            name="티끌 작성" 
+            name="ticcleCreate"
             component={TiccleCreate} 
-            options={({navigation}) =>  ({
+            options={
+                ({navigation}) =>  ({
                 headerStyle :{
                 backgroundColor: colors.main,
                 height : metrics.topNavigationHeight,
             },
+            title: '티클 작성',
             headerTintColor : colors.white ,
             headerTitleAlign : 'center',
             headerTitleStyle : {
@@ -35,17 +37,20 @@ const TiccleStackNavigator = () => (
                 </TouchableOpacity>
             ),
             headerRight : () => (
-                <TouchableOpacity style={styles.headerRightTouchable} onPress={()=> navigation.navigate('티끌')}>
+                <TouchableOpacity style={styles.headerRightTouchable} onPress={()=> navigation.navigate('ticcleDetail')}>
                     <Text style={styles.headerRightText}>저장</Text>
                 </TouchableOpacity>
             )
             })}/>
-        <TiccleStack.Screen options={{ headerShown: false }} name="티끌" component={TiccleDetail}
+        <TiccleStack.Screen options={{ headerShown: false }}
+            name="ticcleDetail"
+            component={TiccleDetail}
             options={({navigation}) =>  ({
                 headerStyle :{
                 backgroundColor: colors.main,
                 height : metrics.topNavigationHeight,
             },
+            title: '티끌' ,
             headerTintColor : colors.white ,
             headerTitleAlign : 'center',
             headerTitleStyle : {
