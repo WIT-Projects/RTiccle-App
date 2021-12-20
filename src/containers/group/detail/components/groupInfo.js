@@ -8,19 +8,23 @@ const  GroupInfo = ({title, imgUrl, content}) => {
     <ImageBackground source={{uri:imgUrl}}
         resizeMode="cover"
         style={{ width: "100%", height: 256 }}>
-        <View style={styles.comtainer}>
-            <View style={styles.comtainer2}>
-                <View style={styles.container3}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Image style={styles.pencil} source={require('../../../../assets/icon/pencil.png')}></Image>
+             <ImageBackground source={require('../../../../assets/images/gradation2.png')}
+                    resizeMode="cover"
+                    style={{ width: "100%", height: 256 }}>
+                <View style={styles.comtainer}>
+                    <View style={styles.comtainer2}>
+                        <View style={styles.container3}>
+                            <Text style={styles.title}>{title}</Text>
+                            <Image style={styles.pencil} source={require('../../../../assets/icon/pencil.png')}></Image>
+                        </View>
+                        <View style={styles.container4}>
+                            <Text style={styles.content}>{content}</Text>
+                            <Image style={styles.star} source={require('../../../../assets/icon/star.png')}></Image>
+                        </View>
+                        
+                    </View>
                 </View>
-                <View style={styles.container4}>
-                    <Text style={styles.content}>{content}</Text>
-                    <Image style={styles.star} source={require('../../../../assets/icon/star.png')}></Image>
-                </View>
-                
-            </View>
-        </View>
+            </ImageBackground>
     </ImageBackground>
     </>
   )
