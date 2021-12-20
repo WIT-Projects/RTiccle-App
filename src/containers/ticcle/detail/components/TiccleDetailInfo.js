@@ -3,11 +3,15 @@ import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-const DateTitleLinkGroup = () => {
+const TiccleDetailInfo = () => {
+
+    const ticcleDetailDate = "21.12.20"
+    const ticcleDetailTitle = "21년의 마무리"
+
     return(
         <View style={styles.container}>
-            <Text style={styles.date}>21.12.20</Text>
-            <Text style={styles.title}>21년의 마무리</Text>
+            <Text style={styles.date}>{ticcleDetailDate}</Text>
+            <Text style={styles.title}>{ticcleDetailTitle}</Text>
 
             <View  style={styles.linkConatiner}>
                 <TouchableOpacity style={styles.touchableContainer}>
@@ -62,4 +66,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DateTitleLinkGroup
+export default TiccleDetailInfo

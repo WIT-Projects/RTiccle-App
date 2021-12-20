@@ -3,7 +3,7 @@ import { View,Image,StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
 import colors from '../../../../theme/colors';
 
-const ImageSwiper = ({images}) => {
+const TiccleDetailImageSwiper = ({images}) => {
 
     const imageGroup = images.map(
         (imageSource, index) => (
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ImageSwiper
+export default TiccleDetailImageSwiper

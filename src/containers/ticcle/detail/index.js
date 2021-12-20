@@ -3,10 +3,10 @@ import { Text, View,ScrollView, StyleSheet } from 'react-native';
 
 import colors from '../../../theme/colors';
 
-import DateTitleLinkGroup from './components/DateTitleLinkGroup';
-import ImageSwiper from './components/ImageSwiper';
-import DetailTiccleText from './components/DetailTiccleText';
-import DetailTiccleTag from './components/DetailTiccleTag';
+import TiccleDetailInfo from './components/TiccleDetailInfo';
+import TiccleDetailImageSwiper from './components/TiccleDetailImageSwiper';
+import TiccleDetailText from './components/TiccleDetailText';
+import TiccleDetailTag from './components/TiccleDetailTag';
 
 const TiccleDetail = () => {
 
@@ -20,11 +20,11 @@ const TiccleDetail = () => {
     const tagExample = ['2022년', '임인년',  'HappyNewYears', '22학번','R-Ticcle', '검은호랑이띠']
     return (
         <ScrollView style={styles.container}>
-            <DateTitleLinkGroup></DateTitleLinkGroup>
+            <TiccleDetailInfo></TiccleDetailInfo>
 
-            {(imageExample.length > 0) ? <ImageSwiper images={imageExample}></ImageSwiper> : <View></View>}
-            <DetailTiccleText></DetailTiccleText>
-            <DetailTiccleTag tags={tagExample}></DetailTiccleTag>
+            {(imageExample.length > 0) ? <TiccleDetailImageSwiper images={imageExample}></TiccleDetailImageSwiper> : <View></View>}
+            <TiccleDetailText></TiccleDetailText>
+            <TiccleDetailTag tags={tagExample}></TiccleDetailTag>
         </ScrollView>
     )
 }

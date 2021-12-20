@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-const DetailTiccleText = () => {
+const TiccleDetailText = () => {
 
     return(
         <View style={styles.container}>
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DetailTiccleText
+export default TiccleDetailText

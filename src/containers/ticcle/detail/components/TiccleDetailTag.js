@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-const DetailTiccleTag = ({tags}) => {
+const TiccleDetailTag = ({tags}) => {
 
     const tagGroup = tags.map(
         (tag, index) => (
@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         flexDirection : 'row',
         flexWrap : 'wrap',
-        
     },
     tag:{
         height:30,
@@ -46,4 +45,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DetailTiccleTag
+export default TiccleDetailTag
