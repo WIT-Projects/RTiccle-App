@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import colors from '../../../../theme/colors'
 
-const  Ticcle = ({index, title, hashTag}) => {
+const  GroupDetailTiccle = ({index, title, hashTag}) => {
   return(
     <>
         <View style={styles.container}>
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Ticcle;
+export default GroupDetailTiccle;

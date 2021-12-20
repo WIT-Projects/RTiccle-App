@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
-import Ticcle from './Ticcle';
+import {StyleSheet, ScrollView} from 'react-native';
+import GroupDetailTiccle from './GroupDetailTiccle';
 
-const TiccleList = () => {
+const GroupDetailTiccleList = () => {
     const data = [
         {
             index: 127,
@@ -29,7 +29,7 @@ const TiccleList = () => {
     return (
         <>
             <ScrollView style={styles.container}>
-                {data.map((item) => {return (<Ticcle key={item.index} index={item.index} title={item.title} hashTag={item.hashTag}></Ticcle>)})}
+                {data.map((item) => {return (<GroupDetailTiccle key={item.index} index={item.index} title={item.title} hashTag={item.hashTag}></GroupDetailTiccle>)})}
             </ScrollView>
         </>
     );
@@ -41,5 +41,4 @@ const styles = StyleSheet.create({
     },
 })
 
-
-export default TiccleList;
+export default GroupDetailTiccleList;
