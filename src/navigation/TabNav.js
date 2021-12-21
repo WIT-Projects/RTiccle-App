@@ -7,7 +7,7 @@ import { type } from '../theme/fonts';
 import metrics from '../theme/metrices';
 
 import GroupCreate from '../containers/group/create/GroupCreate';
-import MyPage from '../containers/user';
+import MyPage from '../containers/user/MyPage';
 import TiccleCreate from '../containers/ticcle/create';
 
 import HomeStackNavigatior from './stack/HomeStackNavigator';

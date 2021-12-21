@@ -1,36 +1,47 @@
 /* This is example of using firebase function */
-import { createGroup, createTiccle } from "./Firestore";
+import { createGroup, createTiccle, uploadNewGroup, uploadNewTiccle, getGroupById, getTiccleById } from "./Firestore";
 import firestore from '@react-native-firebase/firestore';
 
-function testCreateGroup() {
+function testUploadNewGroup() {
     const groupName = 'new';
-    let newGroup = {
+    const newGroup = {
         lastModifiedTime: firestore.Timestamp.fromDate(new Date()),
         type: 5, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
         title: groupName,
-        description: 'this is testing group',
-        mainImage: '' // URL in Storage
+        description: 'this is testing group'
     }
-    createGroup(groupName, newGroup)
+    const imageSource = '';
+    uploadNewGroup(groupName, newGroup, imageSource)
     .then((ref) => console.log(ref));
 }
 
-async function testCreateTiccle() {
+async function testUploadNewTiccle() {
     const ticcleName = 'newTiccle';
-    let newTiccle =  {
+    const newTiccle =  {
         lastModifiedTime: firestore.Timestamp.fromDate(new Date()),
         group: 'new',
         title: ticcleName,
         link: '', // URL of original content
-        imageList: null, // limit: 2 // { "ref": "message", }
         content: 'this is testing ticcle',
         tagList: ['테스트', '가자']
     }
-    const id = await createTiccle(ticcleName, newTiccle);
+    const images = [];
+    const id = await uploadNewTiccle(ticcleName, newTiccle, images);
     console.log(id);
 }
 
+async function testGetGroupById() {
+    const g = await getGroupById('new');
+    console.log(g.title, ":", g.description);
+}
+
+async function testGetTiccleById() {
+    const t = await getTiccleById('kKV5AfefvSppAOQWcSaa');
+    console.log(t.title, ":", t.content);
+}
 export {
-    testCreateGroup,
-    testCreateTiccle,
+    testUploadNewGroup,
+    testUploadNewTiccle,
+    testGetGroupById,
+    testGetTiccleById,
 }

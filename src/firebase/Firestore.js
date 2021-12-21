@@ -1,5 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import { getCurrentUser } from './Auth';
+import { uploadImageToStorage, getDownloadURLByName } from './Storage';
 
 const user = getCurrentUser();
 const userDoc = firestore().collection('RTiccle').doc(user.uid);
@@ -7,14 +8,7 @@ const userDoc = firestore().collection('RTiccle').doc(user.uid);
 /**
  * Group create function
  * @param {string} groupName 
- * @param {*} newGroup 
- *  {
-        lastModifiedTime: TimeStamp,
-        type: integer, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
-        title: String,
-        description: String,
-        mainImage: String // URL in Storage
-    }
+ * @param {*} newGroup
  * @returns Group Id
  */
 async function createGroup(groupName, newGroup) {
@@ -25,22 +19,65 @@ async function createGroup(groupName, newGroup) {
 
 /**
  * @param {string} ticcleName 
- * @param {*} newTiccle 
+ * @param {*} newTiccle
+ * @returns Ticcle Id
+ */
+async function createTiccle(ticcleName, newTiccle) {
+    const ref = userDoc.collection("Ticcle"); // using auto id
+    await ref.add(newTiccle);
+    return ref.id;
+}
+
+/**
+ * Upload new group to firestore (upload image and group)
+ * @param {string} newGroupName
+ * @param {*} group: group info
+ * *  {
+        lastModifiedTime: TimeStamp,
+        type: integer, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
+        title: String,
+        description: String,
+    }
+ * @param {*} mainImageSource: main image source of group
+ */
+function uploadNewGroup(newGroupName, group, mainImageSource) {
+    var imageName = '';
+    if (mainImageSource || mainImageSource != '') {
+        imageName = Date.now() + ".jpg";
+        uploadImageToStorage(imageName, mainImageSource);
+    }
+    return createGroup(newGroupName, {...group, mainImage: imageName});
+}
+
+/**
+ * Upload new ticcle to firestore (upload image and group)
+ * @param {string} newTiccleName 
+ * @param {*} ticcle: ticcle info 
  *  * {
         lastModifiedTime: TimeStamp,
         group: gid,
         title: String,
         link: String, // URL of original content
-        imageList: Map<String, String>, // limit: 2 // { "ref": "message", }
         content: String,
         tagList: Array<String>
     }
- * @returns Ticcle Id
+ * @param {Array} images: image source array - LIMIT 2
  */
-async function createTiccle(ticcleName, newTiccle) {
-    const ref = userDoc.collection("Ticcle").doc(ticcleName);
-    await ref.set(newTiccle);
-    return ref.id;
+function uploadNewTiccle(newTiccleName, ticcle, images) {
+    // upload images first
+    var imageArr = [];
+    if(images !== undefined) {
+        images.map((image) => {
+            const imageName = Date.now() + ".jpg";
+            imageArr.push(imageName);
+            uploadImageToStorage(imageName, image);
+        })
+    }
+    console.log(ticcle);
+    console.log({...ticcle, images: imageArr});
+
+    // upload ticcle info
+    return createTiccle(newTiccleName, {...ticcle, images: imageArr});
 }
 
 /**
@@ -49,9 +86,9 @@ async function createTiccle(ticcleName, newTiccle) {
  */
 async function getAllGroup() {
     const groups = await userDoc.collection("Group").get();
-    groups.forEach(snapshot => {
-        console.log('User ID: ', snapshot.id, snapshot.data());
-    })
+    // groups.forEach(snapshot => {
+    //     console.log(snapshot.id, snapshot.data());
+    // })
     return groups;
 }
 
@@ -61,9 +98,9 @@ async function getAllGroup() {
  * @returns DocumentSnapshot(of Group doc) if exist, else null
  */
 async function getGroupById(groupId) {
-    const group = await userDoc.collection("Group").doc(ticcleId).get();
-    if (group.exists) return group;
-    else null;
+    const group = await userDoc.collection("Group").doc(groupId).get();
+    if (group.exists) return group._data;
+    else return null;
 }
 
 /**
@@ -73,13 +110,15 @@ async function getGroupById(groupId) {
  */
 async function getTiccleById(ticcleId) {
     const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
-    if(ticcle.exists) return ticcle;
+    if(ticcle.exists) return ticcle._data;
     else return null;
 }
 
 export {
     createGroup,
     createTiccle,
+    uploadNewGroup,
+    uploadNewTiccle,
     getAllGroup,
     getGroupById,
     getTiccleById,
