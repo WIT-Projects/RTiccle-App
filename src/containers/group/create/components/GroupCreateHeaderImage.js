@@ -15,6 +15,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 const GroupCreateHeaderImage = () => {
     const [image, setImage] = useState('');
     let source;
+    
     image === '' ? source = require('../../../../assets/images/blankImage.png') : source = {uri: image}
     const [modalVisible, setModalVisible] = useState(false);
     

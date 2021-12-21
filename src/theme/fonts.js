@@ -9,11 +9,20 @@ const size = {
 
 /* 글꼴(추후 파일 저장) */
 const type = {
-    spoqaHanSansNeo: 'Spoqa-Han-Sans-Neo',
-    notoSansKR: 'Noto-Sans-KR',
+    spoqaHanSansNeo_Bold: 'SpoqaHanSansNeo-Bold',
+    spoqaHanSansNeo_Light: 'SpoqaHanSansNeo-Light',
+    spoqaHanSansNeo_Medium: 'SpoqaHanSansNeo-Medium',
+    spoqaHanSansNeo_Regular: 'SpoqaHanSansNeo-Regular',
+    spoqaHanSansNeo_Thin: 'SpoqaHanSansNeo-Thin',
+    notoSansKR_Black: 'NotoSansKR-Black',
+    notoSansKR_Bold: 'NotoSansKR-Bold',
+    notoSansKR_Light: 'NotoSansKR-Light',
+    notoSansKR_Medium: 'NotoSansKR-Medium',
+    notoSansKR_Regular: 'NotoSansKR-Regular',
+    notoSansKR_Thin: 'NotoSansKR-Thin',
 };
 
-export default {
+export  {
     size,
     type,
 };

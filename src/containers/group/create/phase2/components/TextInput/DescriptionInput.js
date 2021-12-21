@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {  Text,  View, StyleSheet, TextInput} from 'react-native';
 
 import colors from '../../../../../../theme/colors';
-import fonts from '../../../../../../theme/fonts';
+import { type } from '../../../../../../theme/fonts';
 
 function DescriptionInput() {
   const [createGroupDescription, setCreateGroupDescirption] = useState("");
@@ -38,12 +38,12 @@ const styles = StyleSheet.create({
   textinput :{
     width : 330,
     fontSize: 16,
-    fontFamily : fonts.type.spoqaHanSansNeo,
+    fontFamily : type.spoqaHanSansNeo_Regular,
   },
   textCount :{
     color : colors.gray3,
     fontSize : 12,
-    fontFamily : fonts.type.spoqaHanSansNeo,
+    fontFamily : type.spoqaHanSansNeo_Regular,
     paddingRight : 5,
   }
 })

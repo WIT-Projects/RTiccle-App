@@ -1,18 +1,20 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Image, TouchableOpacity, StyleSheet} from "react-native";
 
 import GroupInfo from './components/groupInfo';
 import Search from './components/search';
 import Bottom from './components/bottom';
 import ZeroTiccle from './components/zeroTiccle';
+import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 
-export default function GroupDetail(){
+const GroupDetail = () => {
+  const [existTiccle, setExistTiccle] = useState(true);
+
   return(
     <>
       <GroupInfo title={"현판"} imgUrl={'https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png'} content={"데못죽 같은 거 모아두는"}/>
       <Search></Search>
-      <ZeroTiccle></ZeroTiccle>
-      <Bottom></Bottom>
+      {existTiccle? <GroupDetailTiccleList/>: <ZeroTiccle/>}
       {/* Floating Button */}
       <TouchableOpacity activeOpacity={0.5} style={styles.touchableOpacityStyle} >
         <Image source={require('../../../assets/icon/make.png')}  style={styles.floatingButtonStyle} />
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     right: 30,
-    bottom: 90,
+    bottom: 30,
   },
   floatingButtonStyle: {
     resizeMode: 'contain',
@@ -38,3 +40,5 @@ const styles = StyleSheet.create({
     height: 60,
   },
 })
+
+export default GroupDetail;

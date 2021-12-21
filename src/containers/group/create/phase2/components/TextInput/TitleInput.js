@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, View, Text} from 'react-native';
 
 import colors from '../../../../../../theme/colors';
-import fonts from '../../../../../../theme/fonts';
+import { type } from '../../../../../../theme/fonts';
 
 function TitleInput({setButtonDisable}) {
   const [createGroupName, onCreateGroupName] = useState("")
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     width : 330,
     fontSize: 24,
     fontWeight : 'bold',
-    fontFamily : fonts.type.spoqaHanSansNeo,
+    fontFamily : type.spoqaHanSansNeo_Regular,
   },
   textCount :{
     color : colors.gray3,
     fontSize : 12,
-    fontFamily : fonts.type.spoqaHanSansNeo,
+    fontFamily : type.spoqaHanSansNeo_Regular,
     paddingRight : 5,
   }
 })
