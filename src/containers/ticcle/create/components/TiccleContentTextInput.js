@@ -20,7 +20,7 @@ const TiccleContentTextInput = ({onChangeText}) => {
 const styles = StyleSheet.create({
     textinput : {
         backgroundColor : colors.gray6,
-        height : 400,
+        minHeight: 350,
         borderRadius : 16,
         paddingHorizontal : 18,
         paddingTop : 18,

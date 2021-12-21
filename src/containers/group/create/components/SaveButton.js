@@ -11,8 +11,7 @@ function SaveButton({ buttonDisabled, navigation, text }) {
       style={[styles.touchableOpacitiy,
         buttonDisabled ? styles.touchableDisableColor : styles.touchableColor
         ]}
-      onPress={() => navigation.navigate('GroupCreateImage')}
-      disabled={buttonDisabled}>
+      disabled={buttonDisabled} onPress={() => navigation.navigate('GroupCreateImage')}>
         <Text style={[styles.buttonText,
           buttonDisabled ? styles.textDisabledColor : styles.textColor
           ]}>

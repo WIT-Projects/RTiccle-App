@@ -27,8 +27,8 @@ const GroupCreateImage = ({navigation}) => {
         <View style={{}}><PhotoModal setImage={setImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible}></PhotoModal></View>
         <TextInfo title='마지막 단계예요.' subtitle='나만의 커버 이미지을 추가해 보세요!'></TextInfo>
         <ImageBackground
-          source={source}
-              style={styles.headerImage}>
+            source={source}
+            style={styles.headerImage}>
             <ImageBackground source={require('../../../assets/images/groupImageGradation.png')}
                     resizeMode="cover"
                     style={{ width: "100%", height: 256 }}>
@@ -37,10 +37,10 @@ const GroupCreateImage = ({navigation}) => {
                     <Text style={styles.imageTitle}>현판</Text>
                     <Text style={styles.imageSubtitle}>데못죽 같은 거 모아두는 곳</Text>
                 </View>
-                <Pressable
+                <TouchableOpacity
                 onPress={() => setModalVisible(true)}>
                     <Image source={require('../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
-                </Pressable>
+                </TouchableOpacity>
                 </View>
             </ImageBackground>
         </ImageBackground>

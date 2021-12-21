@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet,ScrollView } from 'react-native';
 
 import TiccleImageCreateButton from './components/TiccleImageCreateButton';
 import TiccleContentTextInput from './components/TiccleContentTextInput';
@@ -17,7 +17,7 @@ const TiccleCreate = () => {
     const {setImage, ticcleCreateImage} = useTiccleCreateImage();
 
     return(
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
 
             <TiccleCreateTextInputGroup/>
 
@@ -32,7 +32,7 @@ const TiccleCreate = () => {
                 <TiccleContentTextInput onChangeText ={setContent}/>
             </View>
 
-        </View>
+        </ScrollView>
     )
 }
 

@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView} from 'react-native';
 
 import TextInfo from './components/TextInfo';
-import TextInputGroup from './components/TextInputGroup';
+import GroupTextInput from './components/GroupTextInput';
 import SaveButton from './components/SaveButton';
-// import GroupCreateImage from './GroupCreateImage';
 
 import colors from '../../../theme/colors';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// const Stack = createNativeStackNavigator();
 
 function GroupCreateName({navigation}){
 
@@ -17,13 +14,9 @@ function GroupCreateName({navigation}){
 
   return(
     <View style={styles.container}>
-      {/* <Stack.Navigator>
-        <Stack.Screen name="GroupCreateImage" component={GroupCreateImage} navigation={navigation} />
-      </Stack.Navigator> */}
-
       <ScrollView>
         <TextInfo title='그룹의 이름은 무엇인가요?' subtitle='나만의 그룹 이름을 입력해보세요!'></TextInfo>
-        <TextInputGroup setButtonDisable={setGroupCreateButtonDisable}></TextInputGroup>
+        <GroupTextInput setButtonDisable={setGroupCreateButtonDisable}></GroupTextInput>
         <SaveButton text='다음으로' buttonDisabled={groupCreateButtonDisable} navigation={navigation}></SaveButton>
       </ScrollView>
     </View>

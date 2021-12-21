@@ -4,7 +4,7 @@ import {  Text,  View, StyleSheet, TextInput} from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-function DescriptionInput() {
+const GroupDescriptionInput = () => {
   const [createGroupDescription, setCreateGroupDescirption] = useState("");
   var groupDescriptionLength = createGroupDescription.length
   const maxLengthOfDescription = 23;
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DescriptionInput
+export default GroupDescriptionInput;

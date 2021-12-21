@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/Feather';
 import colors from '../../theme/colors';
 import auth from "@react-native-firebase/auth";
 
-import Setting from './components/settings';
-import GuestInfo, { GuestGuide } from './components/guest';
-import UserInfo from './components/user';
+import Setting from './components/Settings';
+import GuestInfo, { GuestGuide } from './components/Guest';
+import UserInfo from './components/User';
 
 // const Stack = createStackNavigator();
 

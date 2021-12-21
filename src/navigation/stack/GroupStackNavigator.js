@@ -1,34 +1,18 @@
 import React from 'react';
-import { Image,StyleSheet,TouchableOpacity} from 'react-native';
+import { Image,StyleSheet,TouchableOpacity,Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
-
-import Home from '../../containers/home';
-import GroupDetail from '../../containers/group/detail';
 import GroupCreateName from '../../containers/group/create/GroupCreateName';
 import GroupCreateImage from '../../containers/group/create/GroupCreateImage';
 
-const HomeStack = createStackNavigator();
+const GroupStack = createStackNavigator();
 
-const HomeStackNavigatior = () => (
-    <HomeStack.Navigator>
-        <HomeStack.Screen 
-            name="Home" 
-            component={Home} 
-            options={ ({navigation}) =>  ({
-                title:"RTICCLE",
-                headerLeft: () => (
-                    <Image source={require('../../assets/images/logo.png')}/>
-                ),
-                headerRight:() => (
-                    <Image source={require('../../assets/icon/searchBlack.png')}/>
-                ),
-        })} />
-        <HomeStack.Screen options={{ headerShown: false }} name="GroupDetail" component={GroupDetail} />
-        <HomeStack.Screen 
+const GroupStackNavigator = () => (
+    <GroupStack.Navigator initialRouteName="ticcleCreate">
+        <GroupStack.Screen 
             name="GroupCreateName"
             component={GroupCreateName}
             options={ ({navigation}) =>  ({
@@ -44,13 +28,13 @@ const HomeStackNavigatior = () => (
                 },
                 headerLeft : () => (
                     <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
-                        <Image source={require('../../assets/images/chevron_left.png')}
+                        <Image source={require('../assets/images/chevron_left.png')}
                             style={styles.headerLeftImage, styles.black}
                         />
                     </TouchableOpacity>
                 ),
         })} />
-        <HomeStack.Screen options={{ headerShown: false }}
+        <GroupStack.Screen options={{ headerShown: false }}
             name="GroupCreateImage"
             component={GroupCreateImage}
             options={ ({navigation}) =>  ({
@@ -66,13 +50,13 @@ const HomeStackNavigatior = () => (
                 },
                 headerLeft : () => (
                     <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
-                        <Image source={require('../../assets/images/chevron_left.png')}
+                        <Image source={require('../assets/images/chevron_left.png')}
                             style={styles.headerLeftImage, styles.black}
                         />
                     </TouchableOpacity>
                 ),
         })}/>
-    </HomeStack.Navigator>
+    </GroupStack.Navigator>
 );
 
 const styles = StyleSheet.create({
@@ -111,4 +95,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default HomeStackNavigatior;
+export default GroupStackNavigator;

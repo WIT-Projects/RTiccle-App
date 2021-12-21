@@ -1,17 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import colors from '../theme/colors';
 import { type } from '../theme/fonts';
 import metrics from '../theme/metrices';
 
-import GroupCreateName from '../containers/group/create/GroupCreateName';
-import GroupCreateImage from '../containers/group/create/GroupCreateImage';
 import MyPage from '../containers/user';
 import TiccleCreate from '../containers/ticcle/create';
 
 import HomeStackNavigatior from './stack/HomeStackNavigator';
+import TiccleStackNavigator from './stack/TiccleStackNavigator';
 
 const TabNav = () => {
     const Tab = createBottomTabNavigator();
@@ -20,69 +19,7 @@ const TabNav = () => {
         <NavigationContainer>
             <Tab.Navigator>
                 <Tab.Screen options={{ headerShown: false }} name="HomeStack" component={HomeStackNavigatior} />
-                <Tab.Screen name="GroupCreateName" options={ ({navigation}) =>  ({
-                        headerStyle :{
-                        backgroundColor: colors.white,
-                        height : metrics.topNavigationHeight,
-                        },
-                        title: '그룹 생성',
-                        headerTintColor : colors.main,
-                        headerTitleAlign : 'center',
-                        headerTitleStyle : {
-                        fontSize : 20,
-                        },
-                        headerLeft : () => (
-                            <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
-                                <Image source={require('../assets/images/chevron_left.png')}
-                                    style={styles.headerLeftImage, styles.black}
-                                />
-                            </TouchableOpacity>
-                        ),
-                })} component={GroupCreateName} />
-                <Tab.Screen name="GroupCreateImage" options={ ({navigation}) =>  ({
-                        headerStyle :{
-                        backgroundColor: colors.white,
-                        height : metrics.topNavigationHeight,
-                        },
-                        title: '그룹 생성',
-                        headerTintColor : colors.main,
-                        headerTitleAlign : 'center',
-                        headerTitleStyle : {
-                        fontSize : 20,
-                        },
-                        headerLeft : () => (
-                            <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
-                                <Image source={require('../assets/images/chevron_left.png')}
-                                    style={styles.headerLeftImage, styles.black}
-                                />
-                            </TouchableOpacity>
-                        ),
-                })} component={GroupCreateImage} />
-                <Tab.Screen name="티끌 작성" component={TiccleCreate}
-                        options={ ({navigation}) =>  ({
-                            headerStyle :{
-                            backgroundColor: colors.main,
-                            height : metrics.topNavigationHeight,
-                        },
-                            headerTintColor : colors.main ,
-                        headerTitleAlign : 'center',
-                        headerTitleStyle : {
-                        fontSize : 20,
-                        },
-                        headerLeft : () => (
-                            <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
-                                <Image source={require('../assets/images/chevron_left.png')}
-                                    style={styles.headerLeftImage}
-                                />
-                            </TouchableOpacity>
-                        ),
-                        headerRight : () => (
-                            <TouchableOpacity style={styles.headerRightTouchable}>
-                                <Text style={styles.headerRightText}>저장</Text>
-                            </TouchableOpacity>
-                        )
-                        })}
-                />
+                <Tab.Screen options={{ headerShown: false }} name="TiccleStack" component={TiccleStackNavigator}/>
                 <Tab.Screen name="MyPage" component={MyPage} />
         </Tab.Navigator>
     </NavigationContainer>
@@ -102,12 +39,6 @@ const styles = StyleSheet.create({
         height: 20, 
         tintColor : colors.white
     },
-    black: {
-        tintColor: colors.main,
-        resizeMode : 'cover',
-        width : 12, 
-        height: 20, 
-    },
     headerRightTouchable : {
         alignItems: 'center',
         justifyContent : 'center',
@@ -123,4 +54,3 @@ const styles = StyleSheet.create({
 })
 
 export default TabNav;
-
