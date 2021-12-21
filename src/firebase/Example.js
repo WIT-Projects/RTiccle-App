@@ -6,9 +6,12 @@ import {
     uploadNewTiccle, 
     findAllGroup,
     findGroupById, 
+    findGroupsIncludeImage,
     findTiccleById, 
     checkIsExistingGroup,
-    findTiccleListByGroupId, } from "./Firestore";
+    findTiccleListByGroupId, 
+    getImagesOfTiccle, 
+} from "./Firestore";
 import firestore from '@react-native-firebase/firestore';
 
 function testUploadNewGroup() {
@@ -46,7 +49,14 @@ async function testFindAllGroups(){
 
 async function testFindGroupById() {
     const g = await findGroupById('new');
-    console.log(g.title, ":", g.description, g.lastModifiedTime.toDate());
+    console.log(g.title, ":", g.description, g.lastModifiedTime);
+}
+
+async function testFindGroupsIncludeImage() {
+    const groupList = await findGroupsIncludeImage(10);
+    groupList.forEach(g => {
+        console.log(g.title, ":", g.description, g.lastModifiedTime);
+    })
 }
 
 async function testFindTiccleById() {
@@ -64,12 +74,18 @@ async function testFindTiccleListByGroupId() {
     console.log(ticcleList);
 }
 
+async function testGetImagesOfTiccle() {
+    // not yet
+}
+
 export {
     testUploadNewGroup,
     testUploadNewTiccle,
     testFindAllGroups,
+    testFindGroupsIncludeImage,
     testFindGroupById,
     testFindTiccleById,
     testCheckIsExistingGroup,
     testFindTiccleListByGroupId,
+    testGetImagesOfTiccle,
 }

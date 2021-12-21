@@ -9,7 +9,7 @@ const userDoc = firestore().collection('RTiccle').doc(user.uid);
  * Group create function
  * @param {string} groupName 
  * @param {*} newGroup
- * @returns Group Id
+ * @returns {string} Group Id
  */
 async function createGroup(groupName, newGroup) {
     const ref = userDoc.collection("Group").doc(groupName);
@@ -20,7 +20,7 @@ async function createGroup(groupName, newGroup) {
 
 /**
  * @param {*} newTiccle
- * @returns Ticcle Id
+ * @returns {string} Ticcle Id
  */
 async function createTiccle(newTiccle) {
     const ref = userDoc.collection("Ticcle"); // using auto id
@@ -40,6 +40,7 @@ async function createTiccle(newTiccle) {
         bookmark: Boolean, // true if bookmarked
     }
  * @param {*} mainImageSource: main image source of group
+ * @returns {Promise<String>} created group id (== gorup name)
  */
 function uploadNewGroup(newGroupName, group, mainImageSource) {
     var imageName = '';
@@ -62,6 +63,7 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
         tagList: Array<String>
     }
  * @param {Array} images: image source array - LIMIT 2
+ * @returns {Promise<String>} created ticcle id (random)
  */
 function uploadNewTiccle(ticcle, images) {
     // upload images first
@@ -80,7 +82,7 @@ function uploadNewTiccle(ticcle, images) {
 
 /**
  * Get All Group of User
- * @returns QuerySnapshot
+ * @returns {QuerySnapshot}
  */
 async function findAllGroup() {
     const querySnapshot = await userDoc.collection("Group").get();
@@ -94,9 +96,33 @@ async function findAllGroup() {
 }
 
 /**
+ * Find groups include main image url with limiting
+ * @param {*} limit: maximum number of groups
+ * @returns {Array} Group List (include image url)
+ */
+async function findGroupsIncludeImage(limit) {
+    const query = userDoc.collection("Group")
+    .orderBy('lastModifiedTime', 'desc')
+    .limit(limit);
+    const querySnapshot = await query.get();
+    var groups = [];
+    querySnapshot.forEach(snapshot => {
+        const id = snapshot.id;
+        var data = snapshot.data();
+        var mainImageURL = null;
+        if(data.mainImage || data.mainImage != '') { // get download URL
+            mainImageURL = getDownloadURLByName(data.mainImage, false);
+        }
+        data = {...data, imageUrl: mainImageURL, id: id};
+        groups = [...groups, data];
+    })
+    return groups;
+}
+
+/**
  * check whether a group name exists or not
  * @param {string} groupName 
- * @returns true is existing group
+ * @returns {Boolean} true is existing group
  */
  async function checkIsExistingGroup(groupName) {
     const querySnapshot = await userDoc.collection("Group").get();
@@ -110,7 +136,7 @@ async function findAllGroup() {
 /**
  * Get One Group By Id (DocumentSnapshot.id)
  * @param {*} groupId 
- * @returns DocumentSnapshot(of Group doc) if exist, else null
+ * @returns {DocumentSnapshot} (of Group doc) if exist, else null
  */
 async function findGroupById(groupId) {
     const group = await userDoc.collection("Group").doc(groupId).get();
@@ -121,7 +147,7 @@ async function findGroupById(groupId) {
 /**
  * Get ticcle list by group id
  * @param {string} groupId 
- * @returns Ticcle List
+ * @returns {Array} Ticcle List
  */
 async function findTiccleListByGroupId(groupId) {
     const query = userDoc.collection("Ticcle")
@@ -140,12 +166,28 @@ async function findTiccleListByGroupId(groupId) {
 /**
  * Get One Ticcle By Id (DocumentSnapshot.id)
  * @param {*} ticcleId 
- * @returns DocumentSnapshot(of Ticcle doc) if exist, else null
+ * @returns {DocumentSnapshot} (of Ticcle doc) if exist, else null
  */
 async function findTiccleById(ticcleId) {
     const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
     if(ticcle.exists) return ticcle.data();
     else return null;
+}
+
+/**
+ * Get images of ticcle
+ * @param {Array} images // image name array - LIMIT 2
+ * @returns {Array} Image URL Array
+ */
+async function getImagesOfTiccle(images) {
+    var imageURLArr = [];
+    if(images !== undefined) {
+        images.map((imageName) => {
+            const URL = getDownloadURLByName(imageName, true);
+            imageURLArr.push(URL);
+        })
+    }
+    return imageURLArr;
 }
 
 export {
@@ -154,8 +196,10 @@ export {
     uploadNewGroup,
     uploadNewTiccle,
     findAllGroup,
+    findGroupsIncludeImage,
     checkIsExistingGroup,
     findTiccleListByGroupId,
     findGroupById,
     findTiccleById,
+    getImagesOfTiccle,
 }
