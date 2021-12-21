@@ -6,7 +6,7 @@ import { type } from '../../../../theme/fonts';
 
 function SaveButton({ buttonDisabled, navigation, text }) {
   return(
-    <View style={{alignItems:'center', backgroundColor:'red'}}>
+    <View style={{alignItems:'center'}}>
       <TouchableOpacity
       style={[styles.touchableOpacitiy,
         buttonDisabled ? styles.touchableDisableColor : styles.touchableColor

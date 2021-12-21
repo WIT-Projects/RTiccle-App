@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default TextInputGroup
+export default TextInputGroup;

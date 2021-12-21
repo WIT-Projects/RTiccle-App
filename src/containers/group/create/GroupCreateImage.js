@@ -24,12 +24,15 @@ const GroupCreateImage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-        <PhotoModal setImage={setImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible}></PhotoModal>
+        <View style={{}}><PhotoModal setImage={setImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible}></PhotoModal></View>
         <TextInfo title='마지막 단계예요.' subtitle='나만의 커버 이미지을 추가해 보세요!'></TextInfo>
         <ImageBackground
           source={source}
-          style={styles.headerImage}>
-            <View style={styles.headerImageInner}>
+              style={styles.headerImage}>
+            <ImageBackground source={require('../../../assets/images/groupImageGradation.png')}
+                    resizeMode="cover"
+                    style={{ width: "100%", height: 256 }}>
+                <View style={styles.headerImageInner}>
                 <View>
                     <Text style={styles.imageTitle}>현판</Text>
                     <Text style={styles.imageSubtitle}>데못죽 같은 거 모아두는 곳</Text>
@@ -38,10 +41,13 @@ const GroupCreateImage = ({navigation}) => {
                 onPress={() => setModalVisible(true)}>
                     <Image source={require('../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
                 </Pressable>
-            </View>
+                </View>
+            </ImageBackground>
         </ImageBackground>
         <SaveButton text="저장하기" buttonDisabled={groupCreateButtonDisable} navigation={navigation}></SaveButton>
-        <View style={{alignItems:'center',backgroundColor:'blue'}}><TouchableOpacity style={styles.skipButton}><Text style={styles.skipText}>건너뛰기</Text></TouchableOpacity></View>
+          <View style={{ alignItems: 'center' }}>
+              <TouchableOpacity style={styles.skipButton}><Text style={styles.skipText}>건너뛰기</Text></TouchableOpacity>
+          </View>
     </View>
   );
 };
@@ -53,6 +59,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
     },
     headerImage: {
+        resizeMode: 'cover',
+        width:'100%',
         height: 256,
         marginBottom: 128
     },
@@ -65,11 +73,13 @@ const styles = StyleSheet.create({
         paddingBottom: 18
     },
     imageTitle: {
+        fontFamily : type.spoqaHanSansNeo_Regular,
         fontSize: 24,
         fontWeight: 'bold',
         color: '#ffffff'
     },
     imageSubtitle: {
+        fontFamily : type.spoqaHanSansNeo_Regular,
         fontSize: 16,
         paddingTop: 8,
         color: '#ffffff'

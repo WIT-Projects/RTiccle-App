@@ -1,16 +1,13 @@
-import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
+import ImagePicker from 'react-native-image-crop-picker';
 
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
-import ImagePicker from 'react-native-image-crop-picker';
 
 const PhotoModal = ({setImage, isModalVisible, setModalVisible}) => {
   let image = '';
-  // let source;
-  
-  // image === '' ? source = require('../../../../assets/images/blankImage.png') : source = { uri: image }
 
   const takePhotoFromCamera = () => {
     setModalVisible(false);
@@ -50,36 +47,31 @@ const PhotoModal = ({setImage, isModalVisible, setModalVisible}) => {
   }
 
   return (
-    <View style={{ flex: 1, alignItems:'center'}}>
-      <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} backdropOpacity={0.8}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText} style={{ marginBottom: 24 }} onPress={takePhotoFromCamera}>사진 촬영</Text>
-          <Text style={styles.modalText} onPress={choosePhotoFromLibrary}>앨범에서 사진 선택</Text>
-        </View>
-      </Modal>
-    </View>
+    <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} backdropOpacity={0.8} style={styles.modal}>
+      <View style={styles.modalView}>
+        <Text style={styles.modalText} style={{ marginBottom: 24 }} onPress={takePhotoFromCamera}>사진 촬영</Text>
+        <Text style={styles.modalText} onPress={choosePhotoFromLibrary}>앨범에서 사진 선택</Text>
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 0
+  },
   modalView: {
-    marginTop: 250,
-    width: '80%',
-    backgroundColor: "white",
+    width: '75%',
+    backgroundColor: colors.white,
     borderRadius: 10,
     padding: 30,
     alignItems: "flex-start",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
   },
   modalText: {
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily : type.spoqaHanSansNeo_Regular,
   },
 });
 
