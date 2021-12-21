@@ -1,5 +1,14 @@
 /* This is example of using firebase function */
-import { createGroup, createTiccle, uploadNewGroup, uploadNewTiccle, getGroupById, getTiccleById } from "./Firestore";
+import {
+    createGroup, 
+    createTiccle, 
+    uploadNewGroup,
+    uploadNewTiccle, 
+    getAllGroup,
+    getGroupById, 
+    getTiccleById, 
+    checkIsExistingGroup,
+    getTiccleListByGroupId, } from "./Firestore";
 import firestore from '@react-native-firebase/firestore';
 
 function testUploadNewGroup() {
@@ -30,18 +39,37 @@ async function testUploadNewTiccle() {
     console.log(id);
 }
 
+async function testGetAllGroups(){
+    const groups = await getAllGroup();
+    console.log(groups);
+}
+
 async function testGetGroupById() {
     const g = await getGroupById('new');
-    console.log(g.title, ":", g.description);
+    console.log(g.title, ":", g.description, g.lastModifiedTime.toDate());
 }
 
 async function testGetTiccleById() {
     const t = await getTiccleById('kKV5AfefvSppAOQWcSaa');
-    console.log(t.title, ":", t.content);
+    console.log(t.title, ":", t.content, t.lastModifiedTime.toDate());
 }
+
+async function testCheckIsExistingGroup() {
+    const isExisting = await checkIsExistingGroup('new');
+    console.log("exists: ", isExisting);
+}
+
+async function testGetTiccleListByGroupId() {
+    const ticcleList = await getTiccleListByGroupId('new');
+    console.log(ticcleList);
+}
+
 export {
     testUploadNewGroup,
     testUploadNewTiccle,
+    testGetAllGroups,
     testGetGroupById,
     testGetTiccleById,
+    testCheckIsExistingGroup,
+    testGetTiccleListByGroupId,
 }

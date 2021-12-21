@@ -85,11 +85,28 @@ function uploadNewTiccle(newTiccleName, ticcle, images) {
  * @returns QuerySnapshot
  */
 async function getAllGroup() {
-    const groups = await userDoc.collection("Group").get();
-    // groups.forEach(snapshot => {
-    //     console.log(snapshot.id, snapshot.data());
-    // })
+    const querySnapshot = await userDoc.collection("Group").get();
+    var groups = [];
+    querySnapshot.forEach(snapshot => {
+        const id = snapshot.id;
+        const group = {...snapshot.data(), id}
+        groups = [...groups, group];
+    })
     return groups;
+}
+
+/**
+ * check whether a group name exists or not
+ * @param {string} groupName 
+ * @returns true is existing group
+ */
+ async function checkIsExistingGroup(groupName) {
+    const querySnapshot = await userDoc.collection("Group").get();
+    var found = false;
+    querySnapshot.forEach(snapshot => {
+        if(snapshot.id == groupName) found = true;
+    })
+    return found;
 }
 
 /**
@@ -99,8 +116,27 @@ async function getAllGroup() {
  */
 async function getGroupById(groupId) {
     const group = await userDoc.collection("Group").doc(groupId).get();
-    if (group.exists) return group._data;
+    if (group.exists) return group.data();
     else return null;
+}
+
+/**
+ * Get ticcle list by group id
+ * @param {string} groupId 
+ * @returns Ticcle List
+ */
+async function getTiccleListByGroupId(groupId) {
+    const query = userDoc.collection("Ticcle")
+    .where("group", "==", groupId);
+    const querySnapshot = await query.get();
+
+    var ticcleList = [];
+    querySnapshot.forEach(snapshot => {
+        const id = snapshot.id;
+        const ticcle = {...snapshot.data(), id}
+        ticcleList = [...ticcleList, ticcle];
+    });
+    return ticcleList;
 }
 
 /**
@@ -110,7 +146,7 @@ async function getGroupById(groupId) {
  */
 async function getTiccleById(ticcleId) {
     const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
-    if(ticcle.exists) return ticcle._data;
+    if(ticcle.exists) return ticcle.data();
     else return null;
 }
 
@@ -120,6 +156,8 @@ export {
     uploadNewGroup,
     uploadNewTiccle,
     getAllGroup,
+    checkIsExistingGroup,
+    getTiccleListByGroupId,
     getGroupById,
     getTiccleById,
 }
