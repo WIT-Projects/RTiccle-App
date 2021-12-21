@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-
-import { anonSignIn } from './src/firebase/auth';
-
+import { anonSignIn, googleSigninConfigure, getCurrentUser } from './src/firebase/Auth';
 import AppProvider from './src/context/provider/AppProvider';
 import TabNav from './src/navigation/TabNav';
 
-
-
 function App(){
   useEffect(() => {
-    anonSignIn(); // tmp
+    googleSigninConfigure();
+    if (getCurrentUser() == null) {
+      anonSignIn();
+    }
   }, []);
 
   return(
@@ -21,6 +20,4 @@ function App(){
   )
 }
 
-
 export default App;
-
