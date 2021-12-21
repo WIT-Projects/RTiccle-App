@@ -13,19 +13,19 @@ const userDoc = firestore().collection('RTiccle').doc(user.uid);
  */
 async function createGroup(groupName, newGroup) {
     const ref = userDoc.collection("Group").doc(groupName);
+    console.log(newGroup);
     await ref.set(newGroup);
     return ref.id;
 }
 
 /**
- * @param {string} ticcleName 
  * @param {*} newTiccle
  * @returns Ticcle Id
  */
-async function createTiccle(ticcleName, newTiccle) {
+async function createTiccle(newTiccle) {
     const ref = userDoc.collection("Ticcle"); // using auto id
-    await ref.add(newTiccle);
-    return ref.id;
+    const ticcleRef = await ref.add(newTiccle);
+    return ticcleRef.id;
 }
 
 /**
@@ -37,6 +37,7 @@ async function createTiccle(ticcleName, newTiccle) {
         type: integer, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
         title: String,
         description: String,
+        bookmark: Boolean, // true if bookmarked
     }
  * @param {*} mainImageSource: main image source of group
  */
@@ -51,7 +52,6 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
 
 /**
  * Upload new ticcle to firestore (upload image and group)
- * @param {string} newTiccleName 
  * @param {*} ticcle: ticcle info 
  *  * {
         lastModifiedTime: TimeStamp,
@@ -63,7 +63,7 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
     }
  * @param {Array} images: image source array - LIMIT 2
  */
-function uploadNewTiccle(newTiccleName, ticcle, images) {
+function uploadNewTiccle(ticcle, images) {
     // upload images first
     var imageArr = [];
     if(images !== undefined) {
@@ -73,18 +73,16 @@ function uploadNewTiccle(newTiccleName, ticcle, images) {
             uploadImageToStorage(imageName, image);
         })
     }
-    console.log(ticcle);
-    console.log({...ticcle, images: imageArr});
 
     // upload ticcle info
-    return createTiccle(newTiccleName, {...ticcle, images: imageArr});
+    return createTiccle({...ticcle, images: imageArr});
 }
 
 /**
  * Get All Group of User
  * @returns QuerySnapshot
  */
-async function getAllGroup() {
+async function findAllGroup() {
     const querySnapshot = await userDoc.collection("Group").get();
     var groups = [];
     querySnapshot.forEach(snapshot => {
@@ -114,7 +112,7 @@ async function getAllGroup() {
  * @param {*} groupId 
  * @returns DocumentSnapshot(of Group doc) if exist, else null
  */
-async function getGroupById(groupId) {
+async function findGroupById(groupId) {
     const group = await userDoc.collection("Group").doc(groupId).get();
     if (group.exists) return group.data();
     else return null;
@@ -125,7 +123,7 @@ async function getGroupById(groupId) {
  * @param {string} groupId 
  * @returns Ticcle List
  */
-async function getTiccleListByGroupId(groupId) {
+async function findTiccleListByGroupId(groupId) {
     const query = userDoc.collection("Ticcle")
     .where("group", "==", groupId);
     const querySnapshot = await query.get();
@@ -144,7 +142,7 @@ async function getTiccleListByGroupId(groupId) {
  * @param {*} ticcleId 
  * @returns DocumentSnapshot(of Ticcle doc) if exist, else null
  */
-async function getTiccleById(ticcleId) {
+async function findTiccleById(ticcleId) {
     const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
     if(ticcle.exists) return ticcle.data();
     else return null;
@@ -155,9 +153,9 @@ export {
     createTiccle,
     uploadNewGroup,
     uploadNewTiccle,
-    getAllGroup,
+    findAllGroup,
     checkIsExistingGroup,
-    getTiccleListByGroupId,
-    getGroupById,
-    getTiccleById,
+    findTiccleListByGroupId,
+    findGroupById,
+    findTiccleById,
 }
