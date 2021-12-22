@@ -13,7 +13,7 @@ const TiccleStack = createStackNavigator();
 
 const TiccleStackNavigator = () => {
 
-    const {setImageDeleteAll} = useTiccleCreateImage();
+    const {ticcleCreateImage ,setImageDeleteAll} = useTiccleCreateImage();
 
     return(
     <TiccleStack.Navigator initialRouteName="ticcleCreate">
@@ -45,7 +45,8 @@ const TiccleStackNavigator = () => {
                 <TouchableOpacity style={styles.headerRightTouchable}
                 onPress={()=> {
                     navigation.navigate('ticcleDetail')
-                    setImageDeleteAll()
+                    console.log(ticcleCreateImage)
+                    // setImageDeleteAll()
                 }}>
                     <Text style={styles.headerRightText}>저장</Text>
                 </TouchableOpacity>

@@ -34,7 +34,7 @@ const TiccleCreate = () => {
             <TiccleCreateTextInputGroup/>
 
             <View style={styles.imageCreateButtonContainer}>
-                {(ticcleCreateImage && ticcleCreateImage.length > 1) ?
+                {(ticcleCreateImage && ticcleCreateImage.length > 0) ?
                 <TiccleImageGroup setImage={setImageGallery}/> :
                 <TiccleImageCreateButton setImage={setImageGallery}/>
                 }

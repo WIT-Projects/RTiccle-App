@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useState } from 'react/cjs/react.development';
 import AppContext from '../AppContext';
+import uuid from 'react-native-uuid'
 
 const AppProvider = ({children}) => {
 
@@ -12,11 +13,7 @@ const AppProvider = ({children}) => {
         content : '',
     })
 
-    const [ticcleCreateImage, setTiccleCreateImage] = useState([{
-        id : 0,
-        path : ''
-    },
-])
+    const [ticcleCreateImage, setTiccleCreateImage] = useState([])
 
     const setTitle = (text) => {
         setTiccleCreateText(state => {return {...state, title: text}})
@@ -30,16 +27,21 @@ const AppProvider = ({children}) => {
     const setContent = (text) => {
         setTiccleCreateText(state => {return { ...state, content: text}})
     }
-
-    const imageId = useRef(1);
+    const setTextDeleteAll = () => {
+        setTiccleCreateText({
+            title: '',
+            link: '',
+            tag : '',
+            content : '',
+        })
+    }
 
     const setImage = (imagePath) => {
         const newImage = {
-            id :imageId.current,
+            id : uuid.v4(),
             path : imagePath
         }
         setTiccleCreateImage([...ticcleCreateImage , newImage])
-        imageId.current += 1;
     }
 
     const setImageDelete = (id) => {
@@ -47,11 +49,7 @@ const AppProvider = ({children}) => {
     }
 
     const setImageDeleteAll = () => {
-        setTiccleCreateImage([{
-            id : 0,
-            path : ''
-        },
-    ])
+        setTiccleCreateImage([])
     }
 
 
