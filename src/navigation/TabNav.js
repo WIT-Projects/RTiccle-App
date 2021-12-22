@@ -6,11 +6,10 @@ import colors from '../theme/colors';
 import { type } from '../theme/fonts';
 import metrics from '../theme/metrices';
 
-import MyPage from '../containers/user/MyPage';
-import TiccleCreate from '../containers/ticcle/create';
-
+import GroupCreate from '../containers/group/create/GroupCreate';
 import HomeStackNavigatior from './stack/HomeStackNavigator';
 import TiccleStackNavigator from './stack/TiccleStackNavigator';
+import MyPage from '../containers/user/MyPage'
 
 const TabNav = () => {
     const Tab = createBottomTabNavigator();
@@ -18,8 +17,13 @@ const TabNav = () => {
     return(
         <NavigationContainer>
             <Tab.Navigator>
-                <Tab.Screen options={{ headerShown: false }} name="HomeStack" component={HomeStackNavigatior} />
-                <Tab.Screen options={{ headerShown: false }} name="TiccleStack" component={TiccleStackNavigator}/>
+                <Tab.Screen options={{ headerShown: false }} name="HomeStack" component={HomeStackNavigatior}/>
+                <Tab.Screen name="GroupCreate" component={GroupCreate} />
+                <Tab.Screen
+                options={{
+                    headerShown: false,
+                    tabBarStyle : {display : 'none'}
+                }} name="TiccleStack" component={TiccleStackNavigator}/>
                 <Tab.Screen name="MyPage" component={MyPage} />
         </Tab.Navigator>
     </NavigationContainer>

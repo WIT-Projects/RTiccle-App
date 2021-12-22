@@ -59,7 +59,11 @@ const TiccleStackNavigator = () => (
                 lineHeight : 24,
             },
             headerLeft : () => (
-                <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => 
+                {
+                    navigation.pop()
+                    navigation.navigate('Home')
+                }}>
                     <Image source={require('../../assets/images/chevron_left.png')}
                         style={styles.headerLeftImage}
                     />
