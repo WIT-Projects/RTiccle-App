@@ -6,7 +6,7 @@ import colors from '../theme/colors';
 import { type } from '../theme/fonts';
 import metrics from '../theme/metrices';
 
-import MyPage from '../containers/user';
+import MyPage from '../containers/user/MyPage';
 import TiccleCreate from '../containers/ticcle/create';
 
 import HomeStackNavigatior from './stack/HomeStackNavigator';
