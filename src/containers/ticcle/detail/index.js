@@ -11,9 +11,9 @@ const TiccleDetail = () => {
 
     const {ticcleCreate} = useTiccleCreate();
     const ticcleTitle = ticcleCreate.title
-    const ticcleDate = ticcleCreate.date
     const ticcleLink = ticcleCreate.link
     const ticcleContent = ticcleCreate.content
+    const ticcleDate = ticcleCreate.dateYYMMDD
 
     const tagExample = ['2022년', '임인년',  'HappyNewYears', '22학번','R-Ticcle', '검은호랑이띠']
     return (

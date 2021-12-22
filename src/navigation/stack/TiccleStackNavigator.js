@@ -8,7 +8,6 @@ import TiccleCreate from '../../containers/ticcle/create';
 import TiccleDetail from '../../containers/ticcle/detail';
 import useTiccleCreate from '../../context/hook/UseTiccleCreate';
 
-import TiccleStackCreateHeaderLeft from './ticcleStack/create/TiccleStackCreateHeaderLeft';
 
 const TiccleStack = createStackNavigator();
 
@@ -72,6 +71,7 @@ const TiccleStackNavigator = () => {
             headerLeft : () => (
                 <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => 
                 {
+                    console.log(ticcleCreate)
                     deleteTiccleCreate()
                     navigation.pop()
                     navigation.navigate('Home')

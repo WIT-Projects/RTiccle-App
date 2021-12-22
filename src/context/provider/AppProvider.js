@@ -14,6 +14,7 @@ const AppProvider = ({children}) => {
         content : '',
         image: [],
         date: '',
+        dateYYMMDD: '',
         ticcleNumber: '',
         groupName: '',
     })
@@ -47,6 +48,10 @@ const AppProvider = ({children}) => {
             tag : '',
             content : '',
             image: [],
+            date: '',
+            dateYYMMDD: '',
+            ticcleNumber: '',
+            groupName: '',
         })
     }
 
@@ -54,13 +59,14 @@ const AppProvider = ({children}) => {
         setTiccleCreate(ticcleCreate.image.filter(ticcleImage => ticcleImage.id !== id) ) 
     }
 
-    const today = new Date()
-    const year = today.getFullYear().toString().substr(-2);
-    const month = today.getMonth() + 1;
-    const date = today.getDate();
-    const formattedToday = `${year}년 ${month}일 ${date}일`
+
     const setTiccleDate = () => {
-        setTiccleCreate(state => {return {...state, date : formattedToday}})
+        const today = new Date()
+        const year = today.getFullYear().toString().substr(-2);
+        const month = today.getMonth() + 1;
+        const date = today.getDate();
+        const formattedToday = `${year}년 ${month}일 ${date}일`
+        setTiccleCreate(state => {return {...state, date : today, dateYYMMDD : formattedToday}})
     }
 
     return(
