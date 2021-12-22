@@ -1,21 +1,16 @@
 import React from 'react';
 import { View, StyleSheet,ScrollView } from 'react-native';
-
 import TiccleImageCreateButton from './components/TiccleImageCreateButton';
 import TiccleContentTextInput from './components/TiccleContentTextInput';
 import TiccleCreateTextInputGroup from './group/TiccleCreateTextInputGroup';
 import TiccleImageGroup from './group/TiccleImageGroup';
 import colors from '../../../theme/colors';
-
-import useTiccleCreateText from '../../../context/hook/useTiccleCreateText';
-import useTiccleCreateImage from '../../../context/hook/useTiccleCreateImage';
-
 import ImagePicker from 'react-native-image-crop-picker';
+import useTiccleCreate from '../../../context/hook/UseTiccleCreate';
 
 const TiccleCreate = () => {
 
-    const {setContent} = useTiccleCreateText();
-    const {setImage, ticcleCreateImage} = useTiccleCreateImage();
+    const {setTiccleContent, setTiccleImage, ticcleCreate} = useTiccleCreate();
 
     const setImageGallery = () => {
         ImagePicker.openPicker({
@@ -24,7 +19,7 @@ const TiccleCreate = () => {
             cropping: true
         }).then(image => {
             console.log(image.path)
-            setImage(image.path)
+            setTiccleImage(image.path)
         })
     }
 
@@ -34,14 +29,14 @@ const TiccleCreate = () => {
             <TiccleCreateTextInputGroup/>
 
             <View style={styles.imageCreateButtonContainer}>
-                {(ticcleCreateImage && ticcleCreateImage.length > 0) ?
+                {(ticcleCreate.image && ticcleCreate.image.length > 0) ?
                 <TiccleImageGroup setImage={setImageGallery}/> :
                 <TiccleImageCreateButton setImage={setImageGallery}/>
                 }
             </View>
 
             <View style={styles. ticcleContentContainer}>
-                <TiccleContentTextInput onChangeText ={setContent}/>
+                <TiccleContentTextInput onChangeText ={setTiccleContent}/>
             </View>
 
         </ScrollView>

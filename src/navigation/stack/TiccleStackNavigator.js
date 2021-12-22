@@ -1,19 +1,20 @@
 import React from 'react';
 import { Image,StyleSheet,TouchableOpacity,Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 import TiccleCreate from '../../containers/ticcle/create';
 import TiccleDetail from '../../containers/ticcle/detail';
-import useTiccleCreateImage from '../../context/hook/useTiccleCreateImage';
+import useTiccleCreate from '../../context/hook/UseTiccleCreate';
+
+import TiccleStackCreateHeaderLeft from './ticcleStack/create/TiccleStackCreateHeaderLeft';
 
 const TiccleStack = createStackNavigator();
 
 const TiccleStackNavigator = () => {
 
-    const {ticcleCreateImage ,setImageDeleteAll} = useTiccleCreateImage();
+    const {ticcleCreate, deleteTiccleCreate, setTiccleDate} = useTiccleCreate();
 
     return(
     <TiccleStack.Navigator initialRouteName="ticcleCreate">
@@ -44,9 +45,9 @@ const TiccleStackNavigator = () => {
             headerRight : () => (
                 <TouchableOpacity style={styles.headerRightTouchable}
                 onPress={()=> {
+                    setTiccleDate()
                     navigation.navigate('ticcleDetail')
-                    console.log(ticcleCreateImage)
-                    // setImageDeleteAll()
+                    console.log(ticcleCreate)
                 }}>
                     <Text style={styles.headerRightText}>저장</Text>
                 </TouchableOpacity>
@@ -71,6 +72,7 @@ const TiccleStackNavigator = () => {
             headerLeft : () => (
                 <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => 
                 {
+                    deleteTiccleCreate()
                     navigation.pop()
                     navigation.navigate('Home')
                 }}>

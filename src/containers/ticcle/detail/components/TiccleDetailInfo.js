@@ -3,15 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity,Image, Linking, Alert } from '
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-const TiccleDetailInfo = () => {
+const TiccleDetailInfo = ({title, date, link}) => {
 
-    const ticcleDetailDate = "21.12.20"
-    const ticcleDetailTitle = "21년의 마무리"
-    const urlExample = "https://www.naver.com/"
-    const urlExample2 = ""
+    const ticcleDetailDate = date
+    const ticcleDetailTitle = title
+    const URLLink = link
 
     const goToURL = () => {
-        Linking.openURL(urlExample)
+        Linking.openURL(URLLink)
     }
 
     return(
@@ -19,7 +18,7 @@ const TiccleDetailInfo = () => {
             <Text style={styles.date}>{ticcleDetailDate}</Text>
             <Text style={styles.title}>{ticcleDetailTitle}</Text>
 
-        {urlExample.length > 0 ? 
+        {URLLink.length > 0 ? 
         <View  style={styles.linkConatiner}>
             <TouchableOpacity style={styles.touchableContainer} onPress={goToURL}>
                 <Text style={styles.linkText}>원본글 가기</Text>

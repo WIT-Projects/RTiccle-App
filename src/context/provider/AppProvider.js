@@ -6,55 +6,68 @@ import uuid from 'react-native-uuid'
 const AppProvider = ({children}) => {
 
 
-    const [ticcleCreateText, setTiccleCreateText] = useState({
+    const [ticcleCreate, setTiccleCreate] = useState({
+        id : '',
         title: '',
         link: '',
         tag : '',
         content : '',
+        image: [],
+        date: '',
+        ticcleNumber: '',
+        groupName: '',
     })
 
-    const [ticcleCreateImage, setTiccleCreateImage] = useState([])
-
-    const setTitle = (text) => {
-        setTiccleCreateText(state => {return {...state, title: text}})
+    const setTiccleTitle = (text) => {
+        setTiccleCreate(state => {return {...state, title: text}})
     }
-    const setLink = (text) => {
-        setTiccleCreateText(state => {return {...state, link: text}})
+    const setTiccleLink = (text) => {
+        setTiccleCreate(state => {return {...state, link: text}})
     }
-    const setTag = (text) => {
-        setTiccleCreateText(state => {return {...state, tag: text}})
+    const setTiccleTag = (text) => {
+        setTiccleCreate(state => {return {...state, tag: text}})
     }
-    const setContent = (text) => {
-        setTiccleCreateText(state => {return { ...state, content: text}})
+    const setTiccleContent = (text) => {
+        setTiccleCreate(state => {return { ...state, content: text}})
     }
-    const setTextDeleteAll = () => {
-        setTiccleCreateText({
-            title: '',
-            link: '',
-            tag : '',
-            content : '',
-        })
-    }
-
-    const setImage = (imagePath) => {
+    
+    const setTiccleImage = (imagePath) => {
+        const oldImage = ticcleCreate.image
         const newImage = {
             id : uuid.v4(),
             path : imagePath
         }
-        setTiccleCreateImage([...ticcleCreateImage , newImage])
+        setTiccleCreate(state => {return {...state, image: [...oldImage ,newImage]}})
     }
 
-    const setImageDelete = (id) => {
-        setTiccleCreateImage(ticcleCreateImage.filter(ticcleImage => ticcleImage.id !== id) ) 
+    const deleteTiccleCreate = () => {
+        setTiccleCreate({
+            title: '',
+            link: '',
+            tag : '',
+            content : '',
+            image: [],
+        })
     }
 
-    const setImageDeleteAll = () => {
-        setTiccleCreateImage([])
+    const deleteTiccleImage = (id) => {
+        setTiccleCreate(ticcleCreate.image.filter(ticcleImage => ticcleImage.id !== id) ) 
     }
 
+    const today = new Date()
+    const year = today.getFullYear().toString().substr(-2);
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+    const formattedToday = `${year}년 ${month}일 ${date}일`
+    const setTiccleDate = () => {
+        setTiccleCreate(state => {return {...state, date : formattedToday}})
+    }
 
     return(
-        <AppContext.Provider value={{setTitle, setLink, setTag, setContent, setImage, setImageDelete, setImageDeleteAll ,ticcleCreateImage}}>
+        <AppContext.Provider value={{ticcleCreate, setTiccleCreate,
+            setTiccleTitle, setTiccleLink, setTiccleTag, setTiccleContent, setTiccleImage, deleteTiccleCreate, deleteTiccleImage,
+            setTiccleDate
+        }}>
             {children}
         </AppContext.Provider>
     )

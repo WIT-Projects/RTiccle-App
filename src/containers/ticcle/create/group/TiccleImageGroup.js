@@ -1,24 +1,22 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import useTiccleCreateImage from '../../../../context/hook/useTiccleCreateImage';
+import useTiccleCreate from '../../../../context/hook/UseTiccleCreate';
 import TiccleImage from '../components/TiccleImage';
-
-import ImagePicker from 'react-native-image-crop-picker';
 
 const TiccleImageGroup = ({setImage}) => {
 
-    const {setImageDelete, ticcleCreateImage} = useTiccleCreateImage();
+    const {ticcleCreate ,deleteTiccleImage} = useTiccleCreate();
 
-    const ticcleImageList = ticcleCreateImage.map(
-        (imageSource, index) => (
-            <TiccleImage key={index}
-            setImage={setImage} deleteImage={setImageDelete} imageSource={imageSource.path} imageId={imageSource.id}/>
+    const ticcleImageList = ticcleCreate.image.map(
+        (imageSource) => (
+            <TiccleImage key={imageSource.id}
+            setImage={setImage} deleteImage={deleteTiccleImage} imageSource={imageSource.path} imageId={imageSource.id}/>
             ))
 
     return(
         <View style={styles.container}>
             {ticcleImageList}
-            {ticcleCreateImage.length < 3 ? <TiccleImage setImage={setImage} deleteImage={setImageDelete}/> : <></>}    
+            {ticcleCreate.image.length < 3 ? <TiccleImage setImage={setImage} deleteImage={deleteTiccleImage}/> : null}    
         </View>
     )
 }
