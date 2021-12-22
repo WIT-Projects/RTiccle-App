@@ -5,9 +5,9 @@ import TiccleImage from '../components/TiccleImage';
 
 import ImagePicker from 'react-native-image-crop-picker';
 
-const TiccleImageGroup = () => {
+const TiccleImageGroup = ({setImage}) => {
 
-    const {setImage, setImageDelete, ticcleCreateImage} = useTiccleCreateImage();
+    const {setImageDelete, ticcleCreateImage} = useTiccleCreateImage();
 
     const ticcleImageList = ticcleCreateImage.filter(image => image.id !== 0).map(
         (imageSource, index) => (
@@ -17,10 +17,8 @@ const TiccleImageGroup = () => {
 
     return(
         <View style={styles.container}>
-
             {ticcleImageList}
-            {ticcleCreateImage.length <= 3 ? <TiccleImage setImage={setImage} deleteImage={setImageDelete}/> : <></>}
-            
+            {ticcleCreateImage.length <= 3 ? <TiccleImage setImage={setImage} deleteImage={setImageDelete}/> : <></>}    
         </View>
     )
 }

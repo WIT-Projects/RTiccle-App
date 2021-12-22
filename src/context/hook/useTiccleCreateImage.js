@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import AppContext from '../AppContext';
 
 const useTiccleCreateImage = () => {
-    const {setImage, setImageDelete, ticcleCreateImage} = useContext(AppContext);
+    const {setImage, setImageDelete, setImageDeleteAll, ticcleCreateImage} = useContext(AppContext);
 
-    return {setImage, setImageDelete, ticcleCreateImage};
+    return {setImage, setImageDelete, setImageDeleteAll, ticcleCreateImage};
 }
 
 

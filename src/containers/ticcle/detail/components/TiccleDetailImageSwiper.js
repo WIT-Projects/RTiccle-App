@@ -5,10 +5,10 @@ import colors from '../../../../theme/colors';
 
 const TiccleDetailImageSwiper = ({images}) => {
 
-    const imageGroup = images.map(
+    const imageGroup = images.filter(image => image.id !== 0).map(
         (imageSource, index) => (
-            <View style={styles.imageConatiner} key={index}>
-                <Image source={imageSource}
+            <View style={styles.imageConatiner} key={imageSource.id}>
+                <Image source={{uri: imageSource.path}}
                 style={styles.image}></Image>
             </View>
         )

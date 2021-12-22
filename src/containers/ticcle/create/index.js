@@ -10,11 +10,23 @@ import colors from '../../../theme/colors';
 import useTiccleCreateText from '../../../context/hook/useTiccleCreateText';
 import useTiccleCreateImage from '../../../context/hook/useTiccleCreateImage';
 
+import ImagePicker from 'react-native-image-crop-picker';
 
 const TiccleCreate = () => {
 
     const {setContent} = useTiccleCreateText();
     const {setImage, ticcleCreateImage} = useTiccleCreateImage();
+
+    const setImageGallery = () => {
+        ImagePicker.openPicker({
+            width : 375,
+            height : 375,
+            cropping: true
+        }).then(image => {
+            console.log(image.path)
+            setImage(image.path)
+        })
+    }
 
     return(
         <ScrollView style={styles.container}>
@@ -23,8 +35,8 @@ const TiccleCreate = () => {
 
             <View style={styles.imageCreateButtonContainer}>
                 {(ticcleCreateImage && ticcleCreateImage.length > 1) ?
-                <TiccleImageGroup/> :
-                <TiccleImageCreateButton setImage={setImage}/>
+                <TiccleImageGroup setImage={setImageGallery}/> :
+                <TiccleImageCreateButton setImage={setImageGallery}/>
                 }
             </View>
 

@@ -7,10 +7,15 @@ import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 import TiccleCreate from '../../containers/ticcle/create';
 import TiccleDetail from '../../containers/ticcle/detail';
+import useTiccleCreateImage from '../../context/hook/useTiccleCreateImage';
 
 const TiccleStack = createStackNavigator();
 
-const TiccleStackNavigator = () => (
+const TiccleStackNavigator = () => {
+
+    const {setImageDeleteAll} = useTiccleCreateImage();
+
+    return(
     <TiccleStack.Navigator initialRouteName="ticcleCreate">
         <TiccleStack.Screen 
             name="ticcleCreate"
@@ -37,7 +42,11 @@ const TiccleStackNavigator = () => (
                 </TouchableOpacity>
             ),
             headerRight : () => (
-                <TouchableOpacity style={styles.headerRightTouchable} onPress={()=> navigation.navigate('ticcleDetail')}>
+                <TouchableOpacity style={styles.headerRightTouchable}
+                onPress={()=> {
+                    navigation.navigate('ticcleDetail')
+                    setImageDeleteAll()
+                }}>
                     <Text style={styles.headerRightText}>저장</Text>
                 </TouchableOpacity>
             )
@@ -76,7 +85,7 @@ const TiccleStackNavigator = () => (
             )
             })}/>
     </TiccleStack.Navigator>
-);
+    )};
 
 const styles = StyleSheet.create({
     headerLeftTouchable :{

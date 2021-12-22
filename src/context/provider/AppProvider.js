@@ -42,15 +42,21 @@ const AppProvider = ({children}) => {
         imageId.current += 1;
     }
 
-
     const setImageDelete = (id) => {
         setTiccleCreateImage(ticcleCreateImage.filter(ticcleImage => ticcleImage.id !== id) ) 
     }
 
+    const setImageDeleteAll = () => {
+        setTiccleCreateImage([{
+            id : 0,
+            path : ''
+        },
+    ])
+    }
 
 
     return(
-        <AppContext.Provider value={{setTitle, setLink, setTag, setContent, setImage, setImageDelete, ticcleCreateImage}}>
+        <AppContext.Provider value={{setTitle, setLink, setTag, setContent, setImage, setImageDelete, setImageDeleteAll ,ticcleCreateImage}}>
             {children}
         </AppContext.Provider>
     )
