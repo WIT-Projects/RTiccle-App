@@ -32,4 +32,19 @@ async function uploadImageToStorage(imageName, source, isTiccle) {
     });
 }
 
-export default uploadImageToStorage;
+/**
+ * Get download URL by imageName
+ * @param {string} imageName: image name 
+ * @param {boolean} isTiccle: image type (ture if ticcle image, false if group image)
+ * @returns URL
+ */
+async function getDownloadURLByName(imageName, isTiccle) {
+    const user = getCurrentUser();
+    const userRef = isTiccle ? storage().ref("ticcle").child(user.uid) : storage().ref("group").child(user.uid);
+    return await storage().userRef.child(imageName).getDownloadURL();
+}
+
+export {
+    uploadImageToStorage,
+    getDownloadURLByName,
+}

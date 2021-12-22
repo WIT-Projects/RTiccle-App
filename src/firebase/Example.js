@@ -1,36 +1,91 @@
 /* This is example of using firebase function */
-import { createGroup, createTiccle } from "./Firestore";
+import {
+    createGroup, 
+    createTiccle, 
+    uploadNewGroup,
+    uploadNewTiccle, 
+    findAllGroup,
+    findGroupById, 
+    findGroupsIncludeImage,
+    findTiccleById, 
+    checkIsExistingGroup,
+    findTiccleListByGroupId, 
+    getImagesOfTiccle, 
+} from "./Firestore";
 import firestore from '@react-native-firebase/firestore';
 
-function testCreateGroup() {
+function testUploadNewGroup() {
     const groupName = 'new';
-    let newGroup = {
+    const newGroup = {
         lastModifiedTime: firestore.Timestamp.fromDate(new Date()),
         type: 5, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
         title: groupName,
         description: 'this is testing group',
-        mainImage: '' // URL in Storage
+        bookmark: false,
     }
-    createGroup(groupName, newGroup)
+    const imageSource = '';
+    uploadNewGroup(groupName, newGroup, imageSource)
     .then((ref) => console.log(ref));
 }
 
-async function testCreateTiccle() {
-    const ticcleName = 'newTiccle';
-    let newTiccle =  {
+async function testUploadNewTiccle() {
+    const newTiccle =  {
         lastModifiedTime: firestore.Timestamp.fromDate(new Date()),
         group: 'new',
-        title: ticcleName,
+        title: 'newTiccleName',
         link: '', // URL of original content
-        imageList: null, // limit: 2 // { "ref": "message", }
         content: 'this is testing ticcle',
         tagList: ['테스트', '가자']
     }
-    const id = await createTiccle(ticcleName, newTiccle);
+    const images = [];
+    const id = await uploadNewTiccle(newTiccle, images);
     console.log(id);
 }
 
+async function testFindAllGroups(){
+    const groups = await findAllGroup();
+    console.log(groups);
+}
+
+async function testFindGroupById() {
+    const g = await findGroupById('new');
+    console.log(g.title, ":", g.description, g.lastModifiedTime);
+}
+
+async function testFindGroupsIncludeImage() {
+    const groupList = await findGroupsIncludeImage(10);
+    groupList.forEach(g => {
+        console.log(g.title, ":", g.description, g.lastModifiedTime);
+    })
+}
+
+async function testFindTiccleById() {
+    const t = await findTiccleById('kKV5AfefvSppAOQWcSaa');
+    console.log(t.title, ":", t.content, t.lastModifiedTime.toDate());
+}
+
+async function testCheckIsExistingGroup() {
+    const isExisting = await checkIsExistingGroup('new');
+    console.log("exists: ", isExisting);
+}
+
+async function testFindTiccleListByGroupId() {
+    const ticcleList = await findTiccleListByGroupId('new');
+    console.log(ticcleList);
+}
+
+async function testGetImagesOfTiccle() {
+    // not yet
+}
+
 export {
-    testCreateGroup,
-    testCreateTiccle,
+    testUploadNewGroup,
+    testUploadNewTiccle,
+    testFindAllGroups,
+    testFindGroupsIncludeImage,
+    testFindGroupById,
+    testFindTiccleById,
+    testCheckIsExistingGroup,
+    testFindTiccleListByGroupId,
+    testGetImagesOfTiccle,
 }
