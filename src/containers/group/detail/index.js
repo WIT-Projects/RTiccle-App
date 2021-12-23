@@ -3,7 +3,6 @@ import {Image, TouchableOpacity, StyleSheet} from "react-native";
 
 import GroupInfo from './components/groupInfo';
 import Search from './components/search';
-import Bottom from './components/bottom';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 
