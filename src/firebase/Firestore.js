@@ -205,11 +205,28 @@ async function checkExsitedGroup(){
 
 /**
  * get group's ticcle count by groupId
- * @returns {Array} ticcle length
+ * @returns {Int} ticcle length
  */
 async function getTiccleCount(groupId) {
     const ticcleList = await findTiccleListByGroupId(groupId);
     return ticcleList.length;
+}
+
+/**
+ * get group date include image by groupId
+ * @returns {Array} group data
+ */
+async function getGroupDataIncludeImage(groupId) {
+    const group = await userDoc.collection("Group").doc(groupId).get();
+    if (group.exists){
+        let data = group.data();
+        var mainImageURL = null;
+        if(data.mainImage || data.mainImage != '') { // get download URL
+            mainImageURL = getDownloadURLByName(data.mainImage, false);
+        }
+        data = {...data, imageUrl: mainImageURL, id: id};
+        return data;
+    }else return null;
 }
 
 export {
@@ -226,4 +243,5 @@ export {
     getImagesOfTiccle,
     checkExsitedGroup,
     getTiccleCount,
+    getGroupDataIncludeImage,
 }
