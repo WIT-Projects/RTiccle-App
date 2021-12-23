@@ -1,6 +1,6 @@
-/* This is example of using firebase function */
 import {
     findGroupsIncludeImage,
+    findTiccleListByGroupId
 } from "../../../firebase/Firestore";
 
 async function getNewTiccleGroupList(size) {
@@ -8,6 +8,12 @@ async function getNewTiccleGroupList(size) {
     return groupList;
 }
 
+async function getTiccleCount(groupId) {
+    const ticcleList = await findTiccleListByGroupId(groupId);
+    return ticcleList.length;
+}
+
 export {
-    getNewTiccleGroupList
+    getNewTiccleGroupList,
+    getTiccleCount,
 }

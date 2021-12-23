@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
+import { getTiccleCount } from '../container/HomeContainer';
 
-const TiccleGroup = ({imgUrl, groupTitle, ticcleTitle, count}) => {
+const TiccleGroup = ({imgUrl, groupTitle, ticcleTitle}) => {
     const navigateTo = useNavigation();
+    const [ticcleCount, setTiccleCount] = useState([]);
+    
+    useEffect(() => {
+        const getCount = getTiccleCount(groupTitle);
+        getCount.then((value) => setTiccleCount(value));
+    }, []);
 
     return (
-        <>
         <View onTouchEnd={() => { navigateTo.navigate('GroupDetail', {groupId: groupTitle}) }}>
             <ImageBackground source={{uri:imgUrl}}
                 resizeMode="cover"
@@ -20,12 +26,11 @@ const TiccleGroup = ({imgUrl, groupTitle, ticcleTitle, count}) => {
                                 <Text style={styles.subFont}>{groupTitle}</Text>
                                 <Text style={styles.whiteFont}>최신글</Text>
                                 <Text style={styles.whiteFont}>{ticcleTitle}</Text>
-                                <View style={styles.container2}><Text style={styles.blackFont}>+{count}</Text></View>
+                                <View style={styles.container2}><Text style={styles.blackFont}>+{ticcleCount}</Text></View>
                             </View>
                     </ImageBackground>
             </ImageBackground>
         </View>
-        </>   
     );
 }
 
@@ -56,6 +61,5 @@ const styles = StyleSheet.create({
         fontSize : 12,
     },
 })
-
 
 export default TiccleGroup;

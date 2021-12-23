@@ -10,15 +10,17 @@ const NewTiccleGroupList = () => {
     useEffect(() => {
         const getData = getNewTiccleGroupList(10);
         getData.then((value) => setData(value));
-        console.log(data);
     }, []);
 
     return (
         <>
             <Text style={styles.blackBoldFont}>신규 티끌이 생성된 그룹</Text>
-            <View style={styles.container} >
-                {data.map((item) => {return (<TiccleGroup key={item.id} imgUrl={item.imgUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'} count={'ticcle count'}></TiccleGroup>)})}
-            </View>
+            {data.length != 0 ? 
+                <View style={styles.container} >
+                    {data.map((item) => {return (<TiccleGroup key={item.id} imgUrl={item.imgUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'}></TiccleGroup>)})}
+                </View> 
+                : <Text>작성된 티끌이 존재하지 않습니다.</Text>
+            }
         </>
     );
 }
