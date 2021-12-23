@@ -2,13 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import { type } from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
-import { useNavigation } from '@react-navigation/native';
-
-import {testUploadNewGroup, testUploadNewTiccle } from '../../../firebase/Example';
 import {getNewTiccleGroupList} from '../container/HomeContainer';
 
 const NewTiccleGroupList = () => {
-    const navigateTo = useNavigation();
     const [data, setData] = useState([]);
     
     useEffect(() => {
@@ -16,8 +12,6 @@ const NewTiccleGroupList = () => {
         getData.then((value) => setData(value));
         console.log(data);
     }, []);
-
-    
 
     return (
         <>
@@ -41,6 +35,5 @@ const styles = StyleSheet.create({
         marginBottom: 18,
     },
 })
-
 
 export default NewTiccleGroupList;

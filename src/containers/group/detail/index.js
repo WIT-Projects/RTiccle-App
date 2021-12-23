@@ -6,24 +6,29 @@ import Search from './components/search';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 
-import { getGroupDataIncludeImage } from './container/GroupDetailContainer';
+import { getGroupDataIncludeImage, getTiccleList } from './container/GroupDetailContainer';
 
 const GroupDetail = ({route}) => {
-  const [existTiccle, setExistTiccle] = useState(true);
-  const [groupData, setGroupData] = useState([]);
+    const [groupData, setGroupData] = useState([]);
+    const [ticcleList, setTiccleList] = useState([]);
 
-  useEffect(() => {
+    useEffect(() => {
+    // get group data
       const getData = getGroupDataIncludeImage(route.params.groupId);
       getData.then((value) => setGroupData(value));
-      console.log(groupData.description);
+
+    //get ticcle List
+      const getTiccleData = getTiccleList(route.params.groupId);
+      getTiccleData.then((value) => {
+        setTiccleList(value);
+      });
   }, []);
 
-  console.log(route.params.groupId);
   return(
     <>
       <GroupInfo title={route.params.groupId} imgUrl={groupData.imageUrl} content={groupData.description}/>
       <Search></Search>
-      {existTiccle? <GroupDetailTiccleList/>: <ZeroTiccle/>}
+      {ticcleList.length != 0? <GroupDetailTiccleList ticcleList={ticcleList}/>: <ZeroTiccle/>}
       {/* Floating Button */}
       <TouchableOpacity activeOpacity={0.5} style={styles.touchableOpacityStyle} >
         <Image source={require('../../../assets/icon/make.png')}  style={styles.floatingButtonStyle} />

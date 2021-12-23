@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import { getCurrentUser } from '../../../../firebase/Auth';
 import { getDownloadURLByName } from '../../../../firebase/Storage';
+import { findTiccleListByGroupId } from '../../../../firebase/Firestore';
 
 const user = getCurrentUser();
 const userDoc = firestore().collection('RTiccle').doc(user.uid);
@@ -18,6 +19,12 @@ async function getGroupDataIncludeImage(groupId) {
     }else return null;
 }
 
+async function getTiccleList(groupId){
+    const ticcleList = await findTiccleListByGroupId(groupId);
+    return ticcleList;
+}
+
 export {
-    getGroupDataIncludeImage
+    getGroupDataIncludeImage,
+    getTiccleList
 }
