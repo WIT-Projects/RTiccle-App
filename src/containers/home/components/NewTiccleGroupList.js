@@ -2,20 +2,27 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import { type } from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
-import {getNewTiccleGroupList} from '../container/HomeContainer';
+import { findGroupsIncludeImage, checkExsitedGroup } from '../../../firebase/Firestore';
 
 const NewTiccleGroupList = () => {
+    const [isExistGroup, setExistGroup] = useState(false);
     const [data, setData] = useState([]);
-    
+
     useEffect(() => {
-        const getData = getNewTiccleGroupList(10);
-        getData.then((value) => setData(value));
+        let getIsExist = checkExsitedGroup();
+        getIsExist.then((value) => {
+            setExistGroup(value);
+            if(value != 0){
+                const getData = findGroupsIncludeImage(10);
+                getData.then((value) => setData(value));
+            }
+        });
     }, []);
 
     return (
         <>
             <Text style={styles.blackBoldFont}>신규 티끌이 생성된 그룹</Text>
-            {data.length != 0 ? 
+            {isExistGroup ? 
                 <View style={styles.container} >
                     {data.map((item) => {return (<TiccleGroup key={item.id} imgUrl={item.imgUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'}></TiccleGroup>)})}
                 </View> 

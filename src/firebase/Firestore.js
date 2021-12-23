@@ -190,6 +190,28 @@ async function getImagesOfTiccle(images) {
     return imageURLArr;
 }
 
+/**
+ * Check existed group
+ * @returns {boolean} true: existed, false: not existed
+ */
+async function checkExsitedGroup(){
+    const querySnapshot = await userDoc.collection("Group").get();
+    if(querySnapshot.size === 0){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+/**
+ * get group's ticcle count by groupId
+ * @returns {Array} ticcle length
+ */
+async function getTiccleCount(groupId) {
+    const ticcleList = await findTiccleListByGroupId(groupId);
+    return ticcleList.length;
+}
+
 export {
     createGroup,
     createTiccle,
@@ -202,4 +224,6 @@ export {
     findGroupById,
     findTiccleById,
     getImagesOfTiccle,
+    checkExsitedGroup,
+    getTiccleCount,
 }

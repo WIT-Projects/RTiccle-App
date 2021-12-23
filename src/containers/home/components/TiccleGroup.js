@@ -3,7 +3,7 @@ import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
-import { getTiccleCount } from '../container/HomeContainer';
+import { getTiccleCount } from '../../../firebase/Firestore';
 
 const TiccleGroup = ({imgUrl, groupTitle, ticcleTitle}) => {
     const navigateTo = useNavigation();
