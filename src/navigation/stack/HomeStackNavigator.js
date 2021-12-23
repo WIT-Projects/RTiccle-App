@@ -21,10 +21,10 @@ const HomeStackNavigatior = () => (
             options={ ({navigation}) =>  ({
                 title:"RTICCLE",
                 headerLeft: () => (
-                    <Image source={require('../../assets/images/logo.png')}/>
+                    <Image style={{marginLeft: 18}} source={require('../../assets/images/logo.png')}/>
                 ),
                 headerRight:() => (
-                    <Image source={require('../../assets/icon/searchBlack.png')}/>
+                    <Image style={{marginRight: 28}} source={require('../../assets/icon/searchBlack.png')}/>
                 ),
         })} />
         <HomeStack.Screen options={{ headerShown: false }} name="GroupDetail" component={GroupDetail} />
