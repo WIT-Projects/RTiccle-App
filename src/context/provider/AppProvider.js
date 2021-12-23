@@ -55,9 +55,8 @@ const AppProvider = ({children}) => {
     }
 
     const deleteTiccleImage = (id) => {
-        setTiccleCreate(ticcleCreate.image.filter(ticcleImage => ticcleImage.id !== id) ) 
+        setTiccleCreate(state => {return {...state, image : ticcleCreate.image.filter(ticcleImage => ticcleImage.id !== id)}}) 
     }
-
 
     const setTiccleDate = () => {
         const today = new Date()

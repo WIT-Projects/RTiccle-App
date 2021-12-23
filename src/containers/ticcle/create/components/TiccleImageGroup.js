@@ -10,8 +10,8 @@ const TiccleImageGroup = ({setModalVisibleTrue}) => {
 
     const ticcleImageList = ticcleCreate.image.map(
         (imageSource) => (
-            <TiccleImage key={imageSource.id}
-            setModalVisibleTrue={setModalVisibleTrue} deleteImage={deleteTiccleImage} imageSource={imageSource.path} imageId={imageSource.id}/>
+            <TiccleImage key={imageSource.id} setModalVisibleTrue={setModalVisibleTrue} 
+            deleteImage={deleteTiccleImage} imageSource={imageSource.path} imageId={imageSource.id}/>
             ))
 
     return(

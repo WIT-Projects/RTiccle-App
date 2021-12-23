@@ -1,10 +1,21 @@
 import React from 'react';
-import { TouchableOpacity,Image, StyleSheet, View } from 'react-native';
+import { TouchableOpacity,Image, StyleSheet, View, Alert } from 'react-native';
 import colors from '../../../../theme/colors';
 
 const TiccleImage = ({setModalVisibleTrue, deleteImage ,imageSource, imageId}) => {
 
-
+    const removeAlert = () => {Alert.alert(
+        '',
+        '사진을 삭제하시겠습니까?',
+        [
+            {text : '뒤로가기', onPress: () => {}},
+            {text: "삭제", onPress: () => {deleteImage(imageId)}}
+        ],
+        {
+            cancelable: true,
+            onDismiss: () => {}
+        }
+    )};
 
     return (
         <View style={styles.container}>
@@ -15,7 +26,7 @@ const TiccleImage = ({setModalVisibleTrue, deleteImage ,imageSource, imageId}) =
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={styles.xButtonContainer} onPress={() => deleteImage(imageId)} activeOpacity={0.75}>
+                style={styles.xButtonContainer} onPress={removeAlert} activeOpacity={0.75}>
                 <Image source={require('../../../../assets/images/x_circle_sub.png')} style={styles.xButton} />
             </TouchableOpacity>
         </View>
