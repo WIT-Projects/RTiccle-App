@@ -14,7 +14,7 @@ const GroupDetail = ({ route }) => {
     useEffect(() => {
         // get group data
         const getData = getGroupDataIncludeImage(route.params.groupId);
-        getData.then((value) => setGroupData(value));
+        getData.then((value) => {setGroupData(value)});
 
         //get ticcle List
         const getTiccleData = findTiccleListByGroupId(route.params.groupId);

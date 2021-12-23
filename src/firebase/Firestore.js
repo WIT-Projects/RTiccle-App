@@ -48,7 +48,7 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
         imageName = Date.now() + ".jpg";
         uploadImageToStorage(imageName, mainImageSource);
     }
-    return createGroup(newGroupName, {...group, mainImage: imageName});
+    return createGroup(newGroupName, { ...group, mainImage: imageName });
 }
 
 /**
@@ -68,7 +68,7 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
 function uploadNewTiccle(ticcle, images) {
     // upload images first
     var imageArr = [];
-    if(images !== undefined) {
+    if (images !== undefined) {
         images.map((image) => {
             const imageName = Date.now() + ".jpg";
             imageArr.push(imageName);
@@ -77,7 +77,7 @@ function uploadNewTiccle(ticcle, images) {
     }
 
     // upload ticcle info
-    return createTiccle({...ticcle, images: imageArr});
+    return createTiccle({ ...ticcle, images: imageArr });
 }
 
 /**
@@ -89,7 +89,7 @@ async function findAllGroup() {
     var groups = [];
     querySnapshot.forEach(snapshot => {
         const id = snapshot.id;
-        const group = {...snapshot.data(), id}
+        const group = { ...snapshot.data(), id }
         groups = [...groups, group];
     })
     return groups;
@@ -102,18 +102,18 @@ async function findAllGroup() {
  */
 async function findGroupsIncludeImage(limit) {
     const query = userDoc.collection("Group")
-    .orderBy('lastModifiedTime', 'desc')
-    .limit(limit);
+        .orderBy('lastModifiedTime', 'desc')
+        .limit(limit);
     const querySnapshot = await query.get();
     var groups = [];
     querySnapshot.forEach(snapshot => {
         const id = snapshot.id;
         var data = snapshot.data();
         var mainImageURL = null;
-        if(data.mainImage || data.mainImage != '') { // get download URL
+        if (data.mainImage || data.mainImage != '') { // get download URL
             mainImageURL = getDownloadURLByName(data.mainImage, false);
         }
-        data = {...data, imageUrl: mainImageURL, id: id};
+        data = { ...data, imageUrl: mainImageURL, id: id };
         groups = [...groups, data];
     })
     return groups;
@@ -124,11 +124,11 @@ async function findGroupsIncludeImage(limit) {
  * @param {string} groupName 
  * @returns {Boolean} true is existing group
  */
- async function checkIsExistingGroup(groupName) {
+async function checkIsExistingGroup(groupName) {
     const querySnapshot = await userDoc.collection("Group").get();
     var found = false;
     querySnapshot.forEach(snapshot => {
-        if(snapshot.id == groupName) found = true;
+        if (snapshot.id == groupName) found = true;
     })
     return found;
 }
@@ -151,13 +151,13 @@ async function findGroupById(groupId) {
  */
 async function findTiccleListByGroupId(groupId) {
     const query = userDoc.collection("Ticcle")
-    .where("group", "==", groupId);
+        .where("group", "==", groupId);
     const querySnapshot = await query.get();
 
     var ticcleList = [];
     querySnapshot.forEach(snapshot => {
         const id = snapshot.id;
-        const ticcle = {...snapshot.data(), id}
+        const ticcle = { ...snapshot.data(), id }
         ticcleList = [...ticcleList, ticcle];
     });
     return ticcleList;
@@ -170,7 +170,7 @@ async function findTiccleListByGroupId(groupId) {
  */
 async function findTiccleById(ticcleId) {
     const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
-    if(ticcle.exists) return ticcle.data();
+    if (ticcle.exists) return ticcle.data();
     else return null;
 }
 
@@ -181,7 +181,7 @@ async function findTiccleById(ticcleId) {
  */
 async function getImagesOfTiccle(images) {
     var imageURLArr = [];
-    if(images !== undefined) {
+    if (images !== undefined) {
         images.map((imageName) => {
             const URL = getDownloadURLByName(imageName, true);
             imageURLArr.push(URL);
@@ -194,11 +194,11 @@ async function getImagesOfTiccle(images) {
  * Check existed group
  * @returns {boolean} true: existed, false: not existed
  */
-async function checkExsitedGroup(){
+async function checkExsitedGroup() {
     const querySnapshot = await userDoc.collection("Group").get();
-    if(querySnapshot.size === 0){
+    if (querySnapshot.size === 0) {
         return false;
-    }else{
+    } else {
         return true;
     }
 }
@@ -218,15 +218,13 @@ async function getTiccleCount(groupId) {
  */
 async function getGroupDataIncludeImage(groupId) {
     const group = await userDoc.collection("Group").doc(groupId).get();
-    if (group.exists){
-        let data = group.data();
-        var mainImageURL = null;
-        if(data.mainImage || data.mainImage != '') { // get download URL
-            mainImageURL = getDownloadURLByName(data.mainImage, false);
-        }
-        data = {...data, imageUrl: mainImageURL, id: id};
-        return data;
-    }else return null;
+    let data = group.data();
+    var mainImageURL = null;
+    if (data.mainImage || data.mainImage != '') { // get download URL
+        mainImageURL = getDownloadURLByName(data.mainImage, false);
+    }
+    data = { ...data, imageUrl: mainImageURL, id: id };
+    return data;
 }
 
 export {
