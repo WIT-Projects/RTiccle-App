@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Image, TouchableOpacity, StyleSheet} from "react-native";
 
 import GroupInfo from './components/groupInfo';
@@ -7,12 +7,22 @@ import Bottom from './components/bottom';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 
-const GroupDetail = () => {
-  const [existTiccle, setExistTiccle] = useState(true);
+import { getGroupDataIncludeImage } from './container/GroupDetailContainer';
 
+const GroupDetail = ({route}) => {
+  const [existTiccle, setExistTiccle] = useState(true);
+  const [groupData, setGroupData] = useState([]);
+
+  useEffect(() => {
+      const getData = getGroupDataIncludeImage(route.params.groupId);
+      getData.then((value) => setGroupData(value));
+      console.log(groupData.description);
+  }, []);
+
+  console.log(route.params.groupId);
   return(
     <>
-      <GroupInfo title={"현판"} imgUrl={'https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png'} content={"데못죽 같은 거 모아두는"}/>
+      <GroupInfo title={route.params.groupId} imgUrl={groupData.imageUrl} content={groupData.description}/>
       <Search></Search>
       {existTiccle? <GroupDetailTiccleList/>: <ZeroTiccle/>}
       {/* Floating Button */}

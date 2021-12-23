@@ -22,7 +22,7 @@ const NewTiccleGroupList = () => {
     return (
         <>
             <Text style={styles.blackBoldFont}>신규 티끌이 생성된 그룹</Text>
-            <View onTouchEnd={() => { navigateTo.navigate('GroupDetail') }} style={styles.container}>
+            <View style={styles.container} >
                 {data.map((item) => {return (<TiccleGroup key={item.id} imgUrl={item.imgUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'} count={'ticcle count'}></TiccleGroup>)})}
             </View>
         </>
