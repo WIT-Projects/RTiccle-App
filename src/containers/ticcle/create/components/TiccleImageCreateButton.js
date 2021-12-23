@@ -3,9 +3,9 @@ import { TouchableOpacity, Text, StyleSheet,Image } from 'react-native'
 import colors from '../../../../theme/colors'
 
 
-const TiccleImageCreateButton = ({setImage}) => {
+const TiccleImageCreateButton = ({setModalVisibleTrue}) => {
     return (
-        <TouchableOpacity style={styles.touchableContainer} onPress={setImage}>
+        <TouchableOpacity style={styles.touchableContainer} onPress={setModalVisibleTrue}>
             <Text style={styles.text}>클릭하여 이미지를 추가해보세요</Text>
             <Image source={require('../../../../assets/images/logo.png')}
             style={styles.image}/>

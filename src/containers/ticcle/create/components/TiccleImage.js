@@ -2,31 +2,22 @@ import React from 'react';
 import { TouchableOpacity,Image, StyleSheet, View } from 'react-native';
 import colors from '../../../../theme/colors';
 
-const TiccleImage = ({setImage, deleteImage ,imageSource, imageId}) => {
+const TiccleImage = ({setModalVisibleTrue, deleteImage ,imageSource, imageId}) => {
 
 
 
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                style={styles.touchableConatiner} onPress={setImage}
+                style={styles.touchableConatiner} onPress={setModalVisibleTrue}
                 disabled={imageSource ? true : false}>
-
-                {(imageSource) ?
-                <Image style={styles.image} source={{uri : imageSource}} /> :
-                <Image style={styles.imagePlus} source={ require('../../../../assets/images/plus.png')} />
-                }
-                
+                <Image style={styles.image} source={{uri : imageSource}} />            
             </TouchableOpacity>
 
-            {(imageSource) ?         
             <TouchableOpacity
                 style={styles.xButtonContainer} onPress={() => deleteImage(imageId)} activeOpacity={0.75}>
                 <Image source={require('../../../../assets/images/x_circle_sub.png')} style={styles.xButton} />
             </TouchableOpacity>
-            :
-            <></>
-            }
         </View>
 
     )

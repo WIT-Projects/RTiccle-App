@@ -5,7 +5,6 @@ import uuid from 'react-native-uuid'
 
 const AppProvider = ({children}) => {
 
-
     const [ticcleCreate, setTiccleCreate] = useState({
         id : '',
         title: '',

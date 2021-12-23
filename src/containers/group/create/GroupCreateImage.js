@@ -16,7 +16,9 @@ const GroupCreateImage = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <PhotoModal setImage={setImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible}></PhotoModal>
+            <PhotoModal setImage={setImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible}
+                        width={412} height={256}
+            ></PhotoModal>
             <TextInfo title='마지막 단계예요.' subtitle='나만의 커버 이미지을 추가해 보세요!'></TextInfo>
             <ImageBackground
                 source={source}
