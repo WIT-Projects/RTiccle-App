@@ -6,8 +6,8 @@ import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 
-import Home from '../../containers/home';
-import GroupDetail from '../../containers/group/detail';
+import Home from '../../containers/home/Home';
+import GroupDetail from '../../containers/group/detail/GroupDetail';
 import GroupCreateName from '../../containers/group/create/GroupCreateName';
 import GroupCreateImage from '../../containers/group/create/GroupCreateImage';
 
