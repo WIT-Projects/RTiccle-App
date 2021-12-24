@@ -15,7 +15,7 @@ const GroupDetail = ({ route }) => {
         // get group data
         const getData = getGroupDataIncludeImage(route.params.groupId);
         getData.then((value) => {setGroupData(value)});
-
+        
         //get ticcle List
         const getTiccleData = findTiccleListByGroupId(route.params.groupId);
         getTiccleData.then((value) => {

@@ -223,7 +223,7 @@ async function getGroupDataIncludeImage(groupId) {
     if (data.mainImage || data.mainImage != '') { // get download URL
         mainImageURL = getDownloadURLByName(data.mainImage, false);
     }
-    data = { ...data, imageUrl: mainImageURL, id: id };
+    data = { ...data, imageUrl: mainImageURL};
     return data;
 }
 
