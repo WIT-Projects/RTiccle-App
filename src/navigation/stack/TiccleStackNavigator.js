@@ -71,10 +71,9 @@ const TiccleStackNavigator = () => {
             headerLeft : () => (
                 <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => 
                 {
-                    console.log(ticcleCreate)
-                    deleteTiccleCreate()
                     navigation.pop()
                     navigation.navigate('Home')
+                    deleteTiccleCreate()
                 }}>
                     <Image source={require('../../assets/images/chevron_left.png')}
                         style={styles.headerLeftImage}

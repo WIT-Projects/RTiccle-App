@@ -14,7 +14,19 @@ const TiccleDetail = () => {
     const ticcleTitle = ticcleCreate.title
     const ticcleLink = ticcleCreate.link
     const ticcleContent = ticcleCreate.content
-    const ticcleDate = ticcleCreate.dateYYMMDD
+    const ticcleDate = ticcleCreate.date
+
+    // 홈 화면으로 가면서 티끌을 초기화 하는데
+    // 이 때 ticcleDate가 null 값이 되어서 getFullYear 메소드 실행시 오류가 남
+    // 우선 조건문으로 작성했는데 추후 수정이 필요해 보임
+
+    var formattedday = ""
+    if(ticcleDate !== ""){
+    const year = ticcleDate.getFullYear().toString().substr(-2);
+    const month = ticcleDate.getMonth() + 1;
+    const date = ticcleDate.getDate();
+    formattedday = `${year}년 ${month}월 ${date}일`
+    }
 
     const [imageExpansion, setImageExpansion] = useState(false)
     const [imagePathForExpansion, setImagePathForExpansion] = useState('')
@@ -23,7 +35,7 @@ const TiccleDetail = () => {
     return (
         <ScrollView style={styles.container}>
             <TiccleDetailImageExpansion isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePathForExpansion}/>
-            <TiccleDetailInfo title={ticcleTitle} date={ticcleDate} link={ticcleLink}></TiccleDetailInfo>
+            <TiccleDetailInfo title={ticcleTitle} date={formattedday} link={ticcleLink}></TiccleDetailInfo>
             {(ticcleCreate.image.length > 0) ?
             <TiccleDetailImageSwiper images={ticcleCreate.image} setImageExpansion={setImageExpansion} setImagePathForExpansion={setImagePathForExpansion}/> 
             : null}
