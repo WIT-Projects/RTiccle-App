@@ -18,6 +18,7 @@ const AppProvider = ({children}) => {
         groupName: '',
     })
 
+
     const setTiccleTitle = (text) => {
         setTiccleCreate(state => {return {...state, title: text}})
     }

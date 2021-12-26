@@ -1,32 +1,33 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { TouchableOpacity,Image, StyleSheet, View, Alert } from 'react-native';
 import colors from '../../../../theme/colors';
+import CustomModal from '../../../common/CustomModal';
 
-const TiccleImage = ({setModalVisibleTrue, deleteImage ,imageSource, imageId}) => {
+const TiccleImage = ({setPhotoModalVisibleTrue, deleteImage ,imageSource, imageId}) => {
 
-    const removeAlert = () => {Alert.alert(
-        '',
-        '사진을 삭제하시겠습니까?',
-        [
-            {text : '뒤로가기', onPress: () => {}},
-            {text: "삭제", onPress: () => {deleteImage(imageId)}}
-        ],
-        {
-            cancelable: true,
-            onDismiss: () => {}
-        }
-    )};
+    const [deleteModal, setDeleteModal] = useState(false)
+
+    const modalTitle = "사진을 삭제하시겠습니까?"
+    const modalLeftButton = "뒤로가기"
+    const modalRightButton = "삭제"
+
+    const deleteTiccleImage = () => {
+        deleteImage(imageId)
+    }
+
 
     return (
         <View style={styles.container}>
+            <CustomModal title={modalTitle} leftButton={modalLeftButton} rightButton={modalRightButton}
+            isModalVisible={deleteModal} setModalVisible={setDeleteModal} rightButtonFunction={deleteTiccleImage}/>
             <TouchableOpacity
-                style={styles.touchableConatiner} onPress={setModalVisibleTrue}
+                style={styles.touchableConatiner} onPress={setPhotoModalVisibleTrue}
                 disabled={imageSource ? true : false}>
                 <Image style={styles.image} source={{uri : imageSource}} />            
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={styles.xButtonContainer} onPress={removeAlert} activeOpacity={0.75}>
+                style={styles.xButtonContainer} onPress={()=>setDeleteModal(true)} activeOpacity={0.75}>
                 <Image source={require('../../../../assets/images/x_circle_sub.png')} style={styles.xButton} />
             </TouchableOpacity>
         </View>

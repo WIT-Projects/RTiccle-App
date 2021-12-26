@@ -20,7 +20,7 @@ const TiccleCreateTextInputGroup = () => {
                 placeholder ={"URL 링크 (선택)"} onChangeText={setTiccleLink}/>
                 <TiccleCreateTextInput
                 fontSize={18} fontWeight={'normal'} placeHolderTextcolor ={colors.gray3}
-                placeholder ={"태그 ex. #경제 #마케팅"} onChangeText={setTiccleTag}/>
+                placeholder ={"태그 ex. #경제 #마케팅 (선택)"} onChangeText={setTiccleTag}/>
         </View>
     )
 }

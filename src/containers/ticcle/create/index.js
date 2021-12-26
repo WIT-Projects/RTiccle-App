@@ -5,7 +5,6 @@ import TiccleContentTextInput from './components/TiccleContentTextInput';
 import TiccleCreateTextInputGroup from './components/TiccleCreateTextInputGroup';
 import TiccleImageGroup from './components/TiccleImageGroup';
 import colors from '../../../theme/colors';
-import ImagePicker from 'react-native-image-crop-picker';
 import useTiccleCreate from '../../../context/hook/UseTiccleCreate';
 import PhotoModal from '../../common/PhotoModal';
 
@@ -13,21 +12,21 @@ const TiccleCreate = () => {
 
     const {setTiccleContent, setTiccleImage, ticcleCreate} = useTiccleCreate();
 
-    const [modalVisible, setModalVisible] = useState(false)
+    const [photoModalVisible, setPhotoModalVisible] = useState(false)
 
-    const setModalVisibleTrue = () => {
-        setModalVisible(true)
+    const photoModalVisibleTrue = () => {
+        setPhotoModalVisible(true)
     }
 
     return(
         <ScrollView style={styles.container}>
-            <PhotoModal setImage={setTiccleImage} isModalVisible={modalVisible} setModalVisible={setModalVisible}/>
+            <PhotoModal setImage={setTiccleImage} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>
             <TiccleCreateTextInputGroup/>
 
             <View style={styles.imageCreateButtonContainer}>
                 {(ticcleCreate.image && ticcleCreate.image.length > 0) ?
-                <TiccleImageGroup setModalVisibleTrue={setModalVisibleTrue}/> :
-                <TiccleImageCreateButton setModalVisibleTrue={setModalVisibleTrue}/>
+                <TiccleImageGroup photoModalVisibleTrue={photoModalVisibleTrue}/> :
+                <TiccleImageCreateButton photoModalVisibleTrue={photoModalVisibleTrue}/>
                 }
             </View>
 
