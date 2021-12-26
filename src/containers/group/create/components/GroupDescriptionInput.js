@@ -3,20 +3,21 @@ import {Text, View, StyleSheet, TextInput} from 'react-native';
 
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
+import useGroupCreate from '../../../../context/hook/useGroupCreate';
 
 const GroupDescriptionInput = () => {
-    const [createGroupDescription, setCreateGroupDescirption] = useState('');
-    var groupDescriptionLength = createGroupDescription.length;
+    const {groupCreate, setGroupDescription} = useGroupCreate();
+    var groupDescriptionLength = groupCreate.description.length;
     const maxLengthOfDescription = 23;
 
     return (
         <View style={styles.container}>
             <TextInput
-            style={styles.textinput}
-            onChangeText={setCreateGroupDescirption}
-            placeholder="설명 (선택)"
-            placeholderTextColor={colors.gray2}
-            maxLength={maxLengthOfDescription}></TextInput>
+                style={styles.textinput}
+                onChangeText={setGroupDescription}
+                placeholder="설명 (선택)"
+                placeholderTextColor={colors.gray2}
+                maxLength={maxLengthOfDescription}></TextInput>
             <Text style={styles.textCount}>{groupDescriptionLength}/23</Text>
         </View>
     );

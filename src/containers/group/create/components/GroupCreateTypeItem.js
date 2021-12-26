@@ -3,13 +3,15 @@ import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
+import useGroupCreate from '../../../../context/hook/useGroupCreate';
 
-function GroupCreateTypeItem({navigation, typeName, imgSource}) {
+function GroupCreateTypeItem({navigation, typeName, typeNum, imgSource}) {
+    const {groupCreate, setGroupType} = useGroupCreate();
     return (
         <View style={styles.typeItem}>
             <TouchableOpacity
                 onPress={() => {
-                    console.log(typeName);
+                    setGroupType(typeNum);
                     navigation.navigate('GroupCreateName');
                 }}>
                 <Image source={imgSource}></Image>
