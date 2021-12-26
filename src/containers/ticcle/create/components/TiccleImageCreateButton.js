@@ -7,7 +7,7 @@ const TiccleImageCreateButton = ({photoModalVisibleTrue}) => {
     return (
         <TouchableOpacity style={styles.touchableContainer} onPress={photoModalVisibleTrue}>
             <Text style={styles.text}>클릭하여 이미지를 추가해보세요</Text>
-            <Image source={require('../../../../assets/images/logo.png')}
+            <Image source={require('../../../../assets/icon/image.png')}
             style={styles.image}/>
         </TouchableOpacity>
     )
