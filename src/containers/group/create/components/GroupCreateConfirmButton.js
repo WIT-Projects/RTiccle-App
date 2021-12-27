@@ -1,38 +1,43 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
-import colors from '../../theme/colors';
-import {type} from '../../theme/fonts';
+import colors from '../../../../theme/colors';
+import {type} from '../../../../theme/fonts';
 
-function SaveButton({buttonDisabled, navigation, text}) {
+const GroupCreateConfirmButton = ({buttonDisabled, navigation, text}) => {
     return (
         <View style={{alignItems: 'center'}}>
             <TouchableOpacity
-            style={[
-                styles.touchableOpacitiy,
-                buttonDisabled ? styles.touchableDisableColor : styles.touchableColor,
-            ]}
-            disabled={buttonDisabled}
-            onPress={() => navigation.navigate('GroupCreateImage')}>
+                style={[
+                    styles.touchableOpacitiy,
+                    buttonDisabled
+                        ? styles.touchableDisableColor
+                        : styles.touchableColor,
+                ]}
+                disabled={buttonDisabled}
+                onPress={() => {
+                    navigation.navigate('GroupCreateImage');
+                }}>
                 <Text
                     style={[
-                    styles.buttonText,
-                    buttonDisabled ? styles.textDisabledColor : styles.textColor,
+                        styles.buttonText,
+                        buttonDisabled
+                            ? styles.textDisabledColor
+                            : styles.textColor,
                     ]}>
                     {text}
                 </Text>
             </TouchableOpacity>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     touchableOpacitiy: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 168,
-        height: 40,
-        borderRadius: 24,
+        width: '100%',
+        height: 60,
     },
     touchableColor: {
         backgroundColor: colors.main,
@@ -52,4 +57,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SaveButton;
+export default GroupCreateConfirmButton;

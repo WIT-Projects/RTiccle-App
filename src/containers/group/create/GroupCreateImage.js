@@ -1,46 +1,69 @@
 import React, {useState} from 'react';
-import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
-import SaveButton from '../../common/SaveButton';
+import {
+    View,
+    Text,
+    Image,
+    ImageBackground,
+    StyleSheet,
+    TouchableOpacity,
+} from 'react-native';
+import GroupSaveButton from '../../common/GroupSaveButton';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
 
-import { type } from '../../../theme/fonts';
+import {type} from '../../../theme/fonts';
 import colors from '../../../theme/colors';
+import useGroupCreate from '../../../context/hook/useGroupCreate';
 
 const GroupCreateImage = ({navigation}) => {
-    const [image, setImage] = useState('');
+    const {groupCreate, setGroupImage} = useGroupCreate();
+    const mainImage = groupCreate.mainImage;
+    const title = groupCreate.title;
+    const description = groupCreate.description;
     let source;
-    image === '' ? source = require('../../../assets/images/blankImage.png') : source = { uri: image }
+    mainImage === ''
+        ? (source = require('../../../assets/images/blankImage.png'))
+        : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
-    const [groupCreateButtonDisable, setGroupCreateButtonDisable]= useState(true);
+    const [groupCreateButtonDisable, setGroupCreateButtonDisable] =
+        useState(false);
 
     return (
         <View style={styles.container}>
-            <PhotoModal setImage={setImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible}
-                        width={412} height={256}
-            ></PhotoModal>
-            <TextInfo title='마지막 단계예요.' subtitle='나만의 커버 이미지을 추가해 보세요!'></TextInfo>
-            <ImageBackground
-                source={source}
-                style={styles.headerImage}>
-                <ImageBackground source={require('../../../assets/images/groupImageGradation.png')}
-                        resizeMode="cover"
-                        style={{ width: "100%", height: 256 }}>
+            <PhotoModal
+                setImage={setGroupImage}
+                isModalVisible={isModalVisible}
+                setModalVisible={setModalVisible}
+                width={412}
+                height={256}></PhotoModal>
+            <TextInfo
+                title="마지막 단계예요."
+                subtitle="나만의 커버 이미지을 추가해 보세요!"></TextInfo>
+            <ImageBackground source={source} style={styles.headerImage}>
+                <ImageBackground style={styles.headerImageGradation}>
                     <View style={styles.headerImageInner}>
-                    <View>
-                        <Text style={styles.imageTitle}>현판</Text>
-                        <Text style={styles.imageSubtitle}>데못죽 같은 거 모아두는 곳</Text>
-                    </View>
-                    <TouchableOpacity
-                    onPress={() => setModalVisible(true)}>
-                        <Image source={require('../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
-                    </TouchableOpacity>
+                        <View>
+                            <Text style={styles.imageTitle}>{title}</Text>
+                            <Text style={styles.imageSubtitle}>
+                                {description}
+                            </Text>
+                        </View>
+                        <TouchableOpacity onPress={() => setModalVisible(true)}>
+                            <Image
+                                source={require('../../../assets/images/camera.png')}
+                                onPress={() => setModalVisible(true)}></Image>
+                        </TouchableOpacity>
                     </View>
                 </ImageBackground>
             </ImageBackground>
-            <SaveButton text="저장하기" buttonDisabled={groupCreateButtonDisable} navigation={navigation}></SaveButton>
-            <View style={{ alignItems: 'center' }}>
-                <TouchableOpacity style={styles.skipButton}><Text style={styles.skipText}>건너뛰기</Text></TouchableOpacity>
+            <GroupSaveButton
+                text="저장하기"
+                buttonDisabled={groupCreateButtonDisable}
+                navigation={navigation}></GroupSaveButton>
+            <View style={{alignItems: 'center'}}>
+                <TouchableOpacity style={styles.skipButton}>
+                    <Text style={styles.skipText}>건너뛰기</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -54,9 +77,14 @@ const styles = StyleSheet.create({
     },
     headerImage: {
         resizeMode: 'cover',
-        width:'100%',
+        width: '100%',
         height: 256,
-        marginBottom: 128
+        marginBottom: 128,
+    },
+    headerImageGradation: {
+        resizeMode: 'cover',
+        width: '100%',
+        height: 256,
     },
     headerImageInner: {
         flexDirection: 'row',
@@ -64,32 +92,32 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         paddingTop: 180,
-        paddingBottom: 18
+        paddingBottom: 18,
     },
     imageTitle: {
-        fontFamily : type.spoqaHanSansNeo_Bold,
+        fontFamily: type.spoqaHanSansNeo_Bold,
         fontSize: 24,
-        color: '#ffffff'
+        color: colors.white,
     },
     imageSubtitle: {
-        fontFamily : type.spoqaHanSansNeo_Regular,
+        fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize: 16,
         paddingTop: 8,
-        color: '#ffffff'
+        color: colors.white,
     },
     skipButton: {
         alignItems: 'center',
-        justifyContent : 'center',
-        width : 168,
-        height : 40,
+        justifyContent: 'center',
+        width: 168,
+        height: 40,
         borderRadius: 24,
         marginTop: 6,
     },
     skipText: {
-        fontFamily : type.spoqaHanSansNeo_Regular,
+        fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize: 16,
-        color : colors.gray3,
-    }
+        color: colors.gray3,
+    },
 });
 
 export default GroupCreateImage;

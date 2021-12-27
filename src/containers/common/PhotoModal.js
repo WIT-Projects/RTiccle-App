@@ -6,54 +6,67 @@ import ImagePicker from 'react-native-image-crop-picker';
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 
-const PhotoModal = ({setImage, isModalVisible, setModalVisible, width, height}) => {
-
-    const isFixed = (!!width && !!height) ? true : false
+const PhotoModal = ({
+    setImage,
+    isModalVisible,
+    setModalVisible,
+    width,
+    height,
+}) => {
+    const isFixed = !!width && !!height ? true : false;
 
     const takePhotoFromCamera = () => {
         setModalVisible(false);
         ImagePicker.openCamera(
-            isFixed ? {
-            width: width,
-            height: height,
-            cropperToolbarTitle: '',
-            cropping: true,
-            compressImageQuality: 0.7,
-        } :
-        {
-        cropperToolbarTitle: '',
-        cropping: true,
-        compressImageQuality: 0.7,
-        }).then(image => {
-            setImage(image.path);
-        }).catch(error => {
-            if (error.code === 'E_PICKER_CANCELLED') {
-                return false;
-            }
-        });
+            isFixed
+                ? {
+                      width: width,
+                      height: height,
+                      cropperToolbarTitle: '',
+                      cropping: true,
+                      compressImageQuality: 0.7,
+                  }
+                : {
+                      cropperToolbarTitle: '',
+                      cropping: true,
+                      compressImageQuality: 0.7,
+                  },
+        )
+            .then(image => {
+                setImage(image.path);
+            })
+            .catch(error => {
+                if (error.code === 'E_PICKER_CANCELLED') {
+                    return false;
+                }
+            });
     };
 
     const choosePhotoFromLibrary = () => {
         setModalVisible(false);
         ImagePicker.openPicker(
-            isFixed ? {
-                width: width,
-                height: height,
-                cropperToolbarTitle: '',
-                cropping: true,
-                compressImageQuality: 0.7,
-            } :
-            {
-            cropperToolbarTitle: '',
-            cropping: true,
-            compressImageQuality: 0.7,
-        }).then(image => {
-            setImage(image.path);
-        }).catch(error => {
-            if (error.code === 'E_PICKER_CANCELLED') {
-                return false;
-            }
-        });
+            isFixed
+                ? {
+                      width: width,
+                      height: height,
+                      cropperToolbarTitle: '',
+                      cropping: true,
+                      compressImageQuality: 0.7,
+                  }
+                : {
+                      cropperToolbarTitle: '',
+                      cropping: true,
+                      compressImageQuality: 0.7,
+                  },
+        )
+            .then(image => {
+                setImage(image.path);
+            })
+            .catch(error => {
+                if (error.code === 'E_PICKER_CANCELLED') {
+                    return false;
+                }
+            });
     };
 
     return (
@@ -63,15 +76,11 @@ const PhotoModal = ({setImage, isModalVisible, setModalVisible, width, height}) 
             backdropOpacity={0.8}
             style={styles.modal}>
             <View style={styles.modalView}>
-                <TouchableOpacity style={styles.textConatiner} onPress={takePhotoFromCamera}>
-                    <Text style={styles.modalText}>               
-                        사진 촬영
-                    </Text>
+                <TouchableOpacity onPress={takePhotoFromCamera}>
+                    <Text style={styles.modalText}>사진 촬영</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.textConatiner} onPress={choosePhotoFromLibrary}>
-                    <Text style={styles.modalText}>
-                        앨범에서 사진 선택
-                    </Text>
+                <TouchableOpacity onPress={choosePhotoFromLibrary}>
+                    <Text style={styles.modalText}>앨범에서 사진 선택</Text>
                 </TouchableOpacity>
             </View>
         </Modal>
@@ -88,17 +97,15 @@ const styles = StyleSheet.create({
         width: '75%',
         backgroundColor: colors.white,
         borderRadius: 10,
-        paddingVertical : 16,
-    },
-    textConatiner : {
-        width: '100%',
-        paddingVertical : 12,
-        paddingHorizontal : 23,
-        alignItems : 'flex-start'
+        paddingVertical: 16,
+        paddingHorizontal: 5,
+        alignItems: 'flex-start',
     },
     modalText: {
         textAlign: 'center',
         fontFamily: type.spoqaHanSansNeo_Regular,
+        paddingHorizontal: 18,
+        paddingVertical: 12,
     },
 });
 
