@@ -6,8 +6,8 @@ import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 
-import Home from '../../containers/home';
-import GroupDetail from '../../containers/group/detail';
+import Home from '../../containers/home/Home';
+import GroupDetail from '../../containers/group/detail/GroupDetail';
 import GroupCreateName from '../../containers/group/create/GroupCreateName';
 import GroupCreateImage from '../../containers/group/create/GroupCreateImage';
 
@@ -21,10 +21,10 @@ const HomeStackNavigatior = () => (
             options={ ({navigation}) =>  ({
                 title:"RTICCLE",
                 headerLeft: () => (
-                    <Image source={require('../../assets/images/logo.png')}/>
+                    <Image style={{marginLeft: 18}} source={require('../../assets/images/logo.png')}/>
                 ),
                 headerRight:() => (
-                    <Image source={require('../../assets/icon/searchBlack.png')}/>
+                    <Image style={{marginRight: 28}} source={require('../../assets/icon/searchBlack.png')}/>
                 ),
         })} />
         <HomeStack.Screen options={{ headerShown: false }} name="GroupDetail" component={GroupDetail} />

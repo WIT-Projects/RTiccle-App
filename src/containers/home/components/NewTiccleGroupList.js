@@ -1,49 +1,33 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import { type } from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
-import { useNavigation } from '@react-navigation/native';
+import { findGroupsIncludeImage, checkExsitedGroup } from '../../../firebase/Firestore';
 
-const NewTiccleGroupList = ({userName, imgUrl}) => {
-    const navigateTo = useNavigation();
+const NewTiccleGroupList = () => {
+    const [isExistGroup, setExistGroup] = useState(false);
+    const [data, setData] = useState([]);
 
-    const data = [
-        {
-            id: 1,
-            imgUrl: "https://media.vlpt.us/post-images/dus532/00b845f0-0205-11ea-9e8d-41441020e13b/uiux2x.png",
-            groupTitle: "무협",
-            ticcleTitle: "화산귀환 938화",
-            count: 3,
-        },
-        {
-            id: 2,
-            imgUrl: "https://media.vlpt.us/post-images/dus532/00b845f0-0205-11ea-9e8d-41441020e13b/uiux2x.png",
-            groupTitle: "애니",
-            ticcleTitle: "미쳐돌아가는 모음zip",
-            count: 1,
-        },
-        {
-            id: 3,
-            imgUrl: "https://media.vlpt.us/post-images/dus532/00b845f0-0205-11ea-9e8d-41441020e13b/uiux2x.png",
-            groupTitle: "UX/UI",
-            ticcleTitle: "레이아웃 padding",
-            count: 3,
-        },
-        {
-            id: 4,
-            imgUrl: "https://media.vlpt.us/post-images/dus532/00b845f0-0205-11ea-9e8d-41441020e13b/uiux2x.png",
-            groupTitle: "리액트 네이티브",
-            ticcleTitle: "flex 알아보기",
-            count: 10,
-        },
-    ]
+    useEffect(() => {
+        let getIsExist = checkExsitedGroup();
+        getIsExist.then((value) => {
+            setExistGroup(value);
+            if(value != 0){
+                const getData = findGroupsIncludeImage(10);
+                getData.then((value) => setData(value));
+            }
+        });
+    }, []);
 
     return (
         <>
             <Text style={styles.blackBoldFont}>신규 티끌이 생성된 그룹</Text>
-            <View onTouchEnd={() => { navigateTo.navigate('GroupDetail') }} style={styles.container}>
-                {data.map((item) => {return (<TiccleGroup key={item.id} imgUrl={item.imgUrl} groupTitle={item.groupTitle} ticcleTitle={item.ticcleTitle} count={item.count}></TiccleGroup>)})}
-            </View>
+            {isExistGroup ? 
+                <View style={styles.container} >
+                    {data.map((item) => {return (<TiccleGroup key={item.id} imgUrl={item.imgUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'}></TiccleGroup>)})}
+                </View> 
+                : <Text>작성된 티끌이 존재하지 않습니다.</Text>
+            }
         </>
     );
 }
@@ -60,6 +44,5 @@ const styles = StyleSheet.create({
         marginBottom: 18,
     },
 })
-
 
 export default NewTiccleGroupList;
