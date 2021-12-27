@@ -7,48 +7,23 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import SaveButton from '../../common/SaveButton';
+import GroupSaveButton from '../../common/GroupSaveButton';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
-
+import useGroupCreate from '../../../context/hook/useGroupCreate';
 import {type} from '../../../theme/fonts';
 import colors from '../../../theme/colors';
-import useGroupCreate from '../../../context/hook/useGroupCreate';
-import firestore from '@react-native-firebase/firestore';
-import {uploadNewGroup} from '../../../firebase/Firestore';
 
 const GroupCreateImage = ({navigation}) => {
-    const {groupCreate, setGroupImage, initialGroupCreate} = useGroupCreate();
-    const title = groupCreate.title;
-    const type = groupCreate.type;
-    const description = groupCreate.description;
+    const {groupCreate, setGroupImage} = useGroupCreate();
     const mainImage = groupCreate.mainImage;
-    const nowDate = firestore.Timestamp.fromDate(new Date());
-
-    const groupCreateFirebase = () => {
-        const groupName = title;
-        const newGroup = {
-            lastModifiedTime: nowDate,
-            type: type,
-            title: title,
-            description: description,
-            bookmark: false,
-        };
-        const imageSource = mainImage;
-        uploadNewGroup(groupName, newGroup, imageSource).then(ref =>
-            console.log(ref),
-        );
-        initialGroupCreate();
-        navigation.navigate('Home');
-    };
-
     let source;
     mainImage === ''
         ? (source = require('../../../assets/images/blankImage.png'))
         : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
     const [groupCreateButtonDisable, setGroupCreateButtonDisable] =
-        useState(true);
+        useState(false);
 
     return (
         <View style={styles.container}>
@@ -79,14 +54,10 @@ const GroupCreateImage = ({navigation}) => {
                     </View>
                 </ImageBackground>
             </ImageBackground>
-            <View style={{alignItems: 'center'}}>
-                <TouchableOpacity
-                    onPress={() => {
-                        groupCreateFirebase();
-                    }}>
-                    <Text>저장하기</Text>
-                </TouchableOpacity>
-            </View>
+            <GroupSaveButton
+                text="저장하기"
+                buttonDisabled={groupCreateButtonDisable}
+                navigation={navigation}></GroupSaveButton>
             <View style={{alignItems: 'center'}}>
                 <TouchableOpacity style={styles.skipButton}>
                     <Text style={styles.skipText}>건너뛰기</Text>

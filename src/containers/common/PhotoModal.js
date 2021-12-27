@@ -17,13 +17,15 @@ const PhotoModal = ({setImage, isModalVisible, setModalVisible}) => {
             cropperToolbarTitle: '',
             cropping: true,
             compressImageQuality: 0.7,
-        }).then(image => {
-            setImage(image.path);
-        }).catch(error => {
-            if (error.code === 'E_PICKER_CANCELLED') {
-                return false;
-            }
-        });
+        })
+            .then(image => {
+                setImage(image.path);
+            })
+            .catch(error => {
+                if (error.code === 'E_PICKER_CANCELLED') {
+                    return false;
+                }
+            });
     };
 
     const choosePhotoFromLibrary = () => {
@@ -34,13 +36,15 @@ const PhotoModal = ({setImage, isModalVisible, setModalVisible}) => {
             cropperToolbarTitle: '',
             cropping: true,
             compressImageQuality: 0.7,
-        }).then(image => {
-            setImage(image.path);
-        }).catch(error => {
-            if (error.code === 'E_PICKER_CANCELLED') {
-                return false;
-            }
-        });
+        })
+            .then(image => {
+                setImage(image.path);
+            })
+            .catch(error => {
+                if (error.code === 'E_PICKER_CANCELLED') {
+                    return false;
+                }
+            });
     };
 
     return (
