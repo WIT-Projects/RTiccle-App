@@ -18,11 +18,11 @@ const TiccleGroup = ({imgUrl, groupTitle, ticcleTitle}) => {
         <View onTouchEnd={() => { navigateTo.navigate('GroupDetail', {groupId: groupTitle}) }}>
             <ImageBackground source={{uri:imgUrl}}
                 resizeMode="cover"
-                style={{ width: "100%", height: 140 }}>
+                style={styles.container}>
                     <ImageBackground source={require('../../../assets/images/gradation.png')}
                         resizeMode="cover"
-                        style={{ width: "100%", height: 140 }}>
-                            <View style={{alignItems: 'flex-end', marginRight: 18, marginVertical: 25}}>
+                        style={styles.container}>
+                            <View style={styles.container3}>
                                 <Text style={styles.subFont}>{groupTitle}</Text>
                                 <Text style={styles.whiteFont}>최신글</Text>
                                 <Text style={styles.whiteFont}>{ticcleTitle}</Text>
@@ -36,13 +36,19 @@ const TiccleGroup = ({imgUrl, groupTitle, ticcleTitle}) => {
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
+        width: "100%",
+        height: 140,
     },
     container2:{
         backgroundColor: colors.sub,
         paddingHorizontal: 7,
         paddingVertical: 3,
         borderRadius: 10,
+    },
+    container3:{
+        alignItems: 'flex-end', 
+        marginRight: 18, 
+        marginVertical: 25,
     },
     subFont:{
         fontFamily : type.spoqaHanSansNeo_Bold,
