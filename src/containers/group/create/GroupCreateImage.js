@@ -11,6 +11,8 @@ import useGroupCreate from '../../../context/hook/useGroupCreate';
 const GroupCreateImage = ({navigation}) => {
     const {groupCreate, setGroupImage} = useGroupCreate();
     const mainImage = groupCreate.mainImage;
+    const title = groupCreate.title;
+    const description = groupCreate.description;
     let source;
     mainImage === ''
         ? (source = require('../../../assets/images/blankImage.png'))
@@ -35,9 +37,9 @@ const GroupCreateImage = ({navigation}) => {
                     style={{width: '100%', height: 256}}>
                     <View style={styles.headerImageInner}>
                         <View>
-                            <Text style={styles.imageTitle}>현판</Text>
+                            <Text style={ styles.imageTitle }>{title}</Text>
                             <Text style={styles.imageSubtitle}>
-                                데못죽 같은 거 모아두는 곳
+                               {description}
                             </Text>
                         </View>
                         <TouchableOpacity onPress={() => setModalVisible(true)}>
