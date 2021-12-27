@@ -1,58 +1,78 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {useState} from 'react/cjs/react.development';
 import AppContext from '../AppContext';
+import uuid from 'react-native-uuid';
 
 const AppProvider = ({children}) => {
-    const [ticcleCreateText, setTiccleCreateText] = useState({
+    const [ticcleCreate, setTiccleCreate] = useState({
+        id: '',
         title: '',
         link: '',
         tag: '',
         content: '',
+        image: [],
+        date: '',
+        ticcleNumber: '',
+        groupName: '',
     });
 
-    const [ticcleCreateImage, setTiccleCreateImage] = useState([
-        {
-            id: 0,
-            path: '',
-        },
-    ]);
-
-    const setTitle = text => {
-        setTiccleCreateText(state => {
+    const setTiccleTitle = text => {
+        setTiccleCreate(state => {
             return {...state, title: text};
         });
     };
-    const setLink = text => {
-        setTiccleCreateText(state => {
+    const setTiccleLink = text => {
+        setTiccleCreate(state => {
             return {...state, link: text};
         });
     };
-    const setTag = text => {
-        setTiccleCreateText(state => {
+    const setTiccleTag = text => {
+        setTiccleCreate(state => {
             return {...state, tag: text};
         });
     };
-    const setContent = text => {
-        setTiccleCreateText(state => {
+    const setTiccleContent = text => {
+        setTiccleCreate(state => {
             return {...state, content: text};
         });
     };
-
-    const imageId = useRef(1);
-
-    const setImage = imagePath => {
+    const setTiccleImage = imagePath => {
+        const oldImage = ticcleCreate.image;
         const newImage = {
-            id: imageId.current,
+            id: uuid.v4(),
             path: imagePath,
         };
-        setTiccleCreateImage([...ticcleCreateImage, newImage]);
-        imageId.current += 1;
+        setTiccleCreate(state => {
+            return {...state, image: [...oldImage, newImage]};
+        });
     };
-
-    const setImageDelete = id => {
-        setTiccleCreateImage(
-            ticcleCreateImage.filter(ticcleImage => ticcleImage.id !== id),
-        );
+    const initialTiccleCreate = () => {
+        setTiccleCreate({
+            title: '',
+            link: '',
+            tag: '',
+            content: '',
+            image: [],
+            date: '',
+            ticcleNumber: '',
+            groupName: '',
+        });
+    };
+    const deleteTiccleImage = id => {
+        setTiccleCreate(state => {
+            return {
+                ...state,
+                image: ticcleCreate.image.filter(
+                    ticcleImage => ticcleImage.id !== id,
+                ),
+            };
+        });
+    };
+    const setTiccleDate = () => {
+        const today = new Date();
+        setTiccleCreate(state => {
+            return {...state, date: today};
+        });
     };
 
     const [groupCreate, setGroupCreate] = useState({
@@ -108,13 +128,16 @@ const AppProvider = ({children}) => {
     return (
         <AppContext.Provider
             value={{
-                setTitle,
-                setLink,
-                setTag,
-                setContent,
-                setImage,
-                setImageDelete,
-                ticcleCreateImage,
+                ticcleCreate,
+                setTiccleCreate,
+                setTiccleTitle,
+                setTiccleLink,
+                setTiccleTag,
+                setTiccleContent,
+                setTiccleImage,
+                initialTiccleCreate,
+                deleteTiccleImage,
+                setTiccleDate,
                 groupCreate,
                 setGroupCreate,
                 initialGroupCreate,

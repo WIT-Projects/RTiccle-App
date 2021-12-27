@@ -3,12 +3,17 @@ import { View,Image,StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
 import colors from '../../../../theme/colors';
 
-const TiccleDetailImageSwiper = ({images}) => {
+const TiccleDetailImageSwiper = ({images, setImageExpansion, setImagePathForExpansion}) => {
 
     const imageGroup = images.map(
-        (imageSource, index) => (
-            <View style={styles.imageConatiner} key={index}>
-                <Image source={imageSource}
+        (imageSource) => (
+            <View style={styles.imageConatiner} key={imageSource.id}
+                    onTouchEnd={()=> {
+                        setImagePathForExpansion(imageSource.path)
+                        console.log(imageSource.path)
+                        setImageExpansion(true)
+                    }}>
+                <Image source={{uri: imageSource.path}}
                 style={styles.image}></Image>
             </View>
         )

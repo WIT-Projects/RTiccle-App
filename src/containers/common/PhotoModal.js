@@ -1,23 +1,37 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 
-const PhotoModal = ({setImage, isModalVisible, setModalVisible}) => {
-    let image = '';
+const PhotoModal = ({
+    setImage,
+    isModalVisible,
+    setModalVisible,
+    width,
+    height,
+}) => {
+    const isFixed = !!width && !!height ? true : false;
 
     const takePhotoFromCamera = () => {
         setModalVisible(false);
-        ImagePicker.openCamera({
-            width: 412,
-            height: 256,
-            cropperToolbarTitle: '',
-            cropping: true,
-            compressImageQuality: 0.7,
-        })
+        ImagePicker.openCamera(
+            isFixed
+                ? {
+                      width: width,
+                      height: height,
+                      cropperToolbarTitle: '',
+                      cropping: true,
+                      compressImageQuality: 0.7,
+                  }
+                : {
+                      cropperToolbarTitle: '',
+                      cropping: true,
+                      compressImageQuality: 0.7,
+                  },
+        )
             .then(image => {
                 setImage(image.path);
             })
@@ -30,13 +44,21 @@ const PhotoModal = ({setImage, isModalVisible, setModalVisible}) => {
 
     const choosePhotoFromLibrary = () => {
         setModalVisible(false);
-        ImagePicker.openPicker({
-            width: 412,
-            height: 256,
-            cropperToolbarTitle: '',
-            cropping: true,
-            compressImageQuality: 0.7,
-        })
+        ImagePicker.openPicker(
+            isFixed
+                ? {
+                      width: width,
+                      height: height,
+                      cropperToolbarTitle: '',
+                      cropping: true,
+                      compressImageQuality: 0.7,
+                  }
+                : {
+                      cropperToolbarTitle: '',
+                      cropping: true,
+                      compressImageQuality: 0.7,
+                  },
+        )
             .then(image => {
                 setImage(image.path);
             })
@@ -54,15 +76,12 @@ const PhotoModal = ({setImage, isModalVisible, setModalVisible}) => {
             backdropOpacity={0.8}
             style={styles.modal}>
             <View style={styles.modalView}>
-                <Text
-                    style={styles.modalText}
-                    style={{marginBottom: 24}}
-                    onPress={takePhotoFromCamera}>
-                    사진 촬영
-                </Text>
-                <Text style={styles.modalText} onPress={choosePhotoFromLibrary}>
-                    앨범에서 사진 선택
-                </Text>
+                <TouchableOpacity onPress={takePhotoFromCamera}>
+                    <Text style={styles.modalText}>사진 촬영</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={choosePhotoFromLibrary}>
+                    <Text style={styles.modalText}>앨범에서 사진 선택</Text>
+                </TouchableOpacity>
             </View>
         </Modal>
     );
@@ -78,12 +97,15 @@ const styles = StyleSheet.create({
         width: '75%',
         backgroundColor: colors.white,
         borderRadius: 10,
-        padding: 30,
+        paddingVertical: 16,
+        paddingHorizontal: 5,
         alignItems: 'flex-start',
     },
     modalText: {
         textAlign: 'center',
         fontFamily: type.spoqaHanSansNeo_Regular,
+        paddingHorizontal: 18,
+        paddingVertical: 12,
     },
 });
 

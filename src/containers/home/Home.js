@@ -16,7 +16,7 @@ const Home = ({navigation}) => {
             <BookMarkList></BookMarkList>
             <Button
                 title="그룹 생성"
-                onPress={() => navigation.navigate('GroupCreateName')}></Button>
+                onPress={() => navigation.navigate('GroupCreateType')}></Button>
             <NewTiccleGroupList></NewTiccleGroupList>
         </ScrollView>
     );

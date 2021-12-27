@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    ImageBackground,
+    StyleSheet,
+    TouchableOpacity,
+} from 'react-native';
 import GroupSaveButton from '../../common/GroupSaveButton';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
@@ -26,19 +33,22 @@ const GroupCreateImage = ({navigation}) => {
             <PhotoModal
                 setImage={setGroupImage}
                 isModalVisible={isModalVisible}
-                setModalVisible={setModalVisible}></PhotoModal>
+                setModalVisible={setModalVisible}
+                width={412}
+                height={256}></PhotoModal>
             <TextInfo
                 title="마지막 단계예요."
                 subtitle="나만의 커버 이미지을 추가해 보세요!"></TextInfo>
             <ImageBackground source={source} style={styles.headerImage}>
                 <ImageBackground
-                    source={ require( '../../../assets/images/groupImageGradation.png' ) }
-                    style={styles.headerImageGradation}>
+                    source={require('../../../assets/images/groupImageGradation.png')}
+                    resizeMode="cover"
+                    style={{width: '100%', height: 256}}>
                     <View style={styles.headerImageInner}>
                         <View>
-                            <Text style={ styles.imageTitle }>{title}</Text>
+                            <Text style={styles.imageTitle}>{title}</Text>
                             <Text style={styles.imageSubtitle}>
-                               {description}
+                                {description}
                             </Text>
                         </View>
                         <TouchableOpacity onPress={() => setModalVisible(true)}>
