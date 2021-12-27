@@ -1,32 +1,35 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { TouchableOpacity,Image, StyleSheet, View } from 'react-native';
 import colors from '../../../../theme/colors';
+import CustomModal from '../../../common/CustomModal';
 
+const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imageSource, imageId}) => {
 
-const TiccleImage = ({setImage, deleteImage ,imageSource, imageId}) => {
+    const [deleteModal, setDeleteModal] = useState(false)
+
+    const modalTitle = "사진을 삭제하시겠습니까?"
+    const modalLeftButton = "뒤로가기"
+    const modalRightButton = "삭제"
+
+    const deleteTiccleImage = () => {
+        deleteImage(imageId)
+    }
 
 
     return (
         <View style={styles.container}>
+            <CustomModal title={modalTitle} leftButton={modalLeftButton} rightButton={modalRightButton}
+            isModalVisible={deleteModal} setModalVisible={setDeleteModal} rightButtonFunction={deleteTiccleImage}/>
             <TouchableOpacity
-                style={styles.touchableConatiner} onPress={ () =>  setImage(require('../../../../assets/images/example_group.png'))}
+                style={styles.touchableConatiner} onPress={photoModalVisibleTrue}
                 disabled={imageSource ? true : false}>
-
-                {(imageSource) ?
-                <Image style={styles.image} source={imageSource} /> :
-                <Image style={styles.imagePlus} source={ require('../../../../assets/images/plus.png')} />
-                }
-                
+                <Image style={styles.image} source={{uri : imageSource}} />            
             </TouchableOpacity>
 
-            {(imageSource) ?         
             <TouchableOpacity
-                style={styles.xButtonContainer} onPress={() => deleteImage(imageId)} activeOpacity={0.75}>
+                style={styles.xButtonContainer} onPress={()=>setDeleteModal(true)} activeOpacity={0.75}>
                 <Image source={require('../../../../assets/images/x_circle_sub.png')} style={styles.xButton} />
             </TouchableOpacity>
-            :
-            <></>
-            }
         </View>
 
     )
@@ -69,4 +72,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TiccleImage 
+export default TiccleCreateImage 

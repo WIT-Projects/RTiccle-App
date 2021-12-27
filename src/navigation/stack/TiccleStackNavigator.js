@@ -1,16 +1,21 @@
 import React from 'react';
 import { Image,StyleSheet,TouchableOpacity,Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
-import TiccleCreate from '../../containers/ticcle/create';
-import TiccleDetail from '../../containers/ticcle/detail';
+import TiccleCreate from '../../containers/ticcle/create/TiccleCreate';
+import TiccleDetail from '../../containers/ticcle/detail/TiccleDetail';
+import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
+
 
 const TiccleStack = createStackNavigator();
 
-const TiccleStackNavigator = () => (
+const TiccleStackNavigator = () => {
+
+    const {ticcleCreate, initialTiccleCreate, setTiccleDate} = UseTiccleCreate();
+
+    return(
     <TiccleStack.Navigator initialRouteName="ticcleCreate">
         <TiccleStack.Screen 
             name="ticcleCreate"
@@ -37,7 +42,12 @@ const TiccleStackNavigator = () => (
                 </TouchableOpacity>
             ),
             headerRight : () => (
-                <TouchableOpacity style={styles.headerRightTouchable} onPress={()=> navigation.navigate('ticcleDetail')}>
+                <TouchableOpacity style={styles.headerRightTouchable}
+                onPress={()=> {
+                    setTiccleDate()
+                    navigation.navigate('ticcleDetail')
+                    console.log(ticcleCreate)
+                }}>
                     <Text style={styles.headerRightText}>저장</Text>
                 </TouchableOpacity>
             )
@@ -59,7 +69,12 @@ const TiccleStackNavigator = () => (
                 lineHeight : 24,
             },
             headerLeft : () => (
-                <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => 
+                {
+                    navigation.pop()
+                    navigation.navigate('Home')
+                    initialTiccleCreate()
+                }}>
                     <Image source={require('../../assets/images/chevron_left.png')}
                         style={styles.headerLeftImage}
                     />
@@ -72,7 +87,7 @@ const TiccleStackNavigator = () => (
             )
             })}/>
     </TiccleStack.Navigator>
-);
+    )};
 
 const styles = StyleSheet.create({
     headerLeftTouchable :{
