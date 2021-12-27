@@ -1,18 +1,12 @@
 import React, {useState} from 'react';
-import {
-    View,
-    Text,
-    Image,
-    ImageBackground,
-    StyleSheet,
-    TouchableOpacity,
-} from 'react-native';
+import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 import GroupSaveButton from '../../common/GroupSaveButton';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
-import useGroupCreate from '../../../context/hook/useGroupCreate';
+
 import {type} from '../../../theme/fonts';
 import colors from '../../../theme/colors';
+import useGroupCreate from '../../../context/hook/useGroupCreate';
 
 const GroupCreateImage = ({navigation}) => {
     const {groupCreate, setGroupImage} = useGroupCreate();
@@ -90,13 +84,13 @@ const styles = StyleSheet.create({
     imageTitle: {
         fontFamily: type.spoqaHanSansNeo_Bold,
         fontSize: 24,
-        color: '#ffffff',
+        color: colors.white,
     },
     imageSubtitle: {
         fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize: 16,
         paddingTop: 8,
-        color: '#ffffff',
+        color: colors.white,
     },
     skipButton: {
         alignItems: 'center',

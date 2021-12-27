@@ -5,8 +5,8 @@ import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';
 
-function GroupCreateTypeItem({navigation, typeName, typeNum, imgSource}) {
-    const {groupCreate, setGroupType} = useGroupCreate();
+const GroupCreateTypeItem = ({navigation, typeName, typeNum, imgSource}) => {
+    const {setGroupType} = useGroupCreate();
     return (
         <View style={styles.typeItem}>
             <TouchableOpacity
@@ -19,7 +19,7 @@ function GroupCreateTypeItem({navigation, typeName, typeNum, imgSource}) {
             <Text style={styles.typeName}>{typeName}</Text>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     typeItem: {

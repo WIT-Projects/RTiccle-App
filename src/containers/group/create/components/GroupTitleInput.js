@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, TextInput, View, Text} from 'react-native';
 
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';
 
-function TitleInput({setButtonDisable}) {
+const TitleInput = ({setButtonDisable}) => {
     const {groupCreate, setGroupTitle} = useGroupCreate();
     var groupTitleLength = groupCreate.title.length;
     const maxLengthOfTitle = 15;
@@ -25,7 +25,7 @@ function TitleInput({setButtonDisable}) {
             <Text style={styles.textCount}>{groupTitleLength}/15</Text>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
