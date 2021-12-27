@@ -5,12 +5,12 @@ import TiccleDetailInfo from './components/TiccleDetailInfo';
 import TiccleDetailImageSwiper from './components/TiccleDetailImageSwiper';
 import TiccleDetailText from './components/TiccleDetailText';
 import TiccleDetailTag from './components/TiccleDetailTag';
-import useTiccleCreate from '../../../context/hook/UseTiccleCreate';
+import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
 
 const TiccleDetail = () => {
 
-    const {ticcleCreate} = useTiccleCreate();
+    const {ticcleCreate} = UseTiccleCreate();
     const ticcleTitle = ticcleCreate.title
     const ticcleLink = ticcleCreate.link
     const ticcleContent = ticcleCreate.content

@@ -1,9 +1,9 @@
 import React, {useState } from 'react';
-import { TouchableOpacity,Image, StyleSheet, View, Alert } from 'react-native';
+import { TouchableOpacity,Image, StyleSheet, View } from 'react-native';
 import colors from '../../../../theme/colors';
 import CustomModal from '../../../common/CustomModal';
 
-const TiccleImage = ({setPhotoModalVisibleTrue, deleteImage ,imageSource, imageId}) => {
+const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imageSource, imageId}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
 
@@ -21,7 +21,7 @@ const TiccleImage = ({setPhotoModalVisibleTrue, deleteImage ,imageSource, imageI
             <CustomModal title={modalTitle} leftButton={modalLeftButton} rightButton={modalRightButton}
             isModalVisible={deleteModal} setModalVisible={setDeleteModal} rightButtonFunction={deleteTiccleImage}/>
             <TouchableOpacity
-                style={styles.touchableConatiner} onPress={setPhotoModalVisibleTrue}
+                style={styles.touchableConatiner} onPress={photoModalVisibleTrue}
                 disabled={imageSource ? true : false}>
                 <Image style={styles.image} source={{uri : imageSource}} />            
             </TouchableOpacity>
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TiccleImage 
+export default TiccleCreateImage 

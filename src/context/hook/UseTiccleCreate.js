@@ -1,16 +1,16 @@
 import { useContext } from 'react';
 import AppContext from '../AppContext';
 
-const useTiccleCreate = () => {
+const UseTiccleCreate = () => {
     const {ticcleCreate, setTiccleCreate, setTiccleTitle, setTiccleLink, setTiccleTag,
-        setTiccleContent, setTiccleImage, deleteTiccleCreate, deleteTiccleImage,
+        setTiccleContent, setTiccleImage, initialTiccleCreate, deleteTiccleImage,
         setTiccleDate
     } = useContext(AppContext);
 
     return {ticcleCreate, setTiccleCreate, setTiccleTitle, setTiccleLink, setTiccleTag,
-        setTiccleContent, setTiccleImage, deleteTiccleCreate, deleteTiccleImage,
+        setTiccleContent, setTiccleImage, initialTiccleCreate, deleteTiccleImage,
         setTiccleDate
     };
 }
 
-export default useTiccleCreate
+export default UseTiccleCreate

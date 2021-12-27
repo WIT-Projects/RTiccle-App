@@ -40,7 +40,7 @@ const AppProvider = ({children}) => {
         setTiccleCreate(state => {return {...state, image: [...oldImage ,newImage]}})
     }
 
-    const deleteTiccleCreate = () => {
+    const initialTiccleCreate = () => {
         setTiccleCreate(
             {
             title: '',
@@ -65,7 +65,7 @@ const AppProvider = ({children}) => {
 
     return(
         <AppContext.Provider value={{ticcleCreate, setTiccleCreate,
-            setTiccleTitle, setTiccleLink, setTiccleTag, setTiccleContent, setTiccleImage, deleteTiccleCreate, deleteTiccleImage,
+            setTiccleTitle, setTiccleLink, setTiccleTag, setTiccleContent, setTiccleImage, initialTiccleCreate, deleteTiccleImage,
             setTiccleDate
         }}>
             {children}

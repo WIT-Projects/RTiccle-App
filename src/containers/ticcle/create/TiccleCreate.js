@@ -3,14 +3,14 @@ import { View, StyleSheet,ScrollView } from 'react-native';
 import TiccleImageCreateButton from './components/TiccleImageCreateButton';
 import TiccleContentTextInput from './components/TiccleContentTextInput';
 import TiccleCreateTextInputGroup from './components/TiccleCreateTextInputGroup';
-import TiccleImageGroup from './components/TiccleImageGroup';
+import TiccleCreateImageGroup from './components/TiccleCreateImageGroup';
 import colors from '../../../theme/colors';
-import useTiccleCreate from '../../../context/hook/UseTiccleCreate';
+import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
 import PhotoModal from '../../common/PhotoModal';
 
 const TiccleCreate = () => {
 
-    const {setTiccleContent, setTiccleImage, ticcleCreate} = useTiccleCreate();
+    const {setTiccleContent, setTiccleImage, ticcleCreate} = UseTiccleCreate();
 
     const [photoModalVisible, setPhotoModalVisible] = useState(false)
 
@@ -25,7 +25,7 @@ const TiccleCreate = () => {
 
             <View style={styles.imageCreateButtonContainer}>
                 {(ticcleCreate.image && ticcleCreate.image.length > 0) ?
-                <TiccleImageGroup photoModalVisibleTrue={photoModalVisibleTrue}/> :
+                <TiccleCreateImageGroup photoModalVisibleTrue={photoModalVisibleTrue}/> :
                 <TiccleImageCreateButton photoModalVisibleTrue={photoModalVisibleTrue}/>
                 }
             </View>

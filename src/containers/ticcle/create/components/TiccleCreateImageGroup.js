@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import useTiccleCreate from '../../../../context/hook/UseTiccleCreate';
-import TiccleImage from './TiccleImage';
-import TicclePlusBox from './TicclePlusBox';
+import UseTiccleCreate from '../../../../context/hook/UseTiccleCreate';
+import TiccleCreateImage from './TiccleCreateImage';
+import TiccleCreatePlusBox from './TiccleCreatePlusBox';
 
 const TiccleImageGroup = ({photoModalVisibleTrue}) => {
 
-    const {ticcleCreate ,deleteTiccleImage} = useTiccleCreate();
+    const {ticcleCreate ,deleteTiccleImage} = UseTiccleCreate();
 
     const ticcleImageList = ticcleCreate.image.map(
         (imageSource) => (
-            <TiccleImage key={imageSource.id} setPhotoModalVisibleTrue={photoModalVisibleTrue} 
+            <TiccleCreateImage key={imageSource.id} photoModalVisibleTrue={photoModalVisibleTrue} 
             deleteImage={deleteTiccleImage} imageSource={imageSource.path} imageId={imageSource.id}
             />
             ))
@@ -18,7 +18,7 @@ const TiccleImageGroup = ({photoModalVisibleTrue}) => {
     return(
         <View style={styles.container}>
             {ticcleImageList}
-            {ticcleCreate.image.length < 3 ? <TicclePlusBox photoModalVisibleTrue={photoModalVisibleTrue}/> : null}    
+            {ticcleCreate.image.length < 3 ? <TiccleCreatePlusBox photoModalVisibleTrue={photoModalVisibleTrue}/> : null}    
         </View>
     )
 }

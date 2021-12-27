@@ -4,11 +4,11 @@ import { View, StyleSheet } from 'react-native';
 import TiccleCreateTextInput from './TiccleCreateTextInput';
 import colors from '../../../../theme/colors';
 
-import useTiccleCreate from '../../../../context/hook/UseTiccleCreate';
+import UseTiccleCreate from '../../../../context/hook/UseTiccleCreate';
 
 const TiccleCreateTextInputGroup = () => {
 
-    const {setTiccleTitle, setTiccleLink, setTiccleTag} = useTiccleCreate();
+    const {setTiccleTitle, setTiccleLink, setTiccleTag} = UseTiccleCreate();
     return(
         <View style={styles.container}>
                 <TiccleCreateTextInput
