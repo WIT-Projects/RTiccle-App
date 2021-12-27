@@ -63,6 +63,16 @@ const AppProvider = ({children}) => {
         bookmark: false,
         mainImage: '',
     });
+    const initialGroupCreate = () => {
+        setGroupCreate({
+            lastModifiedTime: '',
+            type: '', // integer. BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
+            title: '',
+            description: '',
+            bookmark: false,
+            mainImage: '',
+        });
+    };
     const setGroupDate = () => {
         const today = new Date();
         setGroupCreate(state => {
@@ -107,6 +117,7 @@ const AppProvider = ({children}) => {
                 ticcleCreateImage,
                 groupCreate,
                 setGroupCreate,
+                initialGroupCreate,
                 setGroupDate,
                 setGroupType,
                 setGroupTitle,

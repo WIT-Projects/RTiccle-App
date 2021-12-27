@@ -18,19 +18,17 @@ import firestore from '@react-native-firebase/firestore';
 import {uploadNewGroup} from '../../../firebase/Firestore';
 
 const GroupCreateImage = ({navigation}) => {
-    const {groupCreate, setGroupImage, setGroupDate} = useGroupCreate('');
+    const {groupCreate, setGroupImage, initialGroupCreate} = useGroupCreate();
     const title = groupCreate.title;
     const type = groupCreate.type;
     const description = groupCreate.description;
     const mainImage = groupCreate.mainImage;
-    const lastModifiedTime = groupCreate.lastModifiedTime;
-    const date = firestore.Timestamp.fromDate(new Date());
-    // setGroupDate(date);
+    const nowDate = firestore.Timestamp.fromDate(new Date());
 
     const groupCreateFirebase = () => {
         const groupName = title;
         const newGroup = {
-            lastModifiedTime: date,
+            lastModifiedTime: nowDate,
             type: type,
             title: title,
             description: description,
@@ -40,6 +38,8 @@ const GroupCreateImage = ({navigation}) => {
         uploadNewGroup(groupName, newGroup, imageSource).then(ref =>
             console.log(ref),
         );
+        initialGroupCreate();
+        navigation.navigate('Home');
     };
 
     let source;
@@ -83,7 +83,6 @@ const GroupCreateImage = ({navigation}) => {
                 <TouchableOpacity
                     onPress={() => {
                         groupCreateFirebase();
-                        console.log(groupCreate);
                     }}>
                     <Text>저장하기</Text>
                 </TouchableOpacity>

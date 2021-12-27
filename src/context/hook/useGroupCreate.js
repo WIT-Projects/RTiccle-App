@@ -5,6 +5,7 @@ const useGroupCreate = () => {
     const {
         groupCreate,
         setGroupCreate,
+        initialGroupCreate,
         setGroupDate,
         setGroupType,
         setGroupTitle,
@@ -16,6 +17,7 @@ const useGroupCreate = () => {
     return {
         groupCreate,
         setGroupCreate,
+        initialGroupCreate,
         setGroupDate,
         setGroupType,
         setGroupTitle,
