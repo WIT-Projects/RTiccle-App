@@ -32,9 +32,8 @@ const GroupCreateImage = ({navigation}) => {
                 subtitle="나만의 커버 이미지을 추가해 보세요!"></TextInfo>
             <ImageBackground source={source} style={styles.headerImage}>
                 <ImageBackground
-                    source={require('../../../assets/images/groupImageGradation.png')}
-                    resizeMode="cover"
-                    style={{width: '100%', height: 256}}>
+                    source={ require( '../../../assets/images/groupImageGradation.png' ) }
+                    style={styles.headerImageGradation}>
                     <View style={styles.headerImageInner}>
                         <View>
                             <Text style={ styles.imageTitle }>{title}</Text>
@@ -74,6 +73,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 256,
         marginBottom: 128,
+    },
+    headerImageGradation: {
+        resizeMode: 'cover',
+        width: '100%',
+        height: 256,
     },
     headerImageInner: {
         flexDirection: 'row',
