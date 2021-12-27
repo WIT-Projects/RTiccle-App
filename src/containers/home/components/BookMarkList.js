@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text, ImageBackground, View, ScrollView,  StyleSheet} from 'react-native';
+import {Text, View, ScrollView,  StyleSheet} from 'react-native';
 import { type } from '../../../theme/fonts';
 import MarkTiccle from './MarkTiccle';
 
-const BookMarkList = ({userName, imgUrl}) => {
+const BookMarkList = () => {
     const data = [
         {
             id: 1,
@@ -34,8 +34,8 @@ const BookMarkList = ({userName, imgUrl}) => {
     return (
         <>
             <View style={styles.container}>
-                <Text style={styles.blackBoldFont}>티끌 바로가기</Text>
-                <Text style={styles.blackRegularFont}>{userName} 님이 즐겨찾는 티끌들이에요.</Text>
+                <Text style={styles.blackBoldFont}>즐겨찾기</Text>
+                <Text style={styles.blackRegularFont}>자주 열어보는 그룹이에요</Text>
             </View>
             <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{marginLeft: 11.5}}>
                 {data.map((item) => {return (<MarkTiccle key={item.id} imgUrl={item.imgUrl} title={item.title} count={item.count}></MarkTiccle>)})}
