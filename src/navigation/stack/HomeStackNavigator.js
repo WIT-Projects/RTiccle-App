@@ -6,9 +6,9 @@ import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 
-import Home from '../../containers/home';
-import GroupDetail from '../../containers/group/detail';
 import GroupCreateType from '../../containers/group/create/GroupCreateType';
+import Home from '../../containers/home/Home';
+import GroupDetail from '../../containers/group/detail/GroupDetail';
 import GroupCreateName from '../../containers/group/create/GroupCreateName';
 import GroupCreateImage from '../../containers/group/create/GroupCreateImage';
 import useGroupCreate from '../../context/hook/useGroupCreate';
@@ -26,11 +26,13 @@ const HomeStackNavigatior = () => {
                     title: 'RTICCLE',
                     headerLeft: () => (
                         <Image
+                            style={{marginLeft: 18}}
                             source={require('../../assets/images/logo.png')}
                         />
                     ),
                     headerRight: () => (
                         <Image
+                            style={{marginRight: 28}}
                             source={require('../../assets/icon/searchBlack.png')}
                         />
                     ),
