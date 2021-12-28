@@ -1,17 +1,18 @@
 /* This is example of using firebase function */
 import {
-    createGroup, 
-    createTiccle, 
     uploadNewGroup,
-    uploadNewTiccle, 
     findAllGroup,
     findGroupById, 
     findGroupsIncludeImage,
-    findTiccleById, 
     checkIsExistingGroup,
-    findTiccleListByGroupId, 
+} from "../GroupService";
+import {
+    createGroup,  
+    uploadNewTiccle, 
+    findTiccleById, 
     getImagesOfTiccle, 
-} from "./Firestore";
+    findTiccleListByGroupId, 
+} from "../TiccleService"
 import firestore from '@react-native-firebase/firestore';
 
 function testUploadNewGroup() {

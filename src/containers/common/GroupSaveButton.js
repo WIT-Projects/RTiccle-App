@@ -5,7 +5,7 @@ import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 import useGroupCreate from '../../context/hook/useGroupCreate';
 import firestore from '@react-native-firebase/firestore';
-import {uploadNewGroup} from '../../firebase/Firestore';
+import {uploadNewGroup} from '../../service/GroupService';
 
 const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();

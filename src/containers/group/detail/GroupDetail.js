@@ -5,7 +5,7 @@ import GroupInfo from './components/groupInfo';
 import Search from './components/search';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
-import {findTiccleListByGroupId, getGroupDataIncludeImage} from '../../../firebase/Firestore';
+import {findTiccleListByGroupId, getGroupDataIncludeImage} from '../../../service/GroupService';
 
 const GroupDetail = ({ route }) => {
     const [groupData, setGroupData] = useState([]);

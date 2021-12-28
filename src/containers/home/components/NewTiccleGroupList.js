@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import { type } from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
-import { findGroupsIncludeImage, checkExsitedGroup } from '../../../firebase/Firestore';
+import { findGroupsIncludeImage, checkExsitedGroup } from '../../../service/GroupService';
 
 const NewTiccleGroupList = () => {
     const [isExistGroup, setExistGroup] = useState(false);
