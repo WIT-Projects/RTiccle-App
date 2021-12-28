@@ -7,10 +7,8 @@ import {
     checkIsExistingGroup,
 } from "../GroupService";
 import {
-    createGroup,  
     uploadNewTiccle, 
     findTiccleById, 
-    getImagesOfTiccle, 
     findTiccleListByGroupId, 
 } from "../TiccleService"
 import firestore from '@react-native-firebase/firestore';
@@ -19,7 +17,7 @@ function testUploadNewGroup() {
     const groupName = 'new';
     const newGroup = {
         lastModifiedTime: firestore.Timestamp.fromDate(new Date()),
-        type: 5, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
+        type: 5, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: groupName,
         description: 'this is testing group',
         bookmark: false,

@@ -5,7 +5,7 @@ import GroupInfo from './components/groupInfo';
 import Search from './components/search';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
-import {findTiccleListByGroupId, getGroupDataIncludeImage} from '../../../service/GroupService';
+import {findTiccleListByGroupId, findGroupByIdIncludeImage} from '../../../service/GroupService';
 
 const GroupDetail = ({ route }) => {
     const [groupData, setGroupData] = useState([]);
@@ -13,7 +13,7 @@ const GroupDetail = ({ route }) => {
 
     useEffect(() => {
         // get group data
-        const getData = getGroupDataIncludeImage(route.params.groupId);
+        const getData = findGroupByIdIncludeImage(route.params.groupId);
         getData.then((value) => {setGroupData(value)});
         
         //get ticcle List

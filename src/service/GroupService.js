@@ -24,7 +24,7 @@ async function createGroup(groupName, newGroup) {
  * @param {*} group: group info
  * *  {
         lastModifiedTime: TimeStamp,
-        type: integer, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
+        type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
@@ -106,23 +106,10 @@ async function findGroupById(groupId) {
 }
 
 /**
- * Check existed group
- * @returns {boolean} true: existed, false: not existed
- */
-async function checkExsitedGroup() {
-    const querySnapshot = await userDoc.collection("Group").get();
-    if (querySnapshot.size === 0) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-/**
- * get group date include image by groupId
+ * Get group data include image by groupId
  * @returns {Array} group data
  */
-async function getGroupDataIncludeImage(groupId) {
+ async function findGroupByIdIncludeImage(groupId) {
     const group = await userDoc.collection("Group").doc(groupId).get();
     let data = group.data();
     var mainImageURL = null;
@@ -133,6 +120,19 @@ async function getGroupDataIncludeImage(groupId) {
     return data;
 }
 
+/**
+ * Check whether more than one group exists or not
+ * @returns {boolean} true: existed, false: not existed
+ */
+async function checkIsExistingAnyGroup() {
+    const querySnapshot = await userDoc.collection("Group").get();
+    if (querySnapshot.size === 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 export {
     createGroup,
     uploadNewGroup,
@@ -140,6 +140,6 @@ export {
     findGroupsIncludeImage,
     checkIsExistingGroup,
     findGroupById,
-    checkExsitedGroup,
-    getGroupDataIncludeImage,
+    findGroupByIdIncludeImage,
+    checkIsExistingAnyGroup,
 }
