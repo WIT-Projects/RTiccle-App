@@ -13,7 +13,7 @@ import metrics from '../../theme/metrices';
 
 const MainStack = createStackNavigator();
 
-const HomeStackNavigatior = () => {
+const MainStackNavigator = () => {
     return (
         <NavigationContainer>
             <MainStack.Navigator>
@@ -148,4 +148,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeStackNavigatior;
+export default MainStackNavigator;

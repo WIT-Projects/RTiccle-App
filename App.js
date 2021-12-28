@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { anonSignIn, googleSigninConfigure, getCurrentUser } from './src/firebase/Auth';
 import AppProvider from './src/context/provider/AppProvider';
-import MainStack from './src/navigation/stack/MainStackNavigator';
+import MainStackNavigator from './src/navigation/stack/MainStackNavigator';
 
 function App() {
     useEffect(() => {
@@ -14,7 +14,7 @@ function App() {
     return (
         <>
             <AppProvider>
-                <MainStack></MainStack>
+                <MainStackNavigator></MainStackNavigator>
             </AppProvider>
         </>
     )
