@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeStackNavigatior from './stack/HomeStackNavigator';
@@ -10,7 +9,6 @@ const TabNav = () => {
     const Tab = createBottomTabNavigator();
 
     return(
-        <NavigationContainer>
             <Tab.Navigator>
                 <Tab.Screen name="HomeStack" component={HomeStackNavigatior}
                 options={{ 
@@ -28,7 +26,6 @@ const TabNav = () => {
                     title: "My"
                 }}/>
         </Tab.Navigator>
-    </NavigationContainer>
     )
 }
 
