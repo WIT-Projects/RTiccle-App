@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import { getCurrentUser } from './AuthService';
 import { uploadImageToStorage, getDownloadURLByName } from './ImageService';
-
+import { findTiccleListByGroupId } from './TiccleService';
 const user = getCurrentUser();
 const userDoc = firestore().collection('RTiccle').doc(user.uid);
 
@@ -66,17 +66,19 @@ async function findGroupsIncludeImage(limit) {
         .orderBy('lastModifiedTime', 'desc')
         .limit(limit);
     const querySnapshot = await query.get();
+    var snapshots = [];
+    querySnapshot.forEach((snapshot) => snapshots.push({id: snapshot.id, data: snapshot.data()}));
     var groups = [];
-    querySnapshot.forEach(snapshot => {
-        const id = snapshot.id;
-        var data = snapshot.data();
+    for (let group of snapshots) {
+        const id = group.id;
+        var data = group.data;
         var mainImageURL = null;
         if (data.mainImage || data.mainImage != '') { // get download URL
-            mainImageURL = getDownloadURLByName(data.mainImage, false);
+            mainImageURL = await getDownloadURLByName(data.mainImage, false);
         }
         data = { ...data, imageUrl: mainImageURL, id: id };
         groups = [...groups, data];
-    })
+    }
     return groups;
 }
 
@@ -114,7 +116,7 @@ async function findGroupById(groupId) {
     let data = group.data();
     var mainImageURL = null;
     if (data.mainImage || data.mainImage != '') { // get download URL
-        mainImageURL = getDownloadURLByName(data.mainImage, false);
+        mainImageURL = await getDownloadURLByName(data.mainImage, false);
     }
     data = { ...data, imageUrl: mainImageURL};
     return data;
@@ -133,6 +135,15 @@ async function checkIsExistingAnyGroup() {
     }
 }
 
+/**
+ * get group's ticcle count by groupId
+ * @returns {Int} ticcle length
+ */
+ async function getNumberOfTicclesOfGroup(groupId) {
+    const ticcleList = await findTiccleListByGroupId(groupId);
+    return ticcleList.length;
+}
+
 export {
     createGroup,
     uploadNewGroup,
@@ -142,4 +153,5 @@ export {
     findGroupById,
     findGroupByIdIncludeImage,
     checkIsExistingAnyGroup,
+    getNumberOfTicclesOfGroup,
 }

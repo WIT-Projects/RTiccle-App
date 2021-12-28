@@ -82,21 +82,12 @@ async function findTiccleById(ticcleId) {
 async function getImagesOfTiccle(images) {
     var imageURLArr = [];
     if (images !== undefined) {
-        images.map((imageName) => {
-            const URL = getDownloadURLByName(imageName, true);
+        for (const imageName of images) {
+            const URL = await getDownloadURLByName(imageName, true);
             imageURLArr.push(URL);
-        })
+        }
     }
     return imageURLArr;
-}
-
-/**
- * get group's ticcle count by groupId
- * @returns {Int} ticcle length
- */
-async function getTiccleCount(groupId) {
-    const ticcleList = await findTiccleListByGroupId(groupId);
-    return ticcleList.length;
 }
 
 export {
@@ -105,5 +96,4 @@ export {
     findTiccleListByGroupId,
     findTiccleById,
     getImagesOfTiccle,
-    getTiccleCount,
 }
