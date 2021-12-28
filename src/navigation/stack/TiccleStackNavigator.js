@@ -8,7 +8,6 @@ import TiccleCreate from '../../containers/ticcle/create/TiccleCreate';
 import TiccleDetail from '../../containers/ticcle/detail/TiccleDetail';
 import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
 
-
 const TiccleStack = createStackNavigator();
 
 const TiccleStackNavigator = () => {
@@ -101,8 +100,7 @@ const styles = StyleSheet.create({
         width : 12, 
         height: 20, 
         tintColor : colors.white
-    }
-    ,
+    },
     headerRightTouchable : {
         alignItems: 'center',
         justifyContent : 'center',
@@ -117,7 +115,6 @@ const styles = StyleSheet.create({
         lineHeight : 24,
         marginBottom: 1,
     }
-
 })
 
 export default TiccleStackNavigator;
