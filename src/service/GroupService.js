@@ -42,10 +42,10 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
 }
 
 /**
- * Get All Group of User
- * @returns {QuerySnapshot}
+ * Get All Group of User and Set state
+ * @param {Dispatch<SetStateAction<S>>} setState 
  */
-async function findAllGroup() {
+ async function findAllGroup(setState) {
     const querySnapshot = await userDoc.collection("Group").get();
     var groups = [];
     querySnapshot.forEach(snapshot => {
@@ -53,15 +53,16 @@ async function findAllGroup() {
         const group = { ...snapshot.data(), id }
         groups = [...groups, group];
     })
-    return groups;
+    setState(groups);
 }
 
 /**
- * Find groups include main image url with limiting
+ * Find groups include main image url with limiting and Set state
  * @param {*} limit: maximum number of groups
+ * @param {Dispatch<SetStateAction<S>>} setState 
  * @returns {Array} Group List (include image url)
  */
-async function findGroupsIncludeImage(limit) {
+async function findGroupsIncludeImage(limit, setState) {
     const query = userDoc.collection("Group")
         .orderBy('lastModifiedTime', 'desc')
         .limit(limit);
@@ -79,39 +80,41 @@ async function findGroupsIncludeImage(limit) {
         data = { ...data, imageUrl: mainImageURL, id: id };
         groups = [...groups, data];
     }
-    return groups;
+    setState(groups);
 }
 
 /**
  * check whether a group name exists or not
- * @param {string} groupName 
+ * @param {string} groupId 
  * @returns {Boolean} true is existing group
  */
-async function checkIsExistingGroup(groupName) {
+async function checkIsExistingGroup(groupId) {
     const querySnapshot = await userDoc.collection("Group").get();
     var found = false;
     querySnapshot.forEach(snapshot => {
-        if (snapshot.id == groupName) found = true;
+        if (snapshot.id == groupId) found = true;
     })
     return found;
 }
 
 /**
- * Get One Group By Id (DocumentSnapshot.id)
+ * Get One Group By Id (DocumentSnapshot.id) and Set state
  * @param {*} groupId 
+ * @param {Dispatch<SetStateAction<S>>} setState 
  * @returns {DocumentSnapshot} (of Group doc) if exist, else null
  */
-async function findGroupById(groupId) {
+async function findGroupById(groupId, setState) {
     const group = await userDoc.collection("Group").doc(groupId).get();
-    if (group.exists) return group.data();
-    else return null;
+    if (group.exists) setState(group.data());
+    else setState([]);
 }
 
 /**
- * Get group data include image by groupId
- * @returns {Array} group data
+ * Get group data include image by groupId and set state
+ * @param {string} groupId 
+ * @param {Dispatch<SetStateAction<S>>} setState 
  */
- async function findGroupByIdIncludeImage(groupId) {
+ async function findGroupByIdIncludeImage(groupId, setState) {
     const group = await userDoc.collection("Group").doc(groupId).get();
     let data = group.data();
     var mainImageURL = null;
@@ -119,7 +122,7 @@ async function findGroupById(groupId) {
         mainImageURL = await getDownloadURLByName(data.mainImage, false);
     }
     data = { ...data, imageUrl: mainImageURL};
-    return data;
+    setState(data);
 }
 
 /**
@@ -135,15 +138,6 @@ async function checkIsExistingAnyGroup() {
     }
 }
 
-/**
- * get group's ticcle count by groupId
- * @returns {Int} ticcle length
- */
- async function getNumberOfTicclesOfGroup(groupId) {
-    const ticcleList = await findTiccleListByGroupId(groupId);
-    return ticcleList.length;
-}
-
 export {
     createGroup,
     uploadNewGroup,
@@ -153,5 +147,4 @@ export {
     findGroupById,
     findGroupByIdIncludeImage,
     checkIsExistingAnyGroup,
-    getNumberOfTicclesOfGroup,
 }

@@ -73,10 +73,6 @@ async function testFindTiccleListByGroupId() {
     console.log(ticcleList);
 }
 
-async function testGetImagesOfTiccle() {
-    // not yet
-}
-
 export {
     testUploadNewGroup,
     testUploadNewTiccle,
@@ -86,5 +82,4 @@ export {
     testFindTiccleById,
     testCheckIsExistingGroup,
     testFindTiccleListByGroupId,
-    testGetImagesOfTiccle,
 }

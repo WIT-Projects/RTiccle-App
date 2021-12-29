@@ -3,15 +3,14 @@ import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
-import { getNumberOfTicclesOfGroup } from '../../../service/GroupService';
+import { findNumberOfTicclesOfGroup } from '../../../service/TiccleService';
 
 const TiccleGroup = ({imageUrl, groupTitle, ticcleTitle}) => {
     const navigateTo = useNavigation();
     const [ticcleCount, setTiccleCount] = useState([]);
     
     useEffect(() => {
-        const getCount = getNumberOfTicclesOfGroup(groupTitle);
-        getCount.then((value) => setTiccleCount(value));
+        findNumberOfTicclesOfGroup(groupTitle, setTiccleCount);
     }, []);
 
     return (

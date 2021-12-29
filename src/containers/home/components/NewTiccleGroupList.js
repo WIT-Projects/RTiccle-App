@@ -13,8 +13,7 @@ const NewTiccleGroupList = () => {
         getIsExist.then((value) => {
             setExistGroup(value);
             if(value != 0){
-                const getData = findGroupsIncludeImage(10);
-                getData.then((value) => setData(value));
+                findGroupsIncludeImage(10, setData);
             }
         });
     }, []);

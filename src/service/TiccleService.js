@@ -45,11 +45,12 @@ function uploadNewTiccle(ticcle, images) {
 }
 
 /**
- * Get ticcle list by group id
+ * Get ticcle list by group id and Set state
  * @param {string} groupId 
+ * @param {Dispatch<SetStateAction<S>>} setState 
  * @returns {Array} Ticcle List
  */
-async function findTiccleListByGroupId(groupId) {
+async function findTiccleListByGroupId(groupId, setState) {
     const query = userDoc.collection("Ticcle")
         .where("group", "==", groupId);
     const querySnapshot = await query.get();
@@ -60,40 +61,55 @@ async function findTiccleListByGroupId(groupId) {
         const ticcle = { ...snapshot.data(), id }
         ticcleList = [...ticcleList, ticcle];
     });
-    return ticcleList;
+    setState(ticcleList);
 }
 
 /**
- * Get One Ticcle By Id (DocumentSnapshot.id)
+ * Get group's number of ticcles by groupId
+ * @param {Dispatch<SetStateAction<S>>} setState
+ * @returns {Int} ticcle length
+ */
+ async function findNumberOfTicclesOfGroup(groupId, setState) {
+    const query = userDoc.collection("Ticcle")
+        .where("group", "==", groupId);
+    const querySnapshot = await query.get();
+    setState(querySnapshot.size);
+}
+
+/**
+ * Get One Ticcle By Id (DocumentSnapshot.id) and Set state
  * @param {*} ticcleId 
+ * @param {Dispatch<SetStateAction<S>>} setState 
  * @returns {DocumentSnapshot} (of Ticcle doc) if exist, else null
  */
-async function findTiccleById(ticcleId) {
+async function findTiccleById(ticcleId, setState) {
     const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
-    if (ticcle.exists) return ticcle.data();
-    else return null;
+    if (ticcle.exists) setState(ticcle.data());
+    else setState([]);
 }
 
 /**
- * Get images of ticcle
- * @param {Array} images // image name array - LIMIT 2
- * @returns {Array} Image URL Array
+ * Get images of ticcle and Set state
+ * @param {Array} ticcle 
+ * @param {Dispatch<SetStateAction<S>>} setState 
  */
-async function getImagesOfTiccle(images) {
+ async function findImagesOfTiccle(ticcle, setState) {
     var imageURLArr = [];
-    if (images !== undefined) {
+    const images = ticcle.images;
+    if (images) {
         for (const imageName of images) {
             const URL = await getDownloadURLByName(imageName, true);
             imageURLArr.push(URL);
         }
     }
-    return imageURLArr;
+    setState({...ticcle, imageUrl: imageURLArr});
 }
 
 export {
     createTiccle,
     uploadNewTiccle,
     findTiccleListByGroupId,
+    findNumberOfTicclesOfGroup,
     findTiccleById,
-    getImagesOfTiccle,
+    findImagesOfTiccle,
 }
