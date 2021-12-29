@@ -2,6 +2,7 @@ import React from 'react';
 import {useState} from 'react/cjs/react.development';
 import AppContext from '../AppContext';
 import uuid from 'react-native-uuid';
+import { FBDate } from '../../service/CommonService';
 
 const AppProvider = ({children}) => {
     const [ticcleCreate, setTiccleCreate] = useState({
@@ -69,7 +70,7 @@ const AppProvider = ({children}) => {
         });
     };
     const setTiccleDate = () => {
-        const today = new Date();
+        const today = FBDate();
         setTiccleCreate(state => {
             return {...state, date: today};
         });
@@ -94,7 +95,7 @@ const AppProvider = ({children}) => {
         });
     };
     const setGroupDate = () => {
-        const today = new Date();
+        const today = FBDate();
         setGroupCreate(state => {
             return {...state, date: today};
         });
