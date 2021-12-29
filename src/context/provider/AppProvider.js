@@ -77,7 +77,7 @@ const AppProvider = ({children}) => {
 
     const [groupCreate, setGroupCreate] = useState({
         lastModifiedTime: '',
-        type: '', // integer. BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
+        type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: '',
         description: '',
         bookmark: false,
@@ -86,7 +86,7 @@ const AppProvider = ({children}) => {
     const initialGroupCreate = () => {
         setGroupCreate({
             lastModifiedTime: '',
-            type: '', // integer. BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
+            type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
             title: '',
             description: '',
             bookmark: false,

@@ -5,47 +5,46 @@ import GroupCreateTypeItem from './components/GroupCreateTypeItem';
 
 import colors from '../../../theme/colors';
 
-const GroupCreateType = ( { navigation } ) =>
-{
+const GroupCreateType = ({navigation}) => {
     return (
-        <View style={ styles.container }>
+        <View style={styles.container}>
             <TextInfo
                 title="그룹 생성하기"
                 subtitle="어떤 종류의 그룹을 만드실껀가요?"></TextInfo>
-            <View style={ styles.typeList }>
-                <View style={ styles.typeLine }>
+            <View style={styles.typeList}>
+                <View style={styles.typeLine}>
                     <GroupCreateTypeItem
                         typeName="책"
-                        typeNum={ 0 }
-                        imgSource={ require( '../../../assets/images/book.png' ) }
-                        navigation={ navigation }></GroupCreateTypeItem>
+                        typeNum={0}
+                        imgSource={require('../../../assets/images/book.png')}
+                        navigation={navigation}></GroupCreateTypeItem>
                     <GroupCreateTypeItem
                         typeName="블로그"
-                        typeNum={ 1 }
-                        imgSource={ require( '../../../assets/images/blog.png' ) }
-                        navigation={ navigation }></GroupCreateTypeItem>
+                        typeNum={1}
+                        imgSource={require('../../../assets/images/blog.png')}
+                        navigation={navigation}></GroupCreateTypeItem>
                     <GroupCreateTypeItem
                         typeName="뉴스기사"
-                        typeNum={ 2 }
-                        imgSource={ require( '../../../assets/images/news.png' ) }
-                        navigation={ navigation }></GroupCreateTypeItem>
+                        typeNum={2}
+                        imgSource={require('../../../assets/images/news.png')}
+                        navigation={navigation}></GroupCreateTypeItem>
                 </View>
-                <View style={ styles.typeLine }>
+                <View style={styles.typeLine}>
                     <GroupCreateTypeItem
                         typeName="연재물"
-                        typeNum={ 3 }
-                        imgSource={ require( '../../../assets/images/series.png' ) }
-                        navigation={ navigation }></GroupCreateTypeItem>
+                        typeNum={3}
+                        imgSource={require('../../../assets/images/series.png')}
+                        navigation={navigation}></GroupCreateTypeItem>
                     <GroupCreateTypeItem
                         typeName="SNS"
-                        typeNum={ 4 }
-                        imgSource={ require( '../../../assets/images/sns.png' ) }
-                        navigation={ navigation }></GroupCreateTypeItem>
+                        typeNum={4}
+                        imgSource={require('../../../assets/images/sns.png')}
+                        navigation={navigation}></GroupCreateTypeItem>
                     <GroupCreateTypeItem
                         typeName="기타"
-                        typeNum={ 5 }
-                        imgSource={ require( '../../../assets/images/etc.png' ) }
-                        navigation={ navigation }></GroupCreateTypeItem>
+                        typeNum={5}
+                        imgSource={require('../../../assets/images/etc.png')}
+                        navigation={navigation}></GroupCreateTypeItem>
                 </View>
             </View>
         </View>

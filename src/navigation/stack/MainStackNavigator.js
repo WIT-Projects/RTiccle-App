@@ -1,29 +1,33 @@
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
 
 import colors from '../../theme/colors';
-import { type } from '../../theme/fonts';
+import {type} from '../../theme/fonts';
 import TabNav from '../TabNav';
 import GroupCreateName from '../../containers/group/create/GroupCreateName';
 import GroupCreateImage from '../../containers/group/create/GroupCreateImage';
 import GroupCreateType from '../../containers/group/create/GroupCreateType';
+import useGroupCreate from '../../context/hook/useGroupCreate';
 import metrics from '../../theme/metrices';
 
 const MainStack = createStackNavigator();
 
 const MainStackNavigator = () => {
+    const {initialGroupCreate} = useGroupCreate();
     return (
         <NavigationContainer>
             <MainStack.Navigator>
-                <MainStack.Screen 
-                options={{headerShown: false}}
-                name="Home" component={TabNav} />
+                <MainStack.Screen
+                    options={{headerShown: false}}
+                    name="Home"
+                    component={TabNav}
+                />
                 <MainStack.Screen
                     name="GroupCreateType"
                     component={GroupCreateType}
-                    options={({ navigation }) => ({
+                    options={({navigation}) => ({
                         headerStyle: {
                             backgroundColor: colors.white,
                             height: metrics.topNavigationHeight,
@@ -43,7 +47,9 @@ const MainStackNavigator = () => {
                                 }}>
                                 <Image
                                     source={require('../../assets/images/chevron_left.png')}
-                                    style={(styles.headerLeftImage, styles.black)}
+                                    style={
+                                        (styles.headerLeftImage, styles.black)
+                                    }
                                 />
                             </TouchableOpacity>
                         ),
@@ -52,7 +58,7 @@ const MainStackNavigator = () => {
                 <MainStack.Screen
                     name="GroupCreateName"
                     component={GroupCreateName}
-                    options={({ navigation }) => ({
+                    options={({navigation}) => ({
                         headerStyle: {
                             backgroundColor: colors.white,
                             height: metrics.topNavigationHeight,
@@ -72,17 +78,19 @@ const MainStackNavigator = () => {
                                 }}>
                                 <Image
                                     source={require('../../assets/images/chevron_left.png')}
-                                    style={(styles.headerLeftImage, styles.black)}
+                                    style={
+                                        (styles.headerLeftImage, styles.black)
+                                    }
                                 />
                             </TouchableOpacity>
                         ),
                     })}
                 />
                 <MainStack.Screen
-                    options={{ headerShown: false }}
+                    options={{headerShown: false}}
                     name="GroupCreateImage"
                     component={GroupCreateImage}
-                    options={({ navigation }) => ({
+                    options={({navigation}) => ({
                         headerStyle: {
                             backgroundColor: colors.white,
                             height: metrics.topNavigationHeight,
@@ -102,7 +110,9 @@ const MainStackNavigator = () => {
                                 }}>
                                 <Image
                                     source={require('../../assets/images/chevron_left.png')}
-                                    style={(styles.headerLeftImage, styles.black)}
+                                    style={
+                                        (styles.headerLeftImage, styles.black)
+                                    }
                                 />
                             </TouchableOpacity>
                         ),
