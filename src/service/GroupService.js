@@ -1,7 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 import { getCurrentUser } from './AuthService';
-import { uploadImageToStorage, getDownloadURLByName } from './ImageService';
-import { findTiccleListByGroupId } from './TiccleService';
+import { uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage } from './ImageService';
+import { FBDate } from './CommonService';
+
 const user = getCurrentUser();
 const userDoc = firestore().collection('RTiccle').doc(user.uid);
 
@@ -39,6 +40,54 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
         uploadImageToStorage(imageName, mainImageSource);
     }
     return createGroup(newGroupName, { ...group, mainImage: imageName });
+}
+
+/**
+ * Update group info (no support for image)
+ * @param {*} groupName 
+ * @param {*} newInfo: new group info (changed info only)
+ * Support info:
+ * *  {
+        type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
+        title: String,
+        description: String,
+        bookmark: Boolean, // true if bookmarked
+    }
+ */
+function updateGroupInfo(groupName, newInfo) {
+    const updateInfo = {...newInfo, lastModifiedTime: FBDate()};
+    const ref = userDoc.collection("Group").doc(groupName);
+    ref.update(updateInfo);
+}
+
+/**
+ * Update group main image
+ * @param {string} groupName 
+ * @param {string} oldImageName 
+ * @param {*} newImageSource 
+ * @returns {string} newImageName
+ */
+function updateGroupImage(groupName, oldImageName, newImageSource) {
+    // delete original image first
+    deleteImageFromStorage(oldImageName, false);
+    // upload new image
+    newImageName = Date.now() + ".jpg";
+    uploadImageToStorage(newImageName, newImageSource);
+    // update group info
+    updateGroupInfo(groupName, {mainImage: newImageName});
+    return newImageName;
+}
+
+/**
+ * Delete group 
+ * @param {Array} group: group info (MUST include title(id), mainImage)
+ */
+function deleteGroup(group) {
+    // delete image
+    deleteImageFromStorage(group.mainImage, false);
+    // delete group info
+    const ref = userDoc.collection("Group").doc(group.title);
+    ref.delete();
 }
 
 /**
@@ -141,6 +190,9 @@ async function checkIsExistingAnyGroup() {
 export {
     createGroup,
     uploadNewGroup,
+    updateGroupInfo,
+    updateGroupImage,
+    deleteGroup,
     findAllGroup,
     findGroupsIncludeImage,
     checkIsExistingGroup,

@@ -45,7 +45,15 @@ async function getDownloadURLByName(imageName, isTiccle) {
     return await storage().ref(path).getDownloadURL();
 }
 
+function deleteImageFromStorage(imageName, isTiccle) {
+    const user = getCurrentUser();
+    var path = isTiccle ? "ticcle" : "group";
+    path = path + "/" + user.uid + "/" + imageName;
+    storage().ref(path).delete();
+}
+
 export {
     uploadImageToStorage,
     getDownloadURLByName,
+    deleteImageFromStorage,
 }

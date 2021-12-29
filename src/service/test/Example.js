@@ -5,6 +5,8 @@ import {
     findGroupById, 
     findGroupsIncludeImage,
     checkIsExistingGroup,
+    updateGroupInfo,
+    deleteGroup,
 } from "../GroupService";
 import {
     uploadNewTiccle, 
@@ -73,6 +75,15 @@ async function testFindTiccleListByGroupId() {
     console.log(ticcleList);
 }
 
+async function testUpdateGroupInfo() {
+    updateGroupInfo('Dd', {bookmark: true, type: 3});
+}
+
+async function testDeleteGroup() {
+    const testInfo = {title: 'z', mainImage: '1640703591283.jpg'}
+    deleteGroup(testInfo)
+}
+
 export {
     testUploadNewGroup,
     testUploadNewTiccle,
@@ -82,4 +93,6 @@ export {
     testFindTiccleById,
     testCheckIsExistingGroup,
     testFindTiccleListByGroupId,
+    testUpdateGroupInfo,
+    testDeleteGroup,
 }

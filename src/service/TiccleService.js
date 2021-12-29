@@ -33,8 +33,8 @@ function uploadNewTiccle(ticcle, images) {
     // upload images first
     var imageArr = [];
     if (images !== undefined) {
-        images.map((image) => {
-            const imageName = Date.now() + ".jpg";
+        images.map((image, idx) => {
+            const imageName = Date.now() + idx + ".jpg";
             imageArr.push(imageName);
             uploadImageToStorage(imageName, image);
         })
