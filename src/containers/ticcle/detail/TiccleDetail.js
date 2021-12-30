@@ -7,6 +7,7 @@ import TiccleDetailText from './components/TiccleDetailText';
 import TiccleDetailTag from './components/TiccleDetailTag';
 import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
+import { FBDateToFormatDate } from '../../../service/CommonService';
 
 const TiccleDetail = () => {
 
@@ -22,10 +23,7 @@ const TiccleDetail = () => {
 
     var formattedday = ""
     if(ticcleDate !== ""){
-    const year = ticcleDate.getFullYear().toString().substr(-2);
-    const month = ticcleDate.getMonth() + 1;
-    const date = ticcleDate.getDate();
-    formattedday = `${year}년 ${month}월 ${date}일`
+        formattedday = FBDateToFormatDate(ticcleDate);
     }
 
     const [imageExpansion, setImageExpansion] = useState(false)

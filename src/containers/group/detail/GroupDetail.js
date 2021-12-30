@@ -5,7 +5,8 @@ import GroupInfo from './components/groupInfo';
 import Search from './components/search';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
-import {findTiccleListByGroupId, getGroupDataIncludeImage} from '../../../firebase/Firestore';
+import { findTiccleListByGroupId } from '../../../service/TiccleService';
+import { findGroupByIdIncludeImage } from '../../../service/GroupService';
 
 const GroupDetail = ({ route }) => {
     const [groupData, setGroupData] = useState([]);
@@ -13,14 +14,9 @@ const GroupDetail = ({ route }) => {
 
     useEffect(() => {
         // get group data
-        const getData = getGroupDataIncludeImage(route.params.groupId);
-        getData.then((value) => {setGroupData(value)});
-        
+        findGroupByIdIncludeImage(route.params.groupId, setGroupData);
         //get ticcle List
-        const getTiccleData = findTiccleListByGroupId(route.params.groupId);
-        getTiccleData.then((value) => {
-            setTiccleList(value);
-        });
+        findTiccleListByGroupId(route.params.groupId, setTiccleList);
     }, []);
 
     return (

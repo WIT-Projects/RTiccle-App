@@ -3,20 +3,19 @@ import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
-import { getTiccleCount } from '../../../firebase/Firestore';
+import { findNumberOfTicclesOfGroup } from '../../../service/TiccleService';
 
-const TiccleGroup = ({imgUrl, groupTitle, ticcleTitle}) => {
+const TiccleGroup = ({imageUrl, groupTitle, ticcleTitle}) => {
     const navigateTo = useNavigation();
     const [ticcleCount, setTiccleCount] = useState([]);
     
     useEffect(() => {
-        const getCount = getTiccleCount(groupTitle);
-        getCount.then((value) => setTiccleCount(value));
+        findNumberOfTicclesOfGroup(groupTitle, setTiccleCount);
     }, []);
 
     return (
         <View onTouchEnd={() => { navigateTo.navigate('GroupDetail', {groupId: groupTitle}) }}>
-            <ImageBackground source={{uri:imgUrl}}
+            <ImageBackground source={{uri:imageUrl}}
                 resizeMode="cover"
                 style={styles.container}>
                     <ImageBackground source={require('../../../assets/images/gradation.png')}
