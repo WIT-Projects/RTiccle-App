@@ -63,13 +63,14 @@ function updateGroupInfo(groupName, newInfo) {
 /**
  * Update group main image
  * @param {string} groupName 
- * @param {string} oldImageName 
+ * @param {string} oldImageName // if not exists, put null
  * @param {*} newImageSource 
  * @returns {string} newImageName
  */
 function updateGroupImage(groupName, oldImageName, newImageSource) {
     // delete original image first
-    deleteImageFromStorage(oldImageName, false);
+    if (oldImageName)
+        deleteImageFromStorage(oldImageName, false);
     // upload new image
     newImageName = Date.now() + ".jpg";
     uploadImageToStorage(newImageName, newImageSource);
@@ -84,7 +85,8 @@ function updateGroupImage(groupName, oldImageName, newImageSource) {
  */
 function deleteGroup(group) {
     // delete image
-    deleteImageFromStorage(group.mainImage, false);
+    if (group.mainImage)
+        deleteImageFromStorage(group.mainImage, false);
     // delete group info
     const ref = userDoc.collection("Group").doc(group.title);
     ref.delete();
