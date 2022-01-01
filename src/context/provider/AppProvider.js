@@ -5,16 +5,16 @@ import uuid from 'react-native-uuid';
 import { FBDate } from '../../service/CommonService';
 
 const AppProvider = ({children}) => {
+
+    //Ticcle
     const [ticcleCreate, setTiccleCreate] = useState({
-        id: '',
+        lastModifiedTime: '',
+        group: '',
         title: '',
         link: '',
-        tag: '',
+        tagList: [],
         content: '',
-        image: [],
-        date: '',
-        ticcleNumber: '',
-        groupName: '',
+        images: [],
     });
 
     const setTiccleTitle = text => {
@@ -27,55 +27,64 @@ const AppProvider = ({children}) => {
             return {...state, link: text};
         });
     };
-    const setTiccleTag = text => {
+    const setTiccleTagList = tag => {
+        if(tag == '') return // 비어있을 경우
+        if(tag.trim() == '') return // 공백만 있을 경우 
         setTiccleCreate(state => {
-            return {...state, tag: text};
+            return {...state, tagList: [...state.tagList, tag.trim()]};
         });
+    };
+    const deleteTiccleTagList = tag => {
+        setTiccleCreate(state => {
+            return{ ...state,
+            tagList: tagList.filter(tagList => tagList !== tag)
+            }
+        })
     };
     const setTiccleContent = text => {
         setTiccleCreate(state => {
             return {...state, content: text};
         });
     };
-    const setTiccleImage = imagePath => {
-        const oldImage = ticcleCreate.image;
+    const setTiccleImages = imagePath => {
+        const oldImage = ticcleCreate.images;
         const newImage = {
             id: uuid.v4(),
             path: imagePath,
         };
         setTiccleCreate(state => {
-            return {...state, image: [...oldImage, newImage]};
-        });
-    };
-    const initialTiccleCreate = () => {
-        setTiccleCreate({
-            title: '',
-            link: '',
-            tag: '',
-            content: '',
-            image: [],
-            date: '',
-            ticcleNumber: '',
-            groupName: '',
+            return {...state, images: [...oldImage, newImage]};
         });
     };
     const deleteTiccleImage = id => {
         setTiccleCreate(state => {
             return {
                 ...state,
-                image: ticcleCreate.image.filter(
+                images: ticcleCreate.images.filter(
                     ticcleImage => ticcleImage.id !== id,
                 ),
             };
         });
     };
+    const initialTiccleCreate = () => {
+        setTiccleCreate({
+            lastModifiedTime: '',
+            group: '',
+            title: '',
+            link: '',
+            tagList: [],
+            content: '',
+            images: [],
+        });
+    };
     const setTiccleDate = () => {
         const today = FBDate();
         setTiccleCreate(state => {
-            return {...state, date: today};
+            return {...state, lastModifiedTime: today};
         });
     };
 
+    // Group
     const [groupCreate, setGroupCreate] = useState({
         lastModifiedTime: '',
         type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
@@ -133,9 +142,9 @@ const AppProvider = ({children}) => {
                 setTiccleCreate,
                 setTiccleTitle,
                 setTiccleLink,
-                setTiccleTag,
+                setTiccleTagList,
                 setTiccleContent,
-                setTiccleImage,
+                setTiccleImages,
                 initialTiccleCreate,
                 deleteTiccleImage,
                 setTiccleDate,
