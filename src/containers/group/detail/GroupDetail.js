@@ -1,40 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 
 import GroupInfo from './components/groupInfo';
 import Search from './components/search';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
-import {findTiccleListByGroupId, getGroupDataIncludeImage} from '../../../firebase/Firestore';
+import {
+    findTiccleListByGroupId,
+    getGroupDataIncludeImage,
+} from '../../../firebase/Firestore';
 
-const GroupDetail = ({ route }) => {
+const GroupDetail = ({route, navigation}) => {
     const [groupData, setGroupData] = useState([]);
     const [ticcleList, setTiccleList] = useState([]);
 
     useEffect(() => {
         // get group data
         const getData = getGroupDataIncludeImage(route.params.groupId);
-        getData.then((value) => {setGroupData(value)});
-        
+        getData.then(value => {
+            setGroupData(value);
+        });
+
         //get ticcle List
         const getTiccleData = findTiccleListByGroupId(route.params.groupId);
-        getTiccleData.then((value) => {
+        getTiccleData.then(value => {
             setTiccleList(value);
         });
     }, []);
 
     return (
         <>
-            <GroupInfo title={route.params.groupId} imgUrl={groupData.imageUrl} content={groupData.description} />
+            <GroupInfo
+                title={route.params.groupId}
+                imgUrl={groupData.imageUrl}
+                content={groupData.description}
+                navigation={navigation}
+            />
             <Search></Search>
-            {ticcleList.length != 0 ? <GroupDetailTiccleList ticcleList={ticcleList} /> : <ZeroTiccle />}
+            {ticcleList.length != 0 ? (
+                <GroupDetailTiccleList ticcleList={ticcleList} />
+            ) : (
+                <ZeroTiccle />
+            )}
             {/* Floating Button */}
-            <TouchableOpacity activeOpacity={0.5} style={styles.touchableOpacityStyle} >
-                <Image source={require('../../../assets/icon/make.png')} style={styles.floatingButtonStyle} />
+            <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.touchableOpacityStyle}>
+                <Image
+                    source={require('../../../assets/icon/make.png')}
+                    style={styles.floatingButtonStyle}
+                />
             </TouchableOpacity>
         </>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     // Floating button css
@@ -52,6 +71,6 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
     },
-})
+});
 
 export default GroupDetail;
