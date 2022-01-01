@@ -5,19 +5,18 @@ import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 import TiccleCreate from '../../containers/ticcle/create/TiccleCreate';
-import TiccleDetail from '../../containers/ticcle/detail/TiccleDetail';
 import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
 
 const TiccleStack = createStackNavigator();
 
 const TiccleStackNavigator = () => {
 
-    const {ticcleCreate, initialTiccleCreate, setTiccleDate} = UseTiccleCreate();
+    const {ticcleCreate, setTiccleDate} = UseTiccleCreate();
 
     return(
-    <TiccleStack.Navigator initialRouteName="ticcleCreate">
+    <TiccleStack.Navigator>
         <TiccleStack.Screen 
-            name="ticcleCreate"
+            name="TiccleCreate"
             component={TiccleCreate} 
             options={
                 ({navigation}) =>  ({
@@ -44,44 +43,10 @@ const TiccleStackNavigator = () => {
                 <TouchableOpacity style={styles.headerRightTouchable}
                 onPress={()=> {
                     setTiccleDate()
-                    navigation.navigate('ticcleDetail')
+                    navigation.navigate('TiccleDetail')
                     console.log(ticcleCreate)
                 }}>
                     <Text style={styles.headerRightText}>저장</Text>
-                </TouchableOpacity>
-            )
-            })}/>
-        <TiccleStack.Screen options={{ headerShown: false }}
-            name="ticcleDetail"
-            component={TiccleDetail}
-            options={({navigation}) =>  ({
-                headerStyle :{
-                backgroundColor: colors.main,
-                height : metrics.topNavigationHeight,
-            },
-            title: '티끌' ,
-            headerTintColor : colors.white ,
-            headerTitleAlign : 'center',
-            headerTitleStyle : {
-                fontFamily: type.notoSansKR_Medium,
-                fontSize : 20,
-                lineHeight : 24,
-            },
-            headerLeft : () => (
-                <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => 
-                {
-                    navigation.pop()
-                    navigation.navigate('Home')
-                    initialTiccleCreate()
-                }}>
-                    <Image source={require('../../assets/images/chevron_left.png')}
-                        style={styles.headerLeftImage}
-                    />
-                </TouchableOpacity>
-            ),
-            headerRight : () => (
-                <TouchableOpacity style={styles.headerRightTouchable} onPress={()=> navigation.navigate('TiccleDetail')}>
-                    <Text style={styles.headerRightText}>수정</Text>
                 </TouchableOpacity>
             )
             })}/>

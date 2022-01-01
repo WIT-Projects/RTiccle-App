@@ -5,7 +5,7 @@ import HomeStackNavigatior from './stack/HomeStackNavigator';
 import TiccleStackNavigator from './stack/TiccleStackNavigator';
 import MyPage from '../containers/user/MyPage'
 
-const TabNav = () => {
+const MainTab = () => {
     const Tab = createBottomTabNavigator();
 
     return(
@@ -29,4 +29,4 @@ const TabNav = () => {
     )
 }
 
-export default TabNav;
+export default MainTab;
