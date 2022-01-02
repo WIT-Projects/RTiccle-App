@@ -6,22 +6,19 @@ import Search from './components/search';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 import { findTiccleListByGroupId } from '../../../service/TiccleService';
-import { findGroupByIdIncludeImage } from '../../../service/GroupService';
 
 const GroupDetail = ({ route }) => {
-    const [groupData, setGroupData] = useState([]);
+
     const [ticcleList, setTiccleList] = useState([]);
 
     useEffect(() => {
-        // get group data
-        findGroupByIdIncludeImage(route.params.groupId, setGroupData);
         //get ticcle List
         findTiccleListByGroupId(route.params.groupId, setTiccleList);
     }, []);
 
     return (
         <>
-            <GroupInfo title={route.params.groupId} imgUrl={groupData.imageUrl} content={groupData.description} />
+            <GroupInfo title={route.params.groupId} />
             <Search></Search>
             {ticcleList.length != 0 ? <GroupDetailTiccleList ticcleList={ticcleList} /> : <ZeroTiccle />}
             {/* Floating Button */}
