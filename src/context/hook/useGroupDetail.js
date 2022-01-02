@@ -1,7 +1,7 @@
 import {useContext} from 'react';
 import AppContext from '../AppContext';
 
-const useGroupDetail = () => {
+const UseGroupDetail = () => {
     const {
         groupDetail,
         setGroupDetail,
@@ -15,4 +15,4 @@ const useGroupDetail = () => {
     };
 };
 
-export default useGroupDetail;
+export default UseGroupDetail;

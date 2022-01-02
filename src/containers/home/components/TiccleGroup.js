@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react';
 import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
+import { useNavigation } from '@react-navigation/native';
 import { findNumberOfTicclesOfGroup } from '../../../service/TiccleService';
 
 const TiccleGroup = ({imageUrl, groupTitle, ticcleTitle}) => {
+    const navigateTo = useNavigation();
     const [ticcleCount, setTiccleCount] = useState([]);
     
     useEffect(() => {
@@ -12,7 +14,7 @@ const TiccleGroup = ({imageUrl, groupTitle, ticcleTitle}) => {
     }, []);
 
     return (
-        <View>
+        <View onTouchEnd={() => { navigateTo.navigate('GroupDetail', {groupId: groupTitle}) }}>
             <ImageBackground source={{uri:imageUrl}}
                 resizeMode="cover"
                 style={styles.container}>
