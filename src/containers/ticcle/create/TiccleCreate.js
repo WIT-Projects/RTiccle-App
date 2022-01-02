@@ -28,10 +28,11 @@ const TiccleCreate = () => {
     return(
         <ScrollView style={styles.container}>
             <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>
-            <TiccleCreateTextInputTitleLink setTiccleTitle={setTiccleTitle} setTiccleLink={setTiccleLink}/>
+            <TiccleCreateTextInputTitleLink ticcleTitle={ticcleCreate.title} setTiccleTitle={setTiccleTitle}
+                                            ticcleLink={ticcleCreate.link}   setTiccleLink={setTiccleLink}/>
 
             <View style={styles.imageCreateButtonContainer}>
-                {(ticcleCreate.image && ticcleCreate.image.length > 0) ?
+                {(ticcleCreate.images && ticcleCreate.images.length > 0) ?
                 <TiccleCreateImageGroup photoModalVisibleTrue={photoModalVisibleTrue}
                     ticcleCreate={ticcleCreate} deleteTiccleImage={deleteTiccleImage}/> :
                 <TiccleImageCreateButton photoModalVisibleTrue={photoModalVisibleTrue}/>
@@ -39,7 +40,7 @@ const TiccleCreate = () => {
             </View>
 
             <View style={styles. ticcleContentContainer}>
-                <TiccleContentTextInput onChangeText ={setTiccleContent}/>
+                <TiccleContentTextInput onChangeText ={setTiccleContent} value={ticcleCreate.content}/>
             </View>
 
             <TiccleCreateTextInputTag

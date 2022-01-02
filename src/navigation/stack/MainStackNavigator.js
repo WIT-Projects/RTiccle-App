@@ -19,7 +19,7 @@ const MainStack = createStackNavigator();
 const MainStackNavigator = () => {
 
     const {initialGroupCreate} = useGroupCreate();
-    const {initialTiccleCreate} = UseTiccleCreate();
+    const {initialTiccleCreate, ticcleCreate} = UseTiccleCreate();
     return (
         <NavigationContainer>
             <MainStack.Navigator>
@@ -133,6 +133,7 @@ const MainStackNavigator = () => {
                             <TouchableOpacity style={styles.headerLeftTouchable} 
                                 onPress={() => {
                                     navigation.navigate('Home')
+                                    console.log(ticcleCreate)
                                     initialTiccleCreate()
                                 }}
                             >

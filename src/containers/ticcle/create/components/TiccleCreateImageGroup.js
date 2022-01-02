@@ -5,7 +5,7 @@ import TiccleCreatePlusBox from './TiccleCreatePlusBox';
 
 const TiccleImageGroup = ({photoModalVisibleTrue, ticcleCreate, deleteTiccleImage}) => {
 
-    const ticcleImageList = ticcleCreate.image.map(
+    const ticcleImageList = ticcleCreate.images.map(
         (imageSource) => (
             <TiccleCreateImage key={imageSource.id} photoModalVisibleTrue={photoModalVisibleTrue} 
             deleteImage={deleteTiccleImage} imageSource={imageSource.path} imageId={imageSource.id}
@@ -15,7 +15,7 @@ const TiccleImageGroup = ({photoModalVisibleTrue, ticcleCreate, deleteTiccleImag
     return(
         <View style={styles.container}>
             {ticcleImageList}
-            {ticcleCreate.image.length < 3 ? <TiccleCreatePlusBox photoModalVisibleTrue={photoModalVisibleTrue}/> : null}    
+            {ticcleCreate.images.length < 3 ? <TiccleCreatePlusBox photoModalVisibleTrue={photoModalVisibleTrue}/> : null}    
         </View>
     )
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { Image,StyleSheet,TouchableOpacity,Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import colors from '../../theme/colors';
@@ -12,6 +12,12 @@ const TiccleStack = createStackNavigator();
 const TiccleStackNavigator = () => {
 
     const {ticcleCreate, setTiccleDate} = UseTiccleCreate();
+    const [saveButtonDisable, setSaveButtonDisable] = useState(true);
+
+    useEffect(() => {
+        (ticcleCreate.title && ticcleCreate.content) ? setSaveButtonDisable(false) : setSaveButtonDisable(true);
+    },[ticcleCreate.title, ticcleCreate.content])
+
 
     return(
     <TiccleStack.Navigator>
@@ -41,12 +47,13 @@ const TiccleStackNavigator = () => {
             ),
             headerRight : () => (
                 <TouchableOpacity style={styles.headerRightTouchable}
+                disabled={saveButtonDisable}
                 onPress={()=> {
                     setTiccleDate()
                     navigation.navigate('TiccleDetail')
                     console.log(ticcleCreate)
                 }}>
-                    <Text style={styles.headerRightText}>저장</Text>
+                    <Text style={saveButtonDisable ? styles.headerRightTextDisable : styles.headerRightText}>저장</Text>
                 </TouchableOpacity>
             )
             })}/>
@@ -75,6 +82,13 @@ const styles = StyleSheet.create({
     },
     headerRightText : {
         color : colors.white,
+        fontFamily: type.notoSansKR_Medium,
+        fontSize : 20,
+        lineHeight : 24,
+        marginBottom: 1,
+    },
+    headerRightTextDisable: {
+        color : colors.gray5,
         fontFamily: type.notoSansKR_Medium,
         fontSize : 20,
         lineHeight : 24,
