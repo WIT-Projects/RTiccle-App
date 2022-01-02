@@ -33,7 +33,7 @@ const GroupCreateType = ({navigation}) => {
                     <GroupCreateTypeItem
                         typeName="연재물"
                         typeNum={3}
-                        imgSource={require('../../../assets/images/series.png')}
+                        imgSource={require('../../../assets/images/serial.png')}
                         navigation={navigation}></GroupCreateTypeItem>
                     <GroupCreateTypeItem
                         typeName="SNS"

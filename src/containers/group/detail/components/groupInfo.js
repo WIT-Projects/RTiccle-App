@@ -18,8 +18,7 @@ const GroupInfo = ({title, imgUrl, content, navigation}) => {
     return (
         <>
             <ImageBackground
-                // source={{uri: imgUrl}}
-                source={require('../../../../assets/images/gradation2.png')}
+                source={{uri: imgUrl}}
                 resizeMode="cover"
                 style={styles.container5}>
                 <ImageBackground
@@ -39,7 +38,9 @@ const GroupInfo = ({title, imgUrl, content, navigation}) => {
                                 <Text style={styles.title}>{title}</Text>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        navigation.navigate('GroupUpdate')
+                                        navigation.navigate('GroupUpdate', {
+                                            groupId: title,
+                                        })
                                     }>
                                     <Image
                                         style={styles.pencil}

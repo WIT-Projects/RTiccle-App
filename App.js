@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { anonSignIn, googleSigninConfigure, getCurrentUser } from './src/firebase/Auth';
+import { anonSignIn, googleSigninConfigure, getCurrentUser } from './src/service/AuthService';
 import AppProvider from './src/context/provider/AppProvider';
 import MainStackNavigator from './src/navigation/stack/MainStackNavigator';
 

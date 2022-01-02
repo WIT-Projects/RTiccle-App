@@ -1,24 +1,25 @@
 /* This is example of using firebase function */
 import {
-    createGroup, 
-    createTiccle, 
     uploadNewGroup,
-    uploadNewTiccle, 
     findAllGroup,
     findGroupById, 
     findGroupsIncludeImage,
-    findTiccleById, 
     checkIsExistingGroup,
+    updateGroupInfo,
+    deleteGroup,
+} from "../GroupService";
+import {
+    uploadNewTiccle, 
+    findTiccleById, 
     findTiccleListByGroupId, 
-    getImagesOfTiccle, 
-} from "./Firestore";
+} from "../TiccleService"
 import firestore from '@react-native-firebase/firestore';
 
 function testUploadNewGroup() {
     const groupName = 'new';
     const newGroup = {
         lastModifiedTime: firestore.Timestamp.fromDate(new Date()),
-        type: 5, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
+        type: 5, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: groupName,
         description: 'this is testing group',
         bookmark: false,
@@ -74,8 +75,13 @@ async function testFindTiccleListByGroupId() {
     console.log(ticcleList);
 }
 
-async function testGetImagesOfTiccle() {
-    // not yet
+async function testUpdateGroupInfo() {
+    updateGroupInfo('Dd', {bookmark: true, type: 3});
+}
+
+async function testDeleteGroup() {
+    const testInfo = {title: 'z', mainImage: '1640703591283.jpg'}
+    deleteGroup(testInfo)
 }
 
 export {
@@ -87,5 +93,6 @@ export {
     testFindTiccleById,
     testCheckIsExistingGroup,
     testFindTiccleListByGroupId,
-    testGetImagesOfTiccle,
+    testUpdateGroupInfo,
+    testDeleteGroup,
 }
