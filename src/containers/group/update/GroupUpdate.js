@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 
 import colors from '../../../theme/colors';
+import {type} from '../../../theme/fonts';
 import GroupUpdateType from './components/GroupUpdateType';
 import GroupSaveButton from '../../common/GroupSaveButton';
 import useGroupCreate from '../../../context/hook/useGroupCreate';
@@ -27,12 +28,24 @@ const GroupUpdate = ({navigation, route}) => {
     console.log(description);
     return (
         <View style={styles.container}>
-            <GroupUpdateInfo
-                mainImage={mainImage}
-                title={title}
-                description={description}></GroupUpdateInfo>
-            <GroupUpdateType typeNum={type}></GroupUpdateType>
-            <GroupSaveButton></GroupSaveButton>
+            <View style={styles.groupInfo}>
+                <GroupUpdateInfo
+                    style={styles.groupInfo}
+                    mainImage={mainImage}
+                    title={title}
+                    description={description}></GroupUpdateInfo>
+            </View>
+            <Text style={styles.title}>유형 수정하기</Text>
+            <View style={styles.groupType}>
+                <GroupUpdateType
+                    style={styles.groupType}
+                    typeNum={type}
+                    navigation={navigation}></GroupUpdateType>
+            </View>
+            <GroupSaveButton
+                text="저장하기"
+                buttonDisabled={false}
+                navigation={navigation}></GroupSaveButton>
         </View>
     );
 };
@@ -40,16 +53,20 @@ const GroupUpdate = ({navigation, route}) => {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: '100%',
+        flex: 1,
         backgroundColor: colors.white,
     },
-    typeList: {
-        paddingHorizontal: 55,
-    },
-    typeLine: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+    groupInfo: {
         paddingBottom: 28,
+    },
+    title: {
+        fontFamily: type.spoqaHanSansNeo_Bold,
+        fontSize: 16,
+        paddingLeft: 22,
+        paddingBottom: 46,
+    },
+    groupType: {
+        paddingBottom: 59,
     },
 });
 

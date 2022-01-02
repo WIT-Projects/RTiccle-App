@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import GroupCreateTypeItem from '../../create/components/GroupCreateTypeItem';
+import GroupUpdateTypeItem from '../../update/components/GroupUpdateTypeItem';
 
 import colors from '../../../../theme/colors';
 
@@ -9,7 +9,7 @@ const GroupUpdateType = ({navigation, typeNum}) => {
         <View style={styles.container}>
             <View style={styles.typeList}>
                 <View style={styles.typeLine}>
-                    <GroupCreateTypeItem
+                    <GroupUpdateTypeItem
                         typeName="책"
                         typeNum={0}
                         imgSource={
@@ -17,8 +17,8 @@ const GroupUpdateType = ({navigation, typeNum}) => {
                                 ? require('../../../../assets/images/book.png')
                                 : require('../../../../assets/images/bookNot.png')
                         }
-                        navigation={navigation}></GroupCreateTypeItem>
-                    <GroupCreateTypeItem
+                        navigation={navigation}></GroupUpdateTypeItem>
+                    <GroupUpdateTypeItem
                         typeName="블로그"
                         typeNum={1}
                         imgSource={
@@ -26,8 +26,8 @@ const GroupUpdateType = ({navigation, typeNum}) => {
                                 ? require('../../../../assets/images/blog.png')
                                 : require('../../../../assets/images/blogNot.png')
                         }
-                        navigation={navigation}></GroupCreateTypeItem>
-                    <GroupCreateTypeItem
+                        navigation={navigation}></GroupUpdateTypeItem>
+                    <GroupUpdateTypeItem
                         typeName="뉴스기사"
                         typeNum={2}
                         imgSource={
@@ -35,10 +35,10 @@ const GroupUpdateType = ({navigation, typeNum}) => {
                                 ? require('../../../../assets/images/news.png')
                                 : require('../../../../assets/images/newsNot.png')
                         }
-                        navigation={navigation}></GroupCreateTypeItem>
+                        navigation={navigation}></GroupUpdateTypeItem>
                 </View>
                 <View style={styles.typeLine}>
-                    <GroupCreateTypeItem
+                    <GroupUpdateTypeItem
                         typeName="연재물"
                         typeNum={3}
                         imgSource={
@@ -46,8 +46,8 @@ const GroupUpdateType = ({navigation, typeNum}) => {
                                 ? require('../../../../assets/images/serial.png')
                                 : require('../../../../assets/images/serialNot.png')
                         }
-                        navigation={navigation}></GroupCreateTypeItem>
-                    <GroupCreateTypeItem
+                        navigation={navigation}></GroupUpdateTypeItem>
+                    <GroupUpdateTypeItem
                         typeName="SNS"
                         typeNum={4}
                         imgSource={
@@ -55,8 +55,8 @@ const GroupUpdateType = ({navigation, typeNum}) => {
                                 ? require('../../../../assets/images/sns.png')
                                 : require('../../../../assets/images/snsNot.png')
                         }
-                        navigation={navigation}></GroupCreateTypeItem>
-                    <GroupCreateTypeItem
+                        navigation={navigation}></GroupUpdateTypeItem>
+                    <GroupUpdateTypeItem
                         typeName="기타"
                         typeNum={5}
                         imgSource={
@@ -64,7 +64,7 @@ const GroupUpdateType = ({navigation, typeNum}) => {
                                 ? require('../../../../assets/images/etc.png')
                                 : require('../../../../assets/images/etcNot.png')
                         }
-                        navigation={navigation}></GroupCreateTypeItem>
+                        navigation={navigation}></GroupUpdateTypeItem>
                 </View>
             </View>
         </View>
@@ -74,7 +74,6 @@ const GroupUpdateType = ({navigation, typeNum}) => {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        flex: 1,
         backgroundColor: colors.white,
     },
     typeList: {
