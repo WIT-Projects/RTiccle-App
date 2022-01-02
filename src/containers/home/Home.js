@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, ScrollView, StyleSheet, Button} from 'react-native';
+import {View, ScrollView, StyleSheet, Button} from 'react-native';
 import MyMount from './components/MyMount';
 import BookMarkList from './components/BookMarkList';
 import NewTiccleGroupList from './components/NewTiccleGroupList';
@@ -17,6 +17,16 @@ const Home = ({navigation}) => {
             <Button
                 title="그룹 생성"
                 onPress={() => navigation.navigate('GroupCreateType')}></Button>
+            
+            {/* 나중에 지울거 */}
+            <View style={{marginTop: 10}}>
+                <Button
+                title="로그인 화면 (임시)"
+                onPress={() => navigation.navigate('LoginScreen')}
+                ></Button>
+            </View>
+            {/* 지울거 */}
+            
             <NewTiccleGroupList></NewTiccleGroupList>
         </ScrollView>
     );

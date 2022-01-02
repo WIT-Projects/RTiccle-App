@@ -13,6 +13,7 @@ import TiccleDetail from '../../containers/ticcle/detail/TiccleDetail';
 import metrics from '../../theme/metrices';
 import useGroupCreate from '../../context/hook/useGroupCreate'
 import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
+import LoginScreen from '../../containers/login/LoginScreen';
 
 const MainStack = createStackNavigator();
 
@@ -147,6 +148,13 @@ const MainStackNavigator = () => {
                             </TouchableOpacity>
                         )
                     })}
+                />
+                <MainStack.Screen
+                    name="LoginScreen"
+                    component={LoginScreen}
+                    options={{
+                        headerShown: false
+                    }}
                 />
             </MainStack.Navigator>
         </NavigationContainer>
