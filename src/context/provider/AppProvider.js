@@ -54,21 +54,16 @@ const AppProvider = ({children}) => {
         });
     };
     const setTiccleImages = imagePath => {
-        const oldImage = ticcleCreate.images;
-        const newImage = {
-            id: uuid.v4(),
-            path: imagePath,
-        };
         setTiccleCreate(state => {
-            return {...state, images: [...oldImage, newImage]};
+            return {...state, images: [...state.images, imagePath]};
         });
     };
-    const deleteTiccleImage = id => {
+    const deleteTiccleImage = imagePath => {
         setTiccleCreate(state => {
             return {
                 ...state,
                 images: ticcleCreate.images.filter(
-                    ticcleImage => ticcleImage.id !== id,
+                    ticcleImage => ticcleImage !== imagePath,
                 ),
             };
         });

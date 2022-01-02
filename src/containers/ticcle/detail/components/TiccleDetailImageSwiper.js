@@ -6,14 +6,13 @@ import colors from '../../../../theme/colors';
 const TiccleDetailImageSwiper = ({images, setImageExpansion, setImagePathForExpansion}) => {
 
     const imageGroup = images.map(
-        (imageSource) => (
-            <View style={styles.imageConatiner} key={imageSource.id}
+        (imagePath, index) => (
+            <View style={styles.imageConatiner} key={index}
                     onTouchEnd={()=> {
-                        setImagePathForExpansion(imageSource.path)
-                        console.log(imageSource.path)
+                        setImagePathForExpansion(imagePath)
                         setImageExpansion(true)
                     }}>
-                <Image source={{uri: imageSource.path}}
+                <Image source={{uri: imagePath}}
                 style={styles.image}></Image>
             </View>
         )
