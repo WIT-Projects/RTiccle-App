@@ -1,5 +1,6 @@
 package com.rticcle;
-
+import android.os.Bundle; //splash
+import org.devio.rn.splashscreen.SplashScreen; //splash
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -12,4 +13,10 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "RTiccle";
   }
+
+   @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);
+        super.onCreate(savedInstanceState);
+    }
 }
