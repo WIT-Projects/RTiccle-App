@@ -76,6 +76,7 @@ const AppProvider = ({children}) => {
         });
     };
 
+    /*Group Create*/
     const [groupCreate, setGroupCreate] = useState({
         lastModifiedTime: '',
         type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
@@ -126,6 +127,28 @@ const AppProvider = ({children}) => {
         });
     };
 
+    /*Group Detail*/
+    const [groupDetail, setGroupDetail] = useState({
+        bookmark: false,
+        description: '',
+        imageUrl: '',
+        lastModifiedTime: '',
+        mainImage: '',
+        title: '',
+        type:'',
+    });
+    const initialGroupDetail = () => {
+        setGroupCreate({
+            bookmark: false,
+            description: '',
+            imageUrl: '',
+            lastModifiedTime: '',
+            mainImage: '',
+            title: '',
+            type:'',
+        });
+    };
+    
     return (
         <AppContext.Provider
             value={{
@@ -148,6 +171,9 @@ const AppProvider = ({children}) => {
                 setGroupDescription,
                 setGroupBookmark,
                 setGroupImage,
+                groupDetail,
+                setGroupDetail,
+                initialGroupDetail,
             }}>
             {children}
         </AppContext.Provider>

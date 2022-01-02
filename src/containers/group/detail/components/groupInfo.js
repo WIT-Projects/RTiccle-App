@@ -13,9 +13,9 @@ const GroupInfo = ({ title }) => {
 
     const imageData = [
         {
-            image: require('../../../../assets/icon/star.png')
+            image: require('../../../../assets/icon/star.png') 
         },
-        {
+        { 
             image: require('../../../../assets/icon/bookMark.png')
         }
     ];

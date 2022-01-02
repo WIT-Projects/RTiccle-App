@@ -3,8 +3,10 @@ import {Text, View, StyleSheet} from 'react-native';
 import { type } from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
 import { findGroupsIncludeImage, checkIsExistingAnyGroup } from '../../../service/GroupService';
+import { useNavigation } from '@react-navigation/native';
 
 const NewTiccleGroupList = () => {
+    const navigateTo = useNavigation();
     const [isExistGroup, setExistGroup] = useState(false);
     const [data, setData] = useState([]);
 
@@ -24,7 +26,9 @@ const NewTiccleGroupList = () => {
             {isExistGroup ? 
                 <View style={styles.container} >
                     {data.map((item, index) => {
-                        return (<TiccleGroup key={index} imageUrl={item.imageUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'}></TiccleGroup>)
+                        return (<TiccleGroup  
+                                    onTouchEnd={() => { navigateTo.navigate('GroupDetail') }}
+                                    key={index} imageUrl={item.imageUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'}></TiccleGroup>)
                     })}
                 </View> 
                 : <Text>작성된 티끌이 존재하지 않습니다.</Text>
