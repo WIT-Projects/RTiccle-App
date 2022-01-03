@@ -11,7 +11,7 @@ function anonSignIn() {
       })
       .catch((error) => {
         var errorMessage = error.message;
-        console.log('[Auth] Failed to create anonUserID with ex:', errorMessage);
+        console.log('[Auth] Failed to create anonUserID with ex:', errorMessage);t
       });
     // [END auth_anon_sign_in]
 };

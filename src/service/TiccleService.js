@@ -31,12 +31,13 @@ async function createTiccle(newTiccle) {
  */
 function uploadNewTiccle(ticcle, images) {
     // upload images first
+    const isTiccle = true
     var imageArr = [];
     if (images !== undefined) {
         images.map((image, idx) => {
             const imageName = Date.now() + idx + ".jpg";
             imageArr.push(imageName);
-            uploadImageToStorage(imageName, image);
+            uploadImageToStorage(imageName, image, isTiccle);
         })
     }
 

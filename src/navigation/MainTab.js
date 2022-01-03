@@ -17,7 +17,7 @@ const isTabActive = route => {
     }
 };
 
-const TabNav = () => {
+const MainTab = () => {
     const Tab = createBottomTabNavigator();
 
     return (
@@ -51,4 +51,4 @@ const TabNav = () => {
     );
 };
 
-export default TabNav;
+export default MainTab;

@@ -3,7 +3,7 @@ import { TextInput, Text, StyleSheet } from 'react-native';
 
 import colors from '../../../../theme/colors';
 
-const TiccleContentTextInput = ({onChangeText}) => {
+const TiccleContentTextInput = ({onChangeText, value}) => {
     return(
         <>
             <TextInput style={styles.textinput}
@@ -12,6 +12,7 @@ const TiccleContentTextInput = ({onChangeText}) => {
             placeholder = "내용을 입력하세요"
             placeholderTextColor = {colors.gray3}
             onChangeText = {onChangeText}
+            value={value}
             />
         </>
     )

@@ -3,18 +3,15 @@ import { TouchableOpacity,Image, StyleSheet, View } from 'react-native';
 import colors from '../../../../theme/colors';
 import CustomModal from '../../../common/CustomModal';
 
-const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imageSource, imageId}) => {
+const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imagePath}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
-
     const modalTitle = "사진을 삭제하시겠습니까?"
     const modalLeftButton = "뒤로가기"
     const modalRightButton = "삭제"
-
     const deleteTiccleImage = () => {
-        deleteImage(imageId)
+        deleteImage(imagePath)
     }
-
 
     return (
         <View style={styles.container}>
@@ -22,8 +19,8 @@ const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imageSource, ima
             isModalVisible={deleteModal} setModalVisible={setDeleteModal} rightButtonFunction={deleteTiccleImage}/>
             <TouchableOpacity
                 style={styles.touchableConatiner} onPress={photoModalVisibleTrue}
-                disabled={imageSource ? true : false}>
-                <Image style={styles.image} source={{uri : imageSource}} />            
+                disabled={imagePath ? true : false}>
+                <Image style={styles.image} source={{uri : imagePath}} />            
             </TouchableOpacity>
 
             <TouchableOpacity
