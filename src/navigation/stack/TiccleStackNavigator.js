@@ -12,12 +12,12 @@ const TiccleStack = createStackNavigator();
 
 const TiccleStackNavigator = () => {
 
-    const {ticcleCreate, setTiccleDate} = UseTiccleCreate();
+    const {ticcle, setTiccleDate} = UseTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
 
     useEffect(() => {
-        (ticcleCreate.title && ticcleCreate.content) ? setSaveButtonDisable(false) : setSaveButtonDisable(true);
-    },[ticcleCreate.title, ticcleCreate.content])
+        (ticcle.title && ticcle.content) ? setSaveButtonDisable(false) : setSaveButtonDisable(true);
+    },[ticcle.title, ticcle.content])
 
     return(
     <TiccleStack.Navigator>
@@ -50,8 +50,8 @@ const TiccleStackNavigator = () => {
                 disabled={saveButtonDisable}
                 onPress={ () => {
                     setTiccleDate()
-                    uploadNewTiccle(ticcleCreate, ticcleCreate.images);
-                    console.log(ticcleCreate)
+                    uploadNewTiccle(ticcle, ticcle.images);
+                    console.log(ticcle)
                     navigation.navigate('TiccleDetail')
                 }}>
                     <Text style={saveButtonDisable ? styles.headerRightTextDisable : styles.headerRightText}>저장</Text>

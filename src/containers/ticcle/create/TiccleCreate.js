@@ -13,7 +13,7 @@ import PhotoModal from '../../common/PhotoModal';
 const TiccleCreate = () => {
 
     const {setTiccleContent, setTiccleImages, deleteTiccleImage,
-        ticcleCreate, setTiccleTagList, setTiccleTitle, setTiccleLink} = UseTiccleCreate();
+        ticcle, setTiccleTagList, setTiccleTitle, setTiccleLink} = UseTiccleCreate();
 
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
 
@@ -28,19 +28,19 @@ const TiccleCreate = () => {
     return(
         <ScrollView style={styles.container}>
             <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>
-            <TiccleCreateTextInputTitleLink ticcleTitle={ticcleCreate.title} setTiccleTitle={setTiccleTitle}
-                                            ticcleLink={ticcleCreate.link}   setTiccleLink={setTiccleLink}/>
+            <TiccleCreateTextInputTitleLink ticcleTitle={ticcle.title} setTiccleTitle={setTiccleTitle}
+                                            ticcleLink={ticcle.link}   setTiccleLink={setTiccleLink}/>
 
             <View style={styles.imageCreateButtonContainer}>
-                {(ticcleCreate.images && ticcleCreate.images.length > 0) ?
+                {(ticcle.images && ticcle.images.length > 0) ?
                 <TiccleCreateImageGroup photoModalVisibleTrue={photoModalVisibleTrue}
-                    ticcleCreate={ticcleCreate} deleteTiccleImage={deleteTiccleImage}/> :
+                ticcle={ticcle} deleteTiccleImage={deleteTiccleImage}/> :
                 <TiccleImageCreateButton photoModalVisibleTrue={photoModalVisibleTrue}/>
                 }
             </View>
 
             <View style={styles. ticcleContentContainer}>
-                <TiccleContentTextInput onChangeText ={setTiccleContent} value={ticcleCreate.content}/>
+                <TiccleContentTextInput onChangeText ={setTiccleContent} value={ticcle.content}/>
             </View>
 
             <TiccleCreateTextInputTag
@@ -49,7 +49,7 @@ const TiccleCreate = () => {
                 setTiccleTagList={setTiccleTagList} tag={tag} initialTag={initialTag}
             />
 
-            <TiccleCreateTags tags={ticcleCreate.tagList}/>
+            <TiccleCreateTags tags={ticcle.tagList}/>
         </ScrollView>
     )
 }

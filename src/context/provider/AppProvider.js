@@ -7,7 +7,7 @@ import { FBDate } from '../../service/CommonService';
 const AppProvider = ({children}) => {
 
     //Ticcle
-    const [ticcleCreate, setTiccleCreate] = useState({
+    const [ticcle, setTiccle] = useState({
         lastModifiedTime: '',
         group: '',
         title: '',
@@ -18,58 +18,58 @@ const AppProvider = ({children}) => {
     });
 
     const setTiccleTitle = text => {
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {...state, title: text};
         });
     };
     const setTiccleLink = text => {
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {...state, link: text};
         });
     };
     const setTiccleDate = () => {
         const today = FBDate();
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {...state, lastModifiedTime: today};
         });
-        console.log(ticcleCreate)
+        console.log(ticcle)
     };
     const setTiccleTagList = tag => {
         if(tag == '') return // 비어있을 경우
         if(tag.trim() == '') return // 공백만 있을 경우 
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {...state, tagList: [...state.tagList, tag.trim()]};
         });
     };
     const deleteTiccleTagList = tag => {
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return{ ...state,
             tagList: tagList.filter(tagList => tagList !== tag)
             }
         })
     };
     const setTiccleContent = text => {
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {...state, content: text};
         });
     };
     const setTiccleImages = imagePath => {
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {...state, images: [...state.images, imagePath]};
         });
     };
     const deleteTiccleImage = imagePath => {
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {
                 ...state,
-                images: ticcleCreate.images.filter(
+                images: ticcle.images.filter(
                     ticcleImage => ticcleImage !== imagePath,
                 ),
             };
         });
     };
-    const initialTiccleCreate = () => {
-        setTiccleCreate({
+    const initialTiccle = () => {
+        setTiccle({
             lastModifiedTime: '',
             group: '',
             title: '',
@@ -135,14 +135,14 @@ const AppProvider = ({children}) => {
     return (
         <AppContext.Provider
             value={{
-                ticcleCreate,
-                setTiccleCreate,
+                ticcle,
+                setTiccle,
                 setTiccleTitle,
                 setTiccleLink,
                 setTiccleTagList,
                 setTiccleContent,
                 setTiccleImages,
-                initialTiccleCreate,
+                initialTiccle,
                 deleteTiccleImage,
                 setTiccleDate,
                 groupCreate,

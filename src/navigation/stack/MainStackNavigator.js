@@ -20,7 +20,7 @@ const MainStack = createStackNavigator();
 const MainStackNavigator = () => {
 
     const {initialGroupCreate} = useGroupCreate();
-    const {initialTiccleCreate, ticcleCreate} = UseTiccleCreate();
+    const {initialTiccle, ticcle} = UseTiccleCreate();
     return (
         <NavigationContainer>
             <MainStack.Navigator>
@@ -134,8 +134,8 @@ const MainStackNavigator = () => {
                             <TouchableOpacity style={styles.headerLeftTouchable} 
                                 onPress={() => {
                                     navigation.navigate('Home')
-                                    console.log(ticcleCreate)
-                                    initialTiccleCreate()
+                                    console.log(ticcle)
+                                    initialTiccle()
                                 }}
                             >
                                 <Image source={require('../../assets/images/chevron_left.png')}

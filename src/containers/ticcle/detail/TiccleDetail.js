@@ -11,15 +11,15 @@ import { FBDateToFormatDate } from '../../../service/CommonService';
 
 const TiccleDetail = () => {
 
-    const {ticcleCreate} = UseTiccleCreate();
-    const ticcleTitle = ticcleCreate.title
-    const ticcleLink = ticcleCreate.link
-    const ticcleContent = ticcleCreate.content
-    const ticcleDate = ticcleCreate.lastModifiedTime
+    const {ticcle} = UseTiccleCreate();
+    const ticcleTitle = ticcle.title
+    const ticcleLink = ticcle.link
+    const ticcleContent = ticcle.content
+    const ticcleDate = ticcle.lastModifiedTime
 
     var formattedday = ""
     if(ticcleDate !== ""){
-        formattedday = FBDateToFormatDate(ticcleCreate.lastModifiedTime);
+        formattedday = FBDateToFormatDate(ticcle.lastModifiedTime);
     }
 
     const [imageExpansion, setImageExpansion] = useState(false)
@@ -29,11 +29,11 @@ const TiccleDetail = () => {
         <ScrollView style={styles.container}>
             <TiccleDetailImageExpansion isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePathForExpansion}/>
             <TiccleDetailInfo title={ticcleTitle} date={formattedday} link={ticcleLink}></TiccleDetailInfo>
-            {(ticcleCreate.images.length > 0) ?
-            <TiccleDetailImageSwiper images={ticcleCreate.images} setImageExpansion={setImageExpansion} setImagePathForExpansion={setImagePathForExpansion}/> 
+            {(ticcle.images.length > 0) ?
+            <TiccleDetailImageSwiper images={ticcle.images} setImageExpansion={setImageExpansion} setImagePathForExpansion={setImagePathForExpansion}/> 
             : null}
             <TiccleDetailText content={ticcleContent}/>
-            <TiccleDetailTags tags={ticcleCreate.tagList}/>
+            <TiccleDetailTags tags={ticcle.tagList}/>
         </ScrollView>
     )
 }
