@@ -1,16 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, ImageBackground, View, Image } from "react-native";
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
 import { useNavigation } from '@react-navigation/native';
+import { updateGroupInfo, findGroupByIdIncludeImage } from "../../../../service/GroupService";
 
-const GroupInfo = ({ title, imgUrl, content }) => {
+const GroupInfo = ({ title }) => {
     const navigateTo = useNavigation();
+    const [groupData, setGroupData] = useState([]);
+    const [isBookmark, setIsBookmark] = useState(0);
+
+    const imageData = [
+        {
+            image: require('../../../../assets/icon/star.png') 
+        },
+        { 
+            image: require('../../../../assets/icon/bookMark.png')
+        }
+    ];
+
+    function setFirebaseBookmark() {
+        if (isBookmark == 1) {
+            setIsBookmark(0);
+            updateGroupInfo(title, { bookmark: false });
+        } else {
+            setIsBookmark(1);
+            updateGroupInfo(title, { bookmark: true });
+        }
+    };
+
+    useEffect(() => {
+        // get group data
+        findGroupByIdIncludeImage(title, setGroupData);
+        console.log(groupData);
+
+        groupData.bookmark? setIsBookmark(1): setIsBookmark(0);
+    }, []);
 
     return (
         <>
-            <ImageBackground source={{ uri: imgUrl }}
+            <ImageBackground source={{ uri: groupData.imageUrl }}
                 resizeMode="cover"
                 style={styles.container5}>
                 <ImageBackground source={require('../../../../assets/images/gradation2.png')}
@@ -26,8 +56,8 @@ const GroupInfo = ({ title, imgUrl, content }) => {
                                 <Image style={styles.pencil} source={require('../../../../assets/icon/pencil.png')}></Image>
                             </View>
                             <View style={styles.container4}>
-                                <Text style={styles.content}>{content}</Text>
-                                <Image style={styles.star} source={require('../../../../assets/icon/star.png')}></Image>
+                                <Text style={styles.content}>{groupData.description}</Text>
+                                <Image style={styles.star} onTouchEnd={() => { setFirebaseBookmark() }} source={imageData[isBookmark].image}></Image>
                             </View>
                         </View>
                     </View>
