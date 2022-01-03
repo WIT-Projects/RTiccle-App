@@ -11,6 +11,7 @@ import {findGroupByIdIncludeImage} from '../../../service/GroupService';
 
 const GroupUpdate = ({navigation, route}) => {
     const [groupData, setGroupData] = useState([]);
+    const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
 
     useEffect(() => {
         // get group data
@@ -33,19 +34,26 @@ const GroupUpdate = ({navigation, route}) => {
                     style={styles.groupInfo}
                     mainImage={mainImage}
                     title={title}
-                    description={description}></GroupUpdateInfo>
+                    description={description}
+                    navigation={navigation}
+                    modalActive={modalActive}
+                    setModalActive={setModalActive}></GroupUpdateInfo>
             </View>
-            <Text style={styles.title}>유형 수정하기</Text>
-            <View style={styles.groupType}>
-                <GroupUpdateType
-                    style={styles.groupType}
-                    typeNum={type}
-                    navigation={navigation}></GroupUpdateType>
-            </View>
-            <GroupSaveButton
-                text="저장하기"
-                buttonDisabled={false}
-                navigation={navigation}></GroupSaveButton>
+            {!modalActive && (
+                <View>
+                    <Text style={styles.title}>유형 수정하기</Text>
+                    <View style={styles.groupType}>
+                        <GroupUpdateType
+                            style={styles.groupType}
+                            typeNum={type}
+                            navigation={navigation}></GroupUpdateType>
+                    </View>
+                    <GroupSaveButton
+                        text="저장하기"
+                        buttonDisabled={false}
+                        navigation={navigation}></GroupSaveButton>
+                </View>
+            )}
         </View>
     );
 };

@@ -106,7 +106,6 @@ const HomeStackNavigatior = () => {
                 })}
             />
             <HomeStack.Screen
-                options={{headerShown: false}}
                 name="GroupCreateImage"
                 component={GroupCreateImage}
                 options={({navigation}) => ({
@@ -114,6 +113,7 @@ const HomeStackNavigatior = () => {
                         backgroundColor: colors.white,
                         height: metrics.topNavigationHeight,
                     },
+                    headerShown: false,
                     title: '그룹 생성',
                     headerTintColor: colors.main,
                     headerTitleAlign: 'center',

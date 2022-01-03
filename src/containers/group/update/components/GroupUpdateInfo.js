@@ -13,48 +13,79 @@ import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';
 import {clockRunning} from 'react-native-reanimated';
+import GroupUpdateTitleModal from './GroupUpdateTitleModal';
+import GroupUpdateDescriptionModal from './GroupUpdateDescriptionModal';
 
-const GroupUpdateInfo = ({navigation, mainImage, title, description}) => {
+const GroupUpdateInfo = ({
+    navigation,
+    mainImage,
+    title,
+    description,
+    modalActive,
+    setModalActive,
+}) => {
     const {setGroupImage} = useGroupCreate();
     let source;
-    mainImage === ''
+    mainImage === null
         ? (source = require('../../../../assets/images/blankImage.png'))
         : (source = {uri: mainImage});
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [isPhotoModalVisible, setPhotoModalVisible] = useState(false);
+    const [isTitleModalVisible, setTitleModalVisible] = useState(false);
+    const [isDescModalVisible, setDescModalVisible] = useState(false);
     return (
         <View style={styles.container}>
             <PhotoModal
                 setImage={setGroupImage}
-                isModalVisible={isModalVisible}
-                setModalVisible={setModalVisible}
+                isModalVisible={isPhotoModalVisible}
+                setModalVisible={setPhotoModalVisible}
+                setModalActive={setModalActive}
                 width={412}
                 height={256}></PhotoModal>
+            <GroupUpdateTitleModal
+                isModalVisible={isTitleModalVisible}
+                setModalVisible={setTitleModalVisible}
+                setModalActive={setModalActive}
+                title={title}></GroupUpdateTitleModal>
+            <GroupUpdateDescriptionModal
+                isModalVisible={isDescModalVisible}
+                setModalActive={setModalActive}
+                setModalVisible={setDescModalVisible}
+                description={description}></GroupUpdateDescriptionModal>
             <ImageBackground source={source} style={styles.headerImage}>
                 <ImageBackground
                     source={require('../../../../assets/images/groupUpdateGradation.png')}
                     style={styles.headerImageGradation}>
                     <View style={styles.headerImageInner}>
-                        <View style={styles.headerImageContainer1}>
-                            <TouchableOpacity style={styles.cancelButton}>
-                                <Text style={styles.cancelButtonText}>
-                                    취소
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => setModalVisible(true)}>
-                                <Image
-                                    width={35}
-                                    height={35}
-                                    source={require('../../../../assets/images/camera.png')}
-                                    onPress={() =>
-                                        setModalVisible(true)
-                                    }></Image>
-                            </TouchableOpacity>
+                        <View style={!modalActive ? null : {opacity: 0}}>
+                            <View style={styles.headerImageContainer1}>
+                                <TouchableOpacity
+                                    style={styles.cancelButton}
+                                    onPress={() => navigation.goBack()}>
+                                    <Text style={styles.cancelButtonText}>
+                                        취소
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => setPhotoModalVisible(true)}>
+                                    <Image
+                                        width={35}
+                                        height={35}
+                                        source={require('../../../../assets/images/camera.png')}
+                                        onPress={() =>
+                                            setPhotoModalVisible(true)
+                                        }></Image>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         <View style={styles.headerImageContainer2}>
                             <View style={styles.underline}>
                                 <Text style={styles.imageTitle}>{title}</Text>
-                                <TouchableOpacity style={styles.editButton}>
+                                <TouchableOpacity
+                                    style={styles.editButton}
+                                    onPress={() => {
+                                        setTitleModalVisible(true);
+                                        setModalActive(true);
+                                    }}>
                                     <Image
                                         source={require('../../../../assets/icon/pencil.png')}></Image>
                                 </TouchableOpacity>
@@ -63,7 +94,12 @@ const GroupUpdateInfo = ({navigation, mainImage, title, description}) => {
                                 <Text style={styles.imageSubtitle}>
                                     {description}
                                 </Text>
-                                <TouchableOpacity style={styles.editButton}>
+                                <TouchableOpacity
+                                    style={styles.editButton}
+                                    onPress={() => {
+                                        setDescModalVisible(true);
+                                        setModalActive(true);
+                                    }}>
                                     <Image
                                         source={require('../../../../assets/icon/pencil.png')}></Image>
                                 </TouchableOpacity>
@@ -89,7 +125,8 @@ const styles = StyleSheet.create({
     headerImageGradation: {
         resizeMode: 'cover',
         width: '100%',
-        height: 256,
+        height: '100%',
+        opacity: 0.8,
     },
     cancelButton: {
         paddingRight: 18,
