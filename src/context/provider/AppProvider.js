@@ -126,28 +126,6 @@ const AppProvider = ({children}) => {
             return {...state, mainImage: imgPath};
         });
     };
-
-    /*Group Detail*/
-    const [groupDetail, setGroupDetail] = useState({
-        bookmark: false,
-        description: '',
-        imageUrl: '',
-        lastModifiedTime: '',
-        mainImage: '',
-        title: '',
-        type:'',
-    });
-    const initialGroupDetail = () => {
-        setGroupCreate({
-            bookmark: false,
-            description: '',
-            imageUrl: '',
-            lastModifiedTime: '',
-            mainImage: '',
-            title: '',
-            type:'',
-        });
-    };
     
     return (
         <AppContext.Provider
@@ -171,9 +149,6 @@ const AppProvider = ({children}) => {
                 setGroupDescription,
                 setGroupBookmark,
                 setGroupImage,
-                groupDetail,
-                setGroupDetail,
-                initialGroupDetail,
             }}>
             {children}
         </AppContext.Provider>
