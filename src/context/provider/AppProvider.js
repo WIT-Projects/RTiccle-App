@@ -5,77 +5,83 @@ import uuid from 'react-native-uuid';
 import { FBDate } from '../../service/CommonService';
 
 const AppProvider = ({children}) => {
-    const [ticcleCreate, setTiccleCreate] = useState({
-        id: '',
+
+    //Ticcle
+    const [ticcle, setTiccle] = useState({
+        lastModifiedTime: '',
+        group: '',
         title: '',
         link: '',
-        tag: '',
+        tagList: [],
         content: '',
-        image: [],
-        date: '',
-        ticcleNumber: '',
-        groupName: '',
+        images: [],
     });
 
     const setTiccleTitle = text => {
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {...state, title: text};
         });
     };
     const setTiccleLink = text => {
-        setTiccleCreate(state => {
+        setTiccle(state => {
             return {...state, link: text};
-        });
-    };
-    const setTiccleTag = text => {
-        setTiccleCreate(state => {
-            return {...state, tag: text};
-        });
-    };
-    const setTiccleContent = text => {
-        setTiccleCreate(state => {
-            return {...state, content: text};
-        });
-    };
-    const setTiccleImage = imagePath => {
-        const oldImage = ticcleCreate.image;
-        const newImage = {
-            id: uuid.v4(),
-            path: imagePath,
-        };
-        setTiccleCreate(state => {
-            return {...state, image: [...oldImage, newImage]};
-        });
-    };
-    const initialTiccleCreate = () => {
-        setTiccleCreate({
-            title: '',
-            link: '',
-            tag: '',
-            content: '',
-            image: [],
-            date: '',
-            ticcleNumber: '',
-            groupName: '',
-        });
-    };
-    const deleteTiccleImage = id => {
-        setTiccleCreate(state => {
-            return {
-                ...state,
-                image: ticcleCreate.image.filter(
-                    ticcleImage => ticcleImage.id !== id,
-                ),
-            };
         });
     };
     const setTiccleDate = () => {
         const today = FBDate();
-        setTiccleCreate(state => {
-            return {...state, date: today};
+        setTiccle(state => {
+            return {...state, lastModifiedTime: today};
+        });
+        console.log(ticcle)
+    };
+    const setTiccleTagList = tag => {
+        if(tag == '') return // 비어있을 경우
+        if(tag.trim() == '') return // 공백만 있을 경우 
+        setTiccle(state => {
+            return {...state, tagList: [...state.tagList, tag.trim()]};
+        });
+    };
+    const deleteTiccleTagList = tag => {
+        setTiccle(state => {
+            return{ ...state,
+            tagList: tagList.filter(tagList => tagList !== tag)
+            }
+        })
+    };
+    const setTiccleContent = text => {
+        setTiccle(state => {
+            return {...state, content: text};
+        });
+    };
+    const setTiccleImages = imagePath => {
+        setTiccle(state => {
+            return {...state, images: [...state.images, imagePath]};
+        });
+    };
+    const deleteTiccleImage = imagePath => {
+        setTiccle(state => {
+            return {
+                ...state,
+                images: ticcle.images.filter(
+                    ticcleImage => ticcleImage !== imagePath,
+                ),
+            };
+        });
+    };
+    const initialTiccle = () => {
+        setTiccle({
+            lastModifiedTime: '',
+            group: '',
+            title: '',
+            link: '',
+            tagList: [],
+            content: '',
+            images: [],
         });
     };
 
+
+    // Group
     const [groupCreate, setGroupCreate] = useState({
         lastModifiedTime: '',
         type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
@@ -129,14 +135,14 @@ const AppProvider = ({children}) => {
     return (
         <AppContext.Provider
             value={{
-                ticcleCreate,
-                setTiccleCreate,
+                ticcle,
+                setTiccle,
                 setTiccleTitle,
                 setTiccleLink,
-                setTiccleTag,
+                setTiccleTagList,
                 setTiccleContent,
-                setTiccleImage,
-                initialTiccleCreate,
+                setTiccleImages,
+                initialTiccle,
                 deleteTiccleImage,
                 setTiccleDate,
                 groupCreate,

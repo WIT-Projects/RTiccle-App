@@ -3,16 +3,21 @@ import { TextInput, StyleSheet,View } from 'react-native'
 
 import colors from '../../../../theme/colors'
 
-const TiccleCreateTextInput = ({fontWeight, fontSize, placeHolderTextcolor, placeholder, value,onChangeText, style}) => {
+const TiccleCreateTextInputTag = ({fontWeight, fontSize, placeHolderTextcolor, placeholder, onChangeText, style,
+    setTiccleTagList, tag, initialTag}) => {
 
     return (
         <View style={[styles.container, style]}>
             <TextInput
             placeholder = {placeholder}
             placeholderTextColor = {placeHolderTextcolor}
-            value= {value}
             onChangeText = {onChangeText}
-            returnKeyType='next'
+            value= {tag}
+            onSubmitEditing={() => {
+                setTiccleTagList(tag)
+                initialTag()
+            }}
+            blurOnSubmit={false}
             style={{
                 fontWeight : fontWeight,
                 fontSize: fontSize,
@@ -36,4 +41,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TiccleCreateTextInput
+export default TiccleCreateTextInputTag
