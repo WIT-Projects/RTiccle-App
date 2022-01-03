@@ -35,11 +35,7 @@ const GroupInfo = ({ title }) => {
         findGroupByIdIncludeImage(title, setGroupData);
         console.log(groupData);
 
-        if (groupData.bookmark) {
-            setIsBookmark(1);
-        } else {
-            setIsBookmark(0);
-        }
+        groupData.bookmark? setIsBookmark(1): setIsBookmark(0);
     }, []);
 
     return (

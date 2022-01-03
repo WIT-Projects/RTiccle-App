@@ -76,7 +76,6 @@ const AppProvider = ({children}) => {
         });
     };
 
-    /*Group Create*/
     const [groupCreate, setGroupCreate] = useState({
         lastModifiedTime: '',
         type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
