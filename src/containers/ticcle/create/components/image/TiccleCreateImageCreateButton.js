@@ -1,13 +1,13 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet,Image } from 'react-native'
-import colors from '../../../../theme/colors'
+import colors from '../../../../../theme/colors'
 
 
-const TiccleImageCreateButton = ({photoModalVisibleTrue}) => {
+const TiccleCreateImageCreateButton = ({photoModalVisibleTrue}) => {
     return (
         <TouchableOpacity style={styles.touchableContainer} onPress={photoModalVisibleTrue}>
             <Text style={styles.text}>클릭하여 이미지를 추가해보세요</Text>
-            <Image source={require('../../../../assets/icon/image.png')}
+            <Image source={require('../../../../../assets/icon/image.png')}
             style={styles.image}/>
         </TouchableOpacity>
     )
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default TiccleImageCreateButton
+export default TiccleCreateImageCreateButton

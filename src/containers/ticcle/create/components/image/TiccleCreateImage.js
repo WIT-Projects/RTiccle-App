@@ -1,7 +1,7 @@
 import React, {useState } from 'react';
 import { TouchableOpacity,Image, StyleSheet, View } from 'react-native';
-import colors from '../../../../theme/colors';
-import CustomModal from '../../../common/CustomModal';
+import colors from '../../../../../theme/colors';
+import CustomModal from '../../../../common/CustomModal'
 
 const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imagePath}) => {
 
@@ -25,7 +25,7 @@ const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imagePath}) => {
 
             <TouchableOpacity
                 style={styles.xButtonContainer} onPress={()=>setDeleteModal(true)} activeOpacity={0.75}>
-                <Image source={require('../../../../assets/images/x_circle_sub.png')} style={styles.xButton} />
+                <Image source={require('../../../../../assets/images/x_circle_sub.png')} style={styles.xButton} />
             </TouchableOpacity>
         </View>
 

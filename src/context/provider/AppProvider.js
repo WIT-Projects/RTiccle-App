@@ -43,7 +43,7 @@ const AppProvider = ({children}) => {
     const deleteTiccleTagList = tag => {
         setTiccle(state => {
             return{ ...state,
-            tagList: tagList.filter(tagList => tagList !== tag)
+            tagList: ticcle.tagList.filter(tagList => tagList !== tag)
             }
         })
     };
@@ -139,6 +139,7 @@ const AppProvider = ({children}) => {
                 setTiccleTitle,
                 setTiccleLink,
                 setTiccleTagList,
+                deleteTiccleTagList,
                 setTiccleContent,
                 setTiccleImages,
                 initialTiccle,

@@ -1,13 +1,13 @@
 import React from 'react';
 import { View,TouchableOpacity, Image, StyleSheet } from 'react-native';
-import colors from '../../../../theme/colors';
+import colors from '../../../../../theme/colors';
 
 const TicclePlusBox = ({photoModalVisibleTrue}) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
             style={styles.touchableConatiner} onPress={photoModalVisibleTrue}>
-                <Image style={styles.imagePlus} source={ require('../../../../assets/images/plus.png')} />
+                <Image style={styles.imagePlus} source={ require('../../../../../assets/images/plus.png')} />
             </TouchableOpacity>
         </View>
     )

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import { View, StyleSheet,ScrollView } from 'react-native';
-import TiccleImageCreateButton from './components/TiccleImageCreateButton';
-import TiccleContentTextInput from './components/TiccleContentTextInput';
-import TiccleCreateTextInputTitleLink from './components/TiccleCreateTextInputTitleLink';
-import TiccleCreateImageGroup from './components/TiccleCreateImageGroup';
-import TiccleCreateTextInputTag from './components/TiccleCreateTextInputTag';
+import TiccleCreateImageCreateButton from './components/image/TiccleCreateImageCreateButton';
+import TiccleContentTextInput from './components/textinput/TiccleContentTextInput';
+import TiccleCreateTextInputTitleLink from './components/textinput/TiccleCreateTextInputTitleLink';
+import TiccleCreateImageGroup from './components/image/TiccleCreateImageGroup';
+import TiccleCreateTextInputTag from './components/textinput/TiccleCreateTextInputTag';
 import TiccleCreateTags from './components/TiccleCreateTags';
 import colors from '../../../theme/colors';
 import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
@@ -13,7 +13,8 @@ import PhotoModal from '../../common/PhotoModal';
 const TiccleCreate = () => {
 
     const {setTiccleContent, setTiccleImages, deleteTiccleImage,
-        ticcle, setTiccleTagList, setTiccleTitle, setTiccleLink} = UseTiccleCreate();
+        ticcle, setTiccleTitle, setTiccleLink,
+        setTiccleTagList, deleteTiccleTagList } = UseTiccleCreate();
 
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
 
@@ -35,7 +36,7 @@ const TiccleCreate = () => {
                 {(ticcle.images && ticcle.images.length > 0) ?
                 <TiccleCreateImageGroup photoModalVisibleTrue={photoModalVisibleTrue}
                 ticcle={ticcle} deleteTiccleImage={deleteTiccleImage}/> :
-                <TiccleImageCreateButton photoModalVisibleTrue={photoModalVisibleTrue}/>
+                <TiccleCreateImageCreateButton photoModalVisibleTrue={photoModalVisibleTrue}/>
                 }
             </View>
 
@@ -49,7 +50,7 @@ const TiccleCreate = () => {
                 setTiccleTagList={setTiccleTagList} tag={tag} initialTag={initialTag}
             />
 
-            <TiccleCreateTags tags={ticcle.tagList}/>
+            <TiccleCreateTags tags={ticcle.tagList} deleteTiccleTagList={deleteTiccleTagList}/>
         </ScrollView>
     )
 }

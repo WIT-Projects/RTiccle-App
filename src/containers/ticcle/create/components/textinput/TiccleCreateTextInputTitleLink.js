@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import TiccleCreateTextInput from './TiccleCreateTextInput';
-import colors from '../../../../theme/colors';
+import colors from '../../../../../theme/colors';
 
 
 const TiccleCreateTextInputTitleLink = ({ticcleTitle, setTiccleTitle, ticcleLink,setTiccleLink}) => {
