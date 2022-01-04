@@ -142,18 +142,6 @@ async function findTiccleListByGroupId(groupId, setState) {
 }
 
 /**
- * Get group's number of ticcles by groupId
- * @param {Dispatch<SetStateAction<S>>} setState
- * @returns {Int} ticcle length
- */
- async function findNumberOfTicclesOfGroup(groupId, setState) {
-    const query = userDoc.collection("Ticcle")
-        .where("group", "==", groupId);
-    const querySnapshot = await query.get();
-    setState(querySnapshot.size);
-}
-
-/**
  * Get One Ticcle By Id (DocumentSnapshot.id) and Set state
  * @param {*} ticcleId 
  * @param {Dispatch<SetStateAction<S>>} setState 
@@ -186,7 +174,6 @@ export {
     createTiccle,
     uploadNewTiccle,
     findTiccleListByGroupId,
-    findNumberOfTicclesOfGroup,
     findTiccleById,
     findImagesOfTiccle,
 }

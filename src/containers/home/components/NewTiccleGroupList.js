@@ -24,7 +24,7 @@ const NewTiccleGroupList = () => {
             {isExistGroup ? 
                 <View style={styles.container} >
                     {data.map((item, index) => {
-                        return (<TiccleGroup key={index} imageUrl={item.imageUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'}></TiccleGroup>)
+                        return (<TiccleGroup key={index} imageUrl={item.imageUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'} ticcleNum={item.ticcleNum}></TiccleGroup>)
                     })}
                 </View> 
                 : <Text>작성된 티끌이 존재하지 않습니다.</Text>
