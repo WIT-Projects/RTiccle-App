@@ -1,10 +1,9 @@
 import React from 'react';
 import Modal from 'react-native-modal'
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import colors from '../../../../theme/colors';
 import metrics from '../../../../theme/metrices';
 import { type } from '../../../../theme/fonts';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const TiccleDetailImageExpansion = ({isModalVisible, setModalVisible, imagePath}) => {
 
