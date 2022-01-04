@@ -136,6 +136,7 @@ const AppProvider = ({children}) => {
         title: '',
         description: '',
         imageUrl: '',
+        mainImage: '',
     });
     const initialGroupUpdate = () => {
         setGroupCreate({
@@ -162,7 +163,7 @@ const AppProvider = ({children}) => {
     };
     const setGroupUpdateImage = imgPath => {
         setGroupUpdate(state => {
-            return {...state, imageUrl: imgPath};
+            return {...state, mainImage: imgPath};
         });
     };
 

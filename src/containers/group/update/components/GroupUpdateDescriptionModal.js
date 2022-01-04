@@ -62,7 +62,11 @@ const GroupUpdateDescriptionModal = ({
                         maxLength={maxLength}>
                         {description}
                     </TextInput>
-                    <TouchableOpacity style={styles.editButton}>
+                    <TouchableOpacity
+                        style={styles.editButton}
+                        onPress={() => {
+                            setGroupUpdateDescription('');
+                        }}>
                         <Image
                             style={
                                 groupDescriptionLength === maxLength

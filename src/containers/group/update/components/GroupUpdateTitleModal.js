@@ -41,12 +41,21 @@ const GroupUpdateTitleModal = ({
                         그룹 제목
                     </Text>
                     <TouchableOpacity
+                        disabled={groupTitleLength < 1 ? true : false}
                         style={styles.button}
                         onPress={() => {
                             setModalVisible(false);
                             setModalActive(false);
                         }}>
-                        <Text style={styles.defaultText}>저장</Text>
+                        <Text
+                            style={[
+                                styles.defaultText,
+                                groupTitleLength < 1
+                                    ? styles.disabledButton
+                                    : null,
+                            ]}>
+                            저장
+                        </Text>
                     </TouchableOpacity>
                 </View>
                 <View
@@ -61,7 +70,11 @@ const GroupUpdateTitleModal = ({
                         {title}
                     </TextInput>
 
-                    <TouchableOpacity style={styles.editButton}>
+                    <TouchableOpacity
+                        style={styles.editButton}
+                        onPress={() => {
+                            setGroupUpdateTitle('');
+                        }}>
                         <Image
                             style={
                                 groupTitleLength === maxLength
@@ -139,6 +152,9 @@ const styles = StyleSheet.create({
     },
     xCircleRed: {
         tintColor: colors.red,
+    },
+    disabledButton: {
+        color: colors.gray3,
     },
 });
 

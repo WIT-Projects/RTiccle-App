@@ -3,16 +3,15 @@ import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
-import useGroupCreate from '../../../../context/hook/useGroupCreate';
+import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 
-const GroupUpdateTypeItem = ({navigation, typeName, typeNum, imgSource}) => {
-    const {setGroupType} = useGroupCreate();
+const GroupUpdateTypeItem = ({typeName, typeNum, imgSource}) => {
+    const {setGroupUpdateType} = useGroupUpdate();
     return (
         <View style={styles.typeItem}>
             <TouchableOpacity
                 onPress={() => {
-                    setGroupType(typeNum);
-                    navigation.navigate('Home');
+                    setGroupUpdateType(typeNum);
                 }}>
                 <Image source={imgSource}></Image>
             </TouchableOpacity>

@@ -23,6 +23,7 @@ const GroupUpdateInfo = ({
     modalActive,
     setModalActive,
     initialData,
+    setMainImage,
 }) => {
     const {setGroupUpdateImage} = useGroupUpdate();
     let source;
@@ -35,6 +36,7 @@ const GroupUpdateInfo = ({
     return (
         <View style={styles.container}>
             <PhotoModal
+                setMainImage={setMainImage}
                 setImage={setGroupUpdateImage}
                 isModalVisible={isPhotoModalVisible}
                 setModalVisible={setPhotoModalVisible}
