@@ -32,7 +32,6 @@ const AppProvider = ({children}) => {
         setTiccle(state => {
             return {...state, lastModifiedTime: today};
         });
-        console.log(ticcle)
     };
     const setTiccleTagList = tag => {
         if(tag == '') return // 비어있을 경우
