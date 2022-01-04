@@ -17,8 +17,8 @@ const GroupUpdateTitleModal = ({
     setModalActive,
     title,
 }) => {
-    let groupTitleLength = title.length;
-    const maxLengthOfTitle = 15;
+    if (title != null) var groupTitleLength = title.length;
+    const maxLength = 15;
 
     return (
         <Modal style={styles.modal} isVisible={isModalVisible}>
@@ -42,21 +42,19 @@ const GroupUpdateTitleModal = ({
                 <View
                     style={[
                         styles.underline,
-                        groupTitleLength === maxLengthOfTitle
-                            ? styles.red
-                            : null,
+                        groupTitleLength === maxLength ? styles.red : null,
                     ]}>
                     <TextInput
                         style={styles.defaultText}
                         // onChangeText={setGroupTitle}
-                        maxLength={maxLengthOfTitle}>
+                        maxLength={maxLength}>
                         {title}
                     </TextInput>
 
                     <TouchableOpacity style={styles.editButton}>
                         <Image
                             style={
-                                groupTitleLength === maxLengthOfTitle
+                                groupTitleLength === maxLength
                                     ? styles.xCircleRed
                                     : null
                             }
@@ -66,11 +64,9 @@ const GroupUpdateTitleModal = ({
                 <Text
                     style={[
                         styles.textCount,
-                        groupTitleLength === maxLengthOfTitle
-                            ? styles.red
-                            : null,
+                        groupTitleLength === maxLength ? styles.red : null,
                     ]}>
-                    {groupTitleLength}/15
+                    {groupTitleLength}/{maxLength}
                 </Text>
             </View>
         </Modal>
