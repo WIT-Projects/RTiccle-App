@@ -131,7 +131,7 @@ const AppProvider = ({children}) => {
             return {...state, mainImage: imgPath};
         });
     };
-
+    
     return (
         <AppContext.Provider
             value={{

@@ -135,6 +135,34 @@ async function findGroupsIncludeImage(limit, setState) {
 }
 
 /**
+ * Find bookmark groups include main image url with limiting and Set state
+ * @param {Dispatch<SetStateAction<S>>} setState 
+ * @returns {Array} Group List (include image url)
+ */
+async function findBookrmarkGroupsIncludeImage(setState) {
+    const query = userDoc.collection("Group")
+        .orderBy('lastModifiedTime', 'desc');
+
+    const querySnapshot = await query.get();
+    var snapshots = [];
+    querySnapshot.forEach((snapshot) => snapshots.push({id: snapshot.id, data: snapshot.data()}));
+    var groups = [];
+    for (let group of snapshots) {
+        if( group.data.bookmark ){
+            const id = group.id;
+            var data = group.data;
+            var mainImageURL = null;
+            if (data.mainImage || data.mainImage != '') { // get download URL
+                mainImageURL = await getDownloadURLByName(data.mainImage, false);
+            }
+            data = { ...data, imageUrl: mainImageURL, id: id };
+            groups = [...groups, data];
+        }  
+    }
+    setState(groups);
+}
+
+/**
  * check whether a group name exists or not
  * @param {string} groupId 
  * @returns {Boolean} true is existing group
@@ -201,4 +229,5 @@ export {
     findGroupById,
     findGroupByIdIncludeImage,
     checkIsExistingAnyGroup,
+    findBookrmarkGroupsIncludeImage,
 }

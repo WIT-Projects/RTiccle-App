@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    StyleSheet,
+    TouchableOpacity,
+    TextInput,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
@@ -10,6 +17,9 @@ const GroupUpdateTitleModal = ({
     setModalActive,
     title,
 }) => {
+    let groupTitleLength = title.length;
+    const maxLengthOfTitle = 15;
+
     return (
         <Modal style={styles.modal} isVisible={isModalVisible}>
             <View style={styles.container}>
@@ -29,13 +39,39 @@ const GroupUpdateTitleModal = ({
                         <Text style={styles.defaultText}>저장</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.underline}>
-                    <Text style={styles.defaultText}>{title}</Text>
+                <View
+                    style={[
+                        styles.underline,
+                        groupTitleLength === maxLengthOfTitle
+                            ? styles.red
+                            : null,
+                    ]}>
+                    <TextInput
+                        style={styles.defaultText}
+                        // onChangeText={setGroupTitle}
+                        maxLength={maxLengthOfTitle}>
+                        {title}
+                    </TextInput>
+
                     <TouchableOpacity style={styles.editButton}>
                         <Image
+                            style={
+                                groupTitleLength === maxLengthOfTitle
+                                    ? styles.xCircleRed
+                                    : null
+                            }
                             source={require('../../../../assets/images/xCircleWhite.png')}></Image>
                     </TouchableOpacity>
                 </View>
+                <Text
+                    style={[
+                        styles.textCount,
+                        groupTitleLength === maxLengthOfTitle
+                            ? styles.red
+                            : null,
+                    ]}>
+                    {groupTitleLength}/15
+                </Text>
             </View>
         </Modal>
     );
@@ -76,14 +112,27 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingTop: 308,
         borderBottomWidth: 1,
-        borderColor: colors.white,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        borderColor: colors.white,
+    },
+    textCount: {
+        fontSize: 12,
+        fontFamily: type.spoqaHanSansNeo_Regular,
+        paddingTop: 15,
+        color: colors.white,
     },
     editButton: {
         paddingLeft: 20,
         paddingVertical: 10,
+    },
+    red: {
+        borderColor: colors.red,
+        color: colors.red,
+    },
+    xCircleRed: {
+        tintColor: colors.red,
     },
 });
 
