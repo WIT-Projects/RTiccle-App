@@ -108,6 +108,28 @@ function deleteGroup(group) {
 }
 
 /**
+ * Get All Group of User and Set state include main image url 
+ * @param {Dispatch<SetStateAction<S>>} setState 
+ */
+ async function findAllGroupIncludeImage(setState) {
+    const querySnapshot = await userDoc.collection("Group").get();
+    var groups = [];
+    querySnapshot.forEach((snapshot) => snapshots.push({id: snapshot.id, data: snapshot.data()}));
+    var groups = [];
+    for (let group of snapshots) {
+        const id = group.id;
+        var data = group.data;
+        var mainImageURL = null;
+        if (data.mainImage || data.mainImage != '') { // get download URL
+            mainImageURL = await getDownloadURLByName(data.mainImage, false);
+        }
+        data = { ...data, imageUrl: mainImageURL, id: id };
+        groups = [...groups, data];
+    }
+    setState(groups);
+}
+
+/**
  * Find groups include main image url with limiting and Set state
  * @param {*} limit: maximum number of groups
  * @param {Dispatch<SetStateAction<S>>} setState 
@@ -141,23 +163,21 @@ async function findGroupsIncludeImage(limit, setState) {
  */
 async function findBookrmarkGroupsIncludeImage(setState) {
     const query = userDoc.collection("Group")
-        .orderBy('lastModifiedTime', 'desc');
+        .where("bookmark", '==', true)
 
     const querySnapshot = await query.get();
     var snapshots = [];
     querySnapshot.forEach((snapshot) => snapshots.push({id: snapshot.id, data: snapshot.data()}));
     var groups = [];
     for (let group of snapshots) {
-        if( group.data.bookmark ){
-            const id = group.id;
-            var data = group.data;
-            var mainImageURL = null;
-            if (data.mainImage || data.mainImage != '') { // get download URL
-                mainImageURL = await getDownloadURLByName(data.mainImage, false);
-            }
-            data = { ...data, imageUrl: mainImageURL, id: id };
-            groups = [...groups, data];
-        }  
+        const id = group.id;
+        var data = group.data;
+        var mainImageURL = null;
+        if (data.mainImage || data.mainImage != '') { // get download URL
+            mainImageURL = await getDownloadURLByName(data.mainImage, false);
+        }
+        data = { ...data, imageUrl: mainImageURL, id: id };
+        groups = [...groups, data];
     }
     setState(groups);
 }
@@ -224,6 +244,7 @@ export {
     updateGroupImage,
     deleteGroup,
     findAllGroup,
+    findAllGroupIncludeImage,
     findGroupsIncludeImage,
     checkIsExistingGroup,
     findGroupById,
