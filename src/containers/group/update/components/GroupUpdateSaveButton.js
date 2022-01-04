@@ -11,15 +11,15 @@ import {
 
 const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const {groupUpdate, initialGroupUpdate} = useGroupUpdate();
-    let title = groupUpdate.title;
-    let type = groupUpdate.type;
-    let description = groupUpdate.description;
-
-    let image = '';
-    if (groupUpdate.mainImage != initialData.mainImage)
-        image = groupUpdate.mainImage;
 
     const groupUpdateFirebase = () => {
+        let type = groupUpdate.type;
+        let title = groupUpdate.title;
+        let description = groupUpdate.description;
+        let image = '';
+        if (groupUpdate.mainImage != initialData.mainImage)
+            image = groupUpdate.mainImage;
+
         const groupId = initialData.title;
         const newInfo = {
             type: type,
@@ -61,18 +61,12 @@ const styles = StyleSheet.create({
     touchableColor: {
         backgroundColor: colors.main,
     },
-    touchableDisableColor: {
-        backgroundColor: colors.gray1,
-    },
     buttonText: {
         fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize: 16,
     },
     textColor: {
         color: colors.white,
-    },
-    textDisabledColor: {
-        color: colors.gray4,
     },
 });
 

@@ -36,24 +36,24 @@ const GroupUpdateInfo = ({
     return (
         <View style={styles.container}>
             <PhotoModal
-                setMainImage={setMainImage}
+                setMainImage={setMainImage} // 화면에 나오는 메인 이미지를 관리하기 위해 사용
                 setImage={setGroupUpdateImage}
                 isModalVisible={isPhotoModalVisible}
                 setModalVisible={setPhotoModalVisible}
-                setModalActive={setModalActive}
+                setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
                 width={412}
                 height={256}></PhotoModal>
             <GroupUpdateTitleModal
                 initialData={initialData}
                 isModalVisible={isTitleModalVisible}
                 setModalVisible={setTitleModalVisible}
-                setModalActive={setModalActive}
+                setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
                 title={title}></GroupUpdateTitleModal>
             <GroupUpdateDescriptionModal
                 initialData={initialData}
                 isModalVisible={isDescModalVisible}
-                setModalActive={setModalActive}
                 setModalVisible={setDescModalVisible}
+                setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
                 description={description}></GroupUpdateDescriptionModal>
             <ImageBackground source={source} style={styles.headerImage}>
                 <ImageBackground
@@ -71,19 +71,17 @@ const GroupUpdateInfo = ({
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => setPhotoModalVisible(true)}>
-                                    <Image
-                                        width={35}
-                                        height={35}
-                                        source={require('../../../../assets/images/camera.png')}
+                                    <Image width={35} height={35} source={require('../../../../assets/images/camera.png')}
                                         onPress={() =>
                                             setPhotoModalVisible(true)
-                                        }></Image>
+                                        }>
+                                    </Image>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.headerImageContainer2}>
                             <View style={styles.underline}>
-                                <Text style={styles.imageTitle}>{title}</Text>
+                                <Text style={styles.groupTitle}>{title}</Text>
                                 <TouchableOpacity
                                     style={styles.editButton}
                                     onPress={() => {
@@ -95,7 +93,7 @@ const GroupUpdateInfo = ({
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.underline}>
-                                <Text style={styles.imageSubtitle}>
+                                <Text style={styles.groupDescription}>
                                     {description}
                                 </Text>
                                 <TouchableOpacity
@@ -153,13 +151,13 @@ const styles = StyleSheet.create({
     headerImageContainer2: {
         paddingTop: 93,
     },
-    imageTitle: {
+    groupTitle: {
         fontFamily: type.spoqaHanSansNeo_Bold,
         fontSize: 24,
         color: colors.white,
         paddingBottom: 8,
     },
-    imageSubtitle: {
+    groupDescription: {
         fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize: 16,
         paddingTop: 12,

@@ -11,17 +11,16 @@ import useGroupUpdate from '../../../context/hook/useGroupUpdate';
 
 const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate, initialGroupUpdate} = useGroupUpdate();
-
     const [initialData, setInitialData] = useState([]);
-
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
-    const [mainImage, setMainImage] = useState('');
+    const [mainImage, setMainImage] = useState(''); // 화면에 나오는 메인 이미지를 관리하기 위해 사용
+
     useEffect(() => {
-        findGroupByIdIncludeImage(route.params.groupId, setInitialData);
         initialGroupUpdate();
+        findGroupByIdIncludeImage(route.params.groupId, setInitialData);
         console.log('fetch=======');
-        console.log(initialData);
     }, []);
+
     useEffect(() => {
         console.log('groupUpdate=====');
         setGroupUpdate(initialData);
@@ -33,13 +32,13 @@ const GroupUpdate = ({navigation, route}) => {
         <View style={styles.container}>
             <View style={styles.groupInfo}>
                 <GroupUpdateInfo
-                    initialData={initialData}
+                    navigation={navigation}
                     style={styles.groupInfo}
+                    initialData={initialData}
                     mainImage={mainImage}
                     setMainImage={setMainImage}
                     title={groupUpdate.title}
                     description={groupUpdate.description}
-                    navigation={navigation}
                     modalActive={modalActive}
                     setModalActive={setModalActive}></GroupUpdateInfo>
             </View>

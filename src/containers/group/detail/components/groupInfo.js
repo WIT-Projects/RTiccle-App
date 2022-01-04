@@ -37,7 +37,7 @@ const GroupInfo = ({title, navigation}) => {
     }, []);
     useEffect(() => {
         setIsBookmark(groupData.bookmark);
-        console.log('boooooooookmark=========');
+        console.log('bookmark=========');
     }, [groupData]);
 
     return (

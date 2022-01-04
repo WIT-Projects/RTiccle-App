@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     View,
     Text,
@@ -37,9 +37,7 @@ const GroupUpdateDescriptionModal = ({
                         }}>
                         <Text style={styles.defaultText}>취소</Text>
                     </TouchableOpacity>
-                    <Text style={[styles.defaultText, styles.bold]}>
-                        그룹 설명
-                    </Text>
+                    <Text style={[styles.defaultText, styles.bold]}> 그룹 설명</Text>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
