@@ -19,34 +19,26 @@ import {
 const GroupInfo = ({title, navigation}) => {
     const navigateTo = useNavigation();
     const [groupData, setGroupData] = useState([]);
-    const [isBookmark, setIsBookmark] = useState(0);
-
-    const imageData = [
-        {
-            image: require('../../../../assets/icon/star.png'),
-        },
-        {
-            image: require('../../../../assets/icon/bookMark.png'),
-        },
-    ];
+    const [isBookmark, setIsBookmark] = useState(false);
 
     function setFirebaseBookmark() {
-        if (isBookmark == 1) {
-            setIsBookmark(0);
+        if (isBookmark == true) {
+            setIsBookmark(false);
             updateGroupInfo(title, {bookmark: false});
         } else {
-            setIsBookmark(1);
+            setIsBookmark(true);
             updateGroupInfo(title, {bookmark: true});
         }
     }
 
     useEffect(() => {
-        // get group data
         findGroupByIdIncludeImage(title, setGroupData);
         console.log(groupData);
-
-        groupData.bookmark ? setIsBookmark(1) : setIsBookmark(0);
     }, []);
+    useEffect(() => {
+        setIsBookmark(groupData.bookmark);
+        console.log('boooooooookmark=========');
+    }, [groupData]);
 
     return (
         <>
@@ -90,7 +82,9 @@ const GroupInfo = ({title, navigation}) => {
                                         setFirebaseBookmark();
                                     }}
                                     source={
-                                        imageData[isBookmark].image
+                                        isBookmark
+                                            ? require('../../../../assets/icon/bookMark.png')
+                                            : require('../../../../assets/icon/star.png')
                                     }></Image>
                             </View>
                         </View>

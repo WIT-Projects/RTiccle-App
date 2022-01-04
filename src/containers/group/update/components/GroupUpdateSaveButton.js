@@ -11,19 +11,10 @@ import {
 
 const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const {groupUpdate, initialGroupUpdate} = useGroupUpdate();
-    let title;
-    {
-        groupUpdate.title === '' && initialData.title != ''
-            ? (title = initialData.title)
-            : (title = groupUpdate.title);
-    }
+    let title = groupUpdate.title;
     let type = groupUpdate.type;
-    let description;
-    {
-        groupUpdate.description === '' && initialData.description != ''
-            ? (description = initialData.description)
-            : (description = groupUpdate.description);
-    }
+    let description = groupUpdate.description;
+
     let image = '';
     if (groupUpdate.mainImage != initialData.mainImage)
         image = groupUpdate.mainImage;
