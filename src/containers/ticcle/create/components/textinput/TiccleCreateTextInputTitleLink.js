@@ -22,7 +22,7 @@ const TiccleCreateTextInputTitleLink = ({ticcleTitle, setTiccleTitle, ticcleLink
 
 const styles = StyleSheet.create({
     container : {
-        marginTop : 6,
+        
     }
 })
 
