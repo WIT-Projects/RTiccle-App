@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import {StyleSheet, TextInput , View, Image} from "react-native";
-import colors from '../../../../theme/colors'
+import colors from '../../theme/colors';
 
-const  Search = () => {
+const  SearchBar = ({placeholderContext}) => {
     const [searchInput, onSearchInput] = useState("");
 
   return(
     <>
         <View style={styles.container}>
-            <TextInput style={styles.textInput} onChangeText={onSearchInput} placeholder="#태그이름, 티끌이름, 내용 등"></TextInput>
-            <Image style={styles.icon} source={require('../../../../assets/icon/search.png')}></Image>
-            <Image style={styles.icon} source={require('../../../../assets/icon/line.png')}></Image>
-            <Image style={styles.icon} source={require('../../../../assets/icon/menu.png')}></Image>
-        </View>
-        
+            <TextInput style={styles.textInput} onChangeText={onSearchInput} placeholder={placeholderContext}></TextInput>
+            <Image style={styles.icon} source={require('../../assets/icon/search.png')}></Image>
+            <Image style={styles.icon} source={require('../../assets/icon/line.png')}></Image>
+            <Image style={styles.icon} source={require('../../assets/icon/menu.png')}></Image>
+        </View> 
     </>
   )
 }
@@ -34,4 +33,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Search;
+export default SearchBar;
