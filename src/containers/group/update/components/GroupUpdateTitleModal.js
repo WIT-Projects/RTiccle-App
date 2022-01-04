@@ -10,13 +10,17 @@ import {
 import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
+import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 
 const GroupUpdateTitleModal = ({
     isModalVisible,
     setModalVisible,
     setModalActive,
     title,
+    initialData,
 }) => {
+    const {setGroupUpdateTitle} = useGroupUpdate();
+
     if (title != null) var groupTitleLength = title.length;
     const maxLength = 15;
 
@@ -29,13 +33,19 @@ const GroupUpdateTitleModal = ({
                         onPress={() => {
                             setModalVisible(false);
                             setModalActive(false);
+                            setGroupUpdateTitle(initialData.title);
                         }}>
                         <Text style={styles.defaultText}>취소</Text>
                     </TouchableOpacity>
                     <Text style={[styles.defaultText, styles.bold]}>
                         그룹 제목
                     </Text>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                            setModalVisible(false);
+                            setModalActive(false);
+                        }}>
                         <Text style={styles.defaultText}>저장</Text>
                     </TouchableOpacity>
                 </View>
@@ -46,7 +56,7 @@ const GroupUpdateTitleModal = ({
                     ]}>
                     <TextInput
                         style={styles.defaultText}
-                        // onChangeText={setGroupTitle}
+                        onChangeText={setGroupUpdateTitle}
                         maxLength={maxLength}>
                         {title}
                     </TextInput>

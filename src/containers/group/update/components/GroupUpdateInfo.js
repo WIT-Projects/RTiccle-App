@@ -11,8 +11,7 @@ import PhotoModal from '../../../common/PhotoModal';
 
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
-import useGroupCreate from '../../../../context/hook/useGroupCreate';
-import {clockRunning} from 'react-native-reanimated';
+import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import GroupUpdateTitleModal from './GroupUpdateTitleModal';
 import GroupUpdateDescriptionModal from './GroupUpdateDescriptionModal';
 
@@ -23,8 +22,9 @@ const GroupUpdateInfo = ({
     description,
     modalActive,
     setModalActive,
+    initialData,
 }) => {
-    const {setGroupImage} = useGroupCreate();
+    const {setGroupUpdateImage} = useGroupUpdate();
     let source;
     mainImage === null
         ? (source = require('../../../../assets/images/blankImage.png'))
@@ -35,18 +35,20 @@ const GroupUpdateInfo = ({
     return (
         <View style={styles.container}>
             <PhotoModal
-                setImage={setGroupImage}
+                setImage={setGroupUpdateImage}
                 isModalVisible={isPhotoModalVisible}
                 setModalVisible={setPhotoModalVisible}
                 setModalActive={setModalActive}
                 width={412}
                 height={256}></PhotoModal>
             <GroupUpdateTitleModal
+                initialData={initialData}
                 isModalVisible={isTitleModalVisible}
                 setModalVisible={setTitleModalVisible}
                 setModalActive={setModalActive}
                 title={title}></GroupUpdateTitleModal>
             <GroupUpdateDescriptionModal
+                initialData={initialData}
                 isModalVisible={isDescModalVisible}
                 setModalActive={setModalActive}
                 setModalVisible={setDescModalVisible}

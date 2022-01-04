@@ -8,33 +8,35 @@ import GroupSaveButton from '../../common/GroupSaveButton';
 import useGroupCreate from '../../../context/hook/useGroupCreate';
 import GroupUpdateInfo from './components/GroupUpdateInfo';
 import {findGroupByIdIncludeImage} from '../../../service/GroupService';
+import useGroupUpdate from '../../../context/hook/useGroupUpdate';
 
 const GroupUpdate = ({navigation, route}) => {
-    const [groupData, setGroupData] = useState([]);
+    const {groupUpdate, setGroupUpdate, initialGroupUpdate} = useGroupUpdate();
+
+    const [initialData, setInitialData] = useState([]);
+
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
 
     useEffect(() => {
-        // get group data
-        findGroupByIdIncludeImage(route.params.groupId, setGroupData);
+        findGroupByIdIncludeImage(route.params.groupId, setInitialData);
+        initialGroupUpdate();
+        console.log('fetch=======');
     }, []);
-    const title = route.params.groupId;
-    const mainImage = groupData.imageUrl;
-    const description = groupData.description;
-    const type = groupData.type;
+    useEffect(() => {
+        setGroupUpdate(initialData);
+        console.log('=======groupUpdate');
+        console.log(groupUpdate);
+    }, [initialData]);
 
-    console.log('group update==========');
-    console.log(mainImage);
-    console.log(title);
-    console.log(type);
-    console.log(description);
     return (
         <View style={styles.container}>
             <View style={styles.groupInfo}>
                 <GroupUpdateInfo
+                    initialData={initialData}
                     style={styles.groupInfo}
-                    mainImage={mainImage}
-                    title={title}
-                    description={description}
+                    mainImage={groupUpdate.imageUrl}
+                    title={groupUpdate.title}
+                    description={groupUpdate.description}
                     navigation={navigation}
                     modalActive={modalActive}
                     setModalActive={setModalActive}></GroupUpdateInfo>
@@ -45,7 +47,7 @@ const GroupUpdate = ({navigation, route}) => {
                     <View style={styles.groupType}>
                         <GroupUpdateType
                             style={styles.groupType}
-                            typeNum={type}
+                            typeNum={groupUpdate.type}
                             navigation={navigation}></GroupUpdateType>
                     </View>
                     <GroupSaveButton
