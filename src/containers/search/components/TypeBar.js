@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 
@@ -23,13 +23,14 @@ const TypeBar = () => {
     };
 
     return (
-        <>
+        <View>
             <ScrollView
                 horizontal={true}
+                showsHorizontalScrollIndicator={false}
                 style={styles.container}>
                 {typeList.map((item, index) => { return (<Text key={index} style={typeButtons[index].active ? styles.pressedTypeText : styles.typeText} onTouchEnd={() => { onChange(index) }}>{item}</Text>) })}
             </ScrollView>
-        </>
+        </View>
     );
 };
 
