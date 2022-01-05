@@ -81,4 +81,33 @@ const MainStackNavigator = () => {
     );
 };
 
+const styles = StyleSheet.create({
+    headerLeftTouchable: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 40,
+        height: 40,
+    },
+    headerLeftImage: {
+        resizeMode: 'cover',
+        width: 12,
+        height: 20,
+        tintColor: colors.white,
+    },
+    headerRightTouchable: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 60,
+        height: 40,
+        marginRight: 14,
+    },
+    headerRightText: {
+        color: colors.white,
+        fontFamily: type.notoSansKR_Medium,
+        fontSize: 20,
+        lineHeight: 24,
+        marginBottom: 1,
+    },
+} );
+
 export default MainStackNavigator;
