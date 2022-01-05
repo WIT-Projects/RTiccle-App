@@ -27,7 +27,7 @@ const HomeStackNavigatior = () => {
                     headerRight: () => (
                         <Image
                             onTouchEnd={() => { navigateTo.navigate('SearchScreen') }}
-                            style={{marginRight: 28}}
+                            style={{marginRight: 24, padding: 4}}
                             source={require('../../assets/icon/searchBlack.png')}
                         />
                     ),
