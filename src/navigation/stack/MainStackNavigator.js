@@ -14,6 +14,7 @@ import metrics from '../../theme/metrices';
 import useGroupCreate from '../../context/hook/useGroupCreate'
 import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
 import LoginScreen from '../../containers/login/LoginScreen';
+import SearchScreen from '../../containers/search/SearchScreen';
 
 const MainStack = createStackNavigator();
 
@@ -156,6 +157,14 @@ const MainStackNavigator = () => {
                         headerShown: false
                     }}
                 />
+                <MainStack.Screen
+                    name="SearchScreen"
+                    component={SearchScreen}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+
             </MainStack.Navigator>
         </NavigationContainer>
     );

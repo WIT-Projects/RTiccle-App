@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
 import Home from '../../containers/home/Home';
 import GroupDetail from '../../containers/group/detail/GroupDetail';
@@ -8,6 +9,8 @@ import GroupDetail from '../../containers/group/detail/GroupDetail';
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigatior = () => {
+    const navigateTo = useNavigation();
+
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen
@@ -23,7 +26,8 @@ const HomeStackNavigatior = () => {
                     ),
                     headerRight: () => (
                         <Image
-                            style={{marginRight: 28}}
+                            onTouchEnd={() => { navigateTo.navigate('SearchScreen') }}
+                            style={{marginRight: 24, padding: 4}}
                             source={require('../../assets/icon/searchBlack.png')}
                         />
                     ),
