@@ -13,9 +13,9 @@ import PhotoModal from '../../common/PhotoModal';
 import GroupListModal from './components/group/GroupListModal';
 
 const TiccleCreate = () => {
-    
+
     const {setTiccleContent, setTiccleImages, deleteTiccleImage,
-        ticcle, setTiccleTitle, setTiccleLink,
+        ticcle, setTiccleTitle, setTiccleLink, setTiccleGroup,
         setTiccleTagList, deleteTiccleTagList } = UseTiccleCreate();
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
@@ -32,10 +32,11 @@ const TiccleCreate = () => {
         <ScrollView style={styles.container}>
             {/* Modal */}
             <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>
-            <GroupListModal isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}/>
+            <GroupListModal isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}
+                            setTiccleGroup={setTiccleGroup} ticcle={ticcle}/>
 
             {/* ticcle */}
-            <TiccleCreateGroupSelect groupName={'그룹을 선택해주세요'} setGroupListModalVisible={setGroupListModalVisible}/>
+            <TiccleCreateGroupSelect ticcleGroup={ticcle.group} setGroupListModalVisible={setGroupListModalVisible}/>
             <TiccleCreateTextInputTitleLink ticcleTitle={ticcle.title} setTiccleTitle={setTiccleTitle}
                                             ticcleLink={ticcle.link}   setTiccleLink={setTiccleLink}/>
             <View style={styles.imageCreateButtonContainer}>

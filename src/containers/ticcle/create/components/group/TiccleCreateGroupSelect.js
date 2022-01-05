@@ -3,7 +3,9 @@ import { Text, TouchableOpacity,StyleSheet, Image } from "react-native";
 import colors from "../../../../../theme/colors";
 import { type } from "../../../../../theme/fonts";
 
-const TiccleCreateGroupSelect = ({groupName, setGroupListModalVisible}) => {
+const TiccleCreateGroupSelect = ({ticcleGroup, setGroupListModalVisible}) => {
+
+    const groupName = !!(ticcleGroup) ? ticcleGroup : '그룹을 선택해주세요' 
     return(
         <TouchableOpacity style={styles.touchable} activeOpacity={1} onPress={() => setGroupListModalVisible(true)}>
             <Text style={styles.text}>

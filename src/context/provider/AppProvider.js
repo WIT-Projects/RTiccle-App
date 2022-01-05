@@ -17,6 +17,11 @@ const AppProvider = ({children}) => {
         images: [],
     });
 
+    const setTiccleGroup = text => {
+        setTiccle(state => {
+            return{...state, group: text};
+        })
+    };
     const setTiccleTitle = text => {
         setTiccle(state => {
             return {...state, title: text};
@@ -79,7 +84,6 @@ const AppProvider = ({children}) => {
         });
     };
 
-
     // Group
     const [groupCreate, setGroupCreate] = useState({
         lastModifiedTime: '',
@@ -136,6 +140,7 @@ const AppProvider = ({children}) => {
             value={{
                 ticcle,
                 setTiccle,
+                setTiccleGroup,
                 setTiccleTitle,
                 setTiccleLink,
                 setTiccleTagList,

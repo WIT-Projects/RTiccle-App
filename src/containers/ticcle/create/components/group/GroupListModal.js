@@ -6,11 +6,17 @@ import { type } from '../../../../../theme/fonts';
 import { checkIsExistingAnyGroup, findAllGroup } from '../../../../../service/GroupService';
 import GroupCreateModal from './GroupCreateModal';
 
-const GroupListModal = ({isModalVisible, setModalVisible}) => {
+const GroupListModal = ({isModalVisible, setModalVisible, ticcle ,setTiccleGroup}) => {
     const title = '그룹 선택'
     const [groupCreateModalVisible, setGroupCreateModalVisible] = useState(false)
     const [isExistGroup, setExistGroup] = useState(false);
     const [groupList, setGroupList] = useState([]);
+
+    const isSelectedGroup = group => {
+        if(ticcle.group === group) return true;
+        return false
+    }
+
     useEffect(() => {
         let getIsExist = checkIsExistingAnyGroup();
         getIsExist.then((value) => {
@@ -20,8 +26,6 @@ const GroupListModal = ({isModalVisible, setModalVisible}) => {
             }
         });
     }, [groupList]);
-
-
 
 
     return(
@@ -39,7 +43,7 @@ const GroupListModal = ({isModalVisible, setModalVisible}) => {
             <View style={styles.container}>
                 <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{title}</Text>
-                    <TouchableOpacity style={styles.xButtonTouchable} onPress={() => setModalVisible(false)}>
+                    <TouchableOpacity style={styles.xButtonTouchable} onPress={() => {setModalVisible(false)}}>
                         <Image source={require('../../../../../assets/images/x_button.png')} style={styles.image}/>
                     </TouchableOpacity>
                 </View>
@@ -47,9 +51,15 @@ const GroupListModal = ({isModalVisible, setModalVisible}) => {
                 <View style={styles.groupListViewConatiner}>
                     {isExistGroup ? groupList.map((group, index) => (
                         <Pressable key={index} style={({ pressed }) => [
-                            {backgroundColor: pressed ? colors.gray6: colors.white},
-                            styles.groupNameContainer
-                            ]}>
+                            styles.groupNameContainer,
+                            isSelectedGroup(group.id)|| pressed ? styles.isSelected : styles.isUnSelected,
+                            ]}
+                            onPress={() => {
+                                setTiccleGroup(group.id)
+                                setModalVisible(false)
+                            }}
+                            disabled={isSelectedGroup(group.id)}
+                            >                            
                             <Text style={styles.groupNameText}>{group.id}</Text>
                         </Pressable>))
                         :
@@ -121,6 +131,12 @@ const styles = StyleSheet.create({
         height: 48,
         justifyContent: 'center'
     },
+    isSelected:{
+        backgroundColor: colors.gray6
+    },
+    isUnSelected:{
+        backgroundColor: colors.white
+    },
     groupNameText:{
         paddingLeft: 21,
         fontFamily: type.spoqaHanSansNeo_Regular,
@@ -142,8 +158,6 @@ const styles = StyleSheet.create({
         fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize: 16,     
     }
-
-    
 })
 
 export default GroupListModal
