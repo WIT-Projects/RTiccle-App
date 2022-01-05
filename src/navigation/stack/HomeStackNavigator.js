@@ -3,6 +3,8 @@ import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
+import {useNavigation} from '@react-navigation/native';
+
 import Home from '../../containers/home/Home';
 import GroupDetail from '../../containers/group/detail/GroupDetail';
 import GroupUpdate from '../../containers/group/update/GroupUpdate';
@@ -16,6 +18,8 @@ const HomeStack = createStackNavigator();
 
 const HomeStackNavigatior = () => {
     const {initialGroupCreate} = useGroupCreate();
+    const navigateTo = useNavigation();
+
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen
@@ -31,7 +35,10 @@ const HomeStackNavigatior = () => {
                     ),
                     headerRight: () => (
                         <Image
-                            style={{marginRight: 28}}
+                            onTouchEnd={() => {
+                                navigateTo.navigate('SearchScreen');
+                            }}
+                            style={{marginRight: 24, padding: 4}}
                             source={require('../../assets/icon/searchBlack.png')}
                         />
                     ),

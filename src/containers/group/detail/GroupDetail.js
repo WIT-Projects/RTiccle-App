@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 
 import GroupInfo from './components/groupInfo';
-import Search from './components/search';
+import SearchBar from '../../common/SearchBar';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 import {findTiccleListByGroupId} from '../../../service/TiccleService';
@@ -18,7 +18,7 @@ const GroupDetail = ({route, navigation}) => {
     return (
         <>
             <GroupInfo title={route.params.groupId} navigation={navigation} />
-            <Search></Search>
+            <SearchBar placeholderContext="#태그이름, 티끌이름"></SearchBar>
             {ticcleList.length != 0 ? (
                 <GroupDetailTiccleList ticcleList={ticcleList} />
             ) : (

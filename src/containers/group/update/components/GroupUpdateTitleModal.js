@@ -32,7 +32,6 @@ const GroupUpdateTitleModal = ({
             ? setIsMaxLength(true)
             : setIsMaxLength(false);
         groupTitleLength < 1 ? setNoTitle(true) : setNoTitle(false);
-        console.log('change title===============');
     }, [title]);
 
     return (
