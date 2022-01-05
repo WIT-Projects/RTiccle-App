@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { View, StyleSheet,ScrollView } from 'react-native';
 import TiccleCreateGroupSelect from './components/group/TiccleCreateGroupSelect';
 import TiccleCreateImageCreateButton from './components/image/TiccleCreateImageCreateButton';
@@ -27,7 +27,6 @@ const TiccleCreate = () => {
         setTag('')
     }
 
-    
     return(
         <ScrollView style={styles.container}>
             {/* Modal */}

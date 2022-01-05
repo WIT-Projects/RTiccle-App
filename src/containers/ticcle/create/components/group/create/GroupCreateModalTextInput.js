@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, TextInput, View, Text} from 'react-native';
-import colors from '../../../../../theme/colors';
-import { type } from '../../../../../theme/fonts';
+import colors from '../../../../../../theme/colors';
+import { type } from '../../../../../../theme/fonts';
 
 const GroupCreateModalTextInput = ({groupTitle , setGroupTitle}) => {
+
     var groupTitleLength = groupTitle.length;
     const maxLengthOfTitle = 15;
-
 
     return (
         <View style={styles.container}>
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
     },
     textinput: {
+        width: 260,
         fontSize: 18,
         fontFamily: type.spoqaHanSansNeo_Bold,
     },

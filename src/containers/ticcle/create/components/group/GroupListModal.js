@@ -1,21 +1,17 @@
 import React,{useState,useEffect} from 'react';
-import {View, TouchableOpacity, Text, StyleSheet, Image, Pressable} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import colors from '../../../../../theme/colors';
-import { type } from '../../../../../theme/fonts';
 import { checkIsExistingAnyGroup, findAllGroup } from '../../../../../service/GroupService';
 import GroupCreateModal from './GroupCreateModal';
+import GroupListModalTitle from './list/GroupListModalTitle';
+import GroupListModalGroupList from './list/GroupListModalGroupList';
+import GroupListModalCreateButton from './list/GroupListModalCreateButton';
 
 const GroupListModal = ({isModalVisible, setModalVisible, ticcle ,setTiccleGroup}) => {
-    const title = '그룹 선택'
     const [groupCreateModalVisible, setGroupCreateModalVisible] = useState(false)
-    const [isExistGroup, setExistGroup] = useState(false);
     const [groupList, setGroupList] = useState([]);
-
-    const isSelectedGroup = group => {
-        if(ticcle.group === group) return true;
-        return false
-    }
+    const [isExistGroup, setExistGroup] = useState(false);
 
     useEffect(() => {
         let getIsExist = checkIsExistingAnyGroup();
@@ -26,7 +22,6 @@ const GroupListModal = ({isModalVisible, setModalVisible, ticcle ,setTiccleGroup
             }
         });
     }, [groupList]);
-
 
     return(
         <Modal
@@ -39,40 +34,15 @@ const GroupListModal = ({isModalVisible, setModalVisible, ticcle ,setTiccleGroup
             backdropTransitionInTiming={0}
             hideModalContentWhileAnimating={true}
         >
+            {/* Modal */}
             <GroupCreateModal isModalVisible={groupCreateModalVisible} setModalVisible={setGroupCreateModalVisible}/>
+            {/* View */}
             <View style={styles.container}>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.titleText}>{title}</Text>
-                    <TouchableOpacity style={styles.xButtonTouchable} onPress={() => {setModalVisible(false)}}>
-                        <Image source={require('../../../../../assets/images/x_button.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                </View>
-            
-                <View style={styles.groupListViewConatiner}>
-                    {isExistGroup ? groupList.map((group, index) => (
-                        <Pressable key={index} style={({ pressed }) => [
-                            styles.groupNameContainer,
-                            isSelectedGroup(group.id)|| pressed ? styles.isSelected : styles.isUnSelected,
-                            ]}
-                            onPress={() => {
-                                setTiccleGroup(group.id)
-                                setModalVisible(false)
-                            }}
-                            disabled={isSelectedGroup(group.id)}
-                            >                            
-                            <Text style={styles.groupNameText}>{group.id}</Text>
-                        </Pressable>))
-                        :
-                        <View style={styles.groupListNullContainer}>
-                            <Text style={styles.groupListNullText}>그룹이 없습니다.</Text>
-                        </View>
-                    }
-                </View>
+                <GroupListModalTitle setModalVisible={setModalVisible}/>
+                <GroupListModalGroupList groupList = {groupList} setModalVisible={setModalVisible} 
+                    isExistGroup = {isExistGroup}  setTiccleGroup={setTiccleGroup} ticcleGroup={ticcle.group}/>
             </View>
-            <TouchableOpacity style={styles.newGroupButtonContainer} onPress={() => setGroupCreateModalVisible(true)}>
-                <Image source={require('../../../../../assets/icon/plus_circle.png')} style={styles.newGroupButtonImage}/>
-                <Text style={styles.newGroupButtonText}>새로운 그룹 생성하기</Text>
-            </TouchableOpacity>
+            <GroupListModalCreateButton setGroupCreateModalVisible={setGroupCreateModalVisible}/>
         </Modal>
     )
 }
@@ -88,76 +58,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: 10,
     },
-    titleContainer:{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height : 68,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.gray1
-    },
-    titleText :{
-        fontFamily: type.spoqaHanSansNeo_Bold,
-        fontSize : 18,
-        color: colors.main
-    },
-    xButtonTouchable:{
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent : 'center',
-        top: 18,
-        right : 26,
-        width: 30,
-        height : 30
-    },
-    image:{
-        width : 15,
-        height: 15,
-        resizeMode : 'contain'
-    },
-    groupListViewConatiner:{
-        marginBottom: 8,
-    },
-    groupListNullContainer:{
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 68,
-    },
-    groupListNullText:{
-        fontFamily: type.spoqaHanSansNeo_Regular,
-        fontSize: 16
-    },
-    groupNameContainer:{
-        height: 48,
-        justifyContent: 'center'
-    },
-    isSelected:{
-        backgroundColor: colors.gray6
-    },
-    isUnSelected:{
-        backgroundColor: colors.white
-    },
-    groupNameText:{
-        paddingLeft: 21,
-        fontFamily: type.spoqaHanSansNeo_Regular,
-        fontSize: 18,
-    },
-    newGroupButtonContainer:{
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-        paddingVertical: 2,
-    },
-    newGroupButtonImage:{
-        resizeMode: 'contain',
-        width:31,
-        height: 31
-    },
-    newGroupButtonText:{
-        color: colors.white,
-        fontFamily: type.spoqaHanSansNeo_Regular,
-        fontSize: 16,     
-    }
 })
 
 export default GroupListModal
