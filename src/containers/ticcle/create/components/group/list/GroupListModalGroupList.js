@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text, Pressable,  StyleSheet } from "react-native";
+import { View, Text, Pressable,  StyleSheet, ScrollView } from "react-native";
 import colors from "../../../../../../theme/colors";
 import { type } from "../../../../../../theme/fonts";
+
+const groupCotainerHeight = 48;
+const groupNumberInScroll = 8;
 
 const GroupListModalGroupList = ({groupList, setModalVisible, isExistGroup, setTiccleGroup , ticcleGroup}) => {
 
@@ -12,19 +15,25 @@ const GroupListModalGroupList = ({groupList, setModalVisible, isExistGroup, setT
 
     return(
         <View style={styles.groupListViewConatiner}>
-            {isExistGroup ? groupList.map((group, index) => (
-            <Pressable key={index} style={({ pressed }) => [
-                styles.groupNameContainer,
-                isSelectedGroup(group.id)|| pressed ? styles.isSelected : styles.isUnSelected,
-                ]}
-                onPress={() => {
+            {isExistGroup ? 
+            <ScrollView style={styles.scrollView}>
+                {groupList.map((group, index) => (
+                <Pressable key={index}
+                    style={({ pressed }) => [
+                    styles.groupNameContainer,
+                    isSelectedGroup(group.id)|| pressed ? styles.isSelected : styles.isUnSelected,
+                    ]}
+                    onPress={() => {
                     setTiccleGroup(group.id)
                     setModalVisible(false)
-                }}
-                disabled={isSelectedGroup(group.id)}
-            >                            
-                <Text style={styles.groupNameText}>{group.id}</Text>
-            </Pressable>))
+                    }}
+                    disabled={isSelectedGroup(group.id)}
+                >                            
+                    <Text style={styles.groupNameText}>{group.id}</Text>
+                </Pressable>
+                ))}
+            </ScrollView>
+           
             :
             <View style={styles.groupListNullContainer}>
                 <Text style={styles.groupListNullText}>그룹이 없습니다.</Text>
@@ -38,6 +47,9 @@ const styles = StyleSheet.create({
     groupListViewConatiner:{
         marginBottom: 8,
     },
+    scrollView:{
+        maxHeight: groupCotainerHeight * groupNumberInScroll
+    },
     groupListNullContainer:{
         alignItems: 'center',
         justifyContent: 'center',
@@ -48,7 +60,7 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     groupNameContainer:{
-        height: 48,
+        height: groupCotainerHeight,
         justifyContent: 'center'
     },
     isSelected:{
