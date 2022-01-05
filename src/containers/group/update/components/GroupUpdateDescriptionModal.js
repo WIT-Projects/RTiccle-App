@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     View,
     Text,
@@ -22,8 +22,15 @@ const GroupUpdateDescriptionModal = ({
     const {setGroupUpdateDescription} = useGroupUpdate();
     let groupDescriptionLength;
     const maxLength = 23;
+    const [isMaxLength, setIsMaxLength] = useState(false);
 
     if (description != null) groupDescriptionLength = description.length;
+
+    useEffect(() => {
+        groupDescriptionLength === maxLength
+            ? setIsMaxLength(true)
+            : setIsMaxLength(false);
+    }, [description]);
 
     return (
         <Modal style={styles.modal} isVisible={isModalVisible}>
@@ -51,12 +58,7 @@ const GroupUpdateDescriptionModal = ({
                     </TouchableOpacity>
                 </View>
                 <View
-                    style={[
-                        styles.underline,
-                        groupDescriptionLength === maxLength
-                            ? styles.red
-                            : null,
-                    ]}>
+                    style={[styles.underline, isMaxLength ? styles.red : null]}>
                     <TextInput
                         autoFocus={true}
                         style={styles.defaultText}
@@ -70,21 +72,12 @@ const GroupUpdateDescriptionModal = ({
                             setGroupUpdateDescription('');
                         }}>
                         <Image
-                            style={
-                                groupDescriptionLength === maxLength
-                                    ? styles.xCircleRed
-                                    : null
-                            }
+                            style={isMaxLength ? styles.xCircleRed : null}
                             source={require('../../../../assets/images/xCircleWhite.png')}></Image>
                     </TouchableOpacity>
                 </View>
                 <Text
-                    style={[
-                        styles.textCount,
-                        groupDescriptionLength === maxLength
-                            ? styles.red
-                            : null,
-                    ]}>
+                    style={[styles.textCount, isMaxLength ? styles.red : null]}>
                     {groupDescriptionLength}/{maxLength}
                 </Text>
             </View>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     View,
     Text,
@@ -22,8 +22,18 @@ const GroupUpdateTitleModal = ({
     const {setGroupUpdateTitle} = useGroupUpdate();
     let groupTitleLength;
     const maxLength = 15;
+    const [isMaxLength, setIsMaxLength] = useState(false);
+    const [noTitle, setNoTitle] = useState(false);
 
     if (title != null) groupTitleLength = title.length;
+
+    useEffect(() => {
+        groupTitleLength === maxLength
+            ? setIsMaxLength(true)
+            : setIsMaxLength(false);
+        groupTitleLength < 1 ? setNoTitle(true) : setNoTitle(false);
+        console.log('change title===============');
+    }, [title]);
 
     return (
         <Modal style={styles.modal} isVisible={isModalVisible}>
@@ -42,7 +52,7 @@ const GroupUpdateTitleModal = ({
                         그룹 제목
                     </Text>
                     <TouchableOpacity
-                        disabled={groupTitleLength < 1 ? true : false}
+                        disabled={noTitle ? true : false}
                         style={styles.button}
                         onPress={() => {
                             setModalVisible(false);
@@ -51,19 +61,14 @@ const GroupUpdateTitleModal = ({
                         <Text
                             style={[
                                 styles.defaultText,
-                                groupTitleLength < 1
-                                    ? styles.disabledButton
-                                    : null,
+                                noTitle ? styles.disabledButton : null,
                             ]}>
                             저장
                         </Text>
                     </TouchableOpacity>
                 </View>
                 <View
-                    style={[
-                        styles.underline,
-                        groupTitleLength === maxLength ? styles.red : null,
-                    ]}>
+                    style={[styles.underline, isMaxLength ? styles.red : null]}>
                     <TextInput
                         autoFocus={true}
                         style={styles.defaultText}
@@ -78,19 +83,12 @@ const GroupUpdateTitleModal = ({
                             setGroupUpdateTitle('');
                         }}>
                         <Image
-                            style={
-                                groupTitleLength === maxLength
-                                    ? styles.xCircleRed
-                                    : null
-                            }
+                            style={isMaxLength ? styles.xCircleRed : null}
                             source={require('../../../../assets/images/xCircleWhite.png')}></Image>
                     </TouchableOpacity>
                 </View>
                 <Text
-                    style={[
-                        styles.textCount,
-                        groupTitleLength === maxLength ? styles.red : null,
-                    ]}>
+                    style={[styles.textCount, isMaxLength ? styles.red : null]}>
                     {groupTitleLength}/{maxLength}
                 </Text>
             </View>
