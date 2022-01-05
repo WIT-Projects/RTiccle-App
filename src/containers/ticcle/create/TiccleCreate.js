@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, StyleSheet,ScrollView } from 'react-native';
-import TiccleCreateGroupSelect from './components/TiccleCreateGroupSelect';
+import TiccleCreateGroupSelect from './components/group/TiccleCreateGroupSelect';
 import TiccleCreateImageCreateButton from './components/image/TiccleCreateImageCreateButton';
 import TiccleContentTextInput from './components/textinput/TiccleContentTextInput';
 import TiccleCreateTextInputTitleLink from './components/textinput/TiccleCreateTextInputTitleLink';
@@ -10,17 +10,15 @@ import TiccleCreateTags from './components/TiccleCreateTags';
 import colors from '../../../theme/colors';
 import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
 import PhotoModal from '../../common/PhotoModal';
-import GroupListModal from '../../common/GroupListModal';
+import GroupListModal from './components/group/GroupListModal';
 
 const TiccleCreate = () => {
-
+    
     const {setTiccleContent, setTiccleImages, deleteTiccleImage,
         ticcle, setTiccleTitle, setTiccleLink,
         setTiccleTagList, deleteTiccleTagList } = UseTiccleCreate();
-
-    const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
-
+    const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const photoModalVisibleTrue = () => {
         setPhotoModalVisible(true)
     }
@@ -28,14 +26,13 @@ const TiccleCreate = () => {
     const initialTag = () => {
         setTag('')
     }
-    const groupListExample = [];
-    const groupListExample2 = ['현판', '무협', '티끌'];
+
     
     return(
         <ScrollView style={styles.container}>
             {/* Modal */}
             <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>
-            <GroupListModal groupList={groupListExample2} isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}/>
+            <GroupListModal isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}/>
 
             {/* ticcle */}
             <TiccleCreateGroupSelect groupName={'그룹을 선택해주세요'} setGroupListModalVisible={setGroupListModalVisible}/>

@@ -1,29 +1,28 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet, Image, Pressable} from 'react-native';
 import Modal from 'react-native-modal';
+import colors from '../../../../../theme/colors';
+import { type } from '../../../../../theme/fonts';
+import { checkIsExistingAnyGroup, findAllGroup } from '../../../../../service/GroupService';
+import GroupCreateModal from './GroupCreateModal';
 
-import colors from '../../theme/colors';
-import { type } from '../../theme/fonts';
-
-const GroupListModal = ({groupList, isModalVisible, setModalVisible}) => {
+const GroupListModal = ({isModalVisible, setModalVisible}) => {
     const title = '그룹 선택'
+    const [groupCreateModalVisible, setGroupCreateModalVisible] = useState(false)
+    const [isExistGroup, setExistGroup] = useState(false);
+    const [groupList, setGroupList] = useState([]);
+    useEffect(() => {
+        let getIsExist = checkIsExistingAnyGroup();
+        getIsExist.then((value) => {
+            setExistGroup(value);
+            if(value != 0){
+                findAllGroup(setGroupList);
+            }
+        });
+    }, [groupList]);
 
-    const groupIsEmpty = Array.isArray(groupList) && groupList.length === 0;
 
-    const groupListNull = (
-            <View style={styles.groupListNullContainer}>
-                <Text style={styles.groupListNullText}>그룹이 없습니다.</Text>
-            </View>)
-    const groupListView = groupList.map(
-        (groupName, index) => (
-            <Pressable key={index} style={({ pressed }) => [
-                { backgroundColor: pressed ? colors.gray6: colors.white},
-                styles.groupNameContainer
-              ]}>
-                <Text style={styles.groupNameText}>{groupName}</Text>
-            </Pressable>
-        )
-    )
+
 
     return(
         <Modal
@@ -36,20 +35,32 @@ const GroupListModal = ({groupList, isModalVisible, setModalVisible}) => {
             backdropTransitionInTiming={0}
             hideModalContentWhileAnimating={true}
         >
+            <GroupCreateModal isModalVisible={groupCreateModalVisible} setModalVisible={setGroupCreateModalVisible}/>
             <View style={styles.container}>
                 <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{title}</Text>
                     <TouchableOpacity style={styles.xButtonTouchable} onPress={() => setModalVisible(false)}>
-                        <Image source={require('../../assets/images/x_button.png')} style={styles.image}/>
+                        <Image source={require('../../../../../assets/images/x_button.png')} style={styles.image}/>
                     </TouchableOpacity>
                 </View>
             
-                <View style={{marginBottom: 8}}>
-                    {groupIsEmpty ? groupListNull : groupListView}
+                <View style={styles.groupListViewConatiner}>
+                    {isExistGroup ? groupList.map((group, index) => (
+                        <Pressable key={index} style={({ pressed }) => [
+                            {backgroundColor: pressed ? colors.gray6: colors.white},
+                            styles.groupNameContainer
+                            ]}>
+                            <Text style={styles.groupNameText}>{group.id}</Text>
+                        </Pressable>))
+                        :
+                        <View style={styles.groupListNullContainer}>
+                            <Text style={styles.groupListNullText}>그룹이 없습니다.</Text>
+                        </View>
+                    }
                 </View>
             </View>
-            <TouchableOpacity style={styles.newGroupButtonContainer}>
-                <Image source={require('../../assets/icon/plus_circle.png')} style={styles.newGroupButtonImage}/>
+            <TouchableOpacity style={styles.newGroupButtonContainer} onPress={() => setGroupCreateModalVisible(true)}>
+                <Image source={require('../../../../../assets/icon/plus_circle.png')} style={styles.newGroupButtonImage}/>
                 <Text style={styles.newGroupButtonText}>새로운 그룹 생성하기</Text>
             </TouchableOpacity>
         </Modal>
@@ -63,7 +74,7 @@ const styles = StyleSheet.create({
         margin: 0,
     },
     container:{
-        width: '75%',
+        width: '85%',
         backgroundColor: colors.white,
         borderRadius: 10,
     },
@@ -93,6 +104,9 @@ const styles = StyleSheet.create({
         width : 15,
         height: 15,
         resizeMode : 'contain'
+    },
+    groupListViewConatiner:{
+        marginBottom: 8,
     },
     groupListNullContainer:{
         alignItems: 'center',
@@ -126,8 +140,7 @@ const styles = StyleSheet.create({
     newGroupButtonText:{
         color: colors.white,
         fontFamily: type.spoqaHanSansNeo_Regular,
-        fontSize: 16,
-        
+        fontSize: 16,     
     }
 
     

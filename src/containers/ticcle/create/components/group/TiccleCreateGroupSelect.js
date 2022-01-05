@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity,StyleSheet, Image } from "react-native";
-import colors from "../../../../theme/colors";
-import { type } from "../../../../theme/fonts";
+import colors from "../../../../../theme/colors";
+import { type } from "../../../../../theme/fonts";
 
 const TiccleCreateGroupSelect = ({groupName, setGroupListModalVisible}) => {
     return(
@@ -9,7 +9,7 @@ const TiccleCreateGroupSelect = ({groupName, setGroupListModalVisible}) => {
             <Text style={styles.text}>
                 {groupName}
             </Text>
-            <Image source={require('../../../../assets/images/chevron_down.png')} style={styles.image}/>
+            <Image source={require('../../../../../assets/images/chevron_down.png')} style={styles.image}/>
         </TouchableOpacity>
     )
 }
