@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import SearchBar from '../common/SearchBar';
 import TypeBar from './components/TypeBar';
-import ZeroResult from './components/ZeroResult';
-import ExistResultList from './components/ExistResultList';
+import SearchZeroResult from './components/SearchZeroResult';
+import SearchExistResultList from './components/SearchExistResultList';
 
 const SearchScreen = () => {
     const [existResult, setExistResult] = useState(true);
@@ -11,7 +11,7 @@ const SearchScreen = () => {
         <>
             <SearchBar placeholderContext="제목, #태그 등을 입력하세요." />
             <TypeBar />
-            {existResult ? <ExistResultList /> : <ZeroResult />}
+            {existResult ? <SearchExistResultList /> : <SearchZeroResult />}
         </>
     );
 };

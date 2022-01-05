@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
-const ZeroResult = () => {
+const SearchZeroResult = () => {
     return (
         <View style={styles.container}>
             <Image style={styles.logoImage} source={require('../../../assets/images/logo2.png')}></Image>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ZeroResult;
+export default SearchZeroResult;

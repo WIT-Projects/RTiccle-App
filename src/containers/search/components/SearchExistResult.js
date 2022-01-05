@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 
-const ExistResult = ({ ticcleType, title, tag, group }) => {
+const SearchExistResult = ({ ticcleType, title, tag, group }) => {
     const typeList = ["책", "블로그", "뉴스기사", "연재물", "SNS", "기타"];
 
     return (
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ExistResult;
+export default SearchExistResult;
