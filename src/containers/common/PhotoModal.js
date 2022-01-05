@@ -12,7 +12,6 @@ const PhotoModal = ({
     setModalVisible,
     width,
     height,
-    setMainImage,
 }) => {
     const isFixed = !!width && !!height ? true : false;
 
@@ -36,7 +35,6 @@ const PhotoModal = ({
             .then(image => {
                 setImage(image.path);
                 console.log(image.path);
-                setMainImage(image.path);
             })
             .catch(error => {
                 if (error.code === 'E_PICKER_CANCELLED') {

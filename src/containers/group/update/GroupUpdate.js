@@ -13,7 +13,6 @@ const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate, initialGroupUpdate} = useGroupUpdate();
     const [initialData, setInitialData] = useState([]);
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
-    const [mainImage, setMainImage] = useState(''); // 화면에 나오는 메인 이미지를 관리하기 위해 사용
 
     useEffect(() => {
         initialGroupUpdate();
@@ -22,9 +21,8 @@ const GroupUpdate = ({navigation, route}) => {
     }, []);
 
     useEffect(() => {
-        console.log('groupUpdate=====');
         setGroupUpdate(initialData);
-        setMainImage(initialData.imageUrl);
+        console.log('groupUpdate=====');
         console.log(groupUpdate);
     }, [initialData]);
 
@@ -35,8 +33,7 @@ const GroupUpdate = ({navigation, route}) => {
                     navigation={navigation}
                     style={styles.groupInfo}
                     initialData={initialData}
-                    mainImage={mainImage}
-                    setMainImage={setMainImage}
+                    mainImage={groupUpdate.imageUrl}
                     title={groupUpdate.title}
                     description={groupUpdate.description}
                     modalActive={modalActive}

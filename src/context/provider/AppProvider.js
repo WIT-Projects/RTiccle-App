@@ -131,20 +131,9 @@ const AppProvider = ({children}) => {
         });
     };
     // Group Update
-    const [groupUpdate, setGroupUpdate] = useState({
-        type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
-        title: '',
-        description: '',
-        imageUrl: '',
-        mainImage: '',
-    });
+    const [groupUpdate, setGroupUpdate] = useState([]);
     const initialGroupUpdate = () => {
-        setGroupCreate({
-            type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
-            title: '',
-            description: '',
-            imageUrl: '',
-        });
+        setGroupUpdate([]);
     };
     const setGroupUpdateType = num => {
         setGroupUpdate(state => {
@@ -163,7 +152,7 @@ const AppProvider = ({children}) => {
     };
     const setGroupUpdateImage = imgPath => {
         setGroupUpdate(state => {
-            return {...state, mainImage: imgPath};
+            return {...state, imageUrl: imgPath};
         });
     };
 

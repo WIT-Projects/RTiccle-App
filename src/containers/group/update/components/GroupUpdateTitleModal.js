@@ -20,9 +20,10 @@ const GroupUpdateTitleModal = ({
     initialData,
 }) => {
     const {setGroupUpdateTitle} = useGroupUpdate();
-
-    if (title != null) var groupTitleLength = title.length;
+    let groupTitleLength;
     const maxLength = 15;
+
+    if (title != null) groupTitleLength = title.length;
 
     return (
         <Modal style={styles.modal} isVisible={isModalVisible}>
@@ -64,6 +65,7 @@ const GroupUpdateTitleModal = ({
                         groupTitleLength === maxLength ? styles.red : null,
                     ]}>
                     <TextInput
+                        autoFocus={true}
                         style={styles.defaultText}
                         onChangeText={setGroupUpdateTitle}
                         maxLength={maxLength}>

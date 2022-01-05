@@ -23,7 +23,6 @@ const GroupUpdateInfo = ({
     modalActive,
     setModalActive,
     initialData,
-    setMainImage,
 }) => {
     const {setGroupUpdateImage} = useGroupUpdate();
     let source;
@@ -36,11 +35,9 @@ const GroupUpdateInfo = ({
     return (
         <View style={styles.container}>
             <PhotoModal
-                setMainImage={setMainImage} // 화면에 나오는 메인 이미지를 관리하기 위해 사용
                 setImage={setGroupUpdateImage}
                 isModalVisible={isPhotoModalVisible}
                 setModalVisible={setPhotoModalVisible}
-                setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
                 width={412}
                 height={256}></PhotoModal>
             <GroupUpdateTitleModal

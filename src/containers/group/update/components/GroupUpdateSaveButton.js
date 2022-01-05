@@ -13,26 +13,30 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const {groupUpdate, initialGroupUpdate} = useGroupUpdate();
 
     const groupUpdateFirebase = () => {
-        let type = groupUpdate.type;
-        let title = groupUpdate.title;
-        let description = groupUpdate.description;
+        let newInfo = [];
         let image = '';
-        if (groupUpdate.mainImage != initialData.mainImage)
-            image = groupUpdate.mainImage;
+        if (groupUpdate.type != initialData.type)
+            newInfo.type = groupUpdate.type;
+        if (groupUpdate.title != initialData.title)
+            newInfo.title = groupUpdate.title;
+        if (groupUpdate.description != initialData.description)
+            newInfo.description = groupUpdate.description;
+        if (groupUpdate.imageUrl != initialData.imageUrl)
+            image = groupUpdate.imageUrl;
 
         const groupId = initialData.title;
-        const newInfo = {
-            type: type,
-            title: title,
-            description: description,
-        };
         const oldImageName = initialData.mainImage;
         const newImageSource = image;
-        updateGroupInfo(groupId, newInfo);
-        if (image != '')
-            updateGroupImage(groupId, oldImageName, newImageSource);
-        initialGroupUpdate();
-        navigation.goBack();
+
+        try {
+            updateGroupInfo(groupId, newInfo);
+            if (image != '')
+                updateGroupImage(groupId, oldImageName, newImageSource);
+            initialGroupUpdate();
+            navigation.goBack();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

@@ -20,9 +20,10 @@ const GroupUpdateDescriptionModal = ({
     initialData,
 }) => {
     const {setGroupUpdateDescription} = useGroupUpdate();
-
-    if (description != null) var groupDescriptionLength = description.length;
+    let groupDescriptionLength;
     const maxLength = 23;
+
+    if (description != null) groupDescriptionLength = description.length;
 
     return (
         <Modal style={styles.modal} isVisible={isModalVisible}>
@@ -37,7 +38,9 @@ const GroupUpdateDescriptionModal = ({
                         }}>
                         <Text style={styles.defaultText}>취소</Text>
                     </TouchableOpacity>
-                    <Text style={[styles.defaultText, styles.bold]}> 그룹 설명</Text>
+                    <Text style={[styles.defaultText, styles.bold]}>
+                        그룹 설명
+                    </Text>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
@@ -55,6 +58,7 @@ const GroupUpdateDescriptionModal = ({
                             : null,
                     ]}>
                     <TextInput
+                        autoFocus={true}
                         style={styles.defaultText}
                         onChangeText={setGroupUpdateDescription}
                         maxLength={maxLength}>
