@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, ScrollView, StyleSheet, Button} from 'react-native';
 import MyMount from './components/MyMount';
 import BookMarkList from './components/BookMarkList';
@@ -6,6 +6,7 @@ import NewTiccleGroupList from './components/NewTiccleGroupList';
 import colors from '../../theme/colors';
 
 const Home = ({navigation}) => {
+
     return (
         <ScrollView style={styles.container}>
             <MyMount

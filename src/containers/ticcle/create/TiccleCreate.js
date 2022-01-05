@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, StyleSheet,ScrollView } from 'react-native';
 import TiccleCreateGroupSelect from './components/group/TiccleCreateGroupSelect';
 import TiccleCreateImageCreateButton from './components/image/TiccleCreateImageCreateButton';
@@ -11,12 +11,14 @@ import colors from '../../../theme/colors';
 import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
 import PhotoModal from '../../common/PhotoModal';
 import GroupListModal from './components/group/GroupListModal';
+import UseUserLocation from '../../../context/hook/UseUserLocation';
 
 const TiccleCreate = () => {
 
     const {setTiccleContent, setTiccleImages, deleteTiccleImage,
         ticcle, setTiccleTitle, setTiccleLink, setTiccleGroup,
         setTiccleTagList, deleteTiccleTagList } = UseTiccleCreate();
+    const{ currentGroup } = UseUserLocation();
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const photoModalVisibleTrue = () => {
@@ -26,6 +28,10 @@ const TiccleCreate = () => {
     const initialTag = () => {
         setTag('')
     }
+
+    useEffect(()=> {
+        (currentGroup !== '') ?  setTiccleGroup(currentGroup) : setTiccleGroup('');
+    }, [currentGroup])
 
     return(
         <ScrollView style={styles.container}>

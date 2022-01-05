@@ -135,6 +135,11 @@ const AppProvider = ({children}) => {
         });
     };
 
+    // location
+    const [currentGroup, setCurrentGroup] = useState('')
+    const initialCurrentGroup = () => {
+        setCurrentGroup('')
+    }
     return (
         <AppContext.Provider
             value={{
@@ -159,6 +164,9 @@ const AppProvider = ({children}) => {
                 setGroupDescription,
                 setGroupBookmark,
                 setGroupImage,
+                currentGroup,
+                setCurrentGroup,
+                initialCurrentGroup
             }}>
             {children}
         </AppContext.Provider>

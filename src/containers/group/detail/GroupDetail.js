@@ -7,17 +7,25 @@ import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 import { findTiccleListByGroupId } from '../../../service/TiccleService';
 import { findGroupByIdIncludeImage } from '../../../service/GroupService';
-
+import UseUserLocation from '../../../context/hook/UseUserLocation';
 const GroupDetail = ({ route }) => {
     const [groupData, setGroupData] = useState([]);
     const [ticcleList, setTiccleList] = useState([]);
+    const {setCurrentGroup, initialCurrentGroup, currentGroup} = UseUserLocation();
 
     useEffect(() => {
         // get group data
         findGroupByIdIncludeImage(route.params.groupId, setGroupData);
         //get ticcle List
         findTiccleListByGroupId(route.params.groupId, setTiccleList);
+        setCurrentGroup(route.params.groupId)
     }, []);
+
+    useEffect(() => {
+        return () => {
+            initialCurrentGroup()
+        }
+    },[]);
 
     return (
         <>
