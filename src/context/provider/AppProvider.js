@@ -150,6 +150,7 @@ const AppProvider = ({children}) => {
             return {...state, description: text};
         });
     };
+    // 업데이트 시 서버에서 받아오는 기존 이미지 uri와 새로 바꾼 이미지의 source를 동시에 관리하기 위해, 다른 전역변수를 만들지 않고 imageUrl을 활용함. 첫 렌더링 시에는 서버에서 받아오는 이미지의 uri, 이미지를 바꿀 때는 새로운 이미지의 source가 imgPath로 들어옴. 업데이트 화면에서만 이렇게 사용.
     const setGroupUpdateImage = imgPath => {
         setGroupUpdate(state => {
             return {...state, imageUrl: imgPath};
