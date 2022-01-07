@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 
 import GroupInfo from './components/groupInfo';
 import SearchBar from '../../common/SearchBar';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
-import { findTiccleListByGroupId } from '../../../service/TiccleService';
+import {findTiccleListByGroupId} from '../../../service/TiccleService';
 
-const GroupDetail = ({ route }) => {
-
+const GroupDetail = ({route, navigation}) => {
     const [ticcleList, setTiccleList] = useState([]);
 
     useEffect(() => {
@@ -18,16 +17,25 @@ const GroupDetail = ({ route }) => {
 
     return (
         <>
-            <GroupInfo title={route.params.groupId} />
+            <GroupInfo title={route.params.groupId} navigation={navigation} />
             <SearchBar placeholderContext="#태그이름, 티끌이름"></SearchBar>
-            {ticcleList.length != 0 ? <GroupDetailTiccleList ticcleList={ticcleList} /> : <ZeroTiccle />}
+            {ticcleList.length != 0 ? (
+                <GroupDetailTiccleList ticcleList={ticcleList} />
+            ) : (
+                <ZeroTiccle />
+            )}
             {/* Floating Button */}
-            <TouchableOpacity activeOpacity={0.5} style={styles.touchableOpacityStyle} >
-                <Image source={require('../../../assets/icon/make.png')} style={styles.floatingButtonStyle} />
+            <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.touchableOpacityStyle}>
+                <Image
+                    source={require('../../../assets/icon/make.png')}
+                    style={styles.floatingButtonStyle}
+                />
             </TouchableOpacity>
         </>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     // Floating button css
@@ -45,6 +53,6 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
     },
-})
+});
 
 export default GroupDetail;

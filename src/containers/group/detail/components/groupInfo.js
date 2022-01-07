@@ -1,71 +1,99 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, ImageBackground, View, Image } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {
+    StyleSheet,
+    Text,
+    ImageBackground,
+    View,
+    Image,
+    TouchableOpacity,
+} from 'react-native';
 import colors from '../../../../theme/colors';
-import { type } from '../../../../theme/fonts';
+import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
-import { useNavigation } from '@react-navigation/native';
-import { updateGroupInfo, findGroupByIdIncludeImage } from "../../../../service/GroupService";
+import {useNavigation} from '@react-navigation/native';
+import {
+    updateGroupInfo,
+    findGroupByIdIncludeImage,
+} from '../../../../service/GroupService';
 
-const GroupInfo = ({ title }) => {
+const GroupInfo = ({title, navigation}) => {
     const navigateTo = useNavigation();
     const [groupData, setGroupData] = useState([]);
-    const [isBookmark, setIsBookmark] = useState(0);
-
-    const imageData = [
-        {
-            image: require('../../../../assets/icon/star.png') 
-        },
-        { 
-            image: require('../../../../assets/icon/bookMark.png')
-        }
-    ];
+    const [isBookmark, setIsBookmark] = useState(false);
 
     function setFirebaseBookmark() {
-        if (isBookmark == 1) {
-            setIsBookmark(0);
-            updateGroupInfo(title, { bookmark: false });
+        if (isBookmark == true) {
+            setIsBookmark(false);
+            updateGroupInfo(title, {bookmark: false});
         } else {
-            setIsBookmark(1);
-            updateGroupInfo(title, { bookmark: true });
+            setIsBookmark(true);
+            updateGroupInfo(title, {bookmark: true});
         }
-    };
+    }
 
     useEffect(() => {
-        // get group data
         findGroupByIdIncludeImage(title, setGroupData);
         console.log(groupData);
-
-        groupData.bookmark? setIsBookmark(1): setIsBookmark(0);
     }, []);
+    useEffect(() => {
+        setIsBookmark(groupData.bookmark);
+        console.log('bookmark=========');
+    }, [groupData]);
 
     return (
         <>
-            <ImageBackground source={{ uri: groupData.imageUrl }}
+            <ImageBackground
+                source={{uri: groupData.imageUrl}}
                 resizeMode="cover"
                 style={styles.container5}>
-                <ImageBackground source={require('../../../../assets/images/gradation2.png')}
+                <ImageBackground
+                    source={require('../../../../assets/images/gradation2.png')}
                     resizeMode="cover"
                     style={styles.container5}>
-                    <Image style={styles.backBtn}
-                        onTouchEnd={() => { navigateTo.navigate('Home') }}
-                        source={require('../../../../assets/icon/backWhite.png')} />
+                    <Image
+                        style={styles.backBtn}
+                        onTouchEnd={() => {
+                            navigateTo.navigate('Home');
+                        }}
+                        source={require('../../../../assets/icon/backWhite.png')}
+                    />
                     <View style={styles.container}>
                         <View style={styles.container2}>
                             <View style={styles.container3}>
                                 <Text style={styles.title}>{title}</Text>
-                                <Image style={styles.pencil} source={require('../../../../assets/icon/pencil.png')}></Image>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        navigation.navigate('GroupUpdate', {
+                                            groupId: title,
+                                        })
+                                    }>
+                                    <Image
+                                        style={styles.pencil}
+                                        source={require('../../../../assets/icon/pencil.png')}></Image>
+                                </TouchableOpacity>
                             </View>
                             <View style={styles.container4}>
-                                <Text style={styles.content}>{groupData.description}</Text>
-                                <Image style={styles.star} onTouchEnd={() => { setFirebaseBookmark() }} source={imageData[isBookmark].image}></Image>
+                                <Text style={styles.content}>
+                                    {groupData.description}
+                                </Text>
+                                <Image
+                                    style={styles.star}
+                                    onTouchEnd={() => {
+                                        setFirebaseBookmark();
+                                    }}
+                                    source={
+                                        isBookmark
+                                            ? require('../../../../assets/icon/bookMark.png')
+                                            : require('../../../../assets/icon/star.png')
+                                    }></Image>
                             </View>
                         </View>
                     </View>
                 </ImageBackground>
             </ImageBackground>
         </>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -88,7 +116,7 @@ const styles = StyleSheet.create({
         paddingRight: 18,
     },
     container5: {
-        width: "100%",
+        width: '100%',
         height: 256,
     },
     pencil: {
@@ -118,7 +146,7 @@ const styles = StyleSheet.create({
         height: 16,
         marginLeft: 18,
         marginTop: 21,
-    }
-})
+    },
+});
 
 export default GroupInfo;

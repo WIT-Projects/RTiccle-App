@@ -34,6 +34,7 @@ const PhotoModal = ({
         )
             .then(image => {
                 setImage(image.path);
+                console.log(image.path);
             })
             .catch(error => {
                 if (error.code === 'E_PICKER_CANCELLED') {
