@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { type } from '../../../theme/fonts';
 import MarkTiccle from './MarkTiccle';
-import useGroupList from '../../../context/hook/useGroupList';
+import { groupList } from '../../../model/GroupModel';
+import useGroupChanged from '../../../context/hook/useGroupChanged';
 
 const BookMarkList = () => {
     const [existBookmark, setExistBookmark] = useState(false);
     const [data, setData] = useState([]);
 
-    const { groupList } = useGroupList();
+    const { isGroupChanged } = useGroupChanged();
 
     useEffect(() => {
         const bookmarkedList = groupList.filter(obj => obj.bookmark == true);
@@ -18,7 +19,7 @@ const BookMarkList = () => {
             setExistBookmark(true);
         }
         setData(bookmarkedList);
-    }, groupList);
+    }, [isGroupChanged]);
 
     return (
         <>

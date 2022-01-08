@@ -1,4 +1,3 @@
-import useGroupList from "../context/hook/useGroupList";
 import { 
     uploadNewGroup,
     updateGroupInfo,
@@ -6,18 +5,29 @@ import {
     deleteGroup,
     findAllGroupIncludeImage, } from "../service/GroupService";
 
-/**
- * Get all group list and set groupList(useGroupList)
- */
-async function getAllGroupIncludeImages() {
-    // from server
-    const { setGroupList } = useGroupList();
-    const result = await findAllGroupIncludeImage();
-    setGroupList(result);
+// group list
+var groupList = [];
+const setGroupListAtOne = (targetGId, groupData) => {
+    const idx = groupList.findIndex((obj => obj.id == targetGId));
+    groupList[idx] = groupData;
+}
+const deleteOneGroupOfList = targetGId => {
+    const idx = groupList.findIndex((obj => obj.id == targetGId));
+    groupList.splice(idx, 1);
 }
 
 /**
- * Upload new group and add to groupList(useGroupList)
+ * Get all group list and set groupList
+ */
+async function getAllGroupIncludeImages() {
+    // from server
+    const result = await findAllGroupIncludeImage();
+    groupList = result;
+    console.log(result);
+}
+
+/**
+ * Upload new group and add to groupList
  * @param {*} groupData: group info
  * *  {
         type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
@@ -32,12 +42,12 @@ async function doCreateGroup(groupData, mainImageSource) {
     const newGroupInfo = await uploadNewGroup(groupData, mainImageSource);
 
     // to local data
-    const { groupList, setGroupList } = useGroupList();
-    setGroupList([...groupList, newGroupInfo])
+    groupList = ([...groupList, newGroupInfo])
+    console.log(groupList);
 }
 
 /**
- * Update group data and add to groupList(useGroupList)
+ * Update group data and add to groupList
  * @param {*} groupId 
  * @param {*} newInfo: new group info (CHANGED INFO ONLY)
  * Support info:
@@ -62,13 +72,12 @@ function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImag
     updateGroupInfo(groupId, info);    
 
     // to local data
-    const { groupList, setGroupListAtOne } = useGroupList();
-    const oldInfo = groupList.find(g => g.id == groupId)
-    setGroupListAtOne(groupId, {...oldInfo, info})
+    const oldInfo = groupList.find(g => g.id == groupId);
+    setGroupListAtOne(groupId, {...oldInfo, info});
 }
 
 /**
- * Delete one group add apply to groupList(useGroupList)
+ * Delete one group add apply to groupList
  * @param {Array} groupData 
  */
 function doDeleteGroup(groupData) {
@@ -76,11 +85,11 @@ function doDeleteGroup(groupData) {
     deleteGroup(groupData)
 
     // to local data
-    const { deleteOneGroupOfList } = useGroupList();
     deleteOneGroupOfList(groupData.id);
 }
 
 export {
+    groupList,
     getAllGroupIncludeImages,
     doCreateGroup,
     doUpdateGroup,

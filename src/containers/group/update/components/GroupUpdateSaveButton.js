@@ -4,10 +4,12 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
+import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import { doUpdateGroup } from '../../../../model/GroupModel';
 
 const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const {groupUpdate, initialGroupUpdate} = useGroupUpdate();
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
 
     const groupUpdateFirebase = () => {
         let newInfo = [];
@@ -29,6 +31,7 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
                 doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource);
             }
             else doUpdateGroup(groupId, newInfo, false);
+            setIsGroupChanged(!isGroupChanged); // notify groupData changed
             initialGroupUpdate();
             navigation.goBack();
         } catch (error) {

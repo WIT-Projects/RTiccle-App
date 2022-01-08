@@ -12,14 +12,15 @@ import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
 import {useNavigation} from '@react-navigation/native';
 import { doUpdateGroup, } from '../../../../model/GroupModel';
-import useGroupList from '../../../context/hook/useGroupList';
+import { groupList } from '../../../../model/GroupModel';
+import useGroupChanged from '../../../../context/hook/useGroupChanged';
 
 const GroupInfo = ({groupId, navigation}) => {
     const navigateTo = useNavigation();
     const [groupData, setGroupData] = useState([]);
     const [isBookmark, setIsBookmark] = useState(false);
 
-    const { groupList } = useGroupList();
+    const { isGroupChanged } = useGroupChanged();
 
     function setFirebaseBookmark() {
         if (isBookmark == true) {
@@ -35,7 +36,7 @@ const GroupInfo = ({groupId, navigation}) => {
         const group = groupList.find(obj => obj.id == groupId)
         setGroupData(group);
         setIsBookmark(groupData.bookmark);
-    }, groupList);
+    }, [isGroupChanged]);
 
     return (
         <>

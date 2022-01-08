@@ -2,18 +2,20 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import { type } from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
-import useGroupList from '../../../context/hook/useGroupList';
+import { groupList } from '../../../model/GroupModel';
+import useGroupChanged from '../../../context/hook/useGroupChanged';
 
 const NewTiccleGroupList = () => {
     const [isExistGroup, setIsExistGroup] = useState(false);
     const [data, setData] = useState([]);
 
-    const { groupList } = useGroupList();
+    const { isGroupChanged } = useGroupChanged();
 
     useEffect(() => {
-        setIsExistGroup(groupList.length == 0);
+        setIsExistGroup(groupList.length != 0);
         setData(groupList); // TODO sorting
-    }, groupList);
+        console.log('group', data);
+    }, [isGroupChanged]);
 
     return (
         <>

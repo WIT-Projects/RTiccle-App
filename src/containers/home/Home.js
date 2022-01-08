@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, ScrollView, StyleSheet, Button} from 'react-native';
 import MyMount from './components/MyMount';
 import BookMarkList from './components/BookMarkList';
 import NewTiccleGroupList from './components/NewTiccleGroupList';
 import colors from '../../theme/colors';
+import { getAllGroupIncludeImages } from '../../model/GroupModel';
+import useGroupChanged from '../../context/hook/useGroupChanged'
 
 const Home = ({navigation}) => {
+
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
+    
+    useEffect(() => {
+        getAllGroupIncludeImages(); // init group data
+        setIsGroupChanged(!isGroupChanged);
+    }, [])
+
     return (
         <ScrollView style={styles.container}>
             <MyMount

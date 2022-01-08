@@ -5,6 +5,7 @@ import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 import useGroupCreate from '../../context/hook/useGroupCreate';
 import { doCreateGroup } from '../../model/GroupModel';
+import useGroupChanged from '../../context/hook/useGroupChanged';
 
 const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();
@@ -12,6 +13,8 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
     const type = groupCreate.type;
     const description = groupCreate.description;
     const mainImage = groupCreate.mainImage;
+
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
 
     const groupCreateFirebase = () => {
         const newGroup = {
@@ -22,6 +25,9 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
         };
         const imageSource = mainImage;
         doCreateGroup(newGroup, imageSource);
+        console.log('before', isGroupChanged) // temp
+        setIsGroupChanged(!isGroupChanged); // notify groupData changed
+        console.log('after', isGroupChanged) // temp
         initialGroupCreate();
         navigation.navigate('Home');
     };

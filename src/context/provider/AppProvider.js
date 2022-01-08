@@ -156,19 +156,8 @@ const AppProvider = ({children}) => {
     };
 
     // Data Provider
-    const [groupList, setGroupList] = useState([]);
-    const setGroupListAtOne = (targetGId, groupData) => {
-        const list = groupList;
-        const idx = list.findIndex((obj => obj.id == targetGId));
-        list[idx] = groupData;
-        setGroupList(list);
-    }
-    const deleteOneGroupOfList = targetGId => {
-        const list = groupList;
-        const idx = list.findIndex((obj => obj.id == targetGId));
-        list.splice(idx, 1);
-        setGroupList(list);
-    }
+    const [isGroupChanged, setIsGroupChanged] = useState(false);
+    
     const [ticcleList, setTiccleList] = useState([]);
     const setTiccleListAtOne = (targetTId, ticcleData) => {
         const list = ticcleList;
@@ -212,11 +201,8 @@ const AppProvider = ({children}) => {
                 setGroupUpdateTitle,
                 setGroupUpdateDescription,
                 setGroupUpdateImage,
-                
-                groupList,
-                setGroupList,
-                setGroupListAtOne,
-                deleteOneGroupOfList,
+                isGroupChanged,
+                setIsGroupChanged,
                 ticcleList,
                 setTiccleList,
                 setTiccleListAtOne,
