@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {View,StyleSheet,Text, Image, TouchableOpacity } from 'react-native'
 import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
+import { getCurrentUser, anonSignIn, googleLoginAndLink } from "../../service/AuthService";
 
 const LoginScreen = ({navigation}) => {
 
     const textOne = "RTICCLE에 오신 걸"
     const textTwo = "환영합니다."
 
+    useEffect(() => {
+        if (getCurrentUser() == null) { // temp
+            anonSignIn();
+        }
+    }, [])
+
+    function googleSignin() {
+        googleLoginAndLink();
+        navigation.navigate("Home");
+    }
+    
     return(
         <View style={styles.container}>
             <View style={styles.textContainer}>
@@ -21,7 +33,7 @@ const LoginScreen = ({navigation}) => {
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={styles.imageTouchable} onPress={() => navigation.navigate("Home")}>
+                style={styles.imageTouchable} onPress={googleSignin}>
                     <Image source={require('../../assets/images/login_google.png')} style={styles.image}/>
             </TouchableOpacity>
         </View>

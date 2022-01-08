@@ -1,5 +1,4 @@
-import React from 'react';
-import {useState} from 'react/cjs/react.development';
+import React, {useState} from 'react';
 import AppContext from '../AppContext';
 import {FBDate} from '../../service/CommonService';
 
@@ -175,13 +174,13 @@ const AppProvider = ({children}) => {
         const list = ticcleList;
         const idx = list.findIndex((obj => obj.id == targetTId));
         list[idx] = ticcleData;
-        setGroupList(list);
+        setTiccleList(list);
     }
     const deleteOneTiccleOfList = targetTId => {
         const list = ticcleList;
         const idx = list.findIndex((obj => obj.id == targetTId));
         list.splice(idx, 1);
-        setGroupList(list);
+        setTiccleList(list);
     }
 
     return (
@@ -213,7 +212,7 @@ const AppProvider = ({children}) => {
                 setGroupUpdateTitle,
                 setGroupUpdateDescription,
                 setGroupUpdateImage,
-
+                
                 groupList,
                 setGroupList,
                 setGroupListAtOne,
