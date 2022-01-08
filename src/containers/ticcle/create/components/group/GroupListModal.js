@@ -13,16 +13,6 @@ const GroupListModal = ({isModalVisible, setModalVisible, ticcle ,setTiccleGroup
     const [groupList, setGroupList] = useState([]);
     const [isExistGroup, setExistGroup] = useState(false);
 
-    useEffect(() => {
-        let getIsExist = checkIsExistingAnyGroup();
-        getIsExist.then((value) => {
-            setExistGroup(value);
-            if(value != 0){
-                findAllGroup(setGroupList);
-            }
-        });
-    }, [groupList]);
-
     return(
         <Modal
             isVisible={isModalVisible}

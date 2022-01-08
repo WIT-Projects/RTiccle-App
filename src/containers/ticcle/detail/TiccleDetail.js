@@ -8,7 +8,6 @@ import TiccleDetailTags from './components/TiccleDetailTags';
 import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
 import { FBDateToFormatDate } from '../../../service/CommonService';
-import { uploadNewTiccle } from '../../../service/TiccleService'
 
 const TiccleDetail = () => {
 
@@ -18,11 +17,6 @@ const TiccleDetail = () => {
     const ticcleContent = ticcle.content
     const ticcleDate = ticcle.lastModifiedTime
 
-    useEffect(() => {
-        uploadNewTiccle(ticcle, ticcle.images)
-    },
-    []);
-    
     var formattedday = ""
     if(ticcleDate !== ""){
         formattedday = FBDateToFormatDate(ticcle.lastModifiedTime);

@@ -53,7 +53,7 @@ const TiccleStackNavigator = () => {
                     setTiccleDate()
                     console.log(ticcle)
                     navigation.navigate('TiccleDetail')
-                    
+                    uploadNewTiccle(ticcle, ticcle.images)
                 }}>
                     <Text style={saveButtonDisable ? styles.headerRightTextDisable : styles.headerRightText}>저장</Text>
                 </TouchableOpacity>

@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
         color: colors.main,
         fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize: 18,
-        
     },
     image:{
         width:24,

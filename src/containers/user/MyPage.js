@@ -6,12 +6,11 @@ import auth from "@react-native-firebase/auth";
 import Setting from './components/Settings';
 import GuestInfo, { GuestGuide } from './components/Guest';
 import UserInfo from './components/User';
-import UseUserLocation from '../../context/hook/UseUserLocation';
 
 const MyPage = () => {
 // function MyPageScreen( {navigation}) {
     const [isGuest, setIsGuest] = useState(true);
-    const {initialCurrentGroup} = UseUserLocation();
+
 
     // Handle user state changes
     function onAuthStateChanged(user) {

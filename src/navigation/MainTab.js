@@ -4,10 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStackNavigatior from './stack/HomeStackNavigator';
 import TiccleStackNavigator from './stack/TiccleStackNavigator';
 import MyPage from '../containers/user/MyPage'
-import UseUserLocation from '../context/hook/UseUserLocation'
+
 const MainTab = () => {
     const Tab = createBottomTabNavigator();
-    const {initialCurrentGroup} =UseUserLocation();
+
     return(
             <Tab.Navigator>
                 <Tab.Screen name="HomeStack" component={HomeStackNavigatior}
@@ -24,11 +24,6 @@ const MainTab = () => {
                 <Tab.Screen name="MyPage" component={MyPage} 
                 options={{
                     title: "My",
-                }}
-                listeners={{
-                    tabPress: () => {
-                        initialCurrentGroup();
-                    }
                 }}
                 />
         </Tab.Navigator>
