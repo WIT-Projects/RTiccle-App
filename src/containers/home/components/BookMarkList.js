@@ -26,7 +26,9 @@ const BookMarkList = () => {
             </View>
             {existBookmark ?
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ marginLeft: 11.5 }}>
-                    {data.map((item) => { return (<MarkTiccle key={item.id} imgUrl={item.imgUrl} title={item.title}></MarkTiccle>) })}
+                    {data.map((item) => { 
+                        return (<MarkTiccle key={item.id} imageUrl={item.imageUrl} title={item.title} ticcleNum={item.ticcleNum}></MarkTiccle>) 
+                    })}
                 </ScrollView>
                 :
                 <Text>즐겨찾기한 그룹이 존재하지 않습니다.</Text>

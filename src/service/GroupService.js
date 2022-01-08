@@ -29,6 +29,7 @@ async function createGroup(groupName, newGroup) {
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
+        // mainImage: string, ticcleNum: integer
     }
  * @param {*} mainImageSource: main image source of group
  * @returns {Promise<String>} created group id (== gorup name)
@@ -39,12 +40,12 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
         imageName = Date.now() + ".jpg";
         uploadImageToStorage(imageName, mainImageSource);
     }
-    return createGroup(newGroupName, { ...group, mainImage: imageName });
+    return createGroup(newGroupName, { ...group, mainImage: imageName, ticcleNum: 0 });
 }
 
 /**
  * Update group info (no support for image)
- * @param {*} groupName 
+ * @param {*} groupId 
  * @param {*} newInfo: new group info (changed info only)
  * Support info:
  * *  {
@@ -54,20 +55,33 @@ function uploadNewGroup(newGroupName, group, mainImageSource) {
         bookmark: Boolean, // true if bookmarked
     }
  */
-function updateGroupInfo(groupName, newInfo) {
+function updateGroupInfo(groupId, newInfo) {
     const updateInfo = {...newInfo, lastModifiedTime: FBDate()};
-    const ref = userDoc.collection("Group").doc(groupName);
+    const ref = userDoc.collection("Group").doc(groupId);
     ref.update(updateInfo);
 }
 
 /**
+ * Update ticcleNum and lastModifiedTime of Group
+ * @param {string} groupId 
+ * @param {boolean} isPlus: true if +1 else -1
+ */
+async function updateTiccleNumOfGroup(groupId, isPlus) {
+    const ref = userDoc.collection("Group").doc(groupId);
+    const group = await ref.get();
+    var num = group.ticcleNum;
+    num = isPlus ? num + 1 : num - 1;
+    ref.update({ticcleNum: num, lastModifiedTime: FBDate()});
+}
+
+/**
  * Update group main image
- * @param {string} groupName 
+ * @param {string} groupId 
  * @param {string} oldImageName // if not exists, put null
  * @param {*} newImageSource 
  * @returns {string} newImageName
  */
-function updateGroupImage(groupName, oldImageName, newImageSource) {
+function updateGroupImage(groupId, oldImageName, newImageSource) {
     // delete original image first
     if (oldImageName)
         deleteImageFromStorage(oldImageName, false);
@@ -75,13 +89,13 @@ function updateGroupImage(groupName, oldImageName, newImageSource) {
     newImageName = Date.now() + ".jpg";
     uploadImageToStorage(newImageName, newImageSource);
     // update group info
-    updateGroupInfo(groupName, {mainImage: newImageName});
+    updateGroupInfo(groupId, {mainImage: newImageName});
     return newImageName;
 }
 
 /**
  * Delete group 
- * @param {Array} group: group info (MUST include title(id), mainImage)
+ * @param {Array} group: group info (MUST include 'title'('id'), 'mainImage' information)
  */
 function deleteGroup(group) {
     // delete image
@@ -104,6 +118,28 @@ function deleteGroup(group) {
         const group = { ...snapshot.data(), id }
         groups = [...groups, group];
     })
+    setState(groups);
+}
+
+/**
+ * Get All Group of User and Set state include main image url 
+ * @param {Dispatch<SetStateAction<S>>} setState 
+ */
+ async function findAllGroupIncludeImage(setState) {
+    const querySnapshot = await userDoc.collection("Group").get();
+    var groups = [];
+    querySnapshot.forEach((snapshot) => snapshots.push({id: snapshot.id, data: snapshot.data()}));
+    var groups = [];
+    for (let group of snapshots) {
+        const id = group.id;
+        var data = group.data;
+        var mainImageURL = null;
+        if (data.mainImage || data.mainImage != '') { // get download URL
+            mainImageURL = await getDownloadURLByName(data.mainImage, false);
+        }
+        data = { ...data, imageUrl: mainImageURL, id: id };
+        groups = [...groups, data];
+    }
     setState(groups);
 }
 
@@ -141,23 +177,21 @@ async function findGroupsIncludeImage(limit, setState) {
  */
 async function findBookrmarkGroupsIncludeImage(setState) {
     const query = userDoc.collection("Group")
-        .orderBy('lastModifiedTime', 'desc');
+        .where("bookmark", '==', true)
 
     const querySnapshot = await query.get();
     var snapshots = [];
     querySnapshot.forEach((snapshot) => snapshots.push({id: snapshot.id, data: snapshot.data()}));
     var groups = [];
     for (let group of snapshots) {
-        if( group.data.bookmark ){
-            const id = group.id;
-            var data = group.data;
-            var mainImageURL = null;
-            if (data.mainImage || data.mainImage != '') { // get download URL
-                mainImageURL = await getDownloadURLByName(data.mainImage, false);
-            }
-            data = { ...data, imageUrl: mainImageURL, id: id };
-            groups = [...groups, data];
-        }  
+        const id = group.id;
+        var data = group.data;
+        var mainImageURL = null;
+        if (data.mainImage || data.mainImage != '') { // get download URL
+            mainImageURL = await getDownloadURLByName(data.mainImage, false);
+        }
+        data = { ...data, imageUrl: mainImageURL, id: id };
+        groups = [...groups, data];
     }
     setState(groups);
 }
@@ -221,9 +255,11 @@ export {
     createGroup,
     uploadNewGroup,
     updateGroupInfo,
+    updateTiccleNumOfGroup,
     updateGroupImage,
     deleteGroup,
     findAllGroup,
+    findAllGroupIncludeImage,
     findGroupsIncludeImage,
     checkIsExistingGroup,
     findGroupById,

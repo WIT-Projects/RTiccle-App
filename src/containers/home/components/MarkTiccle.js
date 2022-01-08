@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Text, Image, ImageBackground, View, StyleSheet } from 'react-native';
 import { type } from '../../../theme/fonts';
-import { findNumberOfTicclesOfGroup } from '../../../service/TiccleService';
 import { useNavigation } from '@react-navigation/native';
 
-const MarkTiccle = ({ imgUrl, title }) => {
+const MarkTiccle = ({ imageUrl, title, ticcleNum }) => {
     const navigateTo = useNavigation();
-    const [ticcleCount, setTiccleCount] = useState([]);
 
-    useEffect(() => {
-        findNumberOfTicclesOfGroup(title, setTiccleCount);
-    }, []);
     return (
         <>
             <View style={styles.container} onTouchEnd={() => { navigateTo.navigate('GroupDetail', { groupId: title }) }}>
-                {imgUrl == null ?
+                {imageUrl == null ?
                     <ImageBackground
                         source={require('../../../assets/images/bookmarkBlankImage.png')}
                         resizeMode="cover"
@@ -22,7 +17,7 @@ const MarkTiccle = ({ imgUrl, title }) => {
                         <Image style={styles.icon} source={require('../../../assets/icon/bookMark.png')}></Image>
                     </ImageBackground> :
                     <ImageBackground
-                        source={{ uri: imgUrl }}
+                        source={{ uri: imageUrl }}
                         resizeMode="cover"
                         style={{ width: 194, height: 111, flex: 1 }}>
                         <Image style={styles.icon} source={require('../../../assets/icon/bookMark.png')}></Image>
@@ -30,7 +25,7 @@ const MarkTiccle = ({ imgUrl, title }) => {
                 }
 
                 <Text style={styles.blackRegularFont}>{title}</Text>
-                <Text style={styles.blackBoldFont}>총 {ticcleCount}개</Text>
+                <Text style={styles.blackBoldFont}>총 {ticcleNum}개</Text>
             </View>
         </>
     );

@@ -3,10 +3,10 @@ import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 
-const MyMount = ({mount, imgUrl}) => {
+const MyMount = ({mount, imageUrl}) => {
     return (
         <>
-        <ImageBackground source={{uri:imgUrl}}
+        <ImageBackground source={{uri:imageUrl}}
             resizeMode="cover"
             style={{ width: "100%", height: 243 }}>
             <View style={styles.container}>
