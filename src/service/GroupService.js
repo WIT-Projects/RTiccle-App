@@ -24,7 +24,7 @@ async function createGroup(newGroup) {
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
-        // mainImage: string, ticcleNum: integer, lastModifiedTime: number
+        // mainImage: string, ticcleNum: integer, latestTiccleTitle: string, lastModifiedTime: number
     }
  * @param {*} mainImageSource: main image source of group
  * @returns {Array} Group Data
@@ -35,7 +35,7 @@ function uploadNewGroup(group, mainImageSource) {
         imageName = Date.now() + ".jpg";
         uploadImageToStorage(imageName, mainImageSource);
     }
-    return createGroup({ ...group, mainImage: imageName, ticcleNum: 0, lastModifiedTime: Date.now() });
+    return createGroup({ ...group, mainImage: imageName, ticcleNum: 0, latestTiccleTitle: '', lastModifiedTime: Date.now() });
 }
 
 /**
@@ -48,6 +48,7 @@ function uploadNewGroup(group, mainImageSource) {
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
+        latestTiccleTitle: string,
     }
  */
 function updateGroupInfo(groupId, newInfo) {

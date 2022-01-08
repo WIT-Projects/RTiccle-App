@@ -42,8 +42,9 @@ function uploadNewTiccle(ticcle, images) {
         })
     }
 
-    // update group info (ticcleNum + 1)
-    updateTiccleNumOfGroup(ticcle.group, true);
+    // update group info (ticcleNum + 1, latestTiccleTitle)
+    updateTiccleNumOfGroup(ticcle.groupId, true);
+    updateGroupInfo(ticcle.groupId, {latestTiccleTitle: ticcle.title})
     // upload ticcle info
     return createTiccle({ ...ticcle, images: imageArr, lastModifiedTime: Date.now() });
 }
@@ -106,7 +107,7 @@ function deleteTiccle(ticcle) {
     const ref = userDoc.collection("Ticcle").doc(ticcle.id);
     ref.delete();
     // update group info (ticcleNum - 1)
-    updateTiccleNumOfGroup(ticcle.group, false);
+    updateTiccleNumOfGroup(ticcle.groupId, false);
 }
 
 /**
