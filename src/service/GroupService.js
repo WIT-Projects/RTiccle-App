@@ -16,7 +16,7 @@ async function createGroup(groupName, newGroup) {
     const ref = userDoc.collection("Group").doc(groupName);
     console.log(newGroup);
     await ref.set(newGroup);
-    return ref.id;
+    return { id: ref.id, ...newGroup };
 }
 
 /**
@@ -89,7 +89,7 @@ function updateGroupImage(groupId, oldImageName, newImageSource) {
     newImageName = Date.now() + ".jpg";
     uploadImageToStorage(newImageName, newImageSource);
     // update group info
-    updateGroupInfo(groupId, {mainImage: newImageName});
+    //updateGroupInfo(groupId, {mainImage: newImageName});
     return newImageName;
 }
 
