@@ -1,7 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import { getCurrentUser } from './AuthService';
 import { uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage } from './ImageService';
-import { FBDate } from './CommonService';
 
 const user = getCurrentUser();
 const userDoc = firestore().collection('RTiccle').doc(user.uid);
@@ -36,7 +35,7 @@ function uploadNewGroup(groupData, mainImageSource) {
         imageName = Date.now() + ".jpg";
         uploadImageToStorage(imageName, mainImageSource);
     }
-    return createGroup({ ...groupData, mainImage: imageName, ticcleNum: 0, lastModifiedTime: FBDate() });
+    return createGroup({ ...groupData, mainImage: imageName, ticcleNum: 0, lastModifiedTime: Date.now() });
 }
 
 /**
@@ -52,7 +51,7 @@ function uploadNewGroup(groupData, mainImageSource) {
     }
  */
 function updateGroupInfo(groupId, newInfo) {
-    const updateInfo = {...newInfo, lastModifiedTime: FBDate()};
+    const updateInfo = {...newInfo, lastModifiedTime: Date.now()};
     const ref = userDoc.collection("Group").doc(groupId);
     ref.update(updateInfo);
 }
@@ -67,7 +66,7 @@ async function updateTiccleNumOfGroup(groupId, isPlus) {
     const group = await ref.get();
     var num = group.ticcleNum;
     num = isPlus ? num + 1 : num - 1;
-    ref.update({ ticcleNum: num, lastModifiedTime: FBDate() });
+    ref.update({ ticcleNum: num, lastModifiedTime: Date.now() });
 }
 
 /**

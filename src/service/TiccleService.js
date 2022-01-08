@@ -2,7 +2,6 @@ import firestore from '@react-native-firebase/firestore';
 import { getCurrentUser } from './AuthService';
 import { uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage } from './ImageService';
 import { updateGroupInfo, updateTiccleNumOfGroup } from './GroupService';
-import { FBDate } from './CommonService';
 
 const user = getCurrentUser();
 const userDoc = firestore().collection('RTiccle').doc(user.uid);
@@ -46,7 +45,7 @@ function uploadNewTiccle(ticcle, images) {
     // update group info (ticcleNum + 1)
     updateTiccleNumOfGroup(ticcle.group, true);
     // upload ticcle info
-    return createTiccle({ ...ticcle, images: imageArr, lastModifiedTime: FBDate() });
+    return createTiccle({ ...ticcle, images: imageArr, lastModifiedTime: Date.now() });
 }
 
 
@@ -65,7 +64,7 @@ function uploadNewTiccle(ticcle, images) {
  */
 function updateTiccleInfo(groupId, ticcleId, newInfo) {
     const ref = userDoc.collection("Ticcle").doc(ticcleId);
-    var updateInfo = {...newInfo, lastModifiedTime: FBDate()};
+    var updateInfo = {...newInfo, lastModifiedTime: Date.now()};
     ref.update(updateInfo);
     updateGroupInfo(groupId); // only update lastModifiedDate!
 }

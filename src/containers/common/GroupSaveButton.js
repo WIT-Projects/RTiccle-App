@@ -5,7 +5,6 @@ import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 import useGroupCreate from '../../context/hook/useGroupCreate';
 import {uploadNewGroup} from '../../service/GroupService';
-import { FBDate } from '../../service/CommonService';
 
 const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();
@@ -13,12 +12,10 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
     const type = groupCreate.type;
     const description = groupCreate.description;
     const mainImage = groupCreate.mainImage;
-    const nowDate = FBDate();
 
     const groupCreateFirebase = () => {
         const groupName = title;
         const newGroup = {
-            lastModifiedTime: nowDate,
             type: type,
             title: title,
             description: description,
