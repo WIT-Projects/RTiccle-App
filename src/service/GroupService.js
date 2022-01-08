@@ -122,12 +122,12 @@ function deleteGroup(group) {
 }
 
 /**
- * Get All Group of User and Set state include main image url 
- * @param {Dispatch<SetStateAction<S>>} setState 
+ * Get All Group of User (include main image url)
+ * @returns {Array} Group List (include image url)
  */
- async function findAllGroupIncludeImage(setState) {
+ async function findAllGroupIncludeImage() {
     const querySnapshot = await userDoc.collection("Group").get();
-    var groups = [];
+    var snapshots = [];
     querySnapshot.forEach((snapshot) => snapshots.push({id: snapshot.id, data: snapshot.data()}));
     var groups = [];
     for (let group of snapshots) {
@@ -140,7 +140,7 @@ function deleteGroup(group) {
         data = { ...data, imageUrl: mainImageURL, id: id };
         groups = [...groups, data];
     }
-    setState(groups);
+    return groups;
 }
 
 /**
@@ -223,9 +223,9 @@ async function findGroupById(groupId, setState) {
 }
 
 /**
- * Get group data include image by groupId and set state
+ * Get group data include image by groupId
  * @param {string} groupId 
- * @param {Dispatch<SetStateAction<S>>} setState 
+ * @returns {Array} Group data (include image url)
  */
  async function findGroupByIdIncludeImage(groupId, setState) {
     const group = await userDoc.collection("Group").doc(groupId).get();
@@ -258,12 +258,6 @@ export {
     updateTiccleNumOfGroup,
     updateGroupImage,
     deleteGroup,
-    findAllGroup,
     findAllGroupIncludeImage,
-    findGroupsIncludeImage,
-    checkIsExistingGroup,
-    findGroupById,
     findGroupByIdIncludeImage,
-    checkIsExistingAnyGroup,
-    findBookrmarkGroupsIncludeImage,
 }

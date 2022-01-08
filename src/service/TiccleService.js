@@ -122,12 +122,11 @@ function deleteTiccle(ticcle) {
 }
 
 /**
- * Get ticcle list by group id and Set state
+ * Get ticcle list by group id
  * @param {string} groupId 
- * @param {Dispatch<SetStateAction<S>>} setState 
  * @returns {Array} Ticcle List
  */
-async function findTiccleListByGroupId(groupId, setState) {
+async function findTiccleListByGroupId(groupId) {
     const query = userDoc.collection("Ticcle")
         .where("group", "==", groupId);
     const querySnapshot = await query.get();
@@ -138,27 +137,26 @@ async function findTiccleListByGroupId(groupId, setState) {
         const ticcle = { ...snapshot.data(), id }
         ticcleList = [...ticcleList, ticcle];
     });
-    setState(ticcleList);
+    return ticcleList;
 }
 
 /**
- * Get One Ticcle By Id (DocumentSnapshot.id) and Set state
+ * Get One Ticcle By Id (DocumentSnapshot.id)
  * @param {*} ticcleId 
- * @param {Dispatch<SetStateAction<S>>} setState 
- * @returns {DocumentSnapshot} (of Ticcle doc) if exist, else null
+ * @returns {Array} (of Ticcle doc) if exist, else null
  */
-async function findTiccleById(ticcleId, setState) {
+async function findTiccleById(ticcleId) {
     const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
-    if (ticcle.exists) setState(ticcle.data());
-    else setState([]);
+    if (ticcle.exists) return ticcle.data();
+    else return null;
 }
 
 /**
- * Get images of ticcle and Set state
- * @param {Array} ticcle 
- * @param {Dispatch<SetStateAction<S>>} setState 
+ * Get images of ticcle
+ * @param {Array} ticcle full ticcle info
+ * @returns {Array} ticcle info include image url array
  */
- async function findImagesOfTiccle(ticcle, setState) {
+ async function findImagesOfTiccle(ticcle) {
     var imageURLArr = [];
     const images = ticcle.images;
     if (images) {
@@ -167,12 +165,15 @@ async function findTiccleById(ticcleId, setState) {
             imageURLArr.push(URL);
         }
     }
-    setState({...ticcle, imageUrl: imageURLArr});
+    return {...ticcle, imageUrl: imageURLArr};
 }
 
 export {
     createTiccle,
     uploadNewTiccle,
+    updateTiccleInfo,
+    updateTiccleImage,
+    deleteTiccle,
     findTiccleListByGroupId,
     findTiccleById,
     findImagesOfTiccle,
