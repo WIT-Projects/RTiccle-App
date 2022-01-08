@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Text, Image, ImageBackground, View, StyleSheet } from 'react-native';
 import { type } from '../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
 
-const MarkTiccle = ({ imageUrl, title, ticcleNum }) => {
+const MarkTiccle = ({ groupId, imageUrl, title, ticcleNum }) => {
     const navigateTo = useNavigation();
 
     return (
         <>
-            <View style={styles.container} onTouchEnd={() => { navigateTo.navigate('GroupDetail', { groupId: title }) }}>
+            <View style={styles.container} onTouchEnd={() => { navigateTo.navigate('GroupDetail', { groupId: groupId }) }}>
                 {imageUrl == null ?
                     <ImageBackground
                         source={require('../../../assets/images/bookmarkBlankImage.png')}

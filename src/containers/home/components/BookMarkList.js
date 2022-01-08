@@ -2,21 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { type } from '../../../theme/fonts';
 import MarkTiccle from './MarkTiccle';
-import { findBookrmarkGroupsIncludeImage } from '../../../service/GroupService';
+import useGroupList from '../../../context/hook/useGroupList';
 
 const BookMarkList = () => {
     const [existBookmark, setExistBookmark] = useState(false);
     const [data, setData] = useState([]);
 
+    const { groupList } = useGroupList();
+
     useEffect(() => {
-        if (data === null) {
+        const bookmarkedList = groupList.filter(obj => obj.bookmark == true);
+        if (bookmarkedList.length == 0) {
             setExistBookmark(false);
         } else {
             setExistBookmark(true);
         }
-        findBookrmarkGroupsIncludeImage(setData);
-        console.log(data);
-    }, []);
+        setData(bookmarkedList);
+    }, groupList);
 
     return (
         <>
@@ -27,7 +29,7 @@ const BookMarkList = () => {
             {existBookmark ?
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ marginLeft: 11.5 }}>
                     {data.map((item) => { 
-                        return (<MarkTiccle key={item.id} imageUrl={item.imageUrl} title={item.title} ticcleNum={item.ticcleNum}></MarkTiccle>) 
+                        return (<MarkTiccle key={item.id} groupId={item.groupId} imageUrl={item.imageUrl} title={item.title} ticcleNum={item.ticcleNum}></MarkTiccle>) 
                     })}
                 </ScrollView>
                 :

@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
 
-const TiccleGroup = ({imageUrl, groupTitle, ticcleTitle, ticcleNum}) => {
+const TiccleGroup = ({groupId, imageUrl, groupTitle, ticcleTitle, ticcleNum}) => {
     const navigateTo = useNavigation();
 
     return (
-        <View onTouchEnd={() => { navigateTo.navigate('GroupDetail', {groupId: groupTitle}) }}>
+        <View onTouchEnd={() => { navigateTo.navigate('GroupDetail', {groupId: groupId}) }}>
             <ImageBackground source={{uri:imageUrl}}
                 resizeMode="cover"
                 style={styles.container}>

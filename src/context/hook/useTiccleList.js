@@ -2,15 +2,22 @@ import { useContext } from 'react';
 import AppContext from '../AppContext';
 
 const useTiccleList = () => {
-    const { ticcleList, setTiccleList } = useContext(AppContext);
     var groupId = '';
     function setGroupId(gid) { groupId = gid; }
+    
+    const { 
+        ticcleList, 
+        setTiccleList,
+        setTiccleListAtOne,
+        deleteOneTiccleOfList, } = useContext(AppContext);
 
     return {
-        ticcleList,
-        setTiccleList,
         groupId,
         setGroupId,
+        ticcleList,
+        setTiccleList,
+        setTiccleListAtOne,
+        deleteOneTiccleOfList, 
     };
 };
 

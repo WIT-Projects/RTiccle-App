@@ -3,6 +3,7 @@ import { anonSignIn, googleSigninConfigure, getCurrentUser } from './src/service
 import AppProvider from './src/context/provider/AppProvider';
 import MainStackNavigator from './src/navigation/stack/MainStackNavigator';
 import SplashScreen from 'react-native-splash-screen';
+import { getAllGroupIncludeImages } from './src/model/GroupModel';
 
 function App() {
     useEffect(() => {
@@ -10,7 +11,8 @@ function App() {
         if (getCurrentUser() == null) {
             anonSignIn();
         }
-        SplashScreen.hide()
+        getAllGroupIncludeImages() // init group data
+        .then(SplashScreen.hide())
     }, []);
     
 

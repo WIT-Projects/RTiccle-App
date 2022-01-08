@@ -2,21 +2,18 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import { type } from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
-import { findGroupsIncludeImage, checkIsExistingAnyGroup } from '../../../service/GroupService';
+import useGroupList from '../../../context/hook/useGroupList';
 
 const NewTiccleGroupList = () => {
-    const [isExistGroup, setExistGroup] = useState(false);
+    const [isExistGroup, setIsExistGroup] = useState(false);
     const [data, setData] = useState([]);
 
+    const { groupList } = useGroupList();
+
     useEffect(() => {
-        let getIsExist = checkIsExistingAnyGroup();
-        getIsExist.then((value) => {
-            setExistGroup(value);
-            if(value != 0){
-                findGroupsIncludeImage(10, setData);
-            }
-        });
-    }, []);
+        setIsExistGroup(groupList.length == 0);
+        setData(groupList); // TODO sorting
+    }, groupList);
 
     return (
         <>
@@ -24,7 +21,7 @@ const NewTiccleGroupList = () => {
             {isExistGroup ? 
                 <View style={styles.container} >
                     {data.map((item, index) => {
-                        return (<TiccleGroup key={index} imageUrl={item.imageUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'} ticcleNum={item.ticcleNum}></TiccleGroup>)
+                        return (<TiccleGroup key={index} groupId={item.groupId} imageUrl={item.imageUrl} groupTitle={item.title} ticcleTitle={'ticcleTitle'} ticcleNum={item.ticcleNum}></TiccleGroup>)
                     })}
                 </View> 
                 : <Text>작성된 티끌이 존재하지 않습니다.</Text>

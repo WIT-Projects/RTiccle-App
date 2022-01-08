@@ -4,7 +4,7 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 import useGroupCreate from '../../context/hook/useGroupCreate';
-import {uploadNewGroup} from '../../service/GroupService';
+import { doCreateGroup } from '../../model/GroupModel';
 
 const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();
@@ -14,7 +14,6 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
     const mainImage = groupCreate.mainImage;
 
     const groupCreateFirebase = () => {
-        const groupName = title;
         const newGroup = {
             type: type,
             title: title,
@@ -22,9 +21,7 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
             bookmark: false,
         };
         const imageSource = mainImage;
-        uploadNewGroup(groupName, newGroup, imageSource).then(ref =>
-            console.log(ref),
-        );
+        doCreateGroup(newGroup, imageSource);
         initialGroupCreate();
         navigation.navigate('Home');
     };

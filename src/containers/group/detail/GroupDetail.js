@@ -5,19 +5,20 @@ import GroupInfo from './components/groupInfo';
 import SearchBar from '../../common/SearchBar';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
-import {findTiccleListByGroupId} from '../../../service/TiccleService';
+import { getTiccleListByGId } from '../../../model/TiccleModel';
+import useTiccleList from '../../../context/hook/useTiccleList';
 
 const GroupDetail = ({route, navigation}) => {
-    const [ticcleList, setTiccleList] = useState([]);
+    const { ticcleList } = useTiccleList();
 
     useEffect(() => {
-        //get ticcle List
-        findTiccleListByGroupId(route.params.groupId, setTiccleList);
+        // get/set ticcle List
+        getTiccleListByGId(route.params.groupId);
     }, []);
 
     return (
         <>
-            <GroupInfo title={route.params.groupId} navigation={navigation} />
+            <GroupInfo groupId={route.params.groupId} navigation={navigation} />
             <SearchBar placeholderContext="#태그이름, 티끌이름"></SearchBar>
             {ticcleList.length != 0 ? (
                 <GroupDetailTiccleList ticcleList={ticcleList} />
