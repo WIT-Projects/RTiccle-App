@@ -18,7 +18,7 @@ async function createGroup(newGroup) {
 
 /**
  * Upload new group to firestore (upload image and group)
- * @param {*} groupData: group info
+ * @param {*} group: group info
  * *  {
         type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
@@ -29,13 +29,13 @@ async function createGroup(newGroup) {
  * @param {*} mainImageSource: main image source of group
  * @returns {Array} Group Data
  */
-function uploadNewGroup(groupData, mainImageSource) {
+function uploadNewGroup(group, mainImageSource) {
     var imageName = '';
     if (mainImageSource || mainImageSource != '') {
         imageName = Date.now() + ".jpg";
         uploadImageToStorage(imageName, mainImageSource);
     }
-    return createGroup({ ...groupData, mainImage: imageName, ticcleNum: 0, lastModifiedTime: Date.now() });
+    return createGroup({ ...group, mainImage: imageName, ticcleNum: 0, lastModifiedTime: Date.now() });
 }
 
 /**
