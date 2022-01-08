@@ -13,7 +13,7 @@ const userDoc = firestore().collection('RTiccle').doc(user.uid);
 async function createTiccle(newTiccle) {
     const ref = userDoc.collection("Ticcle"); // using auto id
     const ticcleRef = await ref.add(newTiccle);
-    return ticcleRef.id;
+    return {id: ticcleRef.id, ...newTiccle};
 }
 
 /**
@@ -83,26 +83,26 @@ function updateTiccleInfo(groupId, ticcleId, newInfo, newGroupId) {
  * Update ticcle images
  * @param {string} groupId 
  * @param {string} ticcleId 
- * @param {Array} oldImages old images array // if not exists, put []
+ * @param {Array} images old images array // if not exists, put []
  * @param {string} oldImageName old image name // if not exists, put null
  * @param {*} newImageSource new image source
  * @returns newImageName
  */
-function updateTiccleImage(groupId, ticcleId, oldImages, oldImageName, newImageSource) {
-    var images = [...oldImages];
+function updateTiccleImage(groupId, ticcleId, images, oldImageName, newImageSource) {
+    var newImages = [...images];
     // delete original image first
     if (oldImageName) {
         deleteImageFromStorage(oldImageName, true);
-        let idx = images.indexOf(oldImageName);
-        images.splice(idx, 1);
+        let idx = newImages.indexOf(oldImageName);
+        newImages.splice(idx, 1);
     }
     // upload new image
     newImageName = Date.now() + ".jpg";
     uploadImageToStorage(newImageName, newImageSource);
-    images.push(newImageName);
+    newImages.push(newImageName);
     // update group info
-    updateTiccleInfo(groupId, ticcleId, {images: images});
-    return newImageName;
+    //updateTiccleInfo(groupId, ticcleId, {images: newImages});
+    return newImages;
 }
 
 /**

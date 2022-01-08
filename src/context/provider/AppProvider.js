@@ -171,6 +171,18 @@ const AppProvider = ({children}) => {
         setGroupList(list);
     }
     const [ticcleList, setTiccleList] = useState([]);
+    const setTiccleListAtOne = (targetTId, ticcleData) => {
+        const list = ticcleList;
+        const idx = list.findIndex((obj => obj.id == targetTId));
+        list[idx] = ticcleData;
+        setGroupList(list);
+    }
+    const deleteOneTiccleOfList = targetTId => {
+        const list = ticcleList;
+        const idx = list.findIndex((obj => obj.id == targetTId));
+        list.splice(idx, 1);
+        setGroupList(list);
+    }
 
     return (
         <AppContext.Provider
@@ -208,6 +220,8 @@ const AppProvider = ({children}) => {
                 deleteOneGroupOfList,
                 ticcleList,
                 setTiccleList,
+                setTiccleListAtOne,
+                deleteOneTiccleOfList,
             }}>
             {children}
         </AppContext.Provider>
