@@ -97,13 +97,21 @@ function doDeleteTiccle(ticcleData) {
     deleteOneTiccleOfList(ticcleData.id);
 }
 
+/**
+ * Get ticcle data including image urls
+ * @param {Array} ticcleData full ticcle data
+ * @returns {Array} ticcle data include image url array
+ */
+async function getTiccleIncludeImages(ticcleData) {
+    return await findImagesOfTiccle(ticcleData);
+}
+
 export {
     groupId,
     ticcleList,
-    setTiccleListAtOne,
-    deleteOneTiccleOfList,
     getTiccleListByGId,
     doCreateTiccle,
     doUpdateTiccle,
     doDeleteTiccle,
+    getTiccleIncludeImages,
 }

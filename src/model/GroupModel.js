@@ -88,10 +88,22 @@ function doDeleteGroup(groupData) {
     deleteOneGroupOfList(groupData.id);
 }
 
+/**
+ * check whether a group name exists or not
+ * @param {*} groupTitle 
+ * @returns {boolean} true: existed, false: not existed
+ */
+function checkIsExistingGroup(groupTitle) {
+    const found = groupList.find(g => g.title == groupTitle);
+    if(found == undefined) return false;
+    else return true;
+}
+
 export {
     groupList,
     getAllGroupIncludeImages,
     doCreateGroup,
     doUpdateGroup,
     doDeleteGroup,
+    checkIsExistingGroup,
 }
