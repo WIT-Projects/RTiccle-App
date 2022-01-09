@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     },
     typeList: {
         paddingHorizontal: 55,
+        paddingTop: 110,
     },
     typeLine: {
         flexDirection: 'row',

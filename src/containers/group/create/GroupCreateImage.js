@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 256,
         marginBottom: 128,
+        marginTop: 57,
     },
     headerImageGradation: {
         resizeMode: 'cover',

@@ -120,7 +120,6 @@ const HomeStackNavigatior = () => {
                         backgroundColor: colors.white,
                         height: metrics.topNavigationHeight,
                     },
-                    headerShown: false,
                     title: '그룹 생성',
                     headerTintColor: colors.main,
                     headerTitleAlign: 'center',
