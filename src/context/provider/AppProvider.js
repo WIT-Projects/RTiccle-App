@@ -155,22 +155,9 @@ const AppProvider = ({children}) => {
         });
     };
 
-    // Data Provider
+    // Data Provider [notify]
     const [isGroupChanged, setIsGroupChanged] = useState(false);
-    
-    const [ticcleList, setTiccleList] = useState([]);
-    const setTiccleListAtOne = (targetTId, ticcleData) => {
-        const list = ticcleList;
-        const idx = list.findIndex((obj => obj.id == targetTId));
-        list[idx] = ticcleData;
-        setTiccleList(list);
-    }
-    const deleteOneTiccleOfList = targetTId => {
-        const list = ticcleList;
-        const idx = list.findIndex((obj => obj.id == targetTId));
-        list.splice(idx, 1);
-        setTiccleList(list);
-    }
+    const [isTiccleListChanged, setIsTiccleListChanged] = useState(false);
 
     return (
         <AppContext.Provider
@@ -203,10 +190,8 @@ const AppProvider = ({children}) => {
                 setGroupUpdateImage,
                 isGroupChanged,
                 setIsGroupChanged,
-                ticcleList,
-                setTiccleList,
-                setTiccleListAtOne,
-                deleteOneTiccleOfList,
+                isTiccleListChanged,
+                setIsTiccleListChanged,
             }}>
             {children}
         </AppContext.Provider>

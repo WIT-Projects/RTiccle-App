@@ -1,4 +1,3 @@
-import useTiccleList from "../context/hook/useTiccleList";
 import {
     uploadNewTiccle,
     updateTiccleInfo,
@@ -8,20 +7,33 @@ import {
     findImagesOfTiccle,
 } from "../service/TiccleService";
 
+var groupId = ''; // ticcle list belongs to
+var ticcleList = [];
+function setNewTiccleList(_groupId, _ticcleList){
+    groupId = _groupId;
+    ticcleList = _ticcleList;
+}
+const setTiccleListAtOne = (targetTId, ticcleData) => {
+    const idx = ticcleList.findIndex((obj => obj.id == targetTId));
+    ticcleList[idx] = ticcleData;
+}
+const deleteOneTiccleOfList = targetTId => {
+    const idx = ticcleList.findIndex((obj => obj.id == targetTId));
+    ticcleList.splice(idx, 1);
+}
+
 /**
- * Get ticcle list of one group by groupId and set ticcleList(useTiccleList)
+ * Get ticcle list of one group by groupId and set ticcleList
  * @param {string} groupId 
  */
 async function getTiccleListByGId(groupId) {
     // from server
     const result = await findTiccleListByGroupId(groupId);
-    const { setGroupId, setTiccleList } = useTiccleList();
-    setGroupId(groupId);
-    setTiccleList(result);
+    setNewTiccleList(groupId, result);
 }
 
 /**
- * Upload new ticcle and add to ticcleList(useTiccleList)
+ * Upload new ticcle and add to ticcleList
  * @param {*} ticcleData: ticcle info 
  *  * {
         groupId: group id,
@@ -37,12 +49,11 @@ async function doCreateTiccle(ticcleData, images) {
     const newTiccleInfo = await uploadNewTiccle(ticcleData, images);
 
     // to local data
-    const { ticcleList, setTiccleList } = useTiccleList();
-    setTiccleList([...ticcleList, newTiccleInfo])
+    ticcleList = [...ticcleList, newTiccleInfo];
 }
 
 /**
- * Update ticcle data and add to ticcleList(useTiccleList)
+ * Update ticcle data and add to ticcleList
  * @param {string} groupId: original group id ticcle belong to
  * @param {string} ticcleId
  * @param {Array} newInfo: new ticcle info (CHANGED INFO ONLY) (NO IMAGES)
@@ -70,13 +81,12 @@ function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, images, ol
     updateTiccleInfo(groupId, ticcleId, info);
 
     // to local data
-    const { ticcleList, setTiccleListAtOne } = useTiccleList();
     const oldInfo = ticcleList.find(t => t.id == ticcleId)
-    setTiccleListAtOne(ticcleId, {...oldInfo, info})
+    setTiccleListAtOne(ticcleId, {...oldInfo, ...info})
 }
 
 /**
- * Delete one ticcle add apply to ticcleList(useTiccleList)
+ * Delete one ticcle add apply to ticcleList
  * @param {Array} ticcleData 
  */
 function doDeleteTiccle(ticcleData) {
@@ -84,11 +94,14 @@ function doDeleteTiccle(ticcleData) {
     deleteTiccle(ticcleData);
 
     // to local data
-    const { deleteOneTiccleOfList } = useTiccleList();
     deleteOneTiccleOfList(ticcleData.id);
 }
 
 export {
+    groupId,
+    ticcleList,
+    setTiccleListAtOne,
+    deleteOneTiccleOfList,
     getTiccleListByGId,
     doCreateTiccle,
     doUpdateTiccle,
