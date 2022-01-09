@@ -16,7 +16,7 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
 
     const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
 
-    const groupCreateFirebase = () => {
+    const groupCreateFirebase = async () => {
         const newGroup = {
             type: type,
             title: title,
@@ -24,7 +24,7 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
             bookmark: false,
         };
         const imageSource = mainImage;
-        doCreateGroup(newGroup, imageSource);
+        await doCreateGroup(newGroup, imageSource);
         console.log('before', isGroupChanged) // temp
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
         console.log('after', isGroupChanged) // temp

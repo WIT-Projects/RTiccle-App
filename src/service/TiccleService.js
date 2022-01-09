@@ -100,10 +100,10 @@ function updateTiccleImage(images, oldImageName, newImageSource) {
  */
 function deleteTiccle(ticcle) {
     // delete images
-    if (group.images.length > 0) {
-        group.images.forEach((imageName) => deleteImageFromStorage(imageName, true));
+    if (ticcle.images.length > 0) {
+        ticcle.images.forEach((imageName) => deleteImageFromStorage(imageName, true));
     }
-    // delete group info
+    // delete ticcle info
     const ref = userDoc.collection("Ticcle").doc(ticcle.id);
     ref.delete();
     // update group info (ticcleNum - 1)

@@ -12,29 +12,26 @@ import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
 import {useNavigation} from '@react-navigation/native';
 import { doUpdateGroup, } from '../../../../model/GroupModel';
-import { groupList } from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
 
-const GroupInfo = ({groupId, navigation}) => {
+const GroupInfo = ({ groupData, navigation}) => {
     const navigateTo = useNavigation();
-    const [groupData, setGroupData] = useState([]);
     const [isBookmark, setIsBookmark] = useState(false);
 
-    const { isGroupChanged } = useGroupChanged();
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
 
     function setFirebaseBookmark() {
         if (isBookmark == true) {
             setIsBookmark(false);
-            doUpdateGroup(groupId, {bookmark: false}, false);
+            doUpdateGroup(groupData.id, {bookmark: false}, false);
         } else {
             setIsBookmark(true);
-            doUpdateGroup(groupId, {bookmark: true}, false);
+            doUpdateGroup(groupData.id, {bookmark: true}, false);
         }
+        setIsGroupChanged(!isGroupChanged); // notify groupData changed
     }
 
     useEffect(() => {
-        const group = groupList.find(obj => obj.id == groupId)
-        setGroupData(group);
         setIsBookmark(groupData.bookmark);
     }, [isGroupChanged]);
 
@@ -62,7 +59,6 @@ const GroupInfo = ({groupId, navigation}) => {
                                 <TouchableOpacity
                                     onPress={() =>
                                         navigation.navigate('GroupUpdate', {
-                                            groupId: groupId,
                                             groupData: groupData,
                                         })
                                     }>

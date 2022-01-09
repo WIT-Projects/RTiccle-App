@@ -73,7 +73,7 @@ function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImag
 
     // to local data
     const oldInfo = groupList.find(g => g.id == groupId);
-    setGroupListAtOne(groupId, {...oldInfo, info});
+    setGroupListAtOne(groupId, {...oldInfo, ...info});
 }
 
 /**

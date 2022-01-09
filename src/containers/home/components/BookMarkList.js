@@ -30,7 +30,7 @@ const BookMarkList = () => {
             {existBookmark ?
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ marginLeft: 11.5 }}>
                     {data.map((item) => { 
-                        return (<MarkTiccle key={item.id} groupId={item.groupId} imageUrl={item.imageUrl} title={item.title} ticcleNum={item.ticcleNum}></MarkTiccle>) 
+                        return (<MarkTiccle key={item.id} groupData={item}></MarkTiccle>) 
                     })}
                 </ScrollView>
                 :

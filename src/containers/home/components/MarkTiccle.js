@@ -3,13 +3,13 @@ import { Text, Image, ImageBackground, View, StyleSheet } from 'react-native';
 import { type } from '../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
 
-const MarkTiccle = ({ groupId, imageUrl, title, ticcleNum }) => {
+const MarkTiccle = ({ groupData }) => {
     const navigateTo = useNavigation();
 
     return (
         <>
-            <View style={styles.container} onTouchEnd={() => { navigateTo.navigate('GroupDetail', { groupId: groupId }) }}>
-                {imageUrl == null ?
+            <View style={styles.container} onTouchEnd={() => { navigateTo.navigate('GroupDetail', { groupData: groupData }) }}>
+                {groupData.imageUrl == null ?
                     <ImageBackground
                         source={require('../../../assets/images/bookmarkBlankImage.png')}
                         resizeMode="cover"
@@ -17,15 +17,15 @@ const MarkTiccle = ({ groupId, imageUrl, title, ticcleNum }) => {
                         <Image style={styles.icon} source={require('../../../assets/icon/bookMark.png')}></Image>
                     </ImageBackground> :
                     <ImageBackground
-                        source={{ uri: imageUrl }}
+                        source={{ uri: groupData.imageUrl }}
                         resizeMode="cover"
                         style={{ width: 194, height: 111, flex: 1 }}>
                         <Image style={styles.icon} source={require('../../../assets/icon/bookMark.png')}></Image>
                     </ImageBackground>
                 }
 
-                <Text style={styles.blackRegularFont}>{title}</Text>
-                <Text style={styles.blackBoldFont}>총 {ticcleNum}개</Text>
+                <Text style={styles.blackRegularFont}>{groupData.title}</Text>
+                <Text style={styles.blackBoldFont}>총 {groupData.ticcleNum}개</Text>
             </View>
         </>
     );

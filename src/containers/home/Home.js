@@ -11,9 +11,9 @@ const Home = ({navigation}) => {
 
     const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
     
-    useEffect(() => {
-        getAllGroupIncludeImages(); // init group data
-        setIsGroupChanged(!isGroupChanged);
+    useEffect(async () => {
+        getAllGroupIncludeImages() // init group data
+        .then(await setIsGroupChanged(!isGroupChanged));
     }, [])
 
     return (
