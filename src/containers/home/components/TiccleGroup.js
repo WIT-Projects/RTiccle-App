@@ -1,25 +1,25 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
 
-const TiccleGroup = ({imageUrl, groupTitle, ticcleTitle, ticcleNum}) => {
+const TiccleGroup = ({ groupData }) => {
     const navigateTo = useNavigation();
 
     return (
-        <View onTouchEnd={() => { navigateTo.navigate('GroupDetail', {groupId: groupTitle}) }}>
-            <ImageBackground source={{uri:imageUrl}}
+        <View onTouchEnd={() => { navigateTo.navigate('GroupDetail', { groupData: groupData }) }}>
+            <ImageBackground source={{uri: groupData.imageUrl}}
                 resizeMode="cover"
                 style={styles.container}>
                     <ImageBackground source={require('../../../assets/images/gradation.png')}
                         resizeMode="cover"
                         style={styles.container}>
                             <View style={styles.container3}>
-                                <Text style={styles.subFont}>{groupTitle}</Text>
+                                <Text style={styles.subFont}>{groupData.title}</Text>
                                 <Text style={styles.whiteFont}>최신글</Text>
-                                <Text style={styles.whiteFont}>{ticcleTitle}</Text>
-                                <View style={styles.container2}><Text style={styles.blackFont}>+{ticcleNum}</Text></View>
+                                <Text style={styles.whiteFont}>{groupData.latestTiccleTitle}</Text>
+                                <View style={styles.container2}><Text style={styles.blackFont}>+{groupData.ticcleNum}</Text></View>
                             </View>
                     </ImageBackground>
             </ImageBackground>

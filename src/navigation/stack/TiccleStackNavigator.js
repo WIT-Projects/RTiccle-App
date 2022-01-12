@@ -6,7 +6,7 @@ import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 import TiccleCreate from '../../containers/ticcle/create/TiccleCreate';
 import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
-import { uploadNewTiccle } from '../../service/TiccleService';
+import { doCreateTiccle } from '../../model/TiccleModel';
 
 const TiccleStack = createStackNavigator();
 
@@ -49,8 +49,7 @@ const TiccleStackNavigator = () => {
                 <TouchableOpacity style={styles.headerRightTouchable}
                 disabled={saveButtonDisable}
                 onPress={ () => {
-                    setTiccleDate()
-                    uploadNewTiccle(ticcle, ticcle.images);
+                    doCreateTiccle(ticcle, ticcle.images);
                     console.log(ticcle)
                     navigation.navigate('TiccleDetail')
                 }}>

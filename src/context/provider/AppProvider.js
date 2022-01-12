@@ -1,7 +1,5 @@
-import React from 'react';
-import {useState} from 'react/cjs/react.development';
+import React, {useState} from 'react';
 import AppContext from '../AppContext';
-import uuid from 'react-native-uuid';
 import {FBDate} from '../../service/CommonService';
 
 const AppProvider = ({children}) => {
@@ -157,6 +155,10 @@ const AppProvider = ({children}) => {
         });
     };
 
+    // Data Provider [notify]
+    const [isGroupChanged, setIsGroupChanged] = useState(false);
+    const [isTiccleListChanged, setIsTiccleListChanged] = useState(false);
+
     return (
         <AppContext.Provider
             value={{
@@ -186,6 +188,10 @@ const AppProvider = ({children}) => {
                 setGroupUpdateTitle,
                 setGroupUpdateDescription,
                 setGroupUpdateImage,
+                isGroupChanged,
+                setIsGroupChanged,
+                isTiccleListChanged,
+                setIsTiccleListChanged,
             }}>
             {children}
         </AppContext.Provider>

@@ -4,13 +4,12 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
-import {
-    updateGroupInfo,
-    updateGroupImage,
-} from '../../../../service/GroupService';
+import useGroupChanged from '../../../../context/hook/useGroupChanged';
+import { doUpdateGroup } from '../../../../model/GroupModel';
 
 const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const {groupUpdate, initialGroupUpdate} = useGroupUpdate();
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
 
     const groupUpdateFirebase = () => {
         let newInfo = [];
@@ -24,14 +23,15 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
         if (groupUpdate.imageUrl != initialData.imageUrl)
             image = groupUpdate.imageUrl;
 
-        const groupId = initialData.title;
-        const oldImageName = initialData.mainImage;
-        const newImageSource = image;
-
+        const groupId = initialData.id;
         try {
-            updateGroupInfo(groupId, newInfo);
-            if (image != '')
-                updateGroupImage(groupId, oldImageName, newImageSource);
+            if (image != '') {
+                const oldImageName = initialData.mainImage;
+                const newImageSource = image;
+                doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource);
+            }
+            else doUpdateGroup(groupId, newInfo, false);
+            setIsGroupChanged(!isGroupChanged); // notify groupData changed
             initialGroupUpdate();
             navigation.goBack();
         } catch (error) {
