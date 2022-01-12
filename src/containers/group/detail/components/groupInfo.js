@@ -1,41 +1,94 @@
-import React from 'react';
-import { StyleSheet, Text, ImageBackground, View, Image } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {
+    StyleSheet,
+    Text,
+    ImageBackground,
+    View,
+    Image,
+    TouchableOpacity,
+} from 'react-native';
 import colors from '../../../../theme/colors';
-import { type } from '../../../../theme/fonts';
+import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import { doUpdateGroup, } from '../../../../model/GroupModel';
+import useGroupChanged from '../../../../context/hook/useGroupChanged';
 
-const GroupInfo = ({ title, imgUrl, content }) => {
+const GroupInfo = ({ groupData, navigation}) => {
     const navigateTo = useNavigation();
+    const [isBookmark, setIsBookmark] = useState(false);
+
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
+
+    function setFirebaseBookmark() {
+        if (isBookmark == true) {
+            setIsBookmark(false);
+            doUpdateGroup(groupData.id, {bookmark: false}, false);
+        } else {
+            setIsBookmark(true);
+            doUpdateGroup(groupData.id, {bookmark: true}, false);
+        }
+        setIsGroupChanged(!isGroupChanged); // notify groupData changed
+    }
+
+    useEffect(() => {
+        setIsBookmark(groupData.bookmark);
+    }, [isGroupChanged]);
 
     return (
         <>
-            <ImageBackground source={{ uri: imgUrl }}
+            <ImageBackground
+                source={{uri: groupData.imageUrl}}
                 resizeMode="cover"
                 style={styles.container5}>
-                <ImageBackground source={require('../../../../assets/images/gradation2.png')}
+                <ImageBackground
+                    source={require('../../../../assets/images/gradation2.png')}
                     resizeMode="cover"
                     style={styles.container5}>
-                    <Image style={styles.backBtn}
-                        onTouchEnd={() => { navigateTo.navigate('Home') }}
-                        source={require('../../../../assets/icon/backWhite.png')} />
+                    <Image
+                        style={styles.backBtn}
+                        onTouchEnd={() => {
+                            navigateTo.navigate('Home');
+                        }}
+                        source={require('../../../../assets/icon/backWhite.png')}
+                    />
                     <View style={styles.container}>
                         <View style={styles.container2}>
                             <View style={styles.container3}>
-                                <Text style={styles.title}>{title}</Text>
-                                <Image style={styles.pencil} source={require('../../../../assets/icon/pencil.png')}></Image>
+                                <Text style={styles.title}>{groupData.title}</Text>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        navigation.navigate('GroupUpdate', {
+                                            groupData: groupData,
+                                        })
+                                    }>
+                                    <Image
+                                        style={styles.pencil}
+                                        source={require('../../../../assets/icon/pencil.png')}></Image>
+                                </TouchableOpacity>
                             </View>
                             <View style={styles.container4}>
-                                <Text style={styles.content}>{content}</Text>
-                                <Image style={styles.star} source={require('../../../../assets/icon/star.png')}></Image>
+                                <Text style={styles.content}>
+                                    {groupData.description}
+                                </Text>
+                                <Image
+                                    style={styles.star}
+                                    onTouchEnd={() => {
+                                        setFirebaseBookmark();
+                                    }}
+                                    source={
+                                        isBookmark
+                                            ? require('../../../../assets/icon/bookMark.png')
+                                            : require('../../../../assets/icon/star.png')
+                                    }></Image>
                             </View>
                         </View>
                     </View>
                 </ImageBackground>
             </ImageBackground>
         </>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -58,7 +111,7 @@ const styles = StyleSheet.create({
         paddingRight: 18,
     },
     container5: {
-        width: "100%",
+        width: '100%',
         height: 256,
     },
     pencil: {
@@ -88,7 +141,7 @@ const styles = StyleSheet.create({
         height: 16,
         marginLeft: 18,
         marginTop: 21,
-    }
-})
+    },
+});
 
 export default GroupInfo;

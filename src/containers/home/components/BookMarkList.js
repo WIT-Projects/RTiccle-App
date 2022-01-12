@@ -1,35 +1,25 @@
-import React from 'react';
-import {Text, View, ScrollView,  StyleSheet} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { type } from '../../../theme/fonts';
 import MarkTiccle from './MarkTiccle';
+import { groupList } from '../../../model/GroupModel';
+import useGroupChanged from '../../../context/hook/useGroupChanged';
 
 const BookMarkList = () => {
-    const data = [
-        {
-            id: 1,
-            imgUrl: "https://media.vlpt.us/post-images/dus532/00b845f0-0205-11ea-9e8d-41441020e13b/uiux2x.png",
-            title: "UX/UI 알아두면 좋은 내용",
-            count: 180,
-        },
-        {
-            id: 2,
-            imgUrl: "https://media.vlpt.us/post-images/dus532/00b845f0-0205-11ea-9e8d-41441020e13b/uiux2x.png",
-            title: "UX/UI 포트폴리오",
-            count: 180,
-        },
-        {
-            id: 3,
-            imgUrl: "https://media.vlpt.us/post-images/dus532/00b845f0-0205-11ea-9e8d-41441020e13b/uiux2x.png",
-            title: "UX/UI 앱 웹",
-            count: 180,
-        },
-        {
-            id: 4,
-            imgUrl: "https://media.vlpt.us/post-images/dus532/00b845f0-0205-11ea-9e8d-41441020e13b/uiux2x.png",
-            title: "브랜딩 로고 만들기",
-            count: 180,
-        },
-    ]
+    const [existBookmark, setExistBookmark] = useState(false);
+    const [data, setData] = useState([]);
+
+    const { isGroupChanged } = useGroupChanged();
+
+    useEffect(() => {
+        const bookmarkedList = groupList.filter(obj => obj.bookmark == true);
+        if (bookmarkedList.length == 0) {
+            setExistBookmark(false);
+        } else {
+            setExistBookmark(true);
+        }
+        setData(bookmarkedList);
+    }, [isGroupChanged]);
 
     return (
         <>
@@ -37,29 +27,34 @@ const BookMarkList = () => {
                 <Text style={styles.blackBoldFont}>즐겨찾기</Text>
                 <Text style={styles.blackRegularFont}>자주 열어보는 그룹이에요</Text>
             </View>
-            <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{marginLeft: 11.5}}>
-                {data.map((item) => {return (<MarkTiccle key={item.id} imgUrl={item.imgUrl} title={item.title} count={item.count}></MarkTiccle>)})}
-            </ScrollView>
+            {existBookmark ?
+                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ marginLeft: 11.5 }}>
+                    {data.map((item) => { 
+                        return (<MarkTiccle key={item.id} groupData={item}></MarkTiccle>) 
+                    })}
+                </ScrollView>
+                :
+                <Text>즐겨찾기한 그룹이 존재하지 않습니다.</Text>
+            }
         </>
     );
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         marginTop: 36,
         marginHorizontal: 18,
         marginBottom: 10,
     },
-    blackBoldFont:{
-        fontFamily : type.spoqaHanSansNeo_Bold,
-        fontSize : 18,
+    blackBoldFont: {
+        fontFamily: type.spoqaHanSansNeo_Bold,
+        fontSize: 18,
     },
-    blackRegularFont:{
-        fontFamily : type.spoqaHanSansNeo_Regular,
-        fontSize : 12,
+    blackRegularFont: {
+        fontFamily: type.spoqaHanSansNeo_Regular,
+        fontSize: 12,
         marginTop: 6,
     },
 })
-
 
 export default BookMarkList;

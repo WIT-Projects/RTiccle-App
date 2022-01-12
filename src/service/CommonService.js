@@ -1,5 +1,4 @@
-import firestore from '@react-native-firebase/firestore';
-
+/* deprecated */
 /**
  * Return firebase firestore timestamp of now
  * @returns {FirebaseFirestoreTypes.Timestamp}
@@ -10,11 +9,11 @@ function FBDate() {
 
 /**
  * Convert firebase firestore timestamp to YY.MM.DD format date
- * @param {FirebaseFirestoreTypes.Timestamp} FBDate
+ * @param {number} timeStamp
  * @returns {string} YY.MM.DD
  */
-function FBDateToFormatDate(FBDate) {
-    let date = FBDate.toDate();
+function timeStampToFormatDate(timeStamp) {
+    let date = new Date(timeStamp);
     let year = date.getFullYear().toString().substr(-2);
     let month = date.getMonth() + 1;
     let day = date.getDate();
@@ -23,6 +22,5 @@ function FBDateToFormatDate(FBDate) {
 }
 
 export {
-    FBDate,
-    FBDateToFormatDate,
+    timeStampToFormatDate,
 }

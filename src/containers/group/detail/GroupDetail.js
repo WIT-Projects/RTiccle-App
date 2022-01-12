@@ -1,36 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 
 import GroupInfo from './components/groupInfo';
-import Search from './components/search';
+import SearchBar from '../../common/SearchBar';
 import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
-import { findTiccleListByGroupId } from '../../../service/TiccleService';
-import { findGroupByIdIncludeImage } from '../../../service/GroupService';
+import useTiccleChanged from '../../../context/hook/useTiccleChanged';
+import { getTiccleListByGId } from '../../../model/TiccleModel';
+import { ticcleList } from '../../../model/TiccleModel';
 
-const GroupDetail = ({ route }) => {
-    const [groupData, setGroupData] = useState([]);
-    const [ticcleList, setTiccleList] = useState([]);
+const GroupDetail = ({route, navigation}) => {
+    const { isTiccleListChanged, setIsTiccleListChanged } = useTiccleChanged();
+
+    const [list, setList] = useState([]);
+    
+    useEffect(() => {
+        // get/set ticcle List
+        getTiccleListByGId(route.params.groupData.id)
+        .then(() => {
+            setList(ticcleList);
+            setIsTiccleListChanged(!isTiccleListChanged); // notify ticcle changed
+        });
+    }, []);
 
     useEffect(() => {
-        // get group data
-        findGroupByIdIncludeImage(route.params.groupId, setGroupData);
-        //get ticcle List
-        findTiccleListByGroupId(route.params.groupId, setTiccleList);
-    }, []);
+        setList(ticcleList); // update list
+    }, [isTiccleListChanged])
 
     return (
         <>
-            <GroupInfo title={route.params.groupId} imgUrl={groupData.imageUrl} content={groupData.description} />
-            <Search></Search>
-            {ticcleList.length != 0 ? <GroupDetailTiccleList ticcleList={ticcleList} /> : <ZeroTiccle />}
+            <GroupInfo groupData={route.params.groupData} navigation={navigation} />
+            <SearchBar placeholderContext="#태그이름, 티끌이름"></SearchBar>
+            {route.params.groupData.ticcleNum != 0 ? (
+                <GroupDetailTiccleList ticcleList={list} />
+            ) : (
+                <ZeroTiccle />
+            )}
             {/* Floating Button */}
-            <TouchableOpacity activeOpacity={0.5} style={styles.touchableOpacityStyle} >
-                <Image source={require('../../../assets/icon/make.png')} style={styles.floatingButtonStyle} />
+            <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.touchableOpacityStyle}>
+                <Image
+                    source={require('../../../assets/icon/make.png')}
+                    style={styles.floatingButtonStyle}
+                />
             </TouchableOpacity>
         </>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     // Floating button css
@@ -48,6 +65,6 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
     },
-})
+});
 
 export default GroupDetail;
