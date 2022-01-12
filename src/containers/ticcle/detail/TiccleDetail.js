@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import colors from '../../../theme/colors';
 import TiccleDetailInfo from './components/TiccleDetailInfo';

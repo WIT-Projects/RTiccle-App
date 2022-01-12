@@ -1,11 +1,14 @@
 import React, {useState } from 'react';
 import { TouchableOpacity,Image, StyleSheet, View } from 'react-native';
-import colors from '../../../../theme/colors';
-import CustomModal from '../../../common/CustomModal';
+import colors from '../../../../../theme/colors';
+import CustomModal from '../../../../common/CustomModal'
+import TiccleCreateImageExpansion from './TiccleCreateImageExpansion';
 
 const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imagePath}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
+    const [imageExpansion, setImageExpansion] = useState(false)
+
     const modalTitle = "사진을 삭제하시겠습니까?"
     const modalLeftButton = "뒤로가기"
     const modalRightButton = "삭제"
@@ -17,15 +20,16 @@ const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imagePath}) => {
         <View style={styles.container}>
             <CustomModal title={modalTitle} leftButton={modalLeftButton} rightButton={modalRightButton}
             isModalVisible={deleteModal} setModalVisible={setDeleteModal} rightButtonFunction={deleteTiccleImage}/>
+            <TiccleCreateImageExpansion isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePath}/>
             <TouchableOpacity
-                style={styles.touchableConatiner} onPress={photoModalVisibleTrue}
-                disabled={imagePath ? true : false}>
+                style={styles.touchableConatiner} onPress={() => setImageExpansion(true)}
+                activeOpacity={1}>
                 <Image style={styles.image} source={{uri : imagePath}} />            
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={styles.xButtonContainer} onPress={()=>setDeleteModal(true)} activeOpacity={0.75}>
-                <Image source={require('../../../../assets/images/x_circle_sub.png')} style={styles.xButton} />
+                <Image source={require('../../../../../assets/images/x_circle_sub.png')} style={styles.xButton} />
             </TouchableOpacity>
         </View>
 

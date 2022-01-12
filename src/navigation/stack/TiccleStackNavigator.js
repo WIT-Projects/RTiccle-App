@@ -15,6 +15,7 @@ const TiccleStackNavigator = () => {
     const {ticcle, setTiccleDate} = UseTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
 
+
     useEffect(() => {
         (ticcle.title && ticcle.content) ? setSaveButtonDisable(false) : setSaveButtonDisable(true);
     },[ticcle.title, ticcle.content])
@@ -49,9 +50,12 @@ const TiccleStackNavigator = () => {
                 <TouchableOpacity style={styles.headerRightTouchable}
                 disabled={saveButtonDisable}
                 onPress={ () => {
+
                     doCreateTiccle(ticcle, ticcle.images);
+
                     console.log(ticcle)
                     navigation.navigate('TiccleDetail')
+                    uploadNewTiccle(ticcle, ticcle.images)
                 }}>
                     <Text style={saveButtonDisable ? styles.headerRightTextDisable : styles.headerRightText}>저장</Text>
                 </TouchableOpacity>

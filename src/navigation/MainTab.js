@@ -47,6 +47,7 @@ const MainTab = () => {
                     title: '마이페이지',
                 }}
             />
+
         </Tab.Navigator>
     );
 };

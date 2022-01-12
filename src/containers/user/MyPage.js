@@ -11,6 +11,7 @@ const MyPage = () => {
 // function MyPageScreen( {navigation}) {
     const [isGuest, setIsGuest] = useState(true);
 
+
     // Handle user state changes
     function onAuthStateChanged(user) {
         setIsGuest(user.isAnonymous);
@@ -18,6 +19,7 @@ const MyPage = () => {
     useEffect(() => {
         auth().onAuthStateChanged(onAuthStateChanged); // init listener
     }, []);
+
 
     return (
         <View style={styles.container}>

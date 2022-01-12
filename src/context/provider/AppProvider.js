@@ -14,6 +14,11 @@ const AppProvider = ({children}) => {
         images: [],
     });
 
+    const setTiccleGroup = text => {
+        setTiccle(state => {
+            return{...state, group: text};
+        })
+    };
     const setTiccleTitle = text => {
         setTiccle(state => {
             return {...state, title: text};
@@ -29,7 +34,9 @@ const AppProvider = ({children}) => {
         setTiccle(state => {
             return {...state, lastModifiedTime: today};
         });
+
         console.log(ticcle);
+
     };
     const setTiccleTagList = tag => {
         if (tag == '') return; // 비어있을 경우
@@ -40,11 +47,13 @@ const AppProvider = ({children}) => {
     };
     const deleteTiccleTagList = tag => {
         setTiccle(state => {
+
             return {
                 ...state,
                 tagList: tagList.filter(tagList => tagList !== tag),
             };
         });
+
     };
     const setTiccleContent = text => {
         setTiccle(state => {
@@ -164,9 +173,11 @@ const AppProvider = ({children}) => {
             value={{
                 ticcle,
                 setTiccle,
+                setTiccleGroup,
                 setTiccleTitle,
                 setTiccleLink,
                 setTiccleTagList,
+                deleteTiccleTagList,
                 setTiccleContent,
                 setTiccleImages,
                 initialTiccle,

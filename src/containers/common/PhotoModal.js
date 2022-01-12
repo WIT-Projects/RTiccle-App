@@ -74,8 +74,12 @@ const PhotoModal = ({
         <Modal
             isVisible={isModalVisible}
             onBackdropPress={() => setModalVisible(false)}
-            backdropOpacity={0.8}
-            style={styles.modal}>
+            backdropOpacity={0.5}
+            style={styles.modal}
+            animationIn={'fadeIn'}
+            animationOut={'fadeOut'}
+            backdropTransitionInTiming={0}
+            hideModalContentWhileAnimating={true}>
             <View style={styles.modalView}>
                 <TouchableOpacity onPress={takePhotoFromCamera}>
                     <Text style={styles.modalText}>사진 촬영</Text>
