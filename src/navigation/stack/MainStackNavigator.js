@@ -46,7 +46,7 @@ const MainStackNavigator = () => {
                             <TouchableOpacity
                                 style={styles.headerLeftTouchable}
                                 onPress={() => {
-                                    navigation.navigate('Home');
+                                    navigation.navigate('HomeStack');
                                     console.log(ticcle);
                                     initialTiccle();
                                 }}>

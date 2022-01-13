@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import colors from "../../../../../../theme/colors";
 import { type } from "../../../../../../theme/fonts";
 
-const GroupCreateModalTitle = ({initialTypeTitle, setModalVisible}) => {
+const GroupCreateModalTitle = ({initialTitle, setModalVisible}) => {
     const title = '빠른 그룹 생성';
     return(
         <View style={styles.titleContainer}>
@@ -12,7 +12,7 @@ const GroupCreateModalTitle = ({initialTypeTitle, setModalVisible}) => {
                 <TouchableOpacity style={styles.xButtonTouchable}
                     onPress={() => {
                         setModalVisible(false)
-                        initialTypeTitle()
+                        initialTitle()
                         }}>
                     <Image source={require('../../../../../../assets/images/x_button.png')} style={styles.image}/>
                 </TouchableOpacity>

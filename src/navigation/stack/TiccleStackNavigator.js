@@ -40,7 +40,7 @@ const TiccleStackNavigator = () => {
                 lineHeight : 24,
             },
             headerLeft : () => (
-                <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity style={styles.headerLeftTouchable} onPress={() => navigation.navigate('HomeStack')}>
                     <Image source={require('../../assets/images/chevron_left.png')}
                         style={styles.headerLeftImage}
                     />
@@ -50,12 +50,9 @@ const TiccleStackNavigator = () => {
                 <TouchableOpacity style={styles.headerRightTouchable}
                 disabled={saveButtonDisable}
                 onPress={ () => {
-
                     doCreateTiccle(ticcle, ticcle.images);
-
                     console.log(ticcle)
                     navigation.navigate('TiccleDetail')
-                    uploadNewTiccle(ticcle, ticcle.images)
                 }}>
                     <Text style={saveButtonDisable ? styles.headerRightTextDisable : styles.headerRightText}>저장</Text>
                 </TouchableOpacity>

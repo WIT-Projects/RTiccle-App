@@ -2,16 +2,25 @@ import React,{useState,useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import colors from '../../../../../theme/colors';
-import { checkIsExistingAnyGroup, findAllGroup } from '../../../../../service/GroupService';
 import GroupCreateModal from './GroupCreateModal';
 import GroupListModalTitle from './list/GroupListModalTitle';
 import GroupListModalGroupList from './list/GroupListModalGroupList';
 import GroupListModalCreateButton from './list/GroupListModalCreateButton';
+import { groupList } from '../../../../../model/GroupModel';
+import useGroupChanged from '../../../../../context/hook/useGroupChanged';
 
 const GroupListModal = ({isModalVisible, setModalVisible, ticcle ,setTiccleGroup}) => {
     const [groupCreateModalVisible, setGroupCreateModalVisible] = useState(false)
-    const [groupList, setGroupList] = useState([]);
+    const [groupData, setGroupData] = useState([]);
     const [isExistGroup, setExistGroup] = useState(false);
+
+    const { isGroupChanged } = useGroupChanged();
+
+    useEffect(() => {
+        setExistGroup(groupList.length != 0);
+        setGroupData(groupList); // TODO sorting
+    }, [isGroupChanged]);
+
 
     return(
         <Modal
@@ -29,7 +38,7 @@ const GroupListModal = ({isModalVisible, setModalVisible, ticcle ,setTiccleGroup
             {/* View */}
             <View style={styles.container}>
                 <GroupListModalTitle setModalVisible={setModalVisible}/>
-                <GroupListModalGroupList groupList = {groupList} setModalVisible={setModalVisible} 
+                <GroupListModalGroupList groupData = {groupData} setModalVisible={setModalVisible} 
                     isExistGroup = {isExistGroup}  setTiccleGroup={setTiccleGroup} ticcleGroup={ticcle.group}/>
             </View>
             <GroupListModalCreateButton setGroupCreateModalVisible={setGroupCreateModalVisible}/>

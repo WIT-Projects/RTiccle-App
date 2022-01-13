@@ -3,15 +3,15 @@ import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import colors from '../../../../../../theme/colors';
 import { type } from '../../../../../../theme/fonts';
 
-const GroupCreateModalButton = ({buttonDisable, fastUploadNewGroup, initialTypeTitle, setModalVisible}) => {
+const GroupCreateModalButton = ({buttonDisable, fastGroupCreateFirebase, initialTitle, setModalVisible}) => {
 
     return(
         <View style={styles.createTouchableContainer}>
             <TouchableOpacity disabled={buttonDisable} 
             style={[styles.createTouchable, buttonDisable ? styles.createTouchableDisable : styles.createTouchableAble]}
             onPress={() => {
-                fastUploadNewGroup()
-                initialTypeTitle()
+                fastGroupCreateFirebase()
+                initialTitle()
                 setModalVisible(false)
             }}>
                 <Text style={[styles.createText, buttonDisable ? styles.createTextColorDisable : styles.createTextColor]}>

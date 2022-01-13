@@ -6,7 +6,7 @@ import { type } from "../../../../../../theme/fonts";
 const groupCotainerHeight = 48;
 const groupNumberInScroll = 8;
 
-const GroupListModalGroupList = ({groupList, setModalVisible, isExistGroup, setTiccleGroup , ticcleGroup}) => {
+const GroupListModalGroupList = ({groupData, setModalVisible, isExistGroup, setTiccleGroup , ticcleGroup}) => {
 
     const isSelectedGroup = group => {
         if(ticcleGroup === group) return true;
@@ -17,19 +17,19 @@ const GroupListModalGroupList = ({groupList, setModalVisible, isExistGroup, setT
         <View style={styles.groupListViewConatiner}>
             {isExistGroup ? 
             <ScrollView style={styles.scrollView}>
-                {groupList.map((group, index) => (
+                {groupData.map((group, index) => (
                 <Pressable key={index}
                     style={({ pressed }) => [
                     styles.groupNameContainer,
-                    isSelectedGroup(group.id)|| pressed ? styles.isSelected : styles.isUnSelected,
+                    isSelectedGroup(group.title)|| pressed ? styles.isSelected : styles.isUnSelected,
                     ]}
                     onPress={() => {
-                    setTiccleGroup(group.id)
+                    setTiccleGroup(group.title)
                     setModalVisible(false)
                     }}
-                    disabled={isSelectedGroup(group.id)}
+                    disabled={isSelectedGroup(group.title)}
                 >                            
-                    <Text style={styles.groupNameText}>{group.id}</Text>
+                    <Text style={styles.groupNameText}>{group.title}</Text>
                 </Pressable>
                 ))}
             </ScrollView>

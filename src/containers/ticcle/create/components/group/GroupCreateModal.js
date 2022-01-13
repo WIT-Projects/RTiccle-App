@@ -4,38 +4,38 @@ import Modal from 'react-native-modal';
 import colors from "../../../../../theme/colors";
 import GroupCreateModalTitle from "./create/GroupCreateModalTitle";
 import GroupCreateModalTextInput from "./create/GroupCreateModalTextInput";
-import GroupCreateModalGroupType from "./create/GroupCreateModalGroupType";
 import GroupCreateModalButton from "./create/GroupCreateModalButton";
-import { FBDate } from "../../../../../service/CommonService";
-import { uploadNewGroup } from "../../../../../service/GroupService";
+import { doCreateGroup } from "../../../../../model/GroupModel";
+import useGroupChanged from "../../../../../context/hook/useGroupChanged";
 
 const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
-    const [type, setType] = useState(10);
-    const initialTypeTitle = () => {
-        setType(10);
+
+    const [groupTitle, setGroupTitle] = useState('');
+    const initialTitle = () => {
         setGroupTitle('');
     }
-    const [groupTitle, setGroupTitle] = useState('');
     const [buttonDisable, setButtonDisable] = useState(true);
 
-    const fastUploadNewGroup = () => {
-        const groupName = groupTitle
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
+
+    const fastGroupCreateFirebase = async () => {
         const newGroup = {
-            lastModifiedTime: FBDate(),
-            type: type,
-            title: groupName,
+            type: 0,
+            title: groupTitle,
             description: '',
             bookmark: false,
         };
         const imageSource = '';
-        uploadNewGroup(groupName, newGroup, imageSource)
-            .then((ref) => console.log(ref))
-    }
+        await doCreateGroup(newGroup, imageSource);
+        console.log('before', isGroupChanged) // temp
+        setIsGroupChanged(!isGroupChanged); // notify groupData changed
+        console.log('after', isGroupChanged) // temp
+    };
 
     useEffect(() => {
-        (type >= 0 && type <6 && groupTitle.length > 0) ? 
+        (groupTitle.length > 0) ? 
         setButtonDisable(false) : setButtonDisable(true)
-    },[type, groupTitle])
+    },[groupTitle])
 
     return(
         <Modal
@@ -52,11 +52,11 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
         hideModalContentWhileAnimating={true}
         >
             <View style={styles.container}>
-                <GroupCreateModalTitle initialTypeTitle={initialTypeTitle} setModalVisible={setModalVisible}/>
-                <GroupCreateModalGroupType type={type} setType={setType}/>
+                <GroupCreateModalTitle initialTitle={initialTitle} setModalVisible={setModalVisible}/>
+                {/* <GroupCreateModalGroupType type={type} setType={setType}/> */}
                 <GroupCreateModalTextInput groupTitle={groupTitle} setGroupTitle={setGroupTitle}/>
-                <GroupCreateModalButton buttonDisable={buttonDisable} fastUploadNewGroup={fastUploadNewGroup}
-                                        initialTypeTitle={initialTypeTitle} setModalVisible={setModalVisible}/>
+                <GroupCreateModalButton buttonDisable={buttonDisable} fastGroupCreateFirebase={fastGroupCreateFirebase}
+                                        initialTitle={initialTitle} setModalVisible={setModalVisible}/>
                 
             </View>
         </Modal>
