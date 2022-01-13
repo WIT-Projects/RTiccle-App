@@ -5,6 +5,8 @@ import HomeStackNavigatior from './stack/HomeStackNavigator';
 import TiccleStackNavigator from './stack/TiccleStackNavigator';
 import MyPage from '../containers/user/MyPage';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import colors from '../theme/colors';
+import { type } from '../theme/fonts';
 
 const isTabActive = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -45,6 +47,15 @@ const MainTab = () => {
                 component={MyPage}
                 options={{
                     title: '마이페이지',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: colors.main,
+                    },
+                    headerTitleStyle:{
+                        color: colors.white,
+                        fontFamily : type.notoSansKR_Medium,
+                        fontSize: 20,
+                    }
                 }}
             />
 

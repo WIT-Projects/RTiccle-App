@@ -6,11 +6,11 @@ import auth from "@react-native-firebase/auth";
 import Setting from './components/Settings';
 import GuestInfo, { GuestGuide } from './components/Guest';
 import UserInfo from './components/User';
+import { type } from '../../theme/fonts';
 
 const MyPage = () => {
 // function MyPageScreen( {navigation}) {
     const [isGuest, setIsGuest] = useState(true);
-
 
     // Handle user state changes
     function onAuthStateChanged(user) {
@@ -23,11 +23,14 @@ const MyPage = () => {
 
     return (
         <View style={styles.container}>
-              <Text style={styles.myInfo}>내 정보</Text>
-              { isGuest ? <GuestInfo /> : <UserInfo email={auth().currentUser.email} /> }
-              <View style={styles.block}></View>
-              <Setting />
-              { isGuest ? <GuestGuide /> : <View></View> }
+            <View>
+
+            </View>
+            <Text style={styles.myInfo}>내 정보</Text>
+            { isGuest ? <GuestInfo /> : <UserInfo/> }
+            <View style={styles.block}></View>
+            <Setting isGuest={isGuest}/>
+            { isGuest ? <GuestGuide /> : null }
         </View>
       );
 }
@@ -38,8 +41,12 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
     },
     myInfo: {
-        fontSize: 20,
-        margin: 20,
+        textAlignVertical : 'center',
+        marginTop: 10,
+        paddingHorizontal: 24,
+        height:46,
+        fontFamily: type.spoqaHanSansNeo_Regular,
+        fontSize: 16,
     },
     block: {
         height: 10,
