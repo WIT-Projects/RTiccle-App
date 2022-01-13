@@ -8,8 +8,8 @@ const groupNumberInScroll = 8;
 
 const GroupListModalGroupList = ({groupData, setModalVisible, isExistGroup, setTiccleGroup , ticcleGroup}) => {
 
-    const isSelectedGroup = group => {
-        if(ticcleGroup === group) return true;
+    const isSelectedGroup = groupId => {
+        if(ticcleGroup === groupId) return true;
         return false
     }
 
@@ -24,7 +24,7 @@ const GroupListModalGroupList = ({groupData, setModalVisible, isExistGroup, setT
                     isSelectedGroup(group.title)|| pressed ? styles.isSelected : styles.isUnSelected,
                     ]}
                     onPress={() => {
-                    setTiccleGroup(group.title)
+                    setTiccleGroup(group.id)
                     setModalVisible(false)
                     }}
                     disabled={isSelectedGroup(group.title)}

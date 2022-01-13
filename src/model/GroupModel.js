@@ -16,6 +16,13 @@ const deleteOneGroupOfList = targetGId => {
     groupList.splice(idx, 1);
 }
 
+const getGroupTitleByGId = (targetGId, setGroupTitle) => {
+    const targetGroup = groupList.find(group => group.id === targetGId);
+    if(targetGroup !== undefined){
+        setGroupTitle(targetGroup.title);
+    }
+}
+
 /**
  * Get all group list and set groupList
  */
@@ -102,6 +109,7 @@ function checkIsExistingGroup(groupTitle) {
 export {
     groupList,
     getAllGroupIncludeImages,
+    getGroupTitleByGId,
     doCreateGroup,
     doUpdateGroup,
     doDeleteGroup,

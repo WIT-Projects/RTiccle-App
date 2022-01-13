@@ -11,6 +11,7 @@ import colors from '../../../theme/colors';
 import useTiccleCreate from '../../../context/hook/useTiccleCreate';
 import PhotoModal from '../../common/PhotoModal';
 import GroupListModal from './components/group/GroupListModal';
+import { getGroupTitleByGId } from '../../../model/GroupModel';
 
 const TiccleCreate = () => {
 
@@ -26,7 +27,12 @@ const TiccleCreate = () => {
     const initialTag = () => {
         setTag('')
     }
+    const [ticcleGroupTitle, setTiccleGroupTitle] = useState('')
 
+    useEffect(()=> {
+        getGroupTitleByGId(ticcle.groupId, setTiccleGroupTitle);
+    }
+    ,[ticcle.groupId])
 
     return(
         <ScrollView style={styles.container}>
@@ -36,7 +42,7 @@ const TiccleCreate = () => {
                             setTiccleGroup={setTiccleGroup} ticcle={ticcle}/>
 
             {/* ticcle */}
-            <TiccleCreateGroupSelect ticcleGroup={ticcle.group} setGroupListModalVisible={setGroupListModalVisible}/>
+            <TiccleCreateGroupSelect ticcleGroupTitle={ticcleGroupTitle} setGroupListModalVisible={setGroupListModalVisible}/>
             <TiccleCreateTextInputTitleLink ticcleTitle={ticcle.title} setTiccleTitle={setTiccleTitle}
                                             ticcleLink={ticcle.link}   setTiccleLink={setTiccleLink}/>
             <View style={styles.imageCreateButtonContainer}>

@@ -39,7 +39,7 @@ const GroupListModal = ({isModalVisible, setModalVisible, ticcle ,setTiccleGroup
             <View style={styles.container}>
                 <GroupListModalTitle setModalVisible={setModalVisible}/>
                 <GroupListModalGroupList groupData = {groupData} setModalVisible={setModalVisible} 
-                    isExistGroup = {isExistGroup}  setTiccleGroup={setTiccleGroup} ticcleGroup={ticcle.group}/>
+                    isExistGroup = {isExistGroup}  setTiccleGroup={setTiccleGroup} ticcleGroup={ticcle.groupId}/>
             </View>
             <GroupListModalCreateButton setGroupCreateModalVisible={setGroupCreateModalVisible}/>
         </Modal>

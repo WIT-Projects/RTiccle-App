@@ -6,7 +6,7 @@ const AppProvider = ({children}) => {
     //Ticcle
     const [ticcle, setTiccle] = useState({
         lastModifiedTime: '',
-        group: '',
+        groupId: '',
         title: '',
         link: '',
         tagList: [],
@@ -14,9 +14,9 @@ const AppProvider = ({children}) => {
         images: [],
     });
 
-    const setTiccleGroup = text => {
+    const setTiccleGroup = id => {
         setTiccle(state => {
-            return{...state, group: text};
+            return{...state, groupId: id};
         })
     };
     const setTiccleTitle = text => {
@@ -78,7 +78,7 @@ const AppProvider = ({children}) => {
     const initialTiccle = () => {
         setTiccle({
             lastModifiedTime: '',
-            group: '',
+            groupId: '',
             title: '',
             link: '',
             tagList: [],
