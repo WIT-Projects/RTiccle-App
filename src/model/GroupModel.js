@@ -18,9 +18,7 @@ const deleteOneGroupOfList = targetGId => {
 
 const getGroupTitleByGId = (targetGId, setGroupTitle) => {
     const targetGroup = groupList.find(group => group.id === targetGId);
-    if(targetGroup !== undefined){
-        setGroupTitle(targetGroup.title);
-    }
+    (targetGroup !== undefined) ? setGroupTitle(targetGroup.title) : setGroupTitle('');
 }
 
 /**

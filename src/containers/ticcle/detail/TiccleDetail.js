@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { BackHandler, ScrollView, StyleSheet } from 'react-native';
 import colors from '../../../theme/colors';
 import TiccleDetailInfo from './components/TiccleDetailInfo';
 import TiccleDetailImageSwiper from './components/TiccleDetailImageSwiper';
@@ -9,9 +9,24 @@ import useTiccleCreate from '../../../context/hook/useTiccleCreate';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
 import { timeStampToFormatDate } from '../../../service/CommonService';
 
-const TiccleDetail = () => {
+const TiccleDetail = ({navigation}) => {
 
-    const {ticcle} = useTiccleCreate();
+    useEffect(() => {
+    const goToHomeStack = () => {
+        navigation.navigate('HomeStack');
+        initialTiccle();
+        return true
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        goToHomeStack
+      );
+  
+      return () => backHandler.remove();
+    }, []);
+
+    const {ticcle, initialTiccle} = useTiccleCreate();
     const ticcleTitle = ticcle.title
     const ticcleLink = ticcle.link
     const ticcleContent = ticcle.content

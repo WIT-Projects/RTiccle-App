@@ -1,26 +1,42 @@
-import React, { useEffect } from 'react';
-import {View, ScrollView, StyleSheet, Button} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {View, ScrollView, StyleSheet, Button, BackHandler} from 'react-native';
 import MyMount from './components/MyMount';
 import BookMarkList from './components/BookMarkList';
 import NewTiccleGroupList from './components/NewTiccleGroupList';
 import colors from '../../theme/colors';
 import { getAllGroupIncludeImages } from '../../model/GroupModel';
 import useGroupChanged from '../../context/hook/useGroupChanged'
-import { getUserProfile } from '../../service/AuthService';
+import CustomModal from '../common/CustomModal';
 
 const Home = ({navigation}) => {
 
     const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
+    const [appExitModal, setAppExitModal] = useState(false)
     
     useEffect(() => {
         (async() => {
             await getAllGroupIncludeImages(); // init group data
             setIsGroupChanged(!isGroupChanged);
         })()
+
+        // Home BackButton
+        const backAction = () => {
+            setAppExitModal(true)
+            return true;
+          };
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        ); 
+        return () => backHandler.remove();
     }, [])
 
     return (
         <ScrollView style={styles.container}>
+            <CustomModal
+                isModalVisible={appExitModal} setModalVisible={setAppExitModal} title={'앱을 종료하시겠습니까?'}
+                leftButton={'아니오'} rightButton={'네'} rightButtonFunction={BackHandler.exitApp}
+            />
             <MyMount
                 mount={'태산'}
                 imageUrl={
