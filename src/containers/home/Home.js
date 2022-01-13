@@ -9,8 +9,6 @@ import useGroupChanged from '../../context/hook/useGroupChanged'
 
 const Home = ({navigation}) => {
 
-
-
     const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
     
     useEffect(() => {

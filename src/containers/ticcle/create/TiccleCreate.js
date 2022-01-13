@@ -8,7 +8,7 @@ import TiccleCreateImageGroup from './components/image/TiccleCreateImageGroup';
 import TiccleCreateTextInputTag from './components/textinput/TiccleCreateTextInputTag';
 import TiccleCreateTags from './components/TiccleCreateTags';
 import colors from '../../../theme/colors';
-import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
+import useTiccleCreate from '../../../context/hook/useTiccleCreate';
 import PhotoModal from '../../common/PhotoModal';
 import GroupListModal from './components/group/GroupListModal';
 
@@ -16,7 +16,7 @@ const TiccleCreate = () => {
 
     const {setTiccleContent, setTiccleImages, deleteTiccleImage,
         ticcle, setTiccleTitle, setTiccleLink, setTiccleGroup,
-        setTiccleTagList, deleteTiccleTagList } = UseTiccleCreate();
+        setTiccleTagList, deleteTiccleTagList } = useTiccleCreate();
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const photoModalVisibleTrue = () => {
