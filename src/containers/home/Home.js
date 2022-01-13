@@ -6,6 +6,7 @@ import NewTiccleGroupList from './components/NewTiccleGroupList';
 import colors from '../../theme/colors';
 import { getAllGroupIncludeImages } from '../../model/GroupModel';
 import useGroupChanged from '../../context/hook/useGroupChanged'
+import { getUserProfile } from '../../service/AuthService';
 
 const Home = ({navigation}) => {
 
@@ -34,7 +35,9 @@ const Home = ({navigation}) => {
             <View style={{marginTop: 10}}>
                 <Button
                 title="로그인 화면 (임시)"
-                onPress={() => navigation.navigate('LoginScreen')}
+                onPress={() => {
+                    navigation.navigate('LoginScreen')
+                }}
                 ></Button>
             </View>
             {/* 지울거 */}

@@ -42,9 +42,19 @@ function getCurrentUser() {
   return auth().currentUser;
 }
 
+function getUserProfile() {
+  const user = auth().currentUser;
+  if (user !== null) {
+    user.providerData.forEach((profile) => {
+      return profile.displayName
+    });
+  }
+}
+
 export {
   anonSignIn,
   googleSigninConfigure,
   googleLoginAndLink,
   getCurrentUser,
+  getUserProfile
 };

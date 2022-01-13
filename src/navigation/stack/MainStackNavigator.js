@@ -9,7 +9,7 @@ import MainTab from '../MainTab';
 import TiccleDetail from '../../containers/ticcle/detail/TiccleDetail';
 import metrics from '../../theme/metrices';
 import useGroupCreate from '../../context/hook/useGroupCreate';
-import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
+import useTiccleCreate from '../../context/hook/useTiccleCreate';
 import LoginScreen from '../../containers/login/LoginScreen';
 import SearchScreen from '../../containers/search/SearchScreen';
 
@@ -17,7 +17,7 @@ const MainStack = createStackNavigator();
 
 const MainStackNavigator = () => {
     const {initialGroupCreate} = useGroupCreate();
-    const {initialTiccle, ticcle} = UseTiccleCreate();
+    const {initialTiccle, ticcle} = useTiccleCreate();
     return (
         <NavigationContainer>
             <MainStack.Navigator>

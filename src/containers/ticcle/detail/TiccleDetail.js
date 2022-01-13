@@ -5,13 +5,13 @@ import TiccleDetailInfo from './components/TiccleDetailInfo';
 import TiccleDetailImageSwiper from './components/TiccleDetailImageSwiper';
 import TiccleDetailText from './components/TiccleDetailText';
 import TiccleDetailTags from './components/TiccleDetailTags';
-import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
+import useTiccleCreate from '../../../context/hook/useTiccleCreate';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
 import { timeStampToFormatDate } from '../../../service/CommonService';
 
 const TiccleDetail = () => {
 
-    const {ticcle} = UseTiccleCreate();
+    const {ticcle} = useTiccleCreate();
     const ticcleTitle = ticcle.title
     const ticcleLink = ticcle.link
     const ticcleContent = ticcle.content

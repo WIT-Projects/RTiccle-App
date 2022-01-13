@@ -5,14 +5,14 @@ import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 import TiccleCreate from '../../containers/ticcle/create/TiccleCreate';
-import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
+import useTiccleCreate from '../../context/hook/useTiccleCreate';
 import { doCreateTiccle } from '../../model/TiccleModel';
 
 const TiccleStack = createStackNavigator();
 
 const TiccleStackNavigator = () => {
 
-    const {ticcle, setTiccleDate} = UseTiccleCreate();
+    const {ticcle, setTiccleDate} = useTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
 
 
