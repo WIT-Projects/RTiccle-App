@@ -1,16 +1,19 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 import HomeStackNavigatior from './stack/HomeStackNavigator';
-import TiccleStackNavigator from './stack/TiccleStackNavigator';
 import MyPage from '../containers/user/MyPage';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import colors from '../theme/colors';
+import metrics from '../theme/metrices';
 import { type } from '../theme/fonts';
+import TiccleCreate from '../containers/ticcle/create/TiccleCreate';
+import TiccleCreateHeaderLeft from './mainTabComponent/TiccleCreateHeaderLeft';
+import TiccleCreateHeaderRight from './mainTabComponent/TiccleCreateHeaderRight';
 
 const isTabActive = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
     switch (routeName) {
+        case 'GroupDetail':
         case 'GroupCreateType':
         case 'GroupCreateName':
         case 'GroupCreateImage':
@@ -35,12 +38,27 @@ const MainTab = () => {
             />
             <Tab.Screen
                 name="TiccleStack"
-                component={TiccleStackNavigator}
-                options={{
-                    title: '티끌쓰기',
-                    headerShown: false,
-                    tabBarStyle: {display: 'none'},
-                }}
+                component={TiccleCreate}
+                options={() =>  ({
+                    headerStyle :{
+                    backgroundColor: colors.main,
+                    height : metrics.topNavigationHeight,
+                },
+                title: '티클 작성',
+                headerTintColor : colors.white ,
+                headerTitleAlign : 'center',
+                headerTitleStyle : {
+                    fontFamily: type.notoSansKR_Medium,
+                    fontSize : 20,
+                    lineHeight : 24,
+                },
+                headerLeft : () => (
+                    <TiccleCreateHeaderLeft/>
+                ),
+                headerRight : () => (
+                    <TiccleCreateHeaderRight/>
+                )
+                })}
             />
             <Tab.Screen
                 name="MyPage"

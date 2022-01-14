@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View } from "react-native";
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
+import { useNavigation } from '@react-navigation/native';
 
 const GroupDetailTiccle = ({ ticcleDate, title, tag }) => {
+    const navigateTo = useNavigation();
+
     return (
-        <View style={styles.container}>
+        <View style={styles.container} onTouchEnd={() => navigateTo.navigate('TiccleDetail')}>
             <Text style={styles.font1}>{ticcleDate}</Text>
             <View style={styles.container2}>
                 <Text style={styles.font2}>{title}</Text>
