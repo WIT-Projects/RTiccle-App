@@ -1,23 +1,24 @@
 import React from 'react';
 import {StyleSheet, TextInput, View, Text} from 'react-native';
+import { color } from 'react-native-reanimated';
 import colors from '../../../../../../theme/colors';
 import { type } from '../../../../../../theme/fonts';
 
-const GroupCreateModalTextInput = ({groupTitle , setGroupTitle}) => {
+const GroupCreateModalTextInput = ({groupTitle , setGroupTitle, createFail}) => {
 
     var groupTitleLength = groupTitle.length;
     const maxLengthOfTitle = 15;
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, createFail ? styles.failColor : null] }>
             <TextInput
-                style={styles.textinput}
+                style={[styles.textinput, createFail ? styles.failTextColor: null]}
                 value={groupTitle}
                 onChangeText={setGroupTitle}
                 placeholder="그룹 제목"
                 placeholderTextColor={colors.gray2}
                 maxLength={maxLengthOfTitle}></TextInput>
-            <Text style={styles.textCount}>{groupTitleLength}/{maxLengthOfTitle}</Text>
+            <Text style={[styles.textCount, createFail ? styles.failTextColor : null]}>{groupTitleLength}/{maxLengthOfTitle}</Text>
         </View>
     );
 };
@@ -29,8 +30,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderColor: colors.gray1,
         borderBottomWidth: 1,
-        marginTop: 35,
+        marginTop: 15,
         marginHorizontal: 20,
+    },
+    failColor:{
+        borderColor: colors.red,
     },
     textinput: {
         width: 260,
@@ -43,6 +47,9 @@ const styles = StyleSheet.create({
         fontFamily: type.spoqaHanSansNeo_Regular,
         paddingRight: 5,
     },
+    failTextColor :{
+        color: colors.red
+    }
 });
 
 export default GroupCreateModalTextInput;

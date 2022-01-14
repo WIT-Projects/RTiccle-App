@@ -37,27 +37,28 @@ const MainTab = () => {
                 })}
             />
             <Tab.Screen
-                name="TiccleStack"
+                name="TiccleCreate"
                 component={TiccleCreate}
                 options={() =>  ({
                     headerStyle :{
-                    backgroundColor: colors.main,
-                    height : metrics.topNavigationHeight,
-                },
-                title: '티클 작성',
-                headerTintColor : colors.white ,
-                headerTitleAlign : 'center',
-                headerTitleStyle : {
-                    fontFamily: type.notoSansKR_Medium,
-                    fontSize : 20,
-                    lineHeight : 24,
-                },
-                headerLeft : () => (
-                    <TiccleCreateHeaderLeft/>
-                ),
-                headerRight : () => (
-                    <TiccleCreateHeaderRight/>
-                )
+                        backgroundColor: colors.main,
+                        height : metrics.topNavigationHeight,
+                    },
+                    title: '티클 작성',
+                    headerTintColor : colors.white ,
+                    headerTitleAlign : 'center',
+                    headerTitleStyle : {
+                        fontFamily: type.notoSansKR_Medium,
+                        fontSize : 20,
+                        lineHeight : 24,
+                    },
+                    headerLeft : () => (
+                        <TiccleCreateHeaderLeft/>
+                    ),
+                    headerRight : () => (
+                        <TiccleCreateHeaderRight/>
+                    ),
+                    tabBarStyle: {display : 'none'},
                 })}
             />
             <Tab.Screen
