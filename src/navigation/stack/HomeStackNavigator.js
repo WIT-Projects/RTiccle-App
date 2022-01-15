@@ -10,7 +10,6 @@ import GroupDetail from '../../containers/group/detail/GroupDetail';
 import GroupUpdate from '../../containers/group/update/GroupUpdate';
 import GroupCreateName from '../../containers/group/create/GroupCreateName';
 import GroupCreateImage from '../../containers/group/create/GroupCreateImage';
-import GroupCreateType from '../../containers/group/create/GroupCreateType';
 import useGroupCreate from '../../context/hook/useGroupCreate';
 import metrics from '../../theme/metrices';
 
@@ -53,35 +52,6 @@ const HomeStackNavigatior = () => {
                 options={({navigation}) => ({headerShown: false})}
                 name="GroupUpdate"
                 component={GroupUpdate}
-            />
-            <HomeStack.Screen
-                name="GroupCreateType"
-                component={GroupCreateType}
-                options={({navigation}) => ({
-                    headerStyle: {
-                        backgroundColor: colors.white,
-                        height: metrics.topNavigationHeight,
-                    },
-                    title: '그룹 생성',
-                    headerTintColor: colors.main,
-                    headerTitleAlign: 'center',
-                    headerTitleStyle: {
-                        fontSize: 20,
-                    },
-                    headerLeft: () => (
-                        <TouchableOpacity
-                            style={styles.headerLeftTouchable}
-                            onPress={() => {
-                                initialGroupCreate();
-                                navigation.navigate('Home');
-                            }}>
-                            <Image
-                                source={require('../../assets/images/chevron_left.png')}
-                                style={(styles.headerLeftImage, styles.black)}
-                            />
-                        </TouchableOpacity>
-                    ),
-                })}
             />
             <HomeStack.Screen
                 name="GroupCreateName"

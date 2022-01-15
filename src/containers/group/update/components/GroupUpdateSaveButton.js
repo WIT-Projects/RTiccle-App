@@ -5,17 +5,15 @@ import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
-import { doUpdateGroup } from '../../../../model/GroupModel';
+import {doUpdateGroup} from '../../../../model/GroupModel';
 
 const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const {groupUpdate, initialGroupUpdate} = useGroupUpdate();
-    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
+    const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
     const groupUpdateFirebase = () => {
         let newInfo = [];
         let image = '';
-        if (groupUpdate.type != initialData.type)
-            newInfo.type = groupUpdate.type;
         if (groupUpdate.title != initialData.title)
             newInfo.title = groupUpdate.title;
         if (groupUpdate.description != initialData.description)
@@ -28,9 +26,14 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
             if (image != '') {
                 const oldImageName = initialData.mainImage;
                 const newImageSource = image;
-                doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource);
-            }
-            else doUpdateGroup(groupId, newInfo, false);
+                doUpdateGroup(
+                    groupId,
+                    newInfo,
+                    true,
+                    oldImageName,
+                    newImageSource,
+                );
+            } else doUpdateGroup(groupId, newInfo, false);
             setIsGroupChanged(!isGroupChanged); // notify groupData changed
             initialGroupUpdate();
             navigation.goBack();

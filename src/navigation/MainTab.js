@@ -9,7 +9,6 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 const isTabActive = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
     switch (routeName) {
-        case 'GroupCreateType':
         case 'GroupCreateName':
         case 'GroupCreateImage':
         case 'GroupUpdate':
@@ -47,7 +46,6 @@ const MainTab = () => {
                     title: '마이페이지',
                 }}
             />
-
         </Tab.Navigator>
     );
 };

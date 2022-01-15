@@ -3,13 +3,12 @@ import {View, StyleSheet, Text} from 'react-native';
 
 import colors from '../../../theme/colors';
 import {type} from '../../../theme/fonts';
-import GroupUpdateType from './components/GroupUpdateType';
 import GroupUpdateSaveButton from './components/GroupUpdateSaveButton';
 import GroupUpdateInfo from './components/GroupUpdateInfo';
 import useGroupUpdate from '../../../context/hook/useGroupUpdate';
 
 const GroupUpdate = ({navigation, route}) => {
-    const {groupUpdate, setGroupUpdate, initialGroupUpdate} = useGroupUpdate();
+    const {groupUpdate, setGroupUpdate} = useGroupUpdate();
     const [initialData, setInitialData] = useState([]);
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
 
@@ -32,13 +31,7 @@ const GroupUpdate = ({navigation, route}) => {
                     setModalActive={setModalActive}></GroupUpdateInfo>
             </View>
             {!modalActive && (
-                <View>
-                    <Text style={styles.title}>유형 수정하기</Text>
-                    <View style={styles.groupType}>
-                        <GroupUpdateType
-                            style={styles.groupType}
-                            typeNum={groupUpdate.type}></GroupUpdateType>
-                    </View>
+                <View style={styles.saveButton}>
                     <GroupUpdateSaveButton
                         navigation={navigation}
                         initialData={initialData}></GroupUpdateSaveButton>
@@ -63,8 +56,8 @@ const styles = StyleSheet.create({
         paddingLeft: 22,
         paddingBottom: 46,
     },
-    groupType: {
-        paddingBottom: 59,
+    saveButton: {
+        paddingTop: 300,
     },
 });
 
