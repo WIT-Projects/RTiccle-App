@@ -11,34 +11,29 @@ import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
 import {useNavigation} from '@react-navigation/native';
-import {
-    updateGroupInfo,
-    findGroupByIdIncludeImage,
-} from '../../../../service/GroupService';
+import { doUpdateGroup, } from '../../../../model/GroupModel';
+import useGroupChanged from '../../../../context/hook/useGroupChanged';
 
-const GroupInfo = ({title, navigation}) => {
+const GroupInfo = ({ groupData, navigation}) => {
     const navigateTo = useNavigation();
-    const [groupData, setGroupData] = useState([]);
     const [isBookmark, setIsBookmark] = useState(false);
+
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
 
     function setFirebaseBookmark() {
         if (isBookmark == true) {
             setIsBookmark(false);
-            updateGroupInfo(title, {bookmark: false});
+            doUpdateGroup(groupData.id, {bookmark: false}, false);
         } else {
             setIsBookmark(true);
-            updateGroupInfo(title, {bookmark: true});
+            doUpdateGroup(groupData.id, {bookmark: true}, false);
         }
+        setIsGroupChanged(!isGroupChanged); // notify groupData changed
     }
 
     useEffect(() => {
-        findGroupByIdIncludeImage(title, setGroupData);
-        console.log(groupData);
-    }, []);
-    useEffect(() => {
         setIsBookmark(groupData.bookmark);
-        console.log('bookmark=========');
-    }, [groupData]);
+    }, [isGroupChanged]);
 
     return (
         <>
@@ -60,11 +55,11 @@ const GroupInfo = ({title, navigation}) => {
                     <View style={styles.container}>
                         <View style={styles.container2}>
                             <View style={styles.container3}>
-                                <Text style={styles.title}>{title}</Text>
+                                <Text style={styles.title}>{groupData.title}</Text>
                                 <TouchableOpacity
                                     onPress={() =>
                                         navigation.navigate('GroupUpdate', {
-                                            groupId: title,
+                                            groupData: groupData,
                                         })
                                     }>
                                     <Image

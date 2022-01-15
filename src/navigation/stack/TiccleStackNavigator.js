@@ -6,7 +6,7 @@ import { type } from '../../theme/fonts';
 import metrics from '../../theme/metrices';
 import TiccleCreate from '../../containers/ticcle/create/TiccleCreate';
 import UseTiccleCreate from '../../context/hook/UseTiccleCreate';
-import { uploadNewTiccle } from '../../service/TiccleService';
+import { doCreateTiccle } from '../../model/TiccleModel';
 
 const TiccleStack = createStackNavigator();
 
@@ -14,6 +14,7 @@ const TiccleStackNavigator = () => {
 
     const {ticcle, setTiccleDate} = UseTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
+
 
     useEffect(() => {
         (ticcle.title && ticcle.content) ? setSaveButtonDisable(false) : setSaveButtonDisable(true);
@@ -49,10 +50,12 @@ const TiccleStackNavigator = () => {
                 <TouchableOpacity style={styles.headerRightTouchable}
                 disabled={saveButtonDisable}
                 onPress={ () => {
-                    setTiccleDate()
-                    uploadNewTiccle(ticcle, ticcle.images);
+
+                    doCreateTiccle(ticcle, ticcle.images);
+
                     console.log(ticcle)
                     navigation.navigate('TiccleDetail')
+                    uploadNewTiccle(ticcle, ticcle.images)
                 }}>
                     <Text style={saveButtonDisable ? styles.headerRightTextDisable : styles.headerRightText}>저장</Text>
                 </TouchableOpacity>

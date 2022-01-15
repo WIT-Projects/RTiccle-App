@@ -1,62 +1,58 @@
 import firestore from '@react-native-firebase/firestore';
 import { getCurrentUser } from './AuthService';
 import { uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage } from './ImageService';
-import { FBDate } from './CommonService';
 
 const user = getCurrentUser();
 const userDoc = firestore().collection('RTiccle').doc(user.uid);
 
 /**
  * Group create function
- * @param {string} groupName 
  * @param {*} newGroup
- * @returns {string} Group Id
+ * @returns {Array} Group Data
  */
-async function createGroup(groupName, newGroup) {
-    const ref = userDoc.collection("Group").doc(groupName);
-    console.log(newGroup);
-    await ref.set(newGroup);
-    return ref.id;
+async function createGroup(newGroup) {
+    const ref = userDoc.collection("Group")
+    const groupRef = await ref.add(newGroup);
+    return { id: groupRef.id, ...newGroup };
 }
 
 /**
  * Upload new group to firestore (upload image and group)
- * @param {string} newGroupName
  * @param {*} group: group info
  * *  {
-        lastModifiedTime: TimeStamp,
         type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
-        // mainImage: string, ticcleNum: integer
+        // mainImage: string, ticcleNum: integer, latestTiccleTitle: string, lastModifiedTime: number
     }
  * @param {*} mainImageSource: main image source of group
- * @returns {Promise<String>} created group id (== gorup name)
+ * @returns {Array} Group Data
  */
-function uploadNewGroup(newGroupName, group, mainImageSource) {
+function uploadNewGroup(group, mainImageSource) {
     var imageName = '';
     if (mainImageSource || mainImageSource != '') {
         imageName = Date.now() + ".jpg";
         uploadImageToStorage(imageName, mainImageSource);
     }
-    return createGroup(newGroupName, { ...group, mainImage: imageName, ticcleNum: 0 });
+    return createGroup({ ...group, mainImage: imageName, ticcleNum: 0, latestTiccleTitle: '', lastModifiedTime: Date.now() });
 }
 
 /**
  * Update group info (no support for image)
  * @param {*} groupId 
- * @param {*} newInfo: new group info (changed info only)
+ * @param {*} newInfo: new group info (CHANGED INFO ONLY)
  * Support info:
  * *  {
         type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
+        latestTiccleTitle: string,
     }
  */
 function updateGroupInfo(groupId, newInfo) {
-    const updateInfo = {...newInfo, lastModifiedTime: FBDate()};
+    const updateInfo = {...newInfo, lastModifiedTime: Date.now()};
     const ref = userDoc.collection("Group").doc(groupId);
     ref.update(updateInfo);
 }
@@ -71,17 +67,16 @@ async function updateTiccleNumOfGroup(groupId, isPlus) {
     const group = await ref.get();
     var num = group.ticcleNum;
     num = isPlus ? num + 1 : num - 1;
-    ref.update({ticcleNum: num, lastModifiedTime: FBDate()});
+    ref.update({ ticcleNum: num, lastModifiedTime: Date.now() });
 }
 
 /**
  * Update group main image
- * @param {string} groupId 
  * @param {string} oldImageName // if not exists, put null
  * @param {*} newImageSource 
  * @returns {string} newImageName
  */
-function updateGroupImage(groupId, oldImageName, newImageSource) {
+function updateGroupImage(oldImageName, newImageSource) {
     // delete original image first
     if (oldImageName)
         deleteImageFromStorage(oldImageName, false);
@@ -89,23 +84,24 @@ function updateGroupImage(groupId, oldImageName, newImageSource) {
     newImageName = Date.now() + ".jpg";
     uploadImageToStorage(newImageName, newImageSource);
     // update group info
-    updateGroupInfo(groupId, {mainImage: newImageName});
+    //updateGroupInfo(groupId, {mainImage: newImageName});
     return newImageName;
 }
 
 /**
  * Delete group 
- * @param {Array} group: group info (MUST include 'title'('id'), 'mainImage' information)
+ * @param {Array} group: group info (MUST include 'id', 'mainImage' information)
  */
 function deleteGroup(group) {
     // delete image
     if (group.mainImage)
         deleteImageFromStorage(group.mainImage, false);
     // delete group info
-    const ref = userDoc.collection("Group").doc(group.title);
+    const ref = userDoc.collection("Group").doc(group.id);
     ref.delete();
 }
 
+/* deprecated */
 /**
  * Get All Group of User and Set state
  * @param {Dispatch<SetStateAction<S>>} setState 
@@ -122,12 +118,12 @@ function deleteGroup(group) {
 }
 
 /**
- * Get All Group of User and Set state include main image url 
- * @param {Dispatch<SetStateAction<S>>} setState 
+ * Get All Group of User (include main image url)
+ * @returns {Array} Group List (include image url)
  */
- async function findAllGroupIncludeImage(setState) {
+ async function findAllGroupIncludeImage() {
     const querySnapshot = await userDoc.collection("Group").get();
-    var groups = [];
+    var snapshots = [];
     querySnapshot.forEach((snapshot) => snapshots.push({id: snapshot.id, data: snapshot.data()}));
     var groups = [];
     for (let group of snapshots) {
@@ -140,9 +136,10 @@ function deleteGroup(group) {
         data = { ...data, imageUrl: mainImageURL, id: id };
         groups = [...groups, data];
     }
-    setState(groups);
+    return groups;
 }
 
+/* deprecated */
 /**
  * Find groups include main image url with limiting and Set state
  * @param {*} limit: maximum number of groups
@@ -170,6 +167,7 @@ async function findGroupsIncludeImage(limit, setState) {
     setState(groups);
 }
 
+/* deprecated */
 /**
  * Find bookmark groups include main image url with limiting and Set state
  * @param {Dispatch<SetStateAction<S>>} setState 
@@ -196,20 +194,22 @@ async function findBookrmarkGroupsIncludeImage(setState) {
     setState(groups);
 }
 
+/* deprecated */
 /**
  * check whether a group name exists or not
- * @param {string} groupId 
+ * @param {string} groupTitle
  * @returns {Boolean} true is existing group
  */
-async function checkIsExistingGroup(groupId) {
+async function checkIsExistingGroup(groupTitle) {
     const querySnapshot = await userDoc.collection("Group").get();
     var found = false;
     querySnapshot.forEach(snapshot => {
-        if (snapshot.id == groupId) found = true;
+        if (snapshot.title == groupTitle) found = true;
     })
     return found;
 }
 
+/* deprecated */
 /**
  * Get One Group By Id (DocumentSnapshot.id) and Set state
  * @param {*} groupId 
@@ -222,10 +222,11 @@ async function findGroupById(groupId, setState) {
     else setState([]);
 }
 
+/* deprecated */
 /**
- * Get group data include image by groupId and set state
+ * Get group data include image by groupId
  * @param {string} groupId 
- * @param {Dispatch<SetStateAction<S>>} setState 
+ * @returns {Array} Group data (include image url)
  */
  async function findGroupByIdIncludeImage(groupId, setState) {
     const group = await userDoc.collection("Group").doc(groupId).get();
@@ -238,6 +239,7 @@ async function findGroupById(groupId, setState) {
     setState(data);
 }
 
+/* deprecated */
 /**
  * Check whether more than one group exists or not
  * @returns {boolean} true: existed, false: not existed
@@ -258,12 +260,6 @@ export {
     updateTiccleNumOfGroup,
     updateGroupImage,
     deleteGroup,
-    findAllGroup,
     findAllGroupIncludeImage,
-    findGroupsIncludeImage,
-    checkIsExistingGroup,
-    findGroupById,
     findGroupByIdIncludeImage,
-    checkIsExistingAnyGroup,
-    findBookrmarkGroupsIncludeImage,
 }

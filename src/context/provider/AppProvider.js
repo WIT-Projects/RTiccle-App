@@ -1,7 +1,5 @@
-import React from 'react';
-import {useState} from 'react/cjs/react.development';
+import React, {useState} from 'react';
 import AppContext from '../AppContext';
-import uuid from 'react-native-uuid';
 import {FBDate} from '../../service/CommonService';
 
 const AppProvider = ({children}) => {
@@ -16,6 +14,11 @@ const AppProvider = ({children}) => {
         images: [],
     });
 
+    const setTiccleGroup = text => {
+        setTiccle(state => {
+            return{...state, group: text};
+        })
+    };
     const setTiccleTitle = text => {
         setTiccle(state => {
             return {...state, title: text};
@@ -31,7 +34,9 @@ const AppProvider = ({children}) => {
         setTiccle(state => {
             return {...state, lastModifiedTime: today};
         });
+
         console.log(ticcle);
+
     };
     const setTiccleTagList = tag => {
         if (tag == '') return; // 비어있을 경우
@@ -42,11 +47,13 @@ const AppProvider = ({children}) => {
     };
     const deleteTiccleTagList = tag => {
         setTiccle(state => {
+
             return {
                 ...state,
                 tagList: tagList.filter(tagList => tagList !== tag),
             };
         });
+
     };
     const setTiccleContent = text => {
         setTiccle(state => {
@@ -157,14 +164,20 @@ const AppProvider = ({children}) => {
         });
     };
 
+    // Data Provider [notify]
+    const [isGroupChanged, setIsGroupChanged] = useState(false);
+    const [isTiccleListChanged, setIsTiccleListChanged] = useState(false);
+
     return (
         <AppContext.Provider
             value={{
                 ticcle,
                 setTiccle,
+                setTiccleGroup,
                 setTiccleTitle,
                 setTiccleLink,
                 setTiccleTagList,
+                deleteTiccleTagList,
                 setTiccleContent,
                 setTiccleImages,
                 initialTiccle,
@@ -186,6 +199,10 @@ const AppProvider = ({children}) => {
                 setGroupUpdateTitle,
                 setGroupUpdateDescription,
                 setGroupUpdateImage,
+                isGroupChanged,
+                setIsGroupChanged,
+                isTiccleListChanged,
+                setIsTiccleListChanged,
             }}>
             {children}
         </AppContext.Provider>

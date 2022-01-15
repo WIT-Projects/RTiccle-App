@@ -10,7 +10,7 @@ function App() {
         if (getCurrentUser() == null) {
             anonSignIn();
         }
-        SplashScreen.hide()
+        SplashScreen.hide();
     }, []);
     
 

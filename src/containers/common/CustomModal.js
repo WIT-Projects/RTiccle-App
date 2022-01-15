@@ -11,8 +11,12 @@ rightButtonFunction}) => {
         <Modal
             isVisible={isModalVisible}
             onBackdropPress={() => setModalVisible(false)}
-            backdropOpacity={0.8}
+            backdropOpacity={0.5}
             style={styles.modal}
+            animationIn={'fadeIn'}
+            animationOut={'fadeOut'}
+            backdropTransitionInTiming={0}
+            hideModalContentWhileAnimating={true}
         >
             <View style={styles.container}>
                 <View style={styles.titleContainer}>
@@ -41,13 +45,13 @@ const styles = StyleSheet.create({
     container:{
         width: '75%',
         backgroundColor: colors.white,
-        borderRadius: 10,
+        borderRadius: 6,
         paddingTop : 16,
-        paddingBottom: 11,
+        paddingBottom: 5,
     },
     titleContainer:{
-        paddingVertical:12,
-        paddingLeft: 28
+        alignItems: 'center',
+        paddingVertical: 16,
     },
     titleText :{
         fontFamily: type.notoSansKR_Regular,
@@ -57,15 +61,15 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         flexDirection : 'row',
-        justifyContent : 'flex-end',
-        marginTop : 18,
-        marginBottom : 11,
-        marginRight: 18,
+        justifyContent : 'space-between',
+        marginHorizontal: 4,
+
     },
     buttonTouchable: {
-        paddingHorizontal : 8,
-        paddingTop: 4,
-        paddingBottom : 5,
+        width:'50%',
+        paddingTop: 16,
+        paddingBottom: 19,
+        alignItems: 'center',
     },
     buttonText:{
         fontFamily: type.spoqaHanSansNeo_Regular,
@@ -73,9 +77,10 @@ const styles = StyleSheet.create({
         lineHeight: 20,
     },
     leftButtonText:{
-        color: colors.gray2
+        color: colors.gray4
     },
     rightButtonText:{
+        fontFamily: type.spoqaHanSansNeo_Bold,
         color: colors.sub,
     }
 })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import colors from '../../../theme/colors';
 import TiccleDetailInfo from './components/TiccleDetailInfo';
@@ -7,7 +7,7 @@ import TiccleDetailText from './components/TiccleDetailText';
 import TiccleDetailTags from './components/TiccleDetailTags';
 import UseTiccleCreate from '../../../context/hook/UseTiccleCreate';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
-import { FBDateToFormatDate } from '../../../service/CommonService';
+import { timeStampToFormatDate } from '../../../service/CommonService';
 
 const TiccleDetail = () => {
 
@@ -19,7 +19,7 @@ const TiccleDetail = () => {
 
     var formattedday = ""
     if(ticcleDate !== ""){
-        formattedday = FBDateToFormatDate(ticcle.lastModifiedTime);
+        formattedday = timeStampToFormatDate(ticcle.lastModifiedTime);
     }
 
     const [imageExpansion, setImageExpansion] = useState(false)

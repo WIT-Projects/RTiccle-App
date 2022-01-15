@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import TiccleCreateTextInput from './TiccleCreateTextInput';
-import colors from '../../../../theme/colors';
+import colors from '../../../../../theme/colors';
 
 
 const TiccleCreateTextInputTitleLink = ({ticcleTitle, setTiccleTitle, ticcleLink,setTiccleLink}) => {
 
     return(
-        <View style={styles.container}>
+        <View >
                 <TiccleCreateTextInput
                 fontSize={24} fontWeight={'bold'} placeHolderTextcolor ={colors.gray3}
                 placeholder ={"제목"} value={ticcleTitle} onChangeText={setTiccleTitle} 
@@ -20,10 +20,5 @@ const TiccleCreateTextInputTitleLink = ({ticcleTitle, setTiccleTitle, ticcleLink
     )
 }
 
-const styles = StyleSheet.create({
-    container : {
-        marginTop : 6,
-    }
-})
 
 export default TiccleCreateTextInputTitleLink

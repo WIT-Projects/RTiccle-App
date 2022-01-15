@@ -6,7 +6,6 @@ import {type} from '../../../theme/fonts';
 import GroupUpdateType from './components/GroupUpdateType';
 import GroupUpdateSaveButton from './components/GroupUpdateSaveButton';
 import GroupUpdateInfo from './components/GroupUpdateInfo';
-import {findGroupByIdIncludeImage} from '../../../service/GroupService';
 import useGroupUpdate from '../../../context/hook/useGroupUpdate';
 
 const GroupUpdate = ({navigation, route}) => {
@@ -15,16 +14,9 @@ const GroupUpdate = ({navigation, route}) => {
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
 
     useEffect(() => {
-        initialGroupUpdate();
-        findGroupByIdIncludeImage(route.params.groupId, setInitialData);
-        console.log('fetch=======');
+        setInitialData(route.params.groupData);
+        setGroupUpdate(route.params.groupData);
     }, []);
-
-    useEffect(() => {
-        setGroupUpdate(initialData);
-        console.log('groupUpdate=====');
-        console.log(groupUpdate);
-    }, [initialData]);
 
     return (
         <View style={styles.container}>

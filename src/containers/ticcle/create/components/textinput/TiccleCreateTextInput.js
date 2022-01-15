@@ -1,7 +1,6 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { TextInput, StyleSheet,View } from 'react-native'
-
-import colors from '../../../../theme/colors'
+import colors from '../../../../../theme/colors'
 
 const TiccleCreateTextInput = ({fontWeight, fontSize, placeHolderTextcolor, placeholder, value,onChangeText, style}) => {
 
