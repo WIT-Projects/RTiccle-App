@@ -11,34 +11,37 @@ import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
 import {useNavigation} from '@react-navigation/native';
-import { doUpdateGroup, } from '../../../../model/GroupModel';
+import {doUpdateGroup} from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
 
-const GroupInfo = ({ groupData, navigation}) => {
+const GroupInfo = ({groupData, navigation}) => {
     const navigateTo = useNavigation();
-    const [isBookmark, setIsBookmark] = useState(false);
+    let source =
+        groupData.imageUrl == null || groupData.imageUrl == ''
+            ? require('../../../../assets/images/blankImage.png')
+            : {uri: groupData.imageUrl};
 
-    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
+    const [isBookmark, setIsBookmark] = useState(groupData.bookmark);
+
+    const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
     function setFirebaseBookmark() {
         if (isBookmark == true) {
             setIsBookmark(false);
             doUpdateGroup(groupData.id, {bookmark: false}, false);
+            console.log(groupData);
         } else {
             setIsBookmark(true);
             doUpdateGroup(groupData.id, {bookmark: true}, false);
+            console.log(groupData);
         }
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
     }
 
-    useEffect(() => {
-        setIsBookmark(groupData.bookmark);
-    }, [isGroupChanged]);
-
     return (
         <>
             <ImageBackground
-                source={{uri: groupData.imageUrl}}
+                source={source}
                 resizeMode="cover"
                 style={styles.container5}>
                 <ImageBackground
@@ -55,7 +58,9 @@ const GroupInfo = ({ groupData, navigation}) => {
                     <View style={styles.container}>
                         <View style={styles.container2}>
                             <View style={styles.container3}>
-                                <Text style={styles.title}>{groupData.title}</Text>
+                                <Text style={styles.title}>
+                                    {groupData.title}
+                                </Text>
                                 <TouchableOpacity
                                     onPress={() =>
                                         navigation.navigate('GroupUpdate', {
@@ -78,8 +83,8 @@ const GroupInfo = ({ groupData, navigation}) => {
                                     }}
                                     source={
                                         isBookmark
-                                            ? require('../../../../assets/icon/bookMark.png')
-                                            : require('../../../../assets/icon/star.png')
+                                            ? require('../../../../assets/icon/bookmarkTrue.png')
+                                            : require('../../../../assets/icon/bookmarkFalse.png')
                                     }></Image>
                             </View>
                         </View>
