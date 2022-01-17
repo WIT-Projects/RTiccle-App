@@ -14,6 +14,7 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const groupUpdateFirebase = () => {
         let newInfo = [];
         let image = '';
+        let groupData = groupUpdate;
         if (groupUpdate.title != initialData.title)
             newInfo.title = groupUpdate.title;
         if (groupUpdate.description != initialData.description)
@@ -33,10 +34,21 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
                     oldImageName,
                     newImageSource,
                 );
-            } else doUpdateGroup(groupId, newInfo, false);
+            } else {
+                doUpdateGroup(groupId, newInfo, false);
+            }
+            console.log(isGroupChanged);
             setIsGroupChanged(!isGroupChanged); // notify groupData changed
+            console.log('Group update save========================');
+            navigation.navigate({
+                name: 'GroupDetail',
+                params: {
+                    groupData: groupUpdate,
+                },
+                merge: true,
+            });
+            console.log(groupUpdate);
             initialGroupUpdate();
-            navigation.goBack();
         } catch (error) {
             console.error(error);
         }

@@ -26,7 +26,7 @@ const GroupUpdateInfo = ({
 }) => {
     const {setGroupUpdateImage} = useGroupUpdate();
     let source;
-    mainImage === null
+    mainImage == null || mainImage == ''
         ? (source = require('../../../../assets/images/blankImage.png'))
         : (source = {uri: mainImage});
     const [isPhotoModalVisible, setPhotoModalVisible] = useState(false);
@@ -68,11 +68,13 @@ const GroupUpdateInfo = ({
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => setPhotoModalVisible(true)}>
-                                    <Image width={35} height={35} source={require('../../../../assets/images/camera.png')}
+                                    <Image
+                                        width={35}
+                                        height={35}
+                                        source={require('../../../../assets/images/camera.png')}
                                         onPress={() =>
                                             setPhotoModalVisible(true)
-                                        }>
-                                    </Image>
+                                        }></Image>
                                 </TouchableOpacity>
                             </View>
                         </View>

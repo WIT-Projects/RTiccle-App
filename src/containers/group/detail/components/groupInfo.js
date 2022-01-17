@@ -10,12 +10,13 @@ import {
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
-import {useNavigation} from '@react-navigation/native';
 import {doUpdateGroup} from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
+import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 
 const GroupInfo = ({groupData, navigation}) => {
-    const navigateTo = useNavigation();
+    const {setGroupUpdate} = useGroupUpdate();
+
     let source =
         groupData.imageUrl == null || groupData.imageUrl == ''
             ? require('../../../../assets/images/blankImage.png')
@@ -51,7 +52,7 @@ const GroupInfo = ({groupData, navigation}) => {
                     <Image
                         style={styles.backBtn}
                         onTouchEnd={() => {
-                            navigateTo.navigate('Home');
+                            navigation.navigate('Home');
                         }}
                         source={require('../../../../assets/icon/backWhite.png')}
                     />
@@ -62,11 +63,12 @@ const GroupInfo = ({groupData, navigation}) => {
                                     {groupData.title}
                                 </Text>
                                 <TouchableOpacity
-                                    onPress={() =>
+                                    onPress={() => {
+                                        setGroupUpdate([]);
                                         navigation.navigate('GroupUpdate', {
                                             groupData: groupData,
-                                        })
-                                    }>
+                                        });
+                                    }}>
                                     <Image
                                         style={styles.pencil}
                                         source={require('../../../../assets/icon/pencil.png')}></Image>
