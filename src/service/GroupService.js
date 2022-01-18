@@ -31,7 +31,7 @@ async function createGroup(newGroup) {
         imageUrl : String
         ticcleNum: integer, 
         latestTiccleTitle: String, 
-        lastModifiedTime: number. 
+        lastModifiedTime: number
     }
  * @param {*} mainImageSource: main image source of group
  * @returns {Array} Group Data
@@ -66,7 +66,9 @@ async function uploadNewGroup(group, mainImageSource) {
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
-        latestTiccleTitle: string,
+        mainImage: String,
+        imageUrl: String
+        latestTiccleTitle: String,
     }
  */
 function updateGroupInfo(groupId, newInfo) {
@@ -89,20 +91,26 @@ async function updateTiccleNumOfGroup(groupId, isPlus) {
 }
 
 /**
- * Update group main image
+ * Update group mainImage and imageUrl
  * @param {string} oldImageName // if not exists, put null
  * @param {*} newImageSource
  * @returns {string} newImageName
  */
-function updateGroupImage(oldImageName, newImageSource) {
+async function updateGroupImage(oldImageName, newImageSource) {
     // delete original image first
     if (oldImageName) deleteImageFromStorage(oldImageName, false);
     // upload new image
     newImageName = Date.now() + '.jpg';
-    uploadImageToStorage(newImageName, newImageSource);
-    // update group info
-    //updateGroupInfo(groupId, {mainImage: newImageName});
-    return newImageName;
+    const downloadUrl = await uploadImageToStorage(
+        newImageName,
+        newImageSource,
+    );
+    // return newImageInfo
+    return new Promise(resolve => {
+        console.log('\n\nupdateGroupImage : downloadUrl==============');
+        console.log(downloadUrl);
+        resolve([downloadUrl, newImageName]);
+    });
 }
 
 /**

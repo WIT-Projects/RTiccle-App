@@ -14,13 +14,12 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const groupUpdateFirebase = () => {
         let newInfo = [];
         let image = '';
-        let groupData = groupUpdate;
         if (groupUpdate.title != initialData.title)
             newInfo.title = groupUpdate.title;
         if (groupUpdate.description != initialData.description)
             newInfo.description = groupUpdate.description;
         if (groupUpdate.imageUrl != initialData.imageUrl)
-            image = groupUpdate.imageUrl;
+            image = groupUpdate.imageUrl; // imageUrl이지만 새로 업로드되는 이미지의 source임.
 
         const groupId = initialData.id;
         try {

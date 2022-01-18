@@ -31,10 +31,14 @@ async function getAllGroupIncludeImages() {
  * Upload new group and add to groupList
  * @param {*} groupData: group info
  * *  {
-        type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
+        mainImage: String,
+        imageUrl : String
+        ticcleNum: integer, 
+        latestTiccleTitle: String, 
+        lastModifiedTime: number
     }
  * @param {*} mainImageSource: main image source of group
  */
@@ -54,16 +58,18 @@ async function doCreateGroup(groupData, mainImageSource) {
  * @param {*} newInfo: new group info (CHANGED INFO ONLY)
  * Support info:
  * *  {
- type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
- title: String,
- description: String,
- bookmark: Boolean, // true if bookmarked
+        title: String,
+        description: String,
+        bookmark: Boolean, // true if bookmarked
+        mainImage: String,
+        imageUrl: String
+        latestTiccleTitle: String,
 }
 * @param {*} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
 * @param {*} oldImageName old image name
 * @param {*} newImageSource new image source
 */
-function doUpdateGroup(
+async function doUpdateGroup(
     groupId,
     newInfo,
     isIncludingImage,
@@ -74,10 +80,14 @@ function doUpdateGroup(
 
     // to server
     if (isIncludingImage) {
-        const newImageName = updateGroupImage(oldImageName, newImageSource);
-        info = {...info, mainImage: newImageName};
+        const newImageInfo = await updateGroupImage(
+            oldImageName,
+            newImageSource,
+        );
+        const [downloadUrl, newImageName] = newImageInfo;
+        info = {...info, imageUrl: downloadUrl, mainImage: newImageName};
         console.log('\n\ndoUpdate image========');
-        console.log(newImageName);
+        console.log(newImageInfo);
     }
     updateGroupInfo(groupId, info);
 
