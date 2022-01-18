@@ -1,13 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,Image, Linking, Alert } from 'react-native';
+import useTiccleCreate from '../../../../context/hook/useTiccleCreate';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
+import { timeStampToFormatDate } from '../../../../service/CommonService';
 
-const TiccleDetailInfo = ({title, date, link}) => {
-
-    const ticcleDetailDate = date
-    const ticcleDetailTitle = title
-    const URLLink = link
+const TiccleDetailInfo = () => {
+    const {ticcle} = useTiccleCreate();
+    var formattedday = ""
+    if(ticcle.lastModifiedTime !== ""){
+        formattedday = timeStampToFormatDate(ticcle.lastModifiedTime);
+    }
+    const ticcleDetailTitle = ticcle.title
+    const URLLink = ticcle.link
 
     const goToURL = () => {
         Linking.openURL(URLLink)
@@ -15,7 +20,7 @@ const TiccleDetailInfo = ({title, date, link}) => {
 
     return(
         <View style={styles.container}>
-            <Text style={styles.date}>{ticcleDetailDate}</Text>
+            <Text style={styles.date}>{formattedday}</Text>
             <Text style={styles.title}>{ticcleDetailTitle}</Text>
 
         {URLLink.length > 0 ? 

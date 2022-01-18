@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import useTiccleCreate from '../../../../context/hook/useTiccleCreate';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-const TiccleDetailTags = ({tags}) => {
-
+const TiccleDetailTags = () => {
+    const {ticcle} = useTiccleCreate();
+    const tags = ticcle.tagList
+    
     const tagGroup = tags.map(
         (tag, index) => (
             <View key={index} style={styles.tag}>
