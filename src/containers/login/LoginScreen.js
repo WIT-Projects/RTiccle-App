@@ -3,8 +3,9 @@ import {View,StyleSheet,Text, Image, TouchableOpacity } from 'react-native'
 import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
 import { getCurrentUser, anonSignIn, googleLoginAndLink } from "../../service/AuthService";
+import {ASStoreData} from '../../service/AsyncStoageService'
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({setIsLoggedIn}) => {
 
     const textOne = "RTICCLE에 오신 걸"
     const textTwo = "환영합니다."
@@ -14,10 +15,13 @@ const LoginScreen = ({navigation}) => {
             anonSignIn();
         }
     }, [])
-
-    function googleSignin() {
+    function setIsLoggedInTrue(){
+        setIsLoggedIn(true);
+        ASStoreData('LoggedIn');
+    }
+    function googleSignIn() {
         googleLoginAndLink();
-        navigation.navigate("Home");
+        setIsLoggedInTrue();
     }
     
     return(
@@ -26,14 +30,12 @@ const LoginScreen = ({navigation}) => {
                 <Text style={styles.text}>{textOne}</Text>
                 <Text style={styles.text}>{textTwo}</Text> 
             </View>
-
             <TouchableOpacity
-                style={styles.imageTouchable} onPress={() => navigation.navigate("Home")}>
+                style={styles.imageTouchable} onPress={setIsLoggedInTrue}>
                   <Image source={require('../../assets/images/login_guest.png')} style={styles.image}/>
             </TouchableOpacity>
-
             <TouchableOpacity
-                style={styles.imageTouchable} onPress={googleSignin}>
+                style={styles.imageTouchable} onPress={googleSignIn}>
                     <Image source={require('../../assets/images/login_google.png')} style={styles.image}/>
             </TouchableOpacity>
         </View>
