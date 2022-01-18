@@ -7,7 +7,7 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import GroupSaveButton from '../../common/GroupSaveButton';
+import GroupSaveButton from './components/GroupSaveButton';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
 
@@ -21,7 +21,7 @@ const GroupCreateImage = ({navigation}) => {
     const title = groupCreate.title;
     const description = groupCreate.description;
     let source;
-    mainImage === ''
+    mainImage == '' || mainImage == null
         ? (source = require('../../../assets/images/blankImage.png'))
         : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);

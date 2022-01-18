@@ -1,35 +1,35 @@
 import React from 'react';
-import { Text, Image, ImageBackground, View, StyleSheet } from 'react-native';
-import { type } from '../../../theme/fonts';
-import { useNavigation } from '@react-navigation/native';
+import {Text, Image, ImageBackground, View, StyleSheet} from 'react-native';
+import {type} from '../../../theme/fonts';
+import {useNavigation} from '@react-navigation/native';
 
-const MarkTiccle = ({ groupData }) => {
+const MarkTiccle = ({groupData}) => {
     const navigateTo = useNavigation();
+    let source = '';
+    groupData.imageUrl == null || groupData.imageUrl == ''
+        ? (source = require('../../../assets/images/blankImage.png'))
+        : (source = {uri: groupData.imageUrl});
 
     return (
-        <>
-            <View style={styles.container} onTouchEnd={() => { navigateTo.navigate('GroupDetail', { groupData: groupData }) }}>
-                {groupData.imageUrl == null ?
-                    <ImageBackground
-                        source={require('../../../assets/images/bookmarkBlankImage.png')}
-                        resizeMode="cover"
-                        style={{ width: 194, height: 111, flex: 1 }}>
-                        <Image style={styles.icon} source={require('../../../assets/icon/bookMark.png')}></Image>
-                    </ImageBackground> :
-                    <ImageBackground
-                        source={{ uri: groupData.imageUrl }}
-                        resizeMode="cover"
-                        style={{ width: 194, height: 111, flex: 1 }}>
-                        <Image style={styles.icon} source={require('../../../assets/icon/bookMark.png')}></Image>
-                    </ImageBackground>
-                }
+        <View
+            style={styles.container}
+            onTouchEnd={() => {
+                navigateTo.navigate('GroupDetail', {groupData: groupData});
+            }}>
+            <ImageBackground
+                source={source}
+                resizeMode="cover"
+                style={{width: 194, height: 111, flex: 1}}>
+                <Image
+                    style={styles.icon}
+                    source={require('../../../assets/icon/bookmarkTrue.png')}></Image>
+            </ImageBackground>
 
-                <Text style={styles.blackRegularFont}>{groupData.title}</Text>
-                <Text style={styles.blackBoldFont}>총 {groupData.ticcleNum}개</Text>
-            </View>
-        </>
+            <Text style={styles.blackRegularFont}>{groupData.title}</Text>
+            <Text style={styles.blackBoldFont}>총 {groupData.ticcleNum}개</Text>
+        </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 5,
     },
-
-})
+});
 
 export default MarkTiccle;

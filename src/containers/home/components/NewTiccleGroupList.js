@@ -16,7 +16,6 @@ const NewTiccleGroupList = () => {
         setData(groupList); // TODO sorting
         console.log('newticcleGroupList===============');
         console.log('group', data);
-        console.log(isGroupChanged);
     }, [isGroupChanged]);
 
     return (

@@ -37,9 +37,9 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
             } else {
                 doUpdateGroup(groupId, newInfo, false);
             }
-            console.log(isGroupChanged);
             setIsGroupChanged(!isGroupChanged); // notify groupData changed
             console.log('Group update save========================');
+            console.log(isGroupChanged);
             navigation.navigate({
                 name: 'GroupDetail',
                 params: {
@@ -47,7 +47,6 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
                 },
                 merge: true,
             });
-            console.log(groupUpdate);
             initialGroupUpdate();
         } catch (error) {
             console.error(error);

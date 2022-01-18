@@ -14,6 +14,7 @@ const Home = ({navigation}) => {
         (async () => {
             await getAllGroupIncludeImages(); // init group data
             setIsGroupChanged(!isGroupChanged);
+            console.log('================Home');
         })();
     }, []);
 

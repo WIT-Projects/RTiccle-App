@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
-import colors from '../../theme/colors';
-import {type} from '../../theme/fonts';
-import useGroupCreate from '../../context/hook/useGroupCreate';
-import {doCreateGroup} from '../../model/GroupModel';
-import useGroupChanged from '../../context/hook/useGroupChanged';
+import colors from '../../../../theme/colors';
+import {type} from '../../../../theme/fonts';
+import useGroupCreate from '../../../../context/hook/useGroupCreate';
+import {doCreateGroup} from '../../../../model/GroupModel';
+import useGroupChanged from '../../../../context/hook/useGroupChanged';
 
 const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();
@@ -23,9 +23,9 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
         };
         const imageSource = mainImage;
         await doCreateGroup(newGroup, imageSource);
-        console.log('before', isGroupChanged); // temp
+        //console.log('before', isGroupChanged); // temp
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
-        console.log('after', isGroupChanged); // temp
+        //console.log('after', isGroupChanged); // temp
         initialGroupCreate();
         navigation.navigate('Home');
     };
