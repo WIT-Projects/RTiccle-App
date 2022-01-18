@@ -3,12 +3,25 @@ import { StyleSheet, Text, View } from "react-native";
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
+import { timeStampToFormatDate } from '../../../../service/CommonService';
+import useTiccleCreate from '../../../../context/hook/useTiccleCreate';
+import { getTiccleIncludeImages } from '../../../../model/TiccleModel';
 
-const GroupDetailTiccle = ({ ticcleDate, title, tag }) => {
+const GroupDetailTiccle = ({ item }) => {
     const navigateTo = useNavigation();
 
+    let ticcleDate = timeStampToFormatDate(item.lastModifiedTime);
+    const title = item.title
+    const tag = item.tagList
+
+    const {setTiccle} = useTiccleCreate()
+    const goToTiccleDetail = async() => {
+        const ticcleDetail = await getTiccleIncludeImages(item)
+        setTiccle(ticcleDetail);
+        navigateTo.navigate('TiccleDetail');
+    }
     return (
-        <View style={styles.container} onTouchEnd={() => navigateTo.navigate('TiccleDetail')}>
+        <View style={styles.container} onTouchEnd={goToTiccleDetail}>
             <Text style={styles.font1}>{ticcleDate}</Text>
             <View style={styles.container2}>
                 <Text style={styles.font2}>{title}</Text>

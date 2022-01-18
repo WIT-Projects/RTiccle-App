@@ -155,7 +155,7 @@ async function findTiccleById(ticcleId) {
             imageURLArr.push(URL);
         }
     }
-    return {...ticcle, imageUrl: imageURLArr};
+    return {...ticcle, images: imageURLArr};
 }
 
 export {
