@@ -21,13 +21,12 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
 
     const fastGroupCreateFirebase = async () => {
         const newGroup = {
-            type: 0,
             title: groupTitle,
             description: '',
             bookmark: false,
         };
         const imageSource = '';
-                await doCreateGroup(newGroup, imageSource);
+        doCreateGroup(newGroup, imageSource);
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
     };
 
