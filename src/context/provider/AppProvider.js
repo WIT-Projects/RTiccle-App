@@ -29,15 +29,6 @@ const AppProvider = ({children}) => {
             return {...state, link: text};
         });
     };
-    const setTiccleDate = () => {
-        const today = FBDate();
-        setTiccle(state => {
-            return {...state, lastModifiedTime: today};
-        });
-
-        console.log(ticcle);
-
-    };
     const setTiccleTagList = tag => {
         if (tag == '') return; // 비어있을 경우
         if (tag.trim() == '') return; // 공백만 있을 경우
@@ -47,7 +38,6 @@ const AppProvider = ({children}) => {
     };
     const deleteTiccleTagList = tag => {
         setTiccle(state => {
-
             return {
                 ...state,
                 tagList: tagList.filter(tagList => tagList !== tag),
@@ -77,7 +67,6 @@ const AppProvider = ({children}) => {
     };
     const initialTiccle = () => {
         setTiccle({
-            lastModifiedTime: '',
             groupId: '',
             title: '',
             link: '',
@@ -182,7 +171,6 @@ const AppProvider = ({children}) => {
                 setTiccleImages,
                 initialTiccle,
                 deleteTiccleImage,
-                setTiccleDate,
                 groupCreate,
                 setGroupCreate,
                 initialGroupCreate,

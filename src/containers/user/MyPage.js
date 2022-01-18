@@ -23,9 +23,6 @@ const MyPage = () => {
 
     return (
         <View style={styles.container}>
-            <View>
-
-            </View>
             <Text style={styles.myInfo}>내 정보</Text>
             { isGuest ? <GuestInfo /> : <UserInfo/> }
             <View style={styles.block}></View>

@@ -21,13 +21,13 @@ const GroupListModalGroupList = ({groupData, setModalVisible, isExistGroup, setT
                 <Pressable key={index}
                     style={({ pressed }) => [
                     styles.groupNameContainer,
-                    isSelectedGroup(group.title)|| pressed ? styles.isSelected : styles.isUnSelected,
+                    isSelectedGroup(group.id)|| pressed ? styles.isSelected : styles.isUnSelected,
                     ]}
                     onPress={() => {
                     setTiccleGroup(group.id)
                     setModalVisible(false)
                     }}
-                    disabled={isSelectedGroup(group.title)}
+                    disabled={isSelectedGroup(group.id)}
                 >                            
                     <Text style={styles.groupNameText}>{group.title}</Text>
                 </Pressable>
