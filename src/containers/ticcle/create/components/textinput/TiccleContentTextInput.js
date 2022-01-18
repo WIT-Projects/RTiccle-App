@@ -1,24 +1,30 @@
 import React from 'react';
-import { TextInput, Text, StyleSheet } from 'react-native';
-
+import { TextInput, View, StyleSheet } from 'react-native';
+import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
 import colors from '../../../../../theme/colors';
 
-const TiccleContentTextInput = ({onChangeText, value}) => {
+const TiccleContentTextInput = () => {
+    const {ticcle, setTiccleContent} = useTiccleCreate();
+    const value = ticcle.content
+    
     return(
-        <>
+        <View style={styles.container}>
             <TextInput style={styles.textinput}
             multiline ={true}
             textAlignVertical = "top"
             placeholder = "내용을 입력하세요"
             placeholderTextColor = {colors.gray3}
-            onChangeText = {onChangeText}
+            onChangeText = {setTiccleContent}
             value={value}
             />
-        </>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container:{
+        marginTop: 16,
+    },
     textinput : {
         backgroundColor : colors.gray6,
         minHeight: 350,

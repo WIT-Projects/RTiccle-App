@@ -1,11 +1,19 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { Text, TouchableOpacity,StyleSheet, Image } from "react-native";
+import useTiccleCreate from "../../../../../context/hook/useTiccleCreate";
 import colors from "../../../../../theme/colors";
 import { type } from "../../../../../theme/fonts";
+import { getGroupTitleByGId } from "../../../../../model/GroupModel";
 
-const TiccleCreateGroupSelect = ({ticcleGroupTitle, setGroupListModalVisible}) => {
-
+const TiccleCreateGroupSelect = ({setGroupListModalVisible}) => {
+    const {ticcle} = useTiccleCreate();
+    const [ticcleGroupTitle, setTiccleGroupTitle] = useState('')
+    useEffect(()=> {
+        getGroupTitleByGId(ticcle.groupId, setTiccleGroupTitle);
+    }
+    ,[ticcle.groupId])
     const groupName = !!(ticcleGroupTitle) ? ticcleGroupTitle : '그룹을 선택해주세요' 
+    
     return(
         <TouchableOpacity style={styles.touchable} activeOpacity={1} onPress={() => setGroupListModalVisible(true)}>
             <Text style={styles.text}>

@@ -4,7 +4,7 @@ import colors from '../../../../../theme/colors';
 import CustomModal from '../../../../common/CustomModal'
 import TiccleCreateImageExpansion from './TiccleCreateImageExpansion';
 
-const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imagePath}) => {
+const TiccleCreateImage = ({deleteImage ,imagePath}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
     const [imageExpansion, setImageExpansion] = useState(false)

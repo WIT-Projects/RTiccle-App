@@ -1,27 +1,30 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { TextInput, StyleSheet,View } from 'react-native'
+import useTiccleCreate from '../../../../../context/hook/useTiccleCreate'
 import colors from '../../../../../theme/colors'
 
-const TiccleCreateTextInputTag = ({fontWeight, fontSize, placeHolderTextcolor, placeholder, onChangeText, style,
-    setTiccleTagList, tag, initialTag}) => {
+const TiccleCreateTextInputTag = () => {
+    const placeholder = "태그 ex. #경제 #마케팅 (선택)"
+    const {setTiccleTagList} = useTiccleCreate();
+    const [tag, setTag] = useState('');
+    const initialTag = () => {
+        setTag('')
+    }
 
     return (
-        <View style={[styles.container, style]}>
+        <View style={styles.container}>
             <TextInput
             placeholder = {placeholder}
-            placeholderTextColor = {placeHolderTextcolor}
-            onChangeText = {onChangeText}
+            placeholderTextColor = {colors.gray3}
+            onChangeText = {setTag}
             value= {tag}
             onSubmitEditing={() => {
                 setTiccleTagList(tag)
                 initialTag()
             }}
             blurOnSubmit={false}
-            style={{
-                fontWeight : fontWeight,
-                fontSize: fontSize,
-                color : colors.main,
-                }}>
+            style={styles.textInput}
+            >
             </TextInput>
         </View>
 
@@ -36,7 +39,9 @@ const styles = StyleSheet.create({
         height : 59,
     },
     textInput : {
-        fontWeight : 'bold',
+        fontWeight : 'normal',
+        fontSize: 18,
+        color: colors.main
     }
 })
 

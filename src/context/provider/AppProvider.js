@@ -40,7 +40,7 @@ const AppProvider = ({children}) => {
         setTiccle(state => {
             return {
                 ...state,
-                tagList: tagList.filter(tagList => tagList !== tag),
+                tagList: state.tagList.filter(tagList => tagList !== tag),
             };
         });
 

@@ -1,18 +1,31 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { View, Text, Pressable,  StyleSheet, ScrollView } from "react-native";
+import useTiccleCreate from "../../../../../../context/hook/useTiccleCreate";
 import colors from "../../../../../../theme/colors";
 import { type } from "../../../../../../theme/fonts";
+import { groupList } from "../../../../../../model/GroupModel";
+import useGroupChanged from "../../../../../../context/hook/useGroupChanged";
 
 const groupCotainerHeight = 48;
 const groupNumberInScroll = 8;
 
-const GroupListModalGroupList = ({groupData, setModalVisible, isExistGroup, setTiccleGroup , ticcleGroup}) => {
+const GroupListModalGroupList = ({setModalVisible}) => {
+    const {ticcle, setTiccleGroup} = useTiccleCreate();
+    const ticcleGroup = ticcle.groupId
+
+    const [groupData, setGroupData] = useState([]);
+    const [isExistGroup, setExistGroup] = useState(false);
+    const { isGroupChanged } = useGroupChanged();
+
+    useEffect(() => {
+        setExistGroup(groupList.length != 0);
+        setGroupData(groupList); // TODO sorting
+    }, [isGroupChanged]);
 
     const isSelectedGroup = groupId => {
         if(ticcleGroup === groupId) return true;
         return false
     }
-
     return(
         <View style={styles.groupListViewConatiner}>
             {isExistGroup ? 
