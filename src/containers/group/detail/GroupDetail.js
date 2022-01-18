@@ -15,7 +15,7 @@ const GroupDetail = ({route, navigation}) => {
     const [list, setList] = useState([]);
     const [group, setGroup] = useState(route.params?.groupData);
     useEffect(() => {
-        console.log('group detail=================');
+        console.log('\n\n\ngroup detail=================');
         console.log(group);
         // get/set ticcle List
         getTiccleListByGId(route.params.groupData.id).then(() => {

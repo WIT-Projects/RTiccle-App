@@ -13,6 +13,7 @@ import metrics from '../../../../theme/metrices';
 import {doUpdateGroup} from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
+import GroupDeleteButton from '../../delete/GroupDeleteButton';
 
 const GroupInfo = ({groupData, navigation}) => {
     const {setGroupUpdate} = useGroupUpdate();
@@ -49,13 +50,18 @@ const GroupInfo = ({groupData, navigation}) => {
                     source={require('../../../../assets/images/gradation2.png')}
                     resizeMode="cover"
                     style={styles.container5}>
-                    <Image
-                        style={styles.backBtn}
-                        onTouchEnd={() => {
-                            navigation.navigate('Home');
-                        }}
-                        source={require('../../../../assets/icon/backWhite.png')}
-                    />
+                    <View style={styles.backDeleteContainer}>
+                        <Image
+                            style={styles.backBtn}
+                            onTouchEnd={() => {
+                                navigation.navigate('Home');
+                            }}
+                            source={require('../../../../assets/icon/backWhite.png')}
+                        />
+                        <GroupDeleteButton
+                            groupData={groupData}
+                            style={styles.deleteButton}></GroupDeleteButton>
+                    </View>
                     <View style={styles.container}>
                         <View style={styles.container2}>
                             <View style={styles.container3}>
@@ -146,8 +152,13 @@ const styles = StyleSheet.create({
     backBtn: {
         width: 8,
         height: 16,
-        marginLeft: 18,
-        marginTop: 21,
+    },
+    backDeleteContainer: {
+        paddingHorizontal: 18,
+        paddingTop: 21,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
 });
 

@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Text, ImageBackground, View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
 import {type} from '../../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
-import useGroupChanged from '../../../context/hook/useGroupChanged';
 
 const TiccleGroup = ({groupData, isGroupChanged}) => {
     const navigation = useNavigation();
@@ -14,7 +13,7 @@ const TiccleGroup = ({groupData, isGroupChanged}) => {
 
     useEffect(() => {
         console.log('ticcleGroup=================');
-        console.log(groupData);
+        // console.log(groupData);
         navigation.setParams({groupData: groupData});
     }, [isGroupChanged]);
 
@@ -23,7 +22,6 @@ const TiccleGroup = ({groupData, isGroupChanged}) => {
             onTouchEnd={() => {
                 navigation.navigate('GroupDetail', {
                     groupData: groupData,
-                    isGroupChanged: isGroupChanged,
                 });
             }}>
             <ImageBackground

@@ -1,20 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, Image, ImageBackground, View, StyleSheet} from 'react-native';
 import {type} from '../../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
 
-const MarkTiccle = ({groupData}) => {
-    const navigateTo = useNavigation();
+const BookmarkGroup = ({groupData, isGroupChanged}) => {
+    const navigation = useNavigation();
     let source = '';
     groupData.imageUrl == null || groupData.imageUrl == ''
         ? (source = require('../../../assets/images/blankImage.png'))
         : (source = {uri: groupData.imageUrl});
 
+    useEffect(() => {
+        console.log('BookmarkGroup=================');
+        console.log(groupData);
+        navigation.setParams({groupData: groupData});
+    }, [isGroupChanged]);
+
     return (
         <View
             style={styles.container}
             onTouchEnd={() => {
-                navigateTo.navigate('GroupDetail', {groupData: groupData});
+                navigation.navigate('GroupDetail', {groupData: groupData});
             }}>
             <ImageBackground
                 source={source}
@@ -53,4 +59,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MarkTiccle;
+export default BookmarkGroup;

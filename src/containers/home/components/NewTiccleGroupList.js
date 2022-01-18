@@ -8,7 +8,6 @@ import useGroupChanged from '../../../context/hook/useGroupChanged';
 const NewTiccleGroupList = () => {
     const [isExistGroup, setIsExistGroup] = useState(false);
     const [data, setData] = useState([]);
-
     const {isGroupChanged} = useGroupChanged();
 
     useEffect(() => {
