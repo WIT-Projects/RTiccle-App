@@ -3,12 +3,15 @@ import { TextInput, StyleSheet,View } from 'react-native'
 import useTiccleCreate from '../../../../../context/hook/useTiccleCreate'
 import colors from '../../../../../theme/colors'
 
-const TiccleCreateTextInputTag = () => {
+const TiccleCreateTextInputTag = ({scrollRef}) => {
     const placeholder = "태그 ex. #경제 #마케팅 (선택)"
     const {setTiccleTagList} = useTiccleCreate();
     const [tag, setTag] = useState('');
     const initialTag = () => {
         setTag('')
+    }
+    const pressEnter = () => {
+        scrollRef.current.scrollToEnd();
     }
 
     return (
@@ -19,15 +22,15 @@ const TiccleCreateTextInputTag = () => {
             onChangeText = {setTag}
             value= {tag}
             onSubmitEditing={() => {
-                setTiccleTagList(tag)
-                initialTag()
+                setTiccleTagList(tag);
+                pressEnter();
+                initialTag();
             }}
             blurOnSubmit={false}
             style={styles.textInput}
             >
             </TextInput>
         </View>
-
     )
 }
 

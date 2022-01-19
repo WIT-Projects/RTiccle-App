@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet,ScrollView, BackHandler } from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {StyleSheet,ScrollView, BackHandler, TextInput } from 'react-native';
 import TiccleCreateGroupSelect from './components/group/TiccleCreateGroupSelect';
 import TiccleContentTextInput from './components/textinput/TiccleContentTextInput';
 import TiccleCreateTextInputTitleLink from './components/textinput/TiccleCreateTextInputTitleLink';
@@ -18,6 +18,7 @@ const TiccleCreate = ({route, navigation}) => {
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
+    const scrollRef = useRef();
 
     useEffect(() => {
         const tabPress = navigation.addListener('tabPress', () => {
@@ -46,7 +47,7 @@ const TiccleCreate = ({route, navigation}) => {
     return(
         <>
             <TiccleCreateHeader isUpdateMode={isUpdateMode} setIsUpdateMode={setIsUpdateMode}/>
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
                 <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>
                 <GroupListModal isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}/>
@@ -55,11 +56,10 @@ const TiccleCreate = ({route, navigation}) => {
                 <TiccleCreateTextInputTitleLink/>
                 <TiccleCreateImageAdd setPhotoModalVisible={setPhotoModalVisible}/>
                 <TiccleContentTextInput/>
-                <TiccleCreateTextInputTag/>
+                <TiccleCreateTextInputTag scrollRef={scrollRef}/>
                 <TiccleCreateTags/>
             </ScrollView>
         </>
-
     )
 }
 
