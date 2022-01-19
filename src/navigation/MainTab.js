@@ -4,11 +4,8 @@ import HomeStackNavigatior from './stack/HomeStackNavigator';
 import MyPage from '../containers/user/MyPage';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import colors from '../theme/colors';
-import metrics from '../theme/metrices';
 import { type } from '../theme/fonts';
 import TiccleCreate from '../containers/ticcle/create/TiccleCreate';
-import TiccleCreateHeaderLeft from './mainTabComponent/TiccleCreateHeaderLeft';
-import TiccleCreateHeaderRight from './mainTabComponent/TiccleCreateHeaderRight';
 
 const isTabActive = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -39,25 +36,9 @@ const MainTab = () => {
             <Tab.Screen
                 name="TiccleCreate"
                 component={TiccleCreate}
+                initialParams={{screenFrom : 'home'}}
                 options={() =>  ({
-                    headerStyle :{
-                        backgroundColor: colors.main,
-                        height : metrics.topNavigationHeight,
-                    },
-                    title: '티클 작성',
-                    headerTintColor : colors.white ,
-                    headerTitleAlign : 'center',
-                    headerTitleStyle : {
-                        fontFamily: type.notoSansKR_Medium,
-                        fontSize : 20,
-                        lineHeight : 24,
-                    },
-                    headerLeft : () => (
-                        <TiccleCreateHeaderLeft/>
-                    ),
-                    headerRight : () => (
-                        <TiccleCreateHeaderRight/>
-                    ),
+                    headerShown: false,
                     tabBarStyle: {display : 'none'},
                 })}
             />

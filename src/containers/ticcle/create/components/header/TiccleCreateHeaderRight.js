@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { Text,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { doCreateTiccle } from '../../model/TiccleModel';
-import colors from '../../theme/colors';
-import { type } from '../../theme/fonts';
-import useTiccleCreate from '../../context/hook/useTiccleCreate';
+import { doCreateTiccle, doUpdateTiccle } from '../../../../../model/TiccleModel';
+import colors from '../../../../../theme/colors';
+import { type } from '../../../../../theme/fonts';
+import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
 
-const TiccleCreateHeaderRight = () => {
+const TiccleCreateHeaderRight = ({isUpdateMode}) => {
     const navigateTo = useNavigation()
     const {ticcle} = useTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
@@ -18,12 +18,17 @@ const TiccleCreateHeaderRight = () => {
         : setSaveButtonDisable(true);
     },[ticcle.title, ticcle.content, ticcle.groupId])
 
+    const saveButtonEvent = () => {
+        (isUpdateMode) ? console.log('update ticcle') : doCreateTiccle(ticcle, ticcle.images)
+    }
+    
+
     return (
         <TouchableOpacity
             style={styles.headerRightTouchable}
             disabled={saveButtonDisable}
             onPress={ () => {
-                doCreateTiccle(ticcle, ticcle.images);
+                saveButtonEvent()
                 console.log(ticcle)
                 navigateTo.navigate('TiccleDetail')
             }}>
@@ -34,6 +39,9 @@ const TiccleCreateHeaderRight = () => {
 
 const styles = StyleSheet.create({
     headerRightTouchable : {
+        position: 'absolute',
+        right: 0,
+        top: 9,
         alignItems: 'center',
         justifyContent : 'center',
         width : 60,
