@@ -47,9 +47,11 @@ async function doCreateGroup(groupData, mainImageSource) {
     const newGroupInfo = await uploadNewGroup(groupData, mainImageSource);
     // to local data
     groupList = [...groupList, newGroupInfo];
-    // console.log( groupList );
     console.log('\n\ndoCreateGroup========');
     console.log(newGroupInfo);
+    return new Promise(resolve => {
+        resolve(newGroupInfo);
+    });
 }
 
 /**

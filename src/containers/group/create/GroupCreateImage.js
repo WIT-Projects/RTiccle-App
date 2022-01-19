@@ -25,8 +25,6 @@ const GroupCreateImage = ({navigation}) => {
         ? (source = require('../../../assets/images/blankImage.png'))
         : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
-    const [groupCreateButtonDisable, setGroupCreateButtonDisable] =
-        useState(false);
 
     return (
         <View style={styles.container}>
@@ -60,7 +58,6 @@ const GroupCreateImage = ({navigation}) => {
             </ImageBackground>
             <GroupSaveButton
                 text="저장하기"
-                buttonDisabled={groupCreateButtonDisable}
                 navigation={navigation}></GroupSaveButton>
             <View style={{alignItems: 'center'}}>
                 <TouchableOpacity style={styles.skipButton}>

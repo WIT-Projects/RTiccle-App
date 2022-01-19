@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
 import colors from '../../../../theme/colors';
@@ -7,13 +7,19 @@ import useGroupCreate from '../../../../context/hook/useGroupCreate';
 import {doCreateGroup} from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
 
-const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
+const GroupSaveButton = ({navigation, text}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();
     const title = groupCreate.title;
     const description = groupCreate.description;
     const mainImage = groupCreate.mainImage;
-
+    const [buttonDisable, setButtonDisable] = useState(true);
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
+
+    useEffect(() => {
+        groupCreate.mainImage != ''
+            ? setButtonDisable(false)
+            : setButtonDisable(true);
+    }, [groupCreate.mainImage]);
 
     const groupCreateFirebase = async () => {
         const newGroup = {
@@ -22,12 +28,10 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
             bookmark: false,
         };
         const imageSource = mainImage;
-        await doCreateGroup(newGroup, imageSource);
-        //console.log('before', isGroupChanged); // temp
+        const groupData = await doCreateGroup(newGroup, imageSource);
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
-        //console.log('after', isGroupChanged); // temp
         initialGroupCreate();
-        navigation.navigate('Home');
+        navigation.navigate('GroupDetail', {groupData: groupData});
     };
 
     return (
@@ -35,18 +39,17 @@ const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
             <TouchableOpacity
                 style={[
                     styles.touchableOpacitiy,
-                    buttonDisabled
+                    buttonDisable
                         ? styles.touchableDisableColor
                         : styles.touchableColor,
                 ]}
-                disabled={buttonDisabled}
                 onPress={() => {
                     groupCreateFirebase();
                 }}>
                 <Text
                     style={[
                         styles.buttonText,
-                        buttonDisabled
+                        buttonDisable
                             ? styles.textDisabledColor
                             : styles.textColor,
                     ]}>

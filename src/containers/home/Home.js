@@ -26,9 +26,6 @@ const Home = ({navigation}) => {
                     'https://images.france.fr/zeaejvyq9bhj/4jKuK6yobYMkGGQ4IO0Kk2/b77683922a8cca16afaa0d2028df39ad/savoie-mont-blanc-ete-header.jpg?w=1200&h=630&q=70&fl=progressive&fit=fill'
                 }></MyMount>
             <BookmarkGroupList></BookmarkGroupList>
-            <Button
-                title="그룹 생성"
-                onPress={() => navigation.navigate('GroupCreateName')}></Button>
 
             {/* 나중에 지울거 */}
             <View style={{marginTop: 10}}>

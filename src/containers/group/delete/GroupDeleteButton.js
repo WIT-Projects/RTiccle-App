@@ -2,17 +2,23 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {doDeleteGroup} from '../../../model/GroupModel';
 import {useNavigation} from '@react-navigation/native';
+import useGroupChanged from '../../../context/hook/useGroupChanged';
 
 const GroupDeleteButton = ({groupData}) => {
     const navigation = useNavigation();
+    const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
     console.log(groupData);
     return (
         <TouchableOpacity
             onPress={() => {
-                doDeleteGroup(groupData);
-                console.log('dellllllllllte----------');
-                navigation.navigate('Home');
+                try {
+                    doDeleteGroup(groupData);
+                    setIsGroupChanged(!isGroupChanged);
+                    navigation.navigate('Home');
+                } catch (error) {
+                    console.error(error);
+                }
             }}>
             <Image
                 style={styles.deleteButton}

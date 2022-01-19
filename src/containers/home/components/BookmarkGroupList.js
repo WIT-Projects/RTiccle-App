@@ -22,15 +22,15 @@ const BookmarkGroupList = () => {
         console.log('\n\nBookmarkGroupList----------------------');
         console.log(data);
     }, [isGroupChanged]);
-    return (
-        <>
-            <View style={styles.container}>
-                <Text style={styles.blackBoldFont}>즐겨찾기</Text>
-                <Text style={styles.blackRegularFont}>
-                    자주 열어보는 그룹이에요
-                </Text>
-            </View>
-            {existBookmark ? (
+    if (existBookmark) {
+        return (
+            <>
+                <View style={styles.container}>
+                    <Text style={styles.blackBoldFont}>즐겨찾기</Text>
+                    <Text style={styles.blackRegularFont}>
+                        자주 열어보는 그룹이에요
+                    </Text>
+                </View>
                 <ScrollView
                     showsHorizontalScrollIndicator={false}
                     horizontal={true}
@@ -44,11 +44,10 @@ const BookmarkGroupList = () => {
                         );
                     })}
                 </ScrollView>
-            ) : (
-                <Text>즐겨찾기한 그룹이 존재하지 않습니다.</Text>
-            )}
-        </>
-    );
+            </>
+        );
+    }
+    return null;
 };
 
 const styles = StyleSheet.create({
