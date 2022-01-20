@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {doDeleteGroup} from '../../../model/GroupModel';
 import {useNavigation} from '@react-navigation/native';
@@ -20,9 +20,7 @@ const GroupDeleteButton = ({groupData}) => {
                     console.error(error);
                 }
             }}>
-            <Image
-                style={styles.deleteButton}
-                source={require('../../../assets/icon/trashCan.png')}></Image>
+            <Image style={styles.deleteButton} source={require('../../../assets/icon/trashCan.png')}></Image>
         </TouchableOpacity>
     );
 };

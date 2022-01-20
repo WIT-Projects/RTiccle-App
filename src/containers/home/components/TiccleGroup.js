@@ -4,7 +4,7 @@ import colors from '../../../theme/colors';
 import {type} from '../../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
 
-const TiccleGroup = ({groupData, isGroupChanged}) => {
+const TiccleGroup = ({groupData}) => {
     const navigation = useNavigation();
     let source = '';
     groupData.imageUrl == null || groupData.imageUrl == ''
@@ -15,7 +15,7 @@ const TiccleGroup = ({groupData, isGroupChanged}) => {
         console.log('ticcleGroup=================');
         // console.log(groupData);
         navigation.setParams({groupData: groupData});
-    }, [isGroupChanged]);
+    }, [groupData]);
 
     return (
         <View
@@ -24,24 +24,14 @@ const TiccleGroup = ({groupData, isGroupChanged}) => {
                     groupData: groupData,
                 });
             }}>
-            <ImageBackground
-                source={source}
-                resizeMode="cover"
-                style={styles.container}>
-                <ImageBackground
-                    source={require('../../../assets/images/gradation.png')}
-                    resizeMode="cover"
-                    style={styles.container}>
+            <ImageBackground source={source} resizeMode="cover" style={styles.container}>
+                <ImageBackground source={require('../../../assets/images/gradation.png')} resizeMode="cover" style={styles.container}>
                     <View style={styles.container3}>
                         <Text style={styles.subFont}>{groupData.title}</Text>
                         <Text style={styles.whiteFont}>최신글</Text>
-                        <Text style={styles.whiteFont}>
-                            {groupData.latestTiccleTitle}
-                        </Text>
+                        <Text style={styles.whiteFont}>{groupData.latestTiccleTitle}</Text>
                         <View style={styles.container2}>
-                            <Text style={styles.blackFont}>
-                                +{groupData.ticcleNum}
-                            </Text>
+                            <Text style={styles.blackFont}>+{groupData.ticcleNum}</Text>
                         </View>
                     </View>
                 </ImageBackground>

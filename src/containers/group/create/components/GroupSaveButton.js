@@ -16,9 +16,7 @@ const GroupSaveButton = ({navigation, text}) => {
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
     useEffect(() => {
-        groupCreate.mainImage != ''
-            ? setButtonDisable(false)
-            : setButtonDisable(true);
+        groupCreate.mainImage != '' ? setButtonDisable(false) : setButtonDisable(true);
     }, [groupCreate.mainImage]);
 
     const groupCreateFirebase = async () => {
@@ -37,24 +35,11 @@ const GroupSaveButton = ({navigation, text}) => {
     return (
         <View style={{alignItems: 'center'}}>
             <TouchableOpacity
-                style={[
-                    styles.touchableOpacitiy,
-                    buttonDisable
-                        ? styles.touchableDisableColor
-                        : styles.touchableColor,
-                ]}
+                style={[styles.touchableOpacitiy, buttonDisable ? styles.touchableDisableColor : styles.touchableColor]}
                 onPress={() => {
                     groupCreateFirebase();
                 }}>
-                <Text
-                    style={[
-                        styles.buttonText,
-                        buttonDisable
-                            ? styles.textDisabledColor
-                            : styles.textColor,
-                    ]}>
-                    {text}
-                </Text>
+                <Text style={[styles.buttonText, buttonDisable ? styles.textDisabledColor : styles.textColor]}>{text}</Text>
             </TouchableOpacity>
         </View>
     );

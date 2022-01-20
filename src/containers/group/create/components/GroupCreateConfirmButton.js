@@ -8,25 +8,12 @@ const GroupCreateConfirmButton = ({buttonDisabled, navigation, text}) => {
     return (
         <View style={{alignItems: 'center'}}>
             <TouchableOpacity
-                style={[
-                    styles.touchableOpacitiy,
-                    buttonDisabled
-                        ? styles.touchableDisableColor
-                        : styles.touchableColor,
-                ]}
+                style={[styles.touchableOpacitiy, buttonDisabled ? styles.touchableDisableColor : styles.touchableColor]}
                 disabled={buttonDisabled}
                 onPress={() => {
                     navigation.navigate('GroupCreateImage');
                 }}>
-                <Text
-                    style={[
-                        styles.buttonText,
-                        buttonDisabled
-                            ? styles.textDisabledColor
-                            : styles.textColor,
-                    ]}>
-                    {text}
-                </Text>
+                <Text style={[styles.buttonText, buttonDisabled ? styles.textDisabledColor : styles.textColor]}>{text}</Text>
             </TouchableOpacity>
         </View>
     );

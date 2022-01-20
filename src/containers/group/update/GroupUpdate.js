@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-
 import colors from '../../../theme/colors';
 import {type} from '../../../theme/fonts';
 import GroupUpdateSaveButton from './components/GroupUpdateSaveButton';
@@ -32,9 +31,7 @@ const GroupUpdate = ({navigation, route}) => {
             </View>
             {!modalActive && (
                 <View style={styles.saveButton}>
-                    <GroupUpdateSaveButton
-                        navigation={navigation}
-                        initialData={initialData}></GroupUpdateSaveButton>
+                    <GroupUpdateSaveButton navigation={navigation} initialData={initialData}></GroupUpdateSaveButton>
                 </View>
             )}
         </View>

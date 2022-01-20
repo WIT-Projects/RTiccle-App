@@ -3,7 +3,7 @@ import {Text, Image, ImageBackground, View, StyleSheet} from 'react-native';
 import {type} from '../../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
 
-const BookmarkGroup = ({groupData, isGroupChanged}) => {
+const BookmarkGroup = ({groupData}) => {
     const navigation = useNavigation();
     let source = '';
     groupData.imageUrl == null || groupData.imageUrl == ''
@@ -14,7 +14,7 @@ const BookmarkGroup = ({groupData, isGroupChanged}) => {
         console.log('BookmarkGroup=================');
         console.log(groupData);
         navigation.setParams({groupData: groupData});
-    }, [isGroupChanged]);
+    }, [groupData]);
 
     return (
         <View
@@ -22,13 +22,8 @@ const BookmarkGroup = ({groupData, isGroupChanged}) => {
             onTouchEnd={() => {
                 navigation.navigate('GroupDetail', {groupData: groupData});
             }}>
-            <ImageBackground
-                source={source}
-                resizeMode="cover"
-                style={{width: 194, height: 111, flex: 1}}>
-                <Image
-                    style={styles.icon}
-                    source={require('../../../assets/icon/bookmarkTrue.png')}></Image>
+            <ImageBackground source={source} resizeMode="cover" style={{width: 194, height: 111, flex: 1}}>
+                <Image style={styles.icon} source={require('../../../assets/icon/bookmarkTrue.png')}></Image>
             </ImageBackground>
 
             <Text style={styles.blackRegularFont}>{groupData.title}</Text>

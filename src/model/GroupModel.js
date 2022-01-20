@@ -1,10 +1,8 @@
 import {
-    uploadNewGroup,
-    updateGroupInfo,
-    updateGroupImage,
-    deleteGroup,
-    findAllGroupIncludeImage,
-} from '../service/GroupService';
+        uploadNewGroup,
+        updateGroupInfo, updateGroupImage,
+        deleteGroup,
+        findAllGroupIncludeImage } from '../service/GroupService';
 
 // group list
 var groupList = [];
@@ -24,7 +22,7 @@ async function getAllGroupIncludeImages() {
     // from server
     const result = await findAllGroupIncludeImage();
     groupList = result;
-    // console.log(result);
+    console.log(result);
 }
 
 /**
@@ -34,18 +32,16 @@ async function getAllGroupIncludeImages() {
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
-        mainImage: String,
-        imageUrl : String
-        ticcleNum: integer, 
-        latestTiccleTitle: String, 
-        lastModifiedTime: number
     }
  * @param {*} mainImageSource: main image source of group
  */
 async function doCreateGroup(groupData, mainImageSource) {
     // to server
-    const newGroupInfo = await uploadNewGroup(groupData, mainImageSource);
+    const newGroupInfo = await uploadNewGroup( groupData, mainImageSource );
+
     // to local data
+    // groupList = ([...groupList, newGroupInfo])
+    // console.log(groupList);
     groupList = [...groupList, newGroupInfo];
     console.log('\n\ndoCreateGroup========');
     console.log(newGroupInfo);
@@ -63,29 +59,17 @@ async function doCreateGroup(groupData, mainImageSource) {
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
-        mainImage: String,
-        imageUrl: String
-        latestTiccleTitle: String,
 }
 * @param {*} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
 * @param {*} oldImageName old image name
 * @param {*} newImageSource new image source
 */
-async function doUpdateGroup(
-    groupId,
-    newInfo,
-    isIncludingImage,
-    oldImageName,
-    newImageSource,
-) {
+async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImageSource) {
     var info = {...newInfo};
 
     // to server
     if (isIncludingImage) {
-        const newImageInfo = await updateGroupImage(
-            oldImageName,
-            newImageSource,
-        );
+        const newImageInfo = await updateGroupImage(oldImageName, newImageSource);
         const [downloadUrl, newImageName] = newImageInfo;
         info = {...info, imageUrl: downloadUrl, mainImage: newImageName};
         console.log('\n\ndoUpdate image========');
@@ -121,11 +105,4 @@ function checkIsExistingGroup(groupTitle) {
     else return true;
 }
 
-export {
-    groupList,
-    getAllGroupIncludeImages,
-    doCreateGroup,
-    doUpdateGroup,
-    doDeleteGroup,
-    checkIsExistingGroup,
-};
+export {groupList, getAllGroupIncludeImages, doCreateGroup, doUpdateGroup, doDeleteGroup, checkIsExistingGroup};

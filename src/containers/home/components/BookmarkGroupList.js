@@ -27,21 +27,11 @@ const BookmarkGroupList = () => {
             <>
                 <View style={styles.container}>
                     <Text style={styles.blackBoldFont}>즐겨찾기</Text>
-                    <Text style={styles.blackRegularFont}>
-                        자주 열어보는 그룹이에요
-                    </Text>
+                    <Text style={styles.blackRegularFont}>자주 열어보는 그룹이에요</Text>
                 </View>
-                <ScrollView
-                    showsHorizontalScrollIndicator={false}
-                    horizontal={true}
-                    style={{marginLeft: 11.5}}>
+                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{marginLeft: 11.5}}>
                     {data.map(item => {
-                        return (
-                            <BookmarkGroup
-                                key={item.id}
-                                groupData={item}
-                                isGroupChanged={isGroupChanged}></BookmarkGroup>
-                        );
+                        return <BookmarkGroup key={item.id} groupData={item}></BookmarkGroup>;
                     })}
                 </ScrollView>
             </>

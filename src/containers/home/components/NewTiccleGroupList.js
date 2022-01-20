@@ -24,34 +24,21 @@ const NewTiccleGroupList = () => {
         <>
             <View style={styles.groupCreateButton}>
                 <Text style={styles.blackBoldFont}>내 그룹</Text>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('GroupCreateName')}>
-                    <Image
-                        source={require('../../../assets/images/groupCreateButton.png')}></Image>
+                <TouchableOpacity onPress={() => navigation.navigate('GroupCreateName')}>
+                    <Image source={require('../../../assets/images/groupCreateButton.png')}></Image>
                 </TouchableOpacity>
             </View>
             {isExistGroup ? (
                 <View style={styles.existTiccle}>
                     {data.map((item, index) => {
-                        return (
-                            <TiccleGroup
-                                key={index}
-                                groupData={item}
-                                isGroupChanged={isGroupChanged}></TiccleGroup>
-                        );
+                        return <TiccleGroup key={index} groupData={item}></TiccleGroup>;
                     })}
                 </View>
             ) : (
                 <View style={styles.noTiccle}>
-                    <Image
-                        source={require('../../../assets/images/noTiccle.png')}
-                        style={styles.noTiccleImage}></Image>
-                    <Text style={styles.noTiccleText}>
-                        생성된 티끌이 없어요
-                    </Text>
-                    <Text style={styles.noTiccleText}>
-                        첫 티끌을 생성해보세요!
-                    </Text>
+                    <Image source={require('../../../assets/images/noTiccle.png')} style={styles.noTiccleImage}></Image>
+                    <Text style={styles.noTiccleText}>생성된 티끌이 없어요</Text>
+                    <Text style={styles.noTiccleText}>첫 티끌을 생성해보세요!</Text>
                 </View>
             )}
         </>

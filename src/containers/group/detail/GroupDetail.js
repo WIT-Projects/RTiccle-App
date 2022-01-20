@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Image, TouchableOpacity, StyleSheet} from 'react-native';
-
 import GroupInfo from './components/GroupInfo';
 import SearchBar from '../../common/SearchBar';
 import ZeroTiccle from './components/ZeroTiccle';
@@ -36,19 +35,10 @@ const GroupDetail = ({route, navigation}) => {
         <>
             <GroupInfo groupData={group} navigation={navigation} />
             <SearchBar placeholderContext="#태그이름, 티끌이름"></SearchBar>
-            {group.ticcleNum != 0 ? (
-                <GroupDetailTiccleList ticcleList={list} />
-            ) : (
-                <ZeroTiccle />
-            )}
+            {group.ticcleNum != 0 ? <GroupDetailTiccleList ticcleList={list} /> : <ZeroTiccle />}
             {/* Floating Button */}
-            <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.touchableOpacityStyle}>
-                <Image
-                    source={require('../../../assets/icon/make.png')}
-                    style={styles.floatingButtonStyle}
-                />
+            <TouchableOpacity activeOpacity={0.5} style={styles.touchableOpacityStyle}>
+                <Image source={require('../../../assets/icon/make.png')} style={styles.floatingButtonStyle} />
             </TouchableOpacity>
         </>
     );

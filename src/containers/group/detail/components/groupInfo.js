@@ -1,12 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {
-    StyleSheet,
-    Text,
-    ImageBackground,
-    View,
-    Image,
-    TouchableOpacity,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, ImageBackground, View, Image, TouchableOpacity} from 'react-native';
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
@@ -19,9 +12,7 @@ const GroupInfo = ({groupData, navigation}) => {
     const {setGroupUpdate} = useGroupUpdate();
 
     let source =
-        groupData.imageUrl == null || groupData.imageUrl == ''
-            ? require('../../../../assets/images/blankImage.png')
-            : {uri: groupData.imageUrl};
+        groupData.imageUrl == null || groupData.imageUrl == '' ? require('../../../../assets/images/blankImage.png') : {uri: groupData.imageUrl};
 
     const [isBookmark, setIsBookmark] = useState(groupData.bookmark);
 
@@ -42,14 +33,8 @@ const GroupInfo = ({groupData, navigation}) => {
 
     return (
         <>
-            <ImageBackground
-                source={source}
-                resizeMode="cover"
-                style={styles.container5}>
-                <ImageBackground
-                    source={require('../../../../assets/images/gradation2.png')}
-                    resizeMode="cover"
-                    style={styles.container5}>
+            <ImageBackground source={source} resizeMode="cover" style={styles.container5}>
+                <ImageBackground source={require('../../../../assets/images/gradation2.png')} resizeMode="cover" style={styles.container5}>
                     <View style={styles.backDeleteContainer}>
                         <Image
                             style={styles.backBtn}
@@ -58,16 +43,12 @@ const GroupInfo = ({groupData, navigation}) => {
                             }}
                             source={require('../../../../assets/icon/backWhite.png')}
                         />
-                        <GroupDeleteButton
-                            groupData={groupData}
-                            style={styles.deleteButton}></GroupDeleteButton>
+                        <GroupDeleteButton groupData={groupData} style={styles.deleteButton}></GroupDeleteButton>
                     </View>
                     <View style={styles.container}>
                         <View style={styles.container2}>
                             <View style={styles.container3}>
-                                <Text style={styles.title}>
-                                    {groupData.title}
-                                </Text>
+                                <Text style={styles.title}>{groupData.title}</Text>
                                 <TouchableOpacity
                                     onPress={() => {
                                         setGroupUpdate([]);
@@ -75,15 +56,11 @@ const GroupInfo = ({groupData, navigation}) => {
                                             groupData: groupData,
                                         });
                                     }}>
-                                    <Image
-                                        style={styles.pencil}
-                                        source={require('../../../../assets/icon/pencil.png')}></Image>
+                                    <Image style={styles.pencil} source={require('../../../../assets/icon/pencil.png')}></Image>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.container4}>
-                                <Text style={styles.content}>
-                                    {groupData.description}
-                                </Text>
+                                <Text style={styles.content}>{groupData.description}</Text>
                                 <Image
                                     style={styles.star}
                                     onTouchEnd={() => {
