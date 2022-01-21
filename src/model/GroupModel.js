@@ -1,20 +1,19 @@
-import { 
-    uploadNewGroup,
-    updateGroupInfo,
-    updateGroupImage,
-    deleteGroup,
-    findAllGroupIncludeImage, } from "../service/GroupService";
+import {
+        uploadNewGroup,
+        updateGroupInfo, updateGroupImage,
+        deleteGroup,
+        findAllGroupIncludeImage } from '../service/GroupService';
 
 // group list
 var groupList = [];
 const setGroupListAtOne = (targetGId, groupData) => {
-    const idx = groupList.findIndex((obj => obj.id == targetGId));
+    const idx = groupList.findIndex(obj => obj.id == targetGId);
     groupList[idx] = groupData;
-}
+};
 const deleteOneGroupOfList = targetGId => {
-    const idx = groupList.findIndex((obj => obj.id == targetGId));
+    const idx = groupList.findIndex(obj => obj.id == targetGId);
     groupList.splice(idx, 1);
-}
+};
 
 const getGroupTitleByGId = (targetGId, setGroupTitle) => {
     const targetGroup = groupList.find(group => group.id === targetGId);
@@ -35,7 +34,6 @@ async function getAllGroupIncludeImages() {
  * Upload new group and add to groupList
  * @param {*} groupData: group info
  * *  {
-        type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
@@ -44,11 +42,17 @@ async function getAllGroupIncludeImages() {
  */
 async function doCreateGroup(groupData, mainImageSource) {
     // to server
-    const newGroupInfo = await uploadNewGroup(groupData, mainImageSource);
+    const newGroupInfo = await uploadNewGroup( groupData, mainImageSource );
 
     // to local data
-    groupList = ([...groupList, newGroupInfo])
-    console.log(groupList);
+    // groupList = ([...groupList, newGroupInfo])
+    // console.log(groupList);
+    groupList = [...groupList, newGroupInfo];
+    console.log('\n\ndoCreateGroup========');
+    console.log(newGroupInfo);
+    return new Promise(resolve => {
+        resolve(newGroupInfo);
+    });
 }
 
 /**
@@ -57,24 +61,26 @@ async function doCreateGroup(groupData, mainImageSource) {
  * @param {*} newInfo: new group info (CHANGED INFO ONLY)
  * Support info:
  * *  {
-        type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
-    }
- * @param {*} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
- * @param {*} oldImageName old image name
- * @param {*} newImageSource new image source
- */
-function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImageSource) {
+}
+* @param {*} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
+* @param {*} oldImageName old image name
+* @param {*} newImageSource new image source
+*/
+async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImageSource) {
     var info = {...newInfo};
 
     // to server
-    if(isIncludingImage) {
-        const newImageName = updateGroupImage(oldImageName, newImageSource);
-        info = {...info, mainImage: newImageName};
+    if (isIncludingImage) {
+        const newImageInfo = await updateGroupImage(oldImageName, newImageSource);
+        const [downloadUrl, newImageName] = newImageInfo;
+        info = {...info, imageUrl: downloadUrl, mainImage: newImageName};
+        console.log('\n\ndoUpdate image========');
+        console.log(newImageInfo);
     }
-    updateGroupInfo(groupId, info);    
+    updateGroupInfo(groupId, info);
 
     // to local data
     const oldInfo = groupList.find(g => g.id == groupId);
@@ -83,11 +89,11 @@ function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImag
 
 /**
  * Delete one group add apply to groupList
- * @param {Array} groupData 
+ * @param {Array} groupData
  */
 function doDeleteGroup(groupData) {
     // to server
-    deleteGroup(groupData)
+    deleteGroup(groupData);
 
     // to local data
     deleteOneGroupOfList(groupData.id);
@@ -95,14 +101,15 @@ function doDeleteGroup(groupData) {
 
 /**
  * check whether a group name exists or not
- * @param {*} groupTitle 
+ * @param {*} groupTitle
  * @returns {boolean} true: existed, false: not existed
  */
 function checkIsExistingGroup(groupTitle) {
     const found = groupList.find(g => g.title == groupTitle);
-    if(found == undefined) return false;
+    if (found == undefined) return false;
     else return true;
 }
+
 
 export {
     groupList,
@@ -113,3 +120,6 @@ export {
     doDeleteGroup,
     checkIsExistingGroup,
 }
+
+export {groupList, getAllGroupIncludeImages, doCreateGroup, doUpdateGroup, doDeleteGroup, checkIsExistingGroup};
+

@@ -1,24 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    TouchableOpacity,
-    TextInput,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 
-const GroupUpdateDescriptionModal = ({
-    isModalVisible,
-    setModalVisible,
-    setModalActive,
-    description,
-    initialData,
-}) => {
+const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalActive, description, initialData}) => {
     const {setGroupUpdateDescription} = useGroupUpdate();
     let groupDescriptionLength;
     const maxLength = 23;
@@ -27,9 +14,7 @@ const GroupUpdateDescriptionModal = ({
     if (description != null) groupDescriptionLength = description.length;
 
     useEffect(() => {
-        groupDescriptionLength === maxLength
-            ? setIsMaxLength(true)
-            : setIsMaxLength(false);
+        groupDescriptionLength === maxLength ? setIsMaxLength(true) : setIsMaxLength(false);
     }, [description]);
 
     return (
@@ -45,9 +30,7 @@ const GroupUpdateDescriptionModal = ({
                         }}>
                         <Text style={styles.defaultText}>취소</Text>
                     </TouchableOpacity>
-                    <Text style={[styles.defaultText, styles.bold]}>
-                        그룹 설명
-                    </Text>
+                    <Text style={[styles.defaultText, styles.bold]}>그룹 설명</Text>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
@@ -57,13 +40,8 @@ const GroupUpdateDescriptionModal = ({
                         <Text style={styles.defaultText}>저장</Text>
                     </TouchableOpacity>
                 </View>
-                <View
-                    style={[styles.underline, isMaxLength ? styles.red : null]}>
-                    <TextInput
-                        autoFocus={true}
-                        style={styles.defaultText}
-                        onChangeText={setGroupUpdateDescription}
-                        maxLength={maxLength}>
+                <View style={[styles.underline, isMaxLength ? styles.red : null]}>
+                    <TextInput autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateDescription} maxLength={maxLength}>
                         {description}
                     </TextInput>
                     <TouchableOpacity
@@ -71,13 +49,10 @@ const GroupUpdateDescriptionModal = ({
                         onPress={() => {
                             setGroupUpdateDescription('');
                         }}>
-                        <Image
-                            style={isMaxLength ? styles.xCircleRed : null}
-                            source={require('../../../../assets/images/xCircleWhite.png')}></Image>
+                        <Image style={isMaxLength ? styles.xCircleRed : null} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
                     </TouchableOpacity>
                 </View>
-                <Text
-                    style={[styles.textCount, isMaxLength ? styles.red : null]}>
+                <Text style={[styles.textCount, isMaxLength ? styles.red : null]}>
                     {groupDescriptionLength}/{maxLength}
                 </Text>
             </View>

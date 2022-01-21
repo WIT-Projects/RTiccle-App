@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-    View,
-    Text,
-    Image,
-    ImageBackground,
-    StyleSheet,
-    TouchableOpacity,
-} from 'react-native';
+import {View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 import PhotoModal from '../../../common/PhotoModal';
 
 import {type} from '../../../../theme/fonts';
@@ -15,20 +8,10 @@ import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import GroupUpdateTitleModal from './GroupUpdateTitleModal';
 import GroupUpdateDescriptionModal from './GroupUpdateDescriptionModal';
 
-const GroupUpdateInfo = ({
-    navigation,
-    mainImage,
-    title,
-    description,
-    modalActive,
-    setModalActive,
-    initialData,
-}) => {
+const GroupUpdateInfo = ({navigation, mainImage, title, description, modalActive, setModalActive, initialData}) => {
     const {setGroupUpdateImage} = useGroupUpdate();
     let source;
-    mainImage === null
-        ? (source = require('../../../../assets/images/blankImage.png'))
-        : (source = {uri: mainImage});
+    mainImage == null || mainImage == '' ? (source = require('../../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
     const [isPhotoModalVisible, setPhotoModalVisible] = useState(false);
     const [isTitleModalVisible, setTitleModalVisible] = useState(false);
     const [isDescModalVisible, setDescModalVisible] = useState(false);
@@ -53,26 +36,16 @@ const GroupUpdateInfo = ({
                 setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
                 description={description}></GroupUpdateDescriptionModal>
             <ImageBackground source={source} style={styles.headerImage}>
-                <ImageBackground
-                    source={require('../../../../assets/images/groupUpdateGradation.png')}
-                    style={styles.headerImageGradation}>
+                <ImageBackground source={require('../../../../assets/images/groupUpdateGradation.png')} style={styles.headerImageGradation}>
                     <View style={styles.headerImageInner}>
                         <View style={!modalActive ? null : {opacity: 0}}>
                             <View style={styles.headerImageContainer1}>
-                                <TouchableOpacity
-                                    style={styles.cancelButton}
-                                    onPress={() => navigation.goBack()}>
-                                    <Text style={styles.cancelButtonText}>
-                                        취소
-                                    </Text>
+                                <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
+                                    <Text style={styles.cancelButtonText}>취소</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => setPhotoModalVisible(true)}>
-                                    <Image width={35} height={35} source={require('../../../../assets/images/camera.png')}
-                                        onPress={() =>
-                                            setPhotoModalVisible(true)
-                                        }>
-                                    </Image>
+                                <TouchableOpacity onPress={() => setPhotoModalVisible(true)}>
+                                    <Image style={ styles.cameraImage } source={ require( '../../../../assets/images/camera.png' ) }
+                                        onPress={ () => setPhotoModalVisible( true ) }></Image>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -85,22 +58,18 @@ const GroupUpdateInfo = ({
                                         setTitleModalVisible(true);
                                         setModalActive(true);
                                     }}>
-                                    <Image
-                                        source={require('../../../../assets/icon/pencil.png')}></Image>
+                                    <Image source={require('../../../../assets/icon/pencil.png')}></Image>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.underline}>
-                                <Text style={styles.groupDescription}>
-                                    {description}
-                                </Text>
+                                <Text style={styles.groupDescription}>{description}</Text>
                                 <TouchableOpacity
                                     style={styles.editButton}
                                     onPress={() => {
                                         setDescModalVisible(true);
                                         setModalActive(true);
                                     }}>
-                                    <Image
-                                        source={require('../../../../assets/icon/pencil.png')}></Image>
+                                    <Image source={require('../../../../assets/icon/pencil.png')}></Image>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -135,6 +104,10 @@ const styles = StyleSheet.create({
         fontFamily: type.spoqaHanSansNeo_Bold,
         color: colors.white,
         fontSize: 16,
+    },
+    cameraImage: {
+        width: 35,
+        height:35
     },
     headerImageInner: {
         paddingHorizontal: 18,

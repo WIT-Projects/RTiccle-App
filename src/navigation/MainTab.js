@@ -77,7 +77,6 @@ const MainTab = () => {
                     }
                 }}
             />
-
         </Tab.Navigator>
     );
 };

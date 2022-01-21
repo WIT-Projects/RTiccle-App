@@ -1,76 +1,66 @@
-import React, {useState, useEffect} from 'react';
-import {
-    StyleSheet,
-    Text,
-    ImageBackground,
-    View,
-    Image,
-    TouchableOpacity,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, ImageBackground, View, Image, TouchableOpacity} from 'react-native';
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
-import {useNavigation} from '@react-navigation/native';
-import { doUpdateGroup, } from '../../../../model/GroupModel';
+import {doUpdateGroup} from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
+import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
+import GroupDeleteButton from '../../delete/GroupDeleteButton';
 
-const GroupInfo = ({ groupData, navigation}) => {
-    const navigateTo = useNavigation();
-    const [isBookmark, setIsBookmark] = useState(false);
+const GroupInfo = ({groupData, navigation}) => {
+    const {setGroupUpdate} = useGroupUpdate();
 
-    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
+    let source =
+        groupData.imageUrl == null || groupData.imageUrl == '' ? require('../../../../assets/images/blankImage.png') : {uri: groupData.imageUrl};
+
+    const [isBookmark, setIsBookmark] = useState(groupData.bookmark);
+
+    const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
     function setFirebaseBookmark() {
         if (isBookmark == true) {
             setIsBookmark(false);
             doUpdateGroup(groupData.id, {bookmark: false}, false);
+            console.log(groupData);
         } else {
             setIsBookmark(true);
             doUpdateGroup(groupData.id, {bookmark: true}, false);
+            console.log(groupData);
         }
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
     }
 
-    useEffect(() => {
-        setIsBookmark(groupData.bookmark);
-    }, [isGroupChanged]);
-
     return (
         <>
-            <ImageBackground
-                source={{uri: groupData.imageUrl}}
-                resizeMode="cover"
-                style={styles.container5}>
-                <ImageBackground
-                    source={require('../../../../assets/images/gradation2.png')}
-                    resizeMode="cover"
-                    style={styles.container5}>
-                    <Image
-                        style={styles.backBtn}
-                        onTouchEnd={() => {
-                            navigateTo.navigate('Home');
-                        }}
-                        source={require('../../../../assets/icon/backWhite.png')}
-                    />
+            <ImageBackground source={source} resizeMode="cover" style={styles.container5}>
+                <ImageBackground source={require('../../../../assets/images/gradation2.png')} resizeMode="cover" style={styles.container5}>
+                    <View style={styles.backDeleteContainer}>
+                        <Image
+                            style={styles.backBtn}
+                            onTouchEnd={() => {
+                                navigation.navigate('Home');
+                            }}
+                            source={require('../../../../assets/icon/backWhite.png')}
+                        />
+                        <GroupDeleteButton groupData={groupData} style={styles.deleteButton}></GroupDeleteButton>
+                    </View>
                     <View style={styles.container}>
                         <View style={styles.container2}>
                             <View style={styles.container3}>
                                 <Text style={styles.title}>{groupData.title}</Text>
                                 <TouchableOpacity
-                                    onPress={() =>
+                                    onPress={() => {
+                                        setGroupUpdate([]);
                                         navigation.navigate('GroupUpdate', {
                                             groupData: groupData,
-                                        })
-                                    }>
-                                    <Image
-                                        style={styles.pencil}
-                                        source={require('../../../../assets/icon/pencil.png')}></Image>
+                                        });
+                                    }}>
+                                    <Image style={styles.pencil} source={require('../../../../assets/icon/pencil.png')}></Image>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.container4}>
-                                <Text style={styles.content}>
-                                    {groupData.description}
-                                </Text>
+                                <Text style={styles.content}>{groupData.description}</Text>
                                 <Image
                                     style={styles.star}
                                     onTouchEnd={() => {
@@ -78,8 +68,8 @@ const GroupInfo = ({ groupData, navigation}) => {
                                     }}
                                     source={
                                         isBookmark
-                                            ? require('../../../../assets/icon/bookMark.png')
-                                            : require('../../../../assets/icon/star.png')
+                                            ? require('../../../../assets/icon/bookmarkTrue.png')
+                                            : require('../../../../assets/icon/bookmarkFalse.png')
                                     }></Image>
                             </View>
                         </View>
@@ -139,8 +129,13 @@ const styles = StyleSheet.create({
     backBtn: {
         width: 8,
         height: 16,
-        marginLeft: 18,
-        marginTop: 21,
+    },
+    backDeleteContainer: {
+        paddingHorizontal: 18,
+        paddingTop: 21,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
 });
 

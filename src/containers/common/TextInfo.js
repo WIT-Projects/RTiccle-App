@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'center',
         width: '100%',
-        height: 180,
+        paddingTop: 57,
         paddingHorizontal: 18,
     },
     title: {
         color: colors.gray5,
         fontSize: 24,
-        marginBottom: 12,
+        marginBottom: 10,
         fontFamily: type.spoqaHanSansNeo_Bold,
     },
     subtitle: {
