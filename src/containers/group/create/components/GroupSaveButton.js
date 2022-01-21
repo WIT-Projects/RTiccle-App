@@ -1,59 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
-import colors from '../../theme/colors';
-import {type} from '../../theme/fonts';
-import useGroupCreate from '../../context/hook/useGroupCreate';
-import { doCreateGroup } from '../../model/GroupModel';
-import useGroupChanged from '../../context/hook/useGroupChanged';
+import colors from '../../../../theme/colors';
+import {type} from '../../../../theme/fonts';
+import useGroupCreate from '../../../../context/hook/useGroupCreate';
+import {doCreateGroup} from '../../../../model/GroupModel';
+import useGroupChanged from '../../../../context/hook/useGroupChanged';
 
-const GroupSaveButton = ({buttonDisabled, navigation, text}) => {
+const GroupSaveButton = ({navigation, text}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();
     const title = groupCreate.title;
-    const type = groupCreate.type;
     const description = groupCreate.description;
     const mainImage = groupCreate.mainImage;
+    const [buttonDisable, setButtonDisable] = useState(true);
+    const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
-    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
+    useEffect(() => {
+        groupCreate.mainImage != '' ? setButtonDisable(false) : setButtonDisable(true);
+    }, [groupCreate.mainImage]);
 
     const groupCreateFirebase = async () => {
         const newGroup = {
-            type: type,
             title: title,
             description: description,
             bookmark: false,
         };
         const imageSource = mainImage;
-        await doCreateGroup(newGroup, imageSource);
-        console.log('before', isGroupChanged) // temp
+        const groupData = await doCreateGroup(newGroup, imageSource);
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
-        console.log('after', isGroupChanged) // temp
         initialGroupCreate();
-        navigation.navigate('Home');
+        navigation.navigate('GroupDetail', {groupData: groupData});
     };
 
     return (
         <View style={{alignItems: 'center'}}>
             <TouchableOpacity
-                style={[
-                    styles.touchableOpacitiy,
-                    buttonDisabled
-                        ? styles.touchableDisableColor
-                        : styles.touchableColor,
-                ]}
-                disabled={buttonDisabled}
+                style={[styles.touchableOpacitiy, buttonDisable ? styles.touchableDisableColor : styles.touchableColor]}
                 onPress={() => {
                     groupCreateFirebase();
                 }}>
-                <Text
-                    style={[
-                        styles.buttonText,
-                        buttonDisabled
-                            ? styles.textDisabledColor
-                            : styles.textColor,
-                    ]}>
-                    {text}
-                </Text>
+                <Text style={[styles.buttonText, buttonDisable ? styles.textDisabledColor : styles.textColor]}>{text}</Text>
             </TouchableOpacity>
         </View>
     );

@@ -16,8 +16,8 @@ const AppProvider = ({children}) => {
 
     const setTiccleGroup = text => {
         setTiccle(state => {
-            return{...state, group: text};
-        })
+            return {...state, group: text};
+        });
     };
     const setTiccleTitle = text => {
         setTiccle(state => {
@@ -36,7 +36,6 @@ const AppProvider = ({children}) => {
         });
 
         console.log(ticcle);
-
     };
     const setTiccleTagList = tag => {
         if (tag == '') return; // 비어있을 경우
@@ -47,13 +46,11 @@ const AppProvider = ({children}) => {
     };
     const deleteTiccleTagList = tag => {
         setTiccle(state => {
-
             return {
                 ...state,
                 tagList: tagList.filter(tagList => tagList !== tag),
             };
         });
-
     };
     const setTiccleContent = text => {
         setTiccle(state => {
@@ -90,7 +87,6 @@ const AppProvider = ({children}) => {
     // Group
     const [groupCreate, setGroupCreate] = useState({
         lastModifiedTime: '',
-        type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: '',
         description: '',
         bookmark: false,
@@ -99,7 +95,6 @@ const AppProvider = ({children}) => {
     const initialGroupCreate = () => {
         setGroupCreate({
             lastModifiedTime: '',
-            type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
             title: '',
             description: '',
             bookmark: false,
@@ -110,11 +105,6 @@ const AppProvider = ({children}) => {
         const today = FBDate();
         setGroupCreate(state => {
             return {...state, date: today};
-        });
-    };
-    const setGroupType = num => {
-        setGroupCreate(state => {
-            return {...state, type: num};
         });
     };
     const setGroupTitle = text => {
@@ -141,11 +131,6 @@ const AppProvider = ({children}) => {
     const [groupUpdate, setGroupUpdate] = useState([]);
     const initialGroupUpdate = () => {
         setGroupUpdate([]);
-    };
-    const setGroupUpdateType = num => {
-        setGroupUpdate(state => {
-            return {...state, type: num};
-        });
     };
     const setGroupUpdateTitle = text => {
         setGroupUpdate(state => {
@@ -187,7 +172,6 @@ const AppProvider = ({children}) => {
                 setGroupCreate,
                 initialGroupCreate,
                 setGroupDate,
-                setGroupType,
                 setGroupTitle,
                 setGroupDescription,
                 setGroupBookmark,
@@ -195,7 +179,6 @@ const AppProvider = ({children}) => {
                 groupUpdate,
                 setGroupUpdate,
                 initialGroupUpdate,
-                setGroupUpdateType,
                 setGroupUpdateTitle,
                 setGroupUpdateDescription,
                 setGroupUpdateImage,
