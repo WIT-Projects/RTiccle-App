@@ -7,6 +7,7 @@ import TiccleDetailText from './components/TiccleDetailText';
 import TiccleDetailTags from './components/TiccleDetailTags';
 import useTiccleCreate from '../../../context/hook/useTiccleCreate';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
+import TiccleDetailFloatingButton from './components/TiccleDetailFloatingButton';
 
 const TiccleDetail = ({navigation}) => {
 
@@ -30,15 +31,19 @@ const TiccleDetail = ({navigation}) => {
     const [imagePathForExpansion, setImagePathForExpansion] = useState('')
     
     return (
-        <ScrollView style={styles.container}>
-            <TiccleDetailImageExpansion isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePathForExpansion}/>
-            <TiccleDetailInfo/>
-            {(ticcle.images.length > 0) ?
-            <TiccleDetailImageSwiper images={ticcle.images} setImageExpansion={setImageExpansion} setImagePathForExpansion={setImagePathForExpansion}/> 
-            : null}
-            <TiccleDetailText/>
-            <TiccleDetailTags/>
-        </ScrollView>
+        <>
+            <ScrollView style={styles.container}>
+                <TiccleDetailImageExpansion isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePathForExpansion}/>
+                <TiccleDetailInfo/>
+                {(ticcle.images.length > 0) ?
+                <TiccleDetailImageSwiper images={ticcle.images} setImageExpansion={setImageExpansion} setImagePathForExpansion={setImagePathForExpansion}/> 
+                : null}
+                <TiccleDetailText/>
+                <TiccleDetailTags/>
+            </ScrollView>
+            <TiccleDetailFloatingButton/>
+        </>
+
     )
 }
 

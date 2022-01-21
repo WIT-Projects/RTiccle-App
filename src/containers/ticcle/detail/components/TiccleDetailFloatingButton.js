@@ -1,24 +1,22 @@
 import React from "react";
 import { TouchableOpacity, Image, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-const GroupDetailFloatingButton = ({groupId}) => {
-    const navigateTo = useNavigation();
-
+const TiccleDetailFloatingButton = () => {
     return (
         <TouchableOpacity
             activeOpacity={0.5}
             style={styles.touchableOpacityStyle}
             onPress={() => {
-                navigateTo.navigate('TiccleCreate', {screenFrom : groupId});
+                console.log('delete Ticcle');
             }}>
             <Image
-                source={require('../../../../assets/icon/make.png')}
+                source={require('../../../../assets/icon/trash_circle.png')}
                 style={styles.floatingButtonStyle}
             />
         </TouchableOpacity>
     )
 }
+
 
 const styles = StyleSheet.create({
     touchableOpacityStyle: {
@@ -36,4 +34,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default GroupDetailFloatingButton
+export default TiccleDetailFloatingButton
