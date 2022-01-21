@@ -5,7 +5,6 @@ import { type } from '../../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
 import { timeStampToFormatDate } from '../../../../service/CommonService';
 import useTiccleCreate from '../../../../context/hook/useTiccleCreate';
-import { getTiccleIncludeImages } from '../../../../model/TiccleModel';
 
 const GroupDetailTiccle = ({ item }) => {
     const navigateTo = useNavigation();
@@ -15,10 +14,9 @@ const GroupDetailTiccle = ({ item }) => {
     const tag = item.tagList
 
     const {setTiccle} = useTiccleCreate()
-    const goToTiccleDetail = async() => {
-        const ticcleDetail = await getTiccleIncludeImages(item)
-        setTiccle(ticcleDetail);
-        navigateTo.navigate('TiccleDetail');
+    const goToTiccleDetail = () => {
+        setTiccle(item);
+        navigateTo.navigate('TiccleDetail', {screenFrom : 'GroupDetail'});
     }
     return (
         <View style={styles.container} onTouchEnd={goToTiccleDetail}>

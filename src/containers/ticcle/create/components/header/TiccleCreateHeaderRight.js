@@ -30,7 +30,7 @@ const TiccleCreateHeaderRight = () => {
             onPress={ () => {
                 saveButtonEvent()
                 console.log(ticcle)
-                navigateTo.navigate('TiccleDetail')
+                navigateTo.navigate('TiccleDetail',{screenFrom: 'TiccleCreate'})
             }}>
             <Text style={saveButtonDisable ? styles.headerRightTextDisable : styles.headerRightText}>저장</Text>
         </TouchableOpacity>
