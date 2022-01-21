@@ -6,7 +6,7 @@ import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
 import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
 
-const TiccleCreateHeaderRight = ({isUpdateMode}) => {
+const TiccleCreateHeaderRight = () => {
     const navigateTo = useNavigation()
     const {ticcle} = useTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
@@ -19,7 +19,7 @@ const TiccleCreateHeaderRight = ({isUpdateMode}) => {
     },[ticcle.title, ticcle.content, ticcle.groupId])
 
     const saveButtonEvent = () => {
-        (isUpdateMode) ? console.log('update ticcle') : doCreateTiccle(ticcle, ticcle.images)
+       doCreateTiccle(ticcle, ticcle.images)
     }
     
 

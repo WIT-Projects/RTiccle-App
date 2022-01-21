@@ -17,7 +17,6 @@ const TiccleCreate = ({route, navigation}) => {
     const {setTiccleImages, setTiccleGroup,initialTiccle } = useTiccleCreate();
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
-    const [isUpdateMode, setIsUpdateMode] = useState(false);
     const scrollRef = useRef();
 
     useEffect(() => {
@@ -25,12 +24,11 @@ const TiccleCreate = ({route, navigation}) => {
             navigation.setParams({screenFrom : 'home'});
         })
         if (route.params !== undefined){
-            checkScreenFrom(route.params.screenFrom, setIsUpdateMode, setTiccleGroup);
+            checkScreenFrom(route.params.screenFrom, setTiccleGroup);
         }
         console.log(route);
         const backButtonEvent = () => {
             navigation.goBack();
-            setIsUpdateMode(false);
             initialTiccle();
             return true
           };
@@ -46,7 +44,7 @@ const TiccleCreate = ({route, navigation}) => {
 
     return(
         <>
-            <TiccleCreateHeader isUpdateMode={isUpdateMode} setIsUpdateMode={setIsUpdateMode}/>
+            <TiccleCreateHeader/>
             <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
                 <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>

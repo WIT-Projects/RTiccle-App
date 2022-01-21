@@ -1,11 +1,8 @@
-const checkScreenFrom = (screenFrom, setIsUpdateMode, setTiccleGroup) => {
+const checkScreenFrom = (screenFrom, setTiccleGroup) => {
     switch(screenFrom) {
         case 'home':
             break;
-        case 'ticcleDetail':
-            setIsUpdateMode(true);
-            break;
-        default:
+        default: //screenFrom = groupId
             setTiccleGroup(screenFrom);
             break;
     }

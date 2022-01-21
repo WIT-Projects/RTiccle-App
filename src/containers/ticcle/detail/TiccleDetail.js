@@ -32,7 +32,7 @@ const TiccleDetail = ({navigation}) => {
     return (
         <ScrollView style={styles.container}>
             <TiccleDetailImageExpansion isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePathForExpansion}/>
-            <TiccleDetailInfo></TiccleDetailInfo>
+            <TiccleDetailInfo/>
             {(ticcle.images.length > 0) ?
             <TiccleDetailImageSwiper images={ticcle.images} setImageExpansion={setImageExpansion} setImagePathForExpansion={setImagePathForExpansion}/> 
             : null}

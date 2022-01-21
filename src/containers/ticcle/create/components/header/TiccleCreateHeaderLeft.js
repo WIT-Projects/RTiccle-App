@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
 import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
 
-const TiccleCreateHeaderLeft = ({setIsUpdateMode}) => {
+const TiccleCreateHeaderLeft = () => {
     const {initialTiccle} = useTiccleCreate();
     const navigateTo = useNavigation()
     return (
@@ -12,7 +12,6 @@ const TiccleCreateHeaderLeft = ({setIsUpdateMode}) => {
             style={styles.headerLeftTouchable}
             onPress={() => {
                 initialTiccle();
-                setIsUpdateMode(false);
                 navigateTo.goBack();
             }}>
                 <Image source={require('../../../../../assets/images/chevron_left.png')}

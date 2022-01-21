@@ -22,7 +22,7 @@ const UserInfo = () => {
                 <Text style={styles.font2}>님</Text>
             </View>
             <View style={styles.rowContainer}>
-                <Image style={styles.logo} source={require('../../../assets/images/google_logo.png')}/>
+                <Image style={styles.logo} source={require('../../../assets/images/Google_Logo.png')}/>
                 <Text style={styles.font2}>{userProfile.email}</Text>
                 <View style={styles.right}>
                     <Text style={styles.font3}>계정연동</Text>

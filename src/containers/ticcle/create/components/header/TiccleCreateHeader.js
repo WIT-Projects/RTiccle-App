@@ -6,15 +6,15 @@ import metrics from '../../../../../theme/metrices'
 import TiccleCreateHeaderLeft from './TiccleCreateHeaderLeft'
 import TiccleCreateHeaderRight from './TiccleCreateHeaderRight'
 
-const TiccleCreateHeader = ({isUpdateMode, setIsUpdateMode}) => {
+const TiccleCreateHeader = () => {
 
-    var title = isUpdateMode ? '티끌 수정' : '티끌 작성'
+    var title = '티끌 작성'
 
     return(
         <View style={styles.container}>
-            <TiccleCreateHeaderLeft setIsUpdateMode={setIsUpdateMode}/>
+            <TiccleCreateHeaderLeft/>
             <Text style={styles.title}>{title}</Text>
-            <TiccleCreateHeaderRight isUpdateMode={isUpdateMode}/>
+            <TiccleCreateHeaderRight/>
         </View>
     )
 }
