@@ -44,11 +44,8 @@ const GroupUpdateInfo = ({navigation, mainImage, title, description, modalActive
                                     <Text style={styles.cancelButtonText}>취소</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => setPhotoModalVisible(true)}>
-                                    <Image
-                                        width={35}
-                                        height={35}
-                                        source={require('../../../../assets/images/camera.png')}
-                                        onPress={() => setPhotoModalVisible(true)}></Image>
+                                    <Image style={ styles.cameraImage } source={ require( '../../../../assets/images/camera.png' ) }
+                                        onPress={ () => setPhotoModalVisible( true ) }></Image>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -107,6 +104,10 @@ const styles = StyleSheet.create({
         fontFamily: type.spoqaHanSansNeo_Bold,
         color: colors.white,
         fontSize: 16,
+    },
+    cameraImage: {
+        width: 35,
+        height:35
     },
     headerImageInner: {
         paddingHorizontal: 18,

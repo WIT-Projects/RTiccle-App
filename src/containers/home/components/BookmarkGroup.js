@@ -22,7 +22,7 @@ const BookmarkGroup = ({groupData}) => {
             onTouchEnd={() => {
                 navigation.navigate('GroupDetail', {groupData: groupData});
             }}>
-            <ImageBackground source={source} resizeMode="cover" style={{width: 194, height: 111, flex: 1}}>
+            <ImageBackground source={source} resizeMode="cover" style={styles.groupMainImage}>
                 <Image style={styles.icon} source={require('../../../assets/icon/bookmarkTrue.png')}></Image>
             </ImageBackground>
 
@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
         top: 0,
         right: 10,
         alignSelf: 'flex-end',
+    },
+    groupMainImage: {
+        width: 194,
+        height: 111,
+        flex: 1
     },
     blackRegularFont: {
         fontFamily: type.spoqaHanSansNeo_Regular,
