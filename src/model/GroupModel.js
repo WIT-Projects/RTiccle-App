@@ -26,6 +26,14 @@ async function getAllGroupIncludeImages() {
 }
 
 /**
+ * Get bookmarked group list
+ * @returns {Array} bookmarked group list
+ */
+async function getBookmarkedGroupList() {
+    return groupList.filter(obj => obj.bookmark == true);
+}
+
+/**
  * Upload new group and add to groupList
  * @param {*} groupData: group info
  * *  {
@@ -105,4 +113,12 @@ function checkIsExistingGroup(groupTitle) {
     else return true;
 }
 
-export {groupList, getAllGroupIncludeImages, doCreateGroup, doUpdateGroup, doDeleteGroup, checkIsExistingGroup};
+export {
+    groupList, 
+    getAllGroupIncludeImages, 
+    getBookmarkedGroupList,
+    doCreateGroup, 
+    doUpdateGroup, 
+    doDeleteGroup, 
+    checkIsExistingGroup
+};
