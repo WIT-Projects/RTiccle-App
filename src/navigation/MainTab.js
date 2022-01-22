@@ -36,7 +36,7 @@ const MainTab = () => {
             <Tab.Screen
                 name="TiccleCreate"
                 component={TiccleCreate}
-                initialParams={{screenFrom : 'home'}}
+                initialParams={{groupId : ''}}
                 options={() =>  ({
                     headerShown: false,
                     tabBarStyle: {display : 'none'},

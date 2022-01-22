@@ -1,18 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,Image, Linking, Alert } from 'react-native';
-import useTiccleCreate from '../../../../context/hook/useTiccleCreate';
+import { View, Text, StyleSheet, TouchableOpacity,Image, Linking } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 import { timeStampToFormatDate } from '../../../../service/CommonService';
+import useTiccleDetail from '../../../../context/hook/useTiccleDetail';
 
 const TiccleDetailInfo = () => {
-    const {ticcle} = useTiccleCreate();
+    const {ticcleDetail} = useTiccleDetail();
     var formattedday = ""
-    if(ticcle.lastModifiedTime !== ""){
-        formattedday = timeStampToFormatDate(ticcle.lastModifiedTime);
+    if(ticcleDetail.lastModifiedTime !== ""){
+        formattedday = timeStampToFormatDate(ticcleDetail.lastModifiedTime);
     }
-    const ticcleDetailTitle = ticcle.title
-    const URLLink = ticcle.link
+    const ticcleDetailTitle = ticcleDetail.title
+    const URLLink = ticcleDetail.link
 
     const goToURL = () => {
         Linking.openURL(URLLink)

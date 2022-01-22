@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import AppContext from '../AppContext';
+import TiccleCreateContext from '../TiccleCreateContext';
 
 const useTiccleCreate = () => {
     const {ticcle, setTiccle,setTiccleGroup, setTiccleTitle, setTiccleLink,
         setTiccleTagList, deleteTiccleTagList, setTiccleContent, setTiccleImages, deleteTiccleImage,
          initialTiccle, 
-    } = useContext(AppContext);
+    } = useContext(TiccleCreateContext);
 
     return {ticcle, setTiccle, setTiccleGroup, setTiccleTitle, setTiccleLink,
         setTiccleTagList, deleteTiccleTagList, setTiccleContent, setTiccleImages, deleteTiccleImage,

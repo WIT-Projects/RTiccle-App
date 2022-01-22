@@ -10,7 +10,7 @@ const GroupDetailFloatingButton = ({groupId}) => {
             activeOpacity={0.5}
             style={styles.touchableOpacityStyle}
             onPress={() => {
-                navigateTo.navigate('TiccleCreate', {screenFrom : groupId});
+                navigateTo.navigate('TiccleCreate', {groupId : groupId});
             }}>
             <Image
                 source={require('../../../../assets/icon/make.png')}

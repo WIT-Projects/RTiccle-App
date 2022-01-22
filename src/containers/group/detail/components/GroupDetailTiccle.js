@@ -4,7 +4,6 @@ import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
 import { timeStampToFormatDate } from '../../../../service/CommonService';
-import useTiccleCreate from '../../../../context/hook/useTiccleCreate';
 
 const GroupDetailTiccle = ({ item }) => {
     const navigateTo = useNavigation();
@@ -13,10 +12,8 @@ const GroupDetailTiccle = ({ item }) => {
     const title = item.title
     const tag = item.tagList
 
-    const {setTiccle} = useTiccleCreate()
     const goToTiccleDetail = () => {
-        setTiccle(item);
-        navigateTo.navigate('TiccleDetail', {screenFrom : 'GroupDetail'});
+        navigateTo.navigate('TiccleDetail', {ticcleData: item});
     }
     return (
         <View style={styles.container} onTouchEnd={goToTiccleDetail}>

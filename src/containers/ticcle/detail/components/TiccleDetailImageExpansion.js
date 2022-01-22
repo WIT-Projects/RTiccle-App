@@ -16,8 +16,11 @@ const TiccleDetailImageExpansion = ({isModalVisible, setModalVisible, imagePath}
             style={styles.modal}>
             <View style={styles.container}>
                 <View style={styles.tabBar}>
-                    <TouchableOpacity style={styles.textTouchable}>
-                        <Text style={styles.text} onPress={()=> setModalVisible(false)}>{cancelText}</Text>
+                    <TouchableOpacity
+                        style={styles.textTouchable}
+                        onPress={()=> setModalVisible(false)}
+                    >
+                        <Text style={styles.text}>{cancelText}</Text>
                     </TouchableOpacity>
                 </View>
 
