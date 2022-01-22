@@ -75,7 +75,10 @@ async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, n
 
     // to local data
     const oldInfo = groupList.find(g => g.id == groupId);
-    setGroupListAtOne(groupId, {...oldInfo, ...info, imageUrl: imageUrl});
+    var newInfo = {};
+    if (imageUrl == '') newInfo = {...oldInfo, ...info}
+    else newInfo = {...oldInfo, ...info, imageUrl: imageUrl}
+    setGroupListAtOne(groupId, newInfo);
 }
 
 /**
