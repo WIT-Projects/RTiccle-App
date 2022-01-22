@@ -30,7 +30,6 @@ const TiccleDetailScreen = ({route}) => {
         );
         getTiccleImageFromFirebase();
         console.log(route.params.ticcleData)
-
         return () => backHandler.remove();
     }, [route]);
 
@@ -53,7 +52,7 @@ const TiccleDetailScreen = ({route}) => {
                 <TiccleDetailText/>
                 <TiccleDetailTags/>
             </ScrollView>
-            <TiccleDetailFloatingButton/>
+            <TiccleDetailFloatingButton ticcleData={ticcleDetail}/>
         </>
 
     )
