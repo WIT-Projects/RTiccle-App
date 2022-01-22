@@ -15,7 +15,10 @@ import { useNavigation } from '@react-navigation/native';
 import { checkGroupId } from './service/checkGroupId';
 
 const TiccleCreateScreen = ({route}) => {
-    const {setTiccleImages, setTiccleGroup,initialTiccle } = useTiccleCreate();
+    const { ticcle, setTiccle, setTiccleGroup, setTiccleTitle, setTiccleLink,
+        setTiccleTagList, deleteTiccleTagList, setTiccleContent, setTiccleImages, 
+        deleteTiccleImage, initialTiccle
+    } = useTiccleCreate();
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const scrollRef = useRef();
@@ -50,14 +53,24 @@ const TiccleCreateScreen = ({route}) => {
             <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
                 <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>
-                <GroupListModal isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}/>
+                <GroupListModal
+                    isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}
+                    ticcleGroup={ticcle.groupId} setTiccleGroup={setTiccleGroup}
+                />
                 {/* ticcle */}
-                <TiccleCreateGroupSelect setGroupListModalVisible={setGroupListModalVisible}/>
-                <TiccleCreateTextInputTitleLink/>
-                <TiccleCreateImageAdd setPhotoModalVisible={setPhotoModalVisible}/>
-                <TiccleContentTextInput/>
-                <TiccleCreateTextInputTag scrollRef={scrollRef}/>
-                <TiccleCreateTags/>
+                <TiccleCreateGroupSelect
+                    setGroupListModalVisible={setGroupListModalVisible} ticcleGroupId={ticcle.groupId}
+                />
+                <TiccleCreateTextInputTitleLink
+                    ticcleTitle={ticcle.title} ticcleLink={ticcle.link}
+                    setTiccleTitle={setTiccleTitle} setTiccleLink={setTiccleLink}
+                />
+                <TiccleCreateImageAdd setPhotoModalVisible={setPhotoModalVisible}
+                    ticcleImages={ticcle.images} deleteTiccleImage={deleteTiccleImage}
+                />
+                <TiccleContentTextInput ticcleContent={ticcle.content} setTiccleContent={setTiccleContent}/>
+                <TiccleCreateTextInputTag scrollRef={scrollRef} setTiccleTagList={setTiccleTagList}/>
+                <TiccleCreateTags ticcleTags={ticcle.tagList} deleteTiccleTagList={deleteTiccleTagList}/>
             </ScrollView>
         </>
     )

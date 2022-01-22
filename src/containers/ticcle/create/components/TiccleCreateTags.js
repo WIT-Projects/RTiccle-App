@@ -2,12 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
-import useTiccleCreate from '../../../../context/hook/useTiccleCreate';
 
-const TiccleCreateTags = () => {
-    const {ticcle, deleteTiccleTagList} = useTiccleCreate();
-    const tags = ticcle.tagList;
-    const tagGroup = tags.map(
+const TiccleCreateTags = ({ticcleTags, deleteTiccleTagList}) => {
+
+    const tagGroup = ticcleTags.map(
         (tag, index) => (
             <View key={index} style={styles.tag}>
                 <Text style={styles.text}>#{tag}</Text>

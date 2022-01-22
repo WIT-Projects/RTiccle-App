@@ -9,9 +9,7 @@ import useGroupChanged from "../../../../../../context/hook/useGroupChanged";
 const groupCotainerHeight = 48;
 const groupNumberInScroll = 8;
 
-const GroupListModalGroupList = ({setModalVisible}) => {
-    const {ticcle, setTiccleGroup} = useTiccleCreate();
-    const ticcleGroup = ticcle.groupId
+const GroupListModalGroupList = ({setModalVisible, ticcleGroup, setTiccleGroup}) => {
 
     const [groupData, setGroupData] = useState([]);
     const [isExistGroup, setExistGroup] = useState(false);

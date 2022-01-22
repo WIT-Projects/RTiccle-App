@@ -5,10 +5,7 @@ import colors from '../../../../../theme/colors';
 import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
 
 
-const TiccleCreateTextInputTitleLink = ({}) => {
-    const {ticcle, setTiccleTitle, setTiccleLink} = useTiccleCreate();
-    const ticcleTitle = ticcle.title
-    const ticcleLink = ticcle.link
+const TiccleCreateTextInputTitleLink = ({ticcleTitle, ticcleLink, setTiccleTitle, setTiccleLink}) => {
     return(
         <View >
                 <TiccleCreateTextInput

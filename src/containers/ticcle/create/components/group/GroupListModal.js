@@ -7,7 +7,7 @@ import GroupListModalTitle from './list/GroupListModalTitle';
 import GroupListModalGroupList from './list/GroupListModalGroupList';
 import GroupListModalCreateButton from './list/GroupListModalCreateButton';
 
-const GroupListModal = ({isModalVisible, setModalVisible}) => {
+const GroupListModal = ({isModalVisible, setModalVisible, ticcleGroup, setTiccleGroup}) => {
     const [groupCreateModalVisible, setGroupCreateModalVisible] = useState(false)
 
     return(
@@ -26,7 +26,10 @@ const GroupListModal = ({isModalVisible, setModalVisible}) => {
             {/* View */}
             <View style={styles.container}>
                 <GroupListModalTitle setModalVisible={setModalVisible}/>
-                <GroupListModalGroupList setModalVisible={setModalVisible}/>
+                <GroupListModalGroupList
+                    setModalVisible={setModalVisible}
+                    ticcleGroup={ticcleGroup} setTiccleGroup={setTiccleGroup}
+                />
             </View>
             <GroupListModalCreateButton setGroupCreateModalVisible={setGroupCreateModalVisible}/>
         </Modal>

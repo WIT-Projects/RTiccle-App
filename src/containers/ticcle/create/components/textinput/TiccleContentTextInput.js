@@ -3,9 +3,8 @@ import { TextInput, View, StyleSheet } from 'react-native';
 import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
 import colors from '../../../../../theme/colors';
 
-const TiccleContentTextInput = () => {
-    const {ticcle, setTiccleContent} = useTiccleCreate();
-    const value = ticcle.content
+const TiccleContentTextInput = ({ticcleContent, setTiccleContent}) => {
+    const value = ticcleContent
     
     return(
         <View style={styles.container}>

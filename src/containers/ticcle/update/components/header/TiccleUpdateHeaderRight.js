@@ -3,20 +3,20 @@ import { Text,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
-import useTiccleDetail from '../../../../../context/hook/useTiccleDetail';
 
-const TiccleDetailHeaderRight = () => {
-    const navigateTo = useNavigation()
-    const {ticcleDetail} = useTiccleDetail();    
+const TiccleUpdateHeaderRight = () => {
+    const navigateTo = useNavigation() 
+
+    const saveButtonEvent = () => {
+        navigateTo.goBack();
+        console.log("티끌 수정 완료. TiccleDetail로 수정된 Ticcle 보내기")
+    }
 
     return (
         <TouchableOpacity
             style={styles.headerRightTouchable}
-            onPress={ () => {
-                console.log(ticcleDetail)
-                navigateTo.navigate('TiccleUpdate', {ticcleData: ticcleDetail})
-            }}>
-            <Text style={styles.headerRightText}>수정</Text>
+            onPress={saveButtonEvent}>
+            <Text style={styles.headerRightText}>저장</Text>
         </TouchableOpacity>
     )
 }
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default TiccleDetailHeaderRight
+export default TiccleUpdateHeaderRight

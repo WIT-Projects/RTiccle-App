@@ -1,11 +1,9 @@
 import React,{useState} from 'react'
 import { TextInput, StyleSheet,View } from 'react-native'
-import useTiccleCreate from '../../../../../context/hook/useTiccleCreate'
 import colors from '../../../../../theme/colors'
 
-const TiccleCreateTextInputTag = ({scrollRef}) => {
+const TiccleCreateTextInputTag = ({scrollRef, setTiccleTagList}) => {
     const placeholder = "태그 ex. #경제 #마케팅 (선택)"
-    const {setTiccleTagList} = useTiccleCreate();
     const [tag, setTag] = useState('');
     const initialTag = () => {
         setTag('')

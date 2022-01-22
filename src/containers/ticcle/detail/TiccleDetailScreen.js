@@ -20,7 +20,7 @@ const TiccleDetailScreen = ({route}) => {
     
     useEffect(() => {
         const goToHomeStack = () => {
-            navigation.navigate('HomeStack');
+            navigation.navigate('Home');
             initialTiccleDetail();
             return true
         };
