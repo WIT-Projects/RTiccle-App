@@ -16,6 +16,10 @@ const deleteOneGroupOfList = targetGId => {
     groupList.splice(idx, 1);
 };
 
+// limit
+const limitGroupNum = 20;
+const limitTiccleNum = 100;
+
 /**
  * Get all group list and set groupList
  */
@@ -108,11 +112,55 @@ function checkIsExistingGroup(groupTitle) {
     else return true;
 }
 
+/**
+ * Get user's group nubmer
+ * @returns {integer} total number of groups
+ */
+ function getTotalGroupNum() {
+    return groupList.length;
+}
+
+/**
+ * Check user has more groups than limit
+ * @returns {boolean}
+ */
+function checkIsFullGroupNum() {
+    if (getTotalGroupNum() >= limitGroupNum) return true;
+    else return false;  
+}
+
+/**
+ * Get user's ticcle nubmer
+ * @returns {integer} total number of ticcles
+ */
+function getTotalTiccleNum() {
+    var totalNum = 0;
+    groupList.forEach((group) => {
+        totalNum = totalNum + group.ticcleNum;
+    })
+    return totalNum;
+}
+
+/**
+ * Check user has more ticcles than limit
+ * @returns {boolean}
+ */
+function checkIsFullTiccleNum() {
+    if (getTotalTiccleNum() >= limitTiccleNum) return true;
+    else return false;    
+}
+
 export {
     groupList, 
+    limitGroupNum,
+    limitTiccleNum,
     getAllGroupIncludeImages,
     doCreateGroup, 
     doUpdateGroup, 
     doDeleteGroup, 
-    checkIsExistingGroup
+    checkIsExistingGroup,
+    getTotalGroupNum,
+    checkIsFullGroupNum,
+    getTotalTiccleNum,
+    checkIsFullTiccleNum,
 };
