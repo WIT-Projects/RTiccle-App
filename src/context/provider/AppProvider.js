@@ -5,7 +5,6 @@ import {FBDate} from '../../service/CommonService';
 const AppProvider = ({children}) => {
     //Ticcle
     const [ticcle, setTiccle] = useState({
-        lastModifiedTime: '',
         group: '',
         title: '',
         link: '',
@@ -28,14 +27,6 @@ const AppProvider = ({children}) => {
         setTiccle(state => {
             return {...state, link: text};
         });
-    };
-    const setTiccleDate = () => {
-        const today = FBDate();
-        setTiccle(state => {
-            return {...state, lastModifiedTime: today};
-        });
-
-        console.log(ticcle);
     };
     const setTiccleTagList = tag => {
         if (tag == '') return; // 비어있을 경우
@@ -74,7 +65,6 @@ const AppProvider = ({children}) => {
     };
     const initialTiccle = () => {
         setTiccle({
-            lastModifiedTime: '',
             group: '',
             title: '',
             link: '',
@@ -86,7 +76,6 @@ const AppProvider = ({children}) => {
 
     // Group
     const [groupCreate, setGroupCreate] = useState({
-        lastModifiedTime: '',
         title: '',
         description: '',
         bookmark: false,
@@ -94,7 +83,6 @@ const AppProvider = ({children}) => {
     });
     const initialGroupCreate = () => {
         setGroupCreate({
-            lastModifiedTime: '',
             title: '',
             description: '',
             bookmark: false,
@@ -167,7 +155,6 @@ const AppProvider = ({children}) => {
                 setTiccleImages,
                 initialTiccle,
                 deleteTiccleImage,
-                setTiccleDate,
                 groupCreate,
                 setGroupCreate,
                 initialGroupCreate,

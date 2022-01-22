@@ -12,7 +12,7 @@ const TiccleStack = createStackNavigator();
 
 const TiccleStackNavigator = () => {
 
-    const {ticcle, setTiccleDate} = UseTiccleCreate();
+    const {ticcle} = UseTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
 
 

@@ -6,7 +6,6 @@ import GroupCreateModalTitle from "./create/GroupCreateModalTitle";
 import GroupCreateModalTextInput from "./create/GroupCreateModalTextInput";
 import GroupCreateModalGroupType from "./create/GroupCreateModalGroupType";
 import GroupCreateModalButton from "./create/GroupCreateModalButton";
-import { FBDate } from "../../../../../service/CommonService";
 import { uploadNewGroup } from "../../../../../service/GroupService";
 
 const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
@@ -21,7 +20,6 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
     const fastUploadNewGroup = () => {
         const groupName = groupTitle
         const newGroup = {
-            lastModifiedTime: FBDate(),
             type: type,
             title: groupName,
             description: '',
