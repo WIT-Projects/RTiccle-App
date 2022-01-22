@@ -60,13 +60,13 @@ async function uploadNewGroup(group, mainImageSource) {
     }
  */
 function updateGroupInfo(groupId, newInfo) {
-    const updateInfo = {...newInfo, lastModifiedTime: Date.now()};
+    // no update lastModifiedTime
     const ref = userDoc.collection('Group').doc(groupId);
-    ref.update(updateInfo);
+    ref.update(newInfo);
 }
 
 /**
- * Update ticcleNum and lastModifiedTime of Group
+ * Update ticcleNum
  * @param {string} groupId
  * @param {boolean} isPlus: true if +1 else -1
  */
@@ -75,7 +75,7 @@ async function updateTiccleNumOfGroup(groupId, isPlus) {
     const group = await ref.get();
     var num = group.ticcleNum;
     num = isPlus ? num + 1 : num - 1;
-    ref.update({ticcleNum: num, lastModifiedTime: Date.now()});
+    ref.update({ticcleNum: num});
 }
 
 /**

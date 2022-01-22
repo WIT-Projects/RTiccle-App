@@ -1,6 +1,7 @@
 import {
     uploadNewGroup,
-    updateGroupInfo, updateGroupImage,
+    updateGroupInfo, 
+    updateGroupImage,
     deleteGroup,
     findAllGroupIncludeImage } from '../service/GroupService';
 
