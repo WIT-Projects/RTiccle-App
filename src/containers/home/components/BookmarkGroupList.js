@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, ScrollView, StyleSheet} from 'react-native';
 import {type} from '../../../theme/fonts';
-import {getBookmarkedGroupList} from '../../../model/GroupModel';
+import {groupList} from '../../../model/GroupModel';
 import useGroupChanged from '../../../context/hook/useGroupChanged';
 import BookmarkGroup from './BookmarkGroup';
 
@@ -9,9 +9,8 @@ const BookmarkGroupList = () => {
     const [existBookmark, setExistBookmark] = useState(false);
     const [data, setData] = useState([]);
     const {isGroupChanged} = useGroupChanged();
-    let bookmarkedList = '';
     useEffect(() => {
-        bookmarkedList = getBookmarkedGroupList();
+        let bookmarkedList = groupList.filter(obj => obj.bookmark == true);
         if (bookmarkedList.length == 0) {
             setExistBookmark(false);
         } else {

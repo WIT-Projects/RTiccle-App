@@ -33,20 +33,17 @@ async function uploadNewGroup(group, mainImageSource) {
     let downloadURL = '';
     if (mainImageSource || mainImageSource != '') {
         imageName = Date.now() + '.jpg';
-        downloadURL = await uploadImageToStorage( imageName, mainImageSource );
-        // uploadImageToStorage(imageName, mainImageSource);
+        downloadURL = await uploadImageToStorage(imageName, mainImageSource);
     }
-    // return createGroup({ ...group, mainImage: imageName, ticcleNum: 0, latestTiccleTitle: '', lastModifiedTime: Date.now() });
+    const result = await createGroup({
+        ...group,
+        mainImage: imageName,
+        ticcleNum: 0,
+        latestTiccleTitle: '',
+        lastModifiedTime: Date.now(),
+    });
     return new Promise(resolve => {
-        const result = createGroup({
-            ...group,
-            mainImage: imageName,
-            ticcleNum: 0,
-            latestTiccleTitle: '',
-            lastModifiedTime: Date.now(),
-            imageUrl: downloadURL,
-        });
-        resolve(result);
+        resolve({...result, imageUrl: downloadURL});
     });
 }
 
@@ -91,18 +88,13 @@ async function updateGroupImage(oldImageName, newImageSource) {
     // delete original image first
     if (oldImageName)
         deleteImageFromStorage(oldImageName, false);
+    
     // upload new image
-    // newImageName = Date.now() + ".jpg";
-    // uploadImageToStorage(newImageName, newImageSource);
-    // // update group info
-    // //updateGroupInfo(groupId, {mainImage: newImageName});
-    // return newImageName;
-    newImageName = Date.now() + '.jpg';
-    const downloadUrl = await uploadImageToStorage(newImageName, newImageSource);
+    const newImageName = Date.now() + '.jpg';
+    const downloadUrl = await uploadImageToStorage(newImageName, newImageSource, false);
+
     // return newImageInfo
     return new Promise(resolve => {
-        console.log('\n\nupdateGroupImage : downloadUrl==============');
-        console.log(downloadUrl);
         resolve([downloadUrl, newImageName]);
     });
 }

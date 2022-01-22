@@ -1,8 +1,8 @@
 import {
-        uploadNewGroup,
-        updateGroupInfo, updateGroupImage,
-        deleteGroup,
-        findAllGroupIncludeImage } from '../service/GroupService';
+    uploadNewGroup,
+    updateGroupInfo, updateGroupImage,
+    deleteGroup,
+    findAllGroupIncludeImage } from '../service/GroupService';
 
 // group list
 var groupList = [];
@@ -26,14 +26,6 @@ async function getAllGroupIncludeImages() {
 }
 
 /**
- * Get bookmarked group list
- * @returns {Array} bookmarked group list
- */
-async function getBookmarkedGroupList() {
-    return groupList.filter(obj => obj.bookmark == true);
-}
-
-/**
  * Upload new group and add to groupList
  * @param {*} groupData: group info
  * *  {
@@ -45,14 +37,10 @@ async function getBookmarkedGroupList() {
  */
 async function doCreateGroup(groupData, mainImageSource) {
     // to server
-    const newGroupInfo = await uploadNewGroup( groupData, mainImageSource );
+    var newGroupInfo = uploadNewGroup(groupData, mainImageSource);
 
     // to local data
-    // groupList = ([...groupList, newGroupInfo])
-    // console.log(groupList);
-    groupList = [...groupList, newGroupInfo];
-    console.log('\n\ndoCreateGroup========');
-    console.log(newGroupInfo);
+    groupList = [await newGroupInfo, ...groupList];
     return new Promise(resolve => {
         resolve(newGroupInfo);
     });
@@ -67,27 +55,27 @@ async function doCreateGroup(groupData, mainImageSource) {
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
-}
-* @param {*} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
-* @param {*} oldImageName old image name
-* @param {*} newImageSource new image source
-*/
+ *    }
+ * @param {*} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
+ * @param {*} oldImageName old image name
+ * @param {*} newImageSource new image source
+ */
 async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImageSource) {
     var info = {...newInfo};
+    var imageUrl = '';
 
     // to server
     if (isIncludingImage) {
         const newImageInfo = await updateGroupImage(oldImageName, newImageSource);
         const [downloadUrl, newImageName] = newImageInfo;
-        info = {...info, imageUrl: downloadUrl, mainImage: newImageName};
-        console.log('\n\ndoUpdate image========');
-        console.log(newImageInfo);
+        imageUrl = downloadUrl;
+        info = {...info, mainImage: newImageName};
     }
     updateGroupInfo(groupId, info);
 
     // to local data
     const oldInfo = groupList.find(g => g.id == groupId);
-    setGroupListAtOne(groupId, {...oldInfo, ...info});
+    setGroupListAtOne(groupId, {...oldInfo, ...info, imageUrl: imageUrl});
 }
 
 /**
@@ -115,8 +103,7 @@ function checkIsExistingGroup(groupTitle) {
 
 export {
     groupList, 
-    getAllGroupIncludeImages, 
-    getBookmarkedGroupList,
+    getAllGroupIncludeImages,
     doCreateGroup, 
     doUpdateGroup, 
     doDeleteGroup, 
