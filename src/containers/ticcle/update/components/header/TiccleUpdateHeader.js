@@ -6,14 +6,14 @@ import metrics from '../../../../../theme/metrices'
 import TiccleUpdateHeaderLeft from './TiccleUpdateHeaderLeft'
 import TiccleUpdateHeaderRight from './TiccleUpdateHeaderRight'
 
-const TiccleUpdateHeader = () => {
+const TiccleUpdateHeader = ({updateTiccleData}) => {
     var title = '티끌 수정'
 
     return(
         <View style={styles.container}>
             <TiccleUpdateHeaderLeft/>
             <Text style={styles.title}>{title}</Text>
-            <TiccleUpdateHeaderRight/>
+            <TiccleUpdateHeaderRight updateTiccleData={updateTiccleData}/>
         </View>
     )
 }

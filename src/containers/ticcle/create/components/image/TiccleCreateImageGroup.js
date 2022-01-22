@@ -8,7 +8,7 @@ const TiccleImageGroup = ({setPhotoModalVisible, ticcleImages, deleteTiccleImage
     const ticcleImageList = ticcleImages.map(
         (imagePath,index) => (
             <TiccleCreateImage key={index} 
-            deleteImage={deleteTiccleImage} imagePath={imagePath}
+            deleteTiccleImage={deleteTiccleImage} imagePath={imagePath}
             />
             ))
 

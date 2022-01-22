@@ -58,7 +58,7 @@ const TiccleUpdateProvider = ({children}) => {
         setTiccleUpdate(state => {
             return {
                 ...state,
-                images: ticcle.images.filter(
+                images: state.images.filter(
                     ticcleImage => ticcleImage !== imagePath,
                 ),
             };

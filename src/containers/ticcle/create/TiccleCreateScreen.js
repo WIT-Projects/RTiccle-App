@@ -29,20 +29,10 @@ const TiccleCreateScreen = ({route}) => {
             navigation.setParams({groupId : ''});
         })
         if (route.params !== undefined){
-            checkGroupId(route.params.groupId, setTiccleGroup);
+            checkGroupId(route.params.groupId, setTiccleGroup, initialTiccle);
         }
         console.log(route);
-        const backButtonEvent = () => {
-            navigation.goBack();
-            initialTiccle();
-            return true
-          };
-          const backHandler = BackHandler.addEventListener(
-            "hardwareBackPress",
-            backButtonEvent
-          );
         return () => {
-            backHandler.remove();
             tabPress;
         };
     },[route])
@@ -65,7 +55,8 @@ const TiccleCreateScreen = ({route}) => {
                     ticcleTitle={ticcle.title} ticcleLink={ticcle.link}
                     setTiccleTitle={setTiccleTitle} setTiccleLink={setTiccleLink}
                 />
-                <TiccleCreateImageAdd setPhotoModalVisible={setPhotoModalVisible}
+                <TiccleCreateImageAdd
+                    setPhotoModalVisible={setPhotoModalVisible}
                     ticcleImages={ticcle.images} deleteTiccleImage={deleteTiccleImage}
                 />
                 <TiccleContentTextInput ticcleContent={ticcle.content} setTiccleContent={setTiccleContent}/>

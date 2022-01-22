@@ -4,11 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
 
-const TiccleUpdateHeaderRight = () => {
-    const navigateTo = useNavigation() 
+const TiccleUpdateHeaderRight = ({updateTiccleData}) => {
+    const navigation = useNavigation() 
 
     const saveButtonEvent = () => {
-        navigateTo.goBack();
+        navigation.navigate('TiccleDetail', {ticcleData: updateTiccleData});
         console.log("티끌 수정 완료. TiccleDetail로 수정된 Ticcle 보내기")
     }
 
