@@ -80,6 +80,9 @@ async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, n
     if (imageUrl == '') newInfo = {...oldInfo, ...info}
     else newInfo = {...oldInfo, ...info, imageUrl: imageUrl}
     setGroupListAtOne(groupId, newInfo);
+
+    // for updating imageUrl in screen
+    if (isIncludingImage) return imageUrl;
 }
 
 /**

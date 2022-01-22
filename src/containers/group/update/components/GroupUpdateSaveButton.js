@@ -7,10 +7,10 @@ import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import {doUpdateGroup} from '../../../../model/GroupModel';
 
 const GroupUpdateSaveButton = ({navigation, initialData}) => {
-    const {groupUpdate, initialGroupUpdate} = useGroupUpdate();
+    const {groupUpdate, initialGroupUpdate, setGroupUpdateImage} = useGroupUpdate();
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
-    const groupUpdateFirebase = () => {
+    const groupUpdateFirebase = async () => {
         let newInfo = [];
         let image = '';
         if (groupUpdate.title != initialData.title) newInfo.title = groupUpdate.title;
@@ -22,13 +22,12 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
             if (image != '') {
                 const oldImageName = initialData.mainImage;
                 const newImageSource = image;
-                doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource);
+                const newImageUrl = await doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource);
+                setGroupUpdateImage(newImageUrl);
             } else {
                 doUpdateGroup(groupId, newInfo, false);
             }
             setIsGroupChanged(!isGroupChanged); // notify groupData changed
-            console.log('Group update save========================');
-            console.log(isGroupChanged);
             navigation.navigate({
                 name: 'GroupDetail',
                 params: {
