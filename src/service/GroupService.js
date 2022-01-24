@@ -40,7 +40,7 @@ async function uploadNewGroup(group, mainImageSource) {
         mainImage: imageName,
         ticcleNum: 0,
         latestTiccleTitle: '',
-        lastModifiedTime: Date.now(),
+        lastModifiedTime: Date.now(), // this treated like 'createdTime' (NOT UPDATE after create)
     });
     return new Promise(resolve => {
         resolve({...result, imageUrl: downloadURL});
