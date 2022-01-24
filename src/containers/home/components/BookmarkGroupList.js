@@ -9,10 +9,8 @@ const BookmarkGroupList = () => {
     const [existBookmark, setExistBookmark] = useState(false);
     const [data, setData] = useState([]);
     const {isGroupChanged} = useGroupChanged();
-    let bookmarkedList = '';
     useEffect(() => {
-        bookmarkedList = groupList.filter(obj => obj.bookmark == true); // 업데이트된 텍스트(title 등)는 바로 반영하지만, 이미지 업데이트 속도 때문에 예전 이미지 정보로 가져오는지 업데이트된 이미지는 바로 반영 x
-        // bookmarkedList = groupList; groupList로 직접 가져오면 업데이트된 텍스트 뿐만 아니라 이미지까지 바로 반영해서 보여줌.(NewTiccleGroupList가 이 경우) model에 bookmarkedGroupList를 만드는 건 어떨지...
+        let bookmarkedList = groupList.filter(obj => obj.bookmark == true);
         if (bookmarkedList.length == 0) {
             setExistBookmark(false);
         } else {

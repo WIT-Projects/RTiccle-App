@@ -33,20 +33,17 @@ async function uploadNewGroup(group, mainImageSource) {
     let downloadURL = '';
     if (mainImageSource || mainImageSource != '') {
         imageName = Date.now() + '.jpg';
-        downloadURL = await uploadImageToStorage( imageName, mainImageSource );
-        // uploadImageToStorage(imageName, mainImageSource);
+        downloadURL = await uploadImageToStorage(imageName, mainImageSource);
     }
-    // return createGroup({ ...group, mainImage: imageName, ticcleNum: 0, latestTiccleTitle: '', lastModifiedTime: Date.now() });
+    const result = await createGroup({
+        ...group,
+        mainImage: imageName,
+        ticcleNum: 0,
+        latestTiccleTitle: '',
+        lastModifiedTime: Date.now(), // this treated like 'createdTime' (NOT UPDATE after create)
+    });
     return new Promise(resolve => {
-        const result = createGroup({
-            ...group,
-            mainImage: imageName,
-            ticcleNum: 0,
-            latestTiccleTitle: '',
-            lastModifiedTime: Date.now(),
-            imageUrl: downloadURL,
-        });
-        resolve(result);
+        resolve({...result, imageUrl: downloadURL});
     });
 }
 
@@ -63,13 +60,13 @@ async function uploadNewGroup(group, mainImageSource) {
     }
  */
 function updateGroupInfo(groupId, newInfo) {
-    const updateInfo = {...newInfo, lastModifiedTime: Date.now()};
+    // no update lastModifiedTime
     const ref = userDoc.collection('Group').doc(groupId);
-    ref.update(updateInfo);
+    ref.update(newInfo);
 }
 
 /**
- * Update ticcleNum and lastModifiedTime of Group
+ * Update ticcleNum
  * @param {string} groupId
  * @param {boolean} isPlus: true if +1 else -1
  */
@@ -78,7 +75,7 @@ async function updateTiccleNumOfGroup(groupId, isPlus) {
     const group = await ref.get();
     var num = group.ticcleNum;
     num = isPlus ? num + 1 : num - 1;
-    ref.update({ticcleNum: num, lastModifiedTime: Date.now()});
+    ref.update({ticcleNum: num});
 }
 
 /**
@@ -91,18 +88,13 @@ async function updateGroupImage(oldImageName, newImageSource) {
     // delete original image first
     if (oldImageName)
         deleteImageFromStorage(oldImageName, false);
+    
     // upload new image
-    // newImageName = Date.now() + ".jpg";
-    // uploadImageToStorage(newImageName, newImageSource);
-    // // update group info
-    // //updateGroupInfo(groupId, {mainImage: newImageName});
-    // return newImageName;
-    newImageName = Date.now() + '.jpg';
-    const downloadUrl = await uploadImageToStorage(newImageName, newImageSource);
+    const newImageName = Date.now() + '.jpg';
+    const downloadUrl = await uploadImageToStorage(newImageName, newImageSource, false);
+
     // return newImageInfo
     return new Promise(resolve => {
-        console.log('\n\nupdateGroupImage : downloadUrl==============');
-        console.log(downloadUrl);
         resolve([downloadUrl, newImageName]);
     });
 }

@@ -22,11 +22,9 @@ const GroupInfo = ({groupData, navigation}) => {
         if (isBookmark == true) {
             setIsBookmark(false);
             doUpdateGroup(groupData.id, {bookmark: false}, false);
-            console.log(groupData);
         } else {
             setIsBookmark(true);
             doUpdateGroup(groupData.id, {bookmark: true}, false);
-            console.log(groupData);
         }
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
     }

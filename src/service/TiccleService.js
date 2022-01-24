@@ -67,7 +67,7 @@ function updateTiccleInfo(groupId, ticcleId, newInfo) {
     const ref = userDoc.collection("Ticcle").doc(ticcleId);
     var updateInfo = {...newInfo, lastModifiedTime: Date.now()};
     ref.update(updateInfo);
-    updateGroupInfo(groupId); // only update lastModifiedDate!
+    //if (newInfo.title) updateGroupInfo(groupId, {latestTiccleTitle: newInfo.title}) // 최근 title 에는 수정된 것도 포함인지?
 }
 
 /**
