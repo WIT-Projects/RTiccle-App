@@ -7,6 +7,20 @@ import {
     findImagesOfTiccle,
 } from "../service/TiccleService";
 
+/*
+ * Ticcle data
+    {
+        groupId: group id,
+        title: string,
+        link: string, // URL of original content
+        content: string,
+        tagList: Array<string>,
+        images: Array<string>, // array of image paths in storage
+        imageUrl: Array<string>, // array of image downloadUrls
+        lastModifiedTime: number
+    }
+*/
+
 var groupId = ''; // ticcle list belongs to
 var ticcleList = [];
 function setNewTiccleList(_groupId, _ticcleList){

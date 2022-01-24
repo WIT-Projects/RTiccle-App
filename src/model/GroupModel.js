@@ -5,6 +5,21 @@ import {
     deleteGroup,
     findAllGroupIncludeImage } from '../service/GroupService';
 
+/*
+ * Group data
+    {
+        id: string, // random, unique id
+        title: string,
+        description: string,
+        bookmark: Boolean, // true if bookmarked
+        mainImage: string, // path in storage
+        imageUrl: string, // downloadUrl of image
+        ticcleNum: integer, 
+        latestTiccleTitle: string, 
+        lastModifiedTime: number // this treated like 'createdTime' (NOT UPDATE after create)
+    }
+*/
+
 // group list
 var groupList = [];
 const setGroupListAtOne = (targetGId, groupData) => {
