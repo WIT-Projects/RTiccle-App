@@ -5,7 +5,7 @@ import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';
 
-const TitleInput = ({setButtonDisable, isExistGroup}) => {
+const GroupTitleInput = ({setButtonDisable, isExistGroup}) => {
     const {groupCreate, setGroupTitle} = useGroupCreate();
     var groupTitleLength = groupCreate.title.length;
     const maxLengthOfTitle = 15;
@@ -24,7 +24,7 @@ const TitleInput = ({setButtonDisable, isExistGroup}) => {
                     placeholder="음식, 공부, 전시 등"
                     placeholderTextColor={colors.gray2}
                     maxLength={maxLengthOfTitle}></TextInput>
-                <Text style={styles.textCount}>{groupTitleLength}/15</Text>
+                <Text style={styles.textCount}>{groupTitleLength}/{maxLengthOfTitle}</Text>
             </View>
             <Text style={[styles.createFailText, isExistGroup ? null : {opacity: 0}]}>이미 존재하는 그룹입니다!</Text>
         </>
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TitleInput;
+export default GroupTitleInput;
