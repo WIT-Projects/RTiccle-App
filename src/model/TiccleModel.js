@@ -64,6 +64,7 @@ async function doCreateTiccle(ticcleData, images) {
 
     // to local data
     ticcleList = [...ticcleList, newTiccleInfo];
+    return newTiccleInfo;
 }
 
 /**
@@ -97,6 +98,7 @@ function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, images, ol
     // to local data
     const oldInfo = ticcleList.find(t => t.id == ticcleId)
     setTiccleListAtOne(ticcleId, {...oldInfo, ...info})
+    return {...oldInfo, ...info};
 }
 
 /**

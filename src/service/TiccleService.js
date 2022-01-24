@@ -8,12 +8,14 @@ const userDoc = firestore().collection('RTiccle').doc(user.uid);
 
 /**
  * @param {*} newTiccle
- * @returns {Array} Ticcle Data
+ * @returns {Promise} Ticcle Data
  */
 async function createTiccle(newTiccle) {
     const ref = userDoc.collection("Ticcle"); // using auto id
     const ticcleRef = await ref.add(newTiccle);
-    return { id: ticcleRef.id, ...newTiccle };
+    return new Promise (resolve => {
+        resolve( { id: ticcleRef.id, ...newTiccle });
+    });
 }
 
 /**
