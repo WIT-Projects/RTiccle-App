@@ -57,6 +57,7 @@ async function getTiccleListByGId(groupId) {
         tagList: Array<String>
     }
  * @param {Array} images: image source array - LIMIT 2
+ * @returns {Array} new ticcle data (info)    
  */
 async function doCreateTiccle(ticcleData, images) {
     // to server
@@ -71,7 +72,7 @@ async function doCreateTiccle(ticcleData, images) {
  * Update ticcle data and add to ticcleList
  * @param {string} groupId: original group id ticcle belong to
  * @param {string} ticcleId
- * @param {Array} newInfo: new ticcle info (CHANGED INFO ONLY) (NO IMAGES)
+ * @param {Array} newInfo: new ticcle info (CHANGED INFO ONLY) (don't put images info here)
  * Support info:
  * *  {
         title: String,
@@ -80,20 +81,21 @@ async function doCreateTiccle(ticcleData, images) {
         tagList: Array<String>
     }
  * @param {boolean} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
- * @param {Array} images old images array // if not exists, put []
- * @param {string} oldImageName old image name // if not exists, put null
- * @param {*} newImageSource new image source
- * @returns {Array} newImageName array
+ * @param {Array} oldImageNames array of old image names // (BE DELETED IMAGE ONLY) if no old images, put []
+ * @param {Array} newImageSources array of new image sources
+ * @returns {Array} updated ticcle data (all)
  */
-function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, images, oldImageName, newImageSource) {
+async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, oldImageNames, newImageSources) {
     var info = {...newInfo};
 
     // to server
     if(isIncludingImage) {
-        const newImages = updateTiccleImage(images, oldImageName, newImageSource);
-        info = {...info, images: newImages};
+        // newImagesInfo = {images: images, imageUrl: imageUrl}
+        const newImagesInfo = await updateTiccleImage(oldImageNames, newImageSources);
+        updateTiccleInfo(groupId, ticcleId, {...newInfo, images: newImagesInfo.images});
+        info = {...info, ...newImagesInfo}; // including imageUrls of new images
     }
-    updateTiccleInfo(groupId, ticcleId, info);
+    else updateTiccleInfo(groupId, ticcleId, newInfo);
 
     // to local data
     const oldInfo = ticcleList.find(t => t.id == ticcleId)
