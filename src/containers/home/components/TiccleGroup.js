@@ -19,6 +19,7 @@ const TiccleGroup = ({groupData}) => {
 
     return (
         <View
+            style={styles.borderContainer}
             onTouchEnd={() => {
                 navigation.navigate('GroupDetail', {
                     groupData: groupData,
@@ -41,6 +42,10 @@ const TiccleGroup = ({groupData}) => {
 };
 
 const styles = StyleSheet.create({
+    borderContainer:{
+        borderColor: colors.white,
+        borderBottomWidth: 1,
+    },
     container: {
         width: '100%',
         height: 140,
