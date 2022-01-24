@@ -7,7 +7,8 @@ import GroupCreateConfirmButton from './components/GroupCreateConfirmButton';
 import colors from '../../../theme/colors';
 
 const GroupCreateName = ({navigation}) => {
-    const [groupCreateButtonDisable, setGroupCreateButtonDisable] = useState(true);
+    const [buttonDisabled, setButtonDisable] = useState(true);
+    const [isExistGroup, setIsExistGroup] = useState(false);
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null} style={styles.container}>
@@ -15,11 +16,13 @@ const GroupCreateName = ({navigation}) => {
                 <View style={styles.inner}>
                     <View style={styles.textContainer}>
                         <TextInfo title="그룹의 이름은 무엇인가요?" subtitle="나만의 그룹 이름을 입력해보세요!"></TextInfo>
-                        <GroupTextInput setButtonDisable={setGroupCreateButtonDisable}></GroupTextInput>
+                        <GroupTextInput setButtonDisable={setButtonDisable} isExistGroup={isExistGroup}></GroupTextInput>
                     </View>
                     <GroupCreateConfirmButton
                         text="확인"
-                        buttonDisabled={groupCreateButtonDisable}
+                        setButtonDisable={setButtonDisable}
+                        buttonDisabled={buttonDisabled}
+                        setIsExistGroup={setIsExistGroup}
                         navigation={navigation}></GroupCreateConfirmButton>
                 </View>
             </TouchableWithoutFeedback>
