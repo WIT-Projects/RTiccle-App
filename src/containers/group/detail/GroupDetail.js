@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Image, TouchableOpacity, StyleSheet} from 'react-native';
-import GroupInfo from './components/GroupInfo';
+import GroupInfo from './components/groupInfo';
 import SearchBar from '../../common/SearchBar';
-import ZeroTiccle from './components/ZeroTiccle';
+import ZeroTiccle from './components/zeroTiccle';
 import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 import useTiccleChanged from '../../../context/hook/useTiccleChanged';
 import {getTiccleListByGId} from '../../../model/TiccleModel';

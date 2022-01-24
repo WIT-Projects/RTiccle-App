@@ -20,11 +20,7 @@ const Home = ({navigation}) => {
 
     return (
         <ScrollView style={styles.container}>
-            <MyMount
-                mount={'태산'}
-                imageUrl={
-                    'https://images.france.fr/zeaejvyq9bhj/4jKuK6yobYMkGGQ4IO0Kk2/b77683922a8cca16afaa0d2028df39ad/savoie-mont-blanc-ete-header.jpg?w=1200&h=630&q=70&fl=progressive&fit=fill'
-                }></MyMount>
+            <MyMount/>
             <BookmarkGroupList></BookmarkGroupList>
 
             {/* 나중에 지울거 */}
