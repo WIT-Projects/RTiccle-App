@@ -58,7 +58,7 @@ const MyMount = () => {
         <>
             <ImageBackground source={mountData[section].image}
                 resizeMode="cover"
-                style={{ width: "100%", height: 243 }}>
+                style={styles.imageContainer}>
                 <View style={styles.container}>
                     <Text style={styles.blackFont}>곧 {mountData[section+1].name}으로 갈 수 있어요.</Text>
                     <Text style={styles.whiteFont}>{mountData[section].name}</Text>
@@ -71,6 +71,12 @@ const MyMount = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    imageContainer:{
+        width: "100%",
+        height: 243,
+        aspectRatio : 1,
+        resizeMode: 'contain',
     },
     blackFont: {
         fontFamily: type.spoqaHanSansNeo_Bold,
