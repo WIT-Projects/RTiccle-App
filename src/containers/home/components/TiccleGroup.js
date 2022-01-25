@@ -12,8 +12,6 @@ const TiccleGroup = ({groupData}) => {
         : (source = {uri: groupData.imageUrl});
 
     useEffect(() => {
-        console.log('ticcleGroup=================');
-        // console.log(groupData);
         navigation.setParams({groupData: groupData});
     }, [groupData]);
 
