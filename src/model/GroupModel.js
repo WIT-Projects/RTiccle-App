@@ -105,16 +105,4 @@ function checkIsExistingGroup(groupTitle) {
     else return true;
 }
 
-/**
- * Get user's ticcle nubmer
- * @returns {integer} total number of ticcles
- */
- function getTotalTiccleNum() {
-    var totalNum = 0;
-    groupList.forEach((group) => {
-        totalNum = totalNum + group.ticcleNum;
-    })
-    return totalNum;
-}
-
-export {groupList, getAllGroupIncludeImages, doCreateGroup, doUpdateGroup, doDeleteGroup, checkIsExistingGroup, getTotalTiccleNum};
+export {groupList, getAllGroupIncludeImages, doCreateGroup, doUpdateGroup, doDeleteGroup, checkIsExistingGroup};
