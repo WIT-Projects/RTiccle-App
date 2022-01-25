@@ -3,10 +3,14 @@ import { anonSignIn, googleSigninConfigure, getCurrentUser } from './src/service
 import AppProvider from './src/context/provider/AppProvider';
 import MainStackNavigator from './src/navigation/stack/MainStackNavigator';
 import SplashScreen from 'react-native-splash-screen';
+import {initAlgolia} from './src/service/SearchService';
 
 function App() {
     useEffect(() => {
+        // configure
         googleSigninConfigure();
+        initAlgolia();
+        
         if (getCurrentUser() == null) {
             anonSignIn();
         }

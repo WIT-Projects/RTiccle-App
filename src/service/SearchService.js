@@ -1,35 +1,50 @@
 import firestore from '@react-native-firebase/firestore';
-// import { getCurrentUser } from './AuthService';
-// const user = getCurrentUser();
-
-const apiKey = firestore().collection('Algolia').doc('algolia').collection('APIKey');
-const AppId = firestore().collection('Algolia').doc('algolia').collection('AppId');
+import { currentUser } from './AuthService';
 
 const algoliasearch = require("algoliasearch");
+var searchClient;
+var collectionIndex;
+const userFilter = `uid:${currentUser.uid}`
 
-const client = algoliasearch(apiKey, AppId);
-const index = client.initIndex("dev_ticcletitle");
+async function initAlgolia() {
+    const doc = await firestore().collection('Algolia').doc('algolia').get();
+    const algolia = doc.data();
+    searchClient = algoliasearch(algolia.AppId, algolia.APIKey);
+    const indexName = 'dev_ticcletitle';
+    collectionIndex = searchClient.initIndex(indexName);
+};
 
 /**
- * Search ticcle by title
- * @param {*} keyword to search
- * @returns {*} GroupId
+ * Search ticcle by title or tag
+ * @param {string} query to search
+ * @param {string} restrictAttr MUST BE title or tagList
+ * @returns {Promise} Array of Ticcle Meatadata
  */
-async function searchTiccleByTitle(keyword) {
-    let findGroupId = "";
-
-    index.search(keyword)
-        .then(({hits}) => {
-            console.log(hits);
-            findGroupId = hits.objectId;
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-    return findGroupId;
+ async function searchTiccleWithAlgolia(query, restrictAttr) {
+    // search with Algolia
+    const result = await collectionIndex.search(query, {
+        restrictSearchableAttributes: [
+            restrictAttr, // ONLY look at title or tagList value
+        ],
+        filters: userFilter,
+    });
+    var ticcleMetadataList = [];
+    result.hits.forEach(element => {
+        const record = {
+            id: element.objectID,
+            title: element.title,
+            groupId: element.groupId,
+            tagList: element.tagList,
+        }
+        ticcleMetadataList.push(record);
+    });
+    // return search result
+    return new Promise(resolve => {
+        resolve(ticcleMetadataList);
+    });
 }
 
 export {
-    searchTiccleByTitle,
+    initAlgolia,
+    searchTiccleWithAlgolia,
 };

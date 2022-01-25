@@ -10,6 +10,7 @@ import {
 /*
  * Ticcle data
     {
+        id: ticcle id,
         groupId: group id,
         title: string,
         link: string, // URL of original content

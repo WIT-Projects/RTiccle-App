@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput, View, Image } from "react-native";
+import { searchTiccleByTitle, searchTiccleByTag } from '../../model/SearchModel';
 import colors from '../../theme/colors';
-import dfa from '../../service/SearchService';
 
 const SearchBar = ({ placeholderContext }) => {
     const [searchInput, onSearchInput] = useState("");
 
     function pressSearchBtn(){
-        let result = await searchTiccleByTitle(searchInput);
-        console.log(result);
+        searchTiccleByTitle(searchInput).then(res => console.log("title search result: ", res));
+        searchTiccleByTag(searchInput).then(res => console.log("tag search result: ", res));
     }
 
     return (
         <>
             <View style={styles.container}>
                 <TextInput style={styles.textInput} onChangeText={onSearchInput} placeholder={placeholderContext}></TextInput>
-                <Image onTouchEnd={() => { pressSearchBtn();}} style={styles.icon} source={require('../../assets/icon/search.png')}></Image>
+                <Image onTouchEnd={() => {pressSearchBtn()}} style={styles.icon} source={require('../../assets/icon/search.png')}></Image>
                 <Image style={styles.icon} source={require('../../assets/icon/line.png')}></Image>
                 <Image style={styles.icon} source={require('../../assets/icon/menu.png')}></Image>
             </View>
