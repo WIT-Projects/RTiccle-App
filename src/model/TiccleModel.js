@@ -121,6 +121,30 @@ async function getTiccleIncludeImages(ticcleData) {
     return await findImagesOfTiccle(ticcleData);
 }
 
+/**
+ * Sort by LMT (asc)
+ * @param {Array} ticcleList (MUST CONTAIN "lastModifiedTime")
+ * @returns {Array} sorted ticcleList
+ */
+ function sortAscByLMT(ticcleList) {
+    const result = ticcleList.sort((a, b) => {
+        a.lastModifiedTime - b.lastModifiedTime;
+    })
+    return result;
+}
+
+/**
+ * Sort by LMT (desc)
+ * @param {Array} ticcleList (MUST CONTAIN "lastModifiedTime")
+ * @returns {Array} sorted ticcleList
+ */
+function sortDescByLMT(ticcleList) {
+    const result = ticcleList.sort((a, b) => {
+        b.lastModifiedTime - a.lastModifiedTime;
+    })
+    return result;
+}
+
 export {
     groupId,
     ticcleList,
@@ -129,4 +153,6 @@ export {
     doUpdateTiccle,
     doDeleteTiccle,
     getTiccleIncludeImages,
+    sortAscByLMT,
+    sortDescByLMT,
 }
