@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 import GroupSaveButton from './components/GroupSaveButton';
+import GroupSaveButtonSkip from './components/GroupSaveButtonSkip';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
 
@@ -40,11 +41,7 @@ const GroupCreateImage = ({navigation}) => {
                 </ImageBackground>
             </ImageBackground>
             <GroupSaveButton text="저장하기" navigation={navigation}></GroupSaveButton>
-            <View style={{alignItems: 'center'}}>
-                <TouchableOpacity style={styles.skipButton}>
-                    <Text style={styles.skipText}>건너뛰기</Text>
-                </TouchableOpacity>
-            </View>
+            <GroupSaveButtonSkip text="건너뛰기" navigation={navigation}></GroupSaveButtonSkip>
         </View>
     );
 };
@@ -85,19 +82,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingTop: 8,
         color: colors.white,
-    },
-    skipButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 168,
-        height: 40,
-        borderRadius: 24,
-        marginTop: 6,
-    },
-    skipText: {
-        fontFamily: type.spoqaHanSansNeo_Regular,
-        fontSize: 16,
-        color: colors.gray3,
     },
 });
 

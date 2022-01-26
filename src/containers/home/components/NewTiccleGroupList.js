@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {type} from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
 import {groupList} from '../../../model/GroupModel';
+import {limitGroupNum} from '../../../model/GroupModel';
 import useGroupChanged from '../../../context/hook/useGroupChanged';
 import colors from '../../../theme/colors';
 import {useNavigation} from '@react-navigation/native';
@@ -22,11 +23,20 @@ const NewTiccleGroupList = () => {
 
     return (
         <>
-            <View style={styles.groupCreateButton}>
-                <Text style={styles.blackBoldFont}>내 그룹</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('GroupCreateName')}>
-                    <Image source={require('../../../assets/images/groupCreateButton.png')}></Image>
-                </TouchableOpacity>
+            <View style={styles.newTiccleGroupListHeader}>
+                <View style={styles.groupCreateButton}>
+                    <Text style={styles.blackBoldFont}>내 그룹</Text>
+                    <TouchableOpacity style={styles.groupCreateButtonImage} onPress={() => navigation.navigate('GroupCreateName')}>
+                        <Image source={require('../../../assets/images/groupCreateButton.png')}></Image>
+                    </TouchableOpacity>
+                </View>
+                {isExistGroup ? (
+                    <View>
+                        <Text style={styles.blackBoldFont}>
+                            {groupList.length}/{limitGroupNum}
+                        </Text>
+                    </View>
+                ) : null}
             </View>
             {isExistGroup ? (
                 <View style={styles.existTiccle}>
@@ -46,24 +56,31 @@ const NewTiccleGroupList = () => {
 };
 
 const styles = StyleSheet.create({
-    existTiccle: {
-        flex: 1,
-        marginTop: 18,
+    newTiccleGroupListHeader: {
+        flexDirection: 'row',
+        marginTop: 36,
+        marginHorizontal: 18,
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     blackBoldFont: {
-        marginRight: 5,
         fontFamily: type.spoqaHanSansNeo_Bold,
         fontSize: 18,
     },
     groupCreateButton: {
         flexDirection: 'row',
-        marginTop: 36,
-        marginHorizontal: 18,
         alignItems: 'center',
+    },
+    groupCreateButtonImage: {
+        marginLeft: 5,
+    },
+    existTiccle: {
+        flex: 1,
+        marginTop: 18,
     },
     noTiccle: {
         flex: 1,
-        marginTop: 72,
+        marginTop: 108,
         alignItems: 'center',
     },
     noTiccleImage: {

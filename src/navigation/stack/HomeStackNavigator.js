@@ -26,12 +26,7 @@ const HomeStackNavigatior = () => {
                 component={Home}
                 options={({navigation}) => ({
                     title: 'RTICCLE',
-                    headerLeft: () => (
-                        <Image
-                            style={{marginLeft: 18}}
-                            source={require('../../assets/images/logo.png')}
-                        />
-                    ),
+                    headerLeft: () => <Image style={{marginLeft: 18}} source={require('../../assets/images/logo.png')} />,
                     headerRight: () => (
                         <Image
                             onTouchEnd={() => {
@@ -43,16 +38,8 @@ const HomeStackNavigatior = () => {
                     ),
                 })}
             />
-            <HomeStack.Screen
-                options={({navigation}) => ({headerShown: false})}
-                name="GroupDetail"
-                component={GroupDetail}
-            />
-            <HomeStack.Screen
-                options={({navigation}) => ({headerShown: false})}
-                name="GroupUpdate"
-                component={GroupUpdate}
-            />
+            <HomeStack.Screen options={({navigation}) => ({headerShown: false})} name="GroupDetail" component={GroupDetail} />
+            <HomeStack.Screen options={({navigation}) => ({headerShown: false})} name="GroupUpdate" component={GroupUpdate} />
             <HomeStack.Screen
                 name="GroupCreateName"
                 component={GroupCreateName}
@@ -66,6 +53,7 @@ const HomeStackNavigatior = () => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: {
                         fontSize: 20,
+                        fontFamily: type.notoSansKR_Bold,
                     },
                     headerLeft: () => (
                         <TouchableOpacity
@@ -74,10 +62,7 @@ const HomeStackNavigatior = () => {
                                 initialGroupCreate();
                                 navigation.navigate('Home');
                             }}>
-                            <Image
-                                source={require('../../assets/images/chevron_left.png')}
-                                style={(styles.headerLeftImage, styles.black)}
-                            />
+                            <Image source={require('../../assets/images/chevron_left.png')} style={(styles.headerLeftImage, styles.black)} />
                         </TouchableOpacity>
                     ),
                 })}
@@ -95,6 +80,7 @@ const HomeStackNavigatior = () => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: {
                         fontSize: 20,
+                        fontFamily: type.notoSansKR_Bold,
                     },
                     headerLeft: () => (
                         <TouchableOpacity
@@ -103,10 +89,7 @@ const HomeStackNavigatior = () => {
                                 initialGroupCreate();
                                 navigation.navigate('Home');
                             }}>
-                            <Image
-                                source={require('../../assets/images/chevron_left.png')}
-                                style={(styles.headerLeftImage, styles.black)}
-                            />
+                            <Image source={require('../../assets/images/chevron_left.png')} style={(styles.headerLeftImage, styles.black)} />
                         </TouchableOpacity>
                     ),
                 })}

@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Text, ImageBackground, View, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, ImageBackground, View, StyleSheet, Image} from 'react-native';
 import colors from '../../../theme/colors';
 import {type} from '../../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
@@ -12,26 +12,25 @@ const TiccleGroup = ({groupData}) => {
         : (source = {uri: groupData.imageUrl});
 
     useEffect(() => {
-        console.log('ticcleGroup=================');
-        // console.log(groupData);
         navigation.setParams({groupData: groupData});
     }, [groupData]);
 
     return (
         <View
-            style={styles.borderContainer}
+            style={styles.ticcleGroup}
             onTouchEnd={() => {
                 navigation.navigate('GroupDetail', {
                     groupData: groupData,
                 });
             }}>
-            <ImageBackground source={source} resizeMode="cover" style={styles.container}>
-                <ImageBackground source={require('../../../assets/images/gradation.png')} resizeMode="cover" style={styles.container}>
-                    <View style={styles.container3}>
+            <ImageBackground source={source} resizeMode="cover" style={styles.groupMainImage}>
+                {groupData.bookmark ? <Image style={styles.bookmarkIcon} source={require('../../../assets/icon/bookmarkTrue.png')}></Image> : null}
+                <ImageBackground source={require('../../../assets/images/gradation.png')} resizeMode="cover" style={styles.groupMainImage}>
+                    <View style={styles.groupInfo}>
                         <Text style={styles.subFont}>{groupData.title}</Text>
                         <Text style={styles.whiteFont}>최신글</Text>
                         <Text style={styles.whiteFont}>{groupData.latestTiccleTitle}</Text>
-                        <View style={styles.container2}>
+                        <View style={styles.ticcleNum}>
                             <Text style={styles.blackFont}>+{groupData.ticcleNum}</Text>
                         </View>
                     </View>
@@ -42,21 +41,27 @@ const TiccleGroup = ({groupData}) => {
 };
 
 const styles = StyleSheet.create({
-    borderContainer:{
-        borderColor: colors.white,
+    ticcleGroup: {
         borderBottomWidth: 1,
+        borderBottomColor: colors.white,
     },
-    container: {
+    bookmarkIcon: {
+        position: 'absolute',
+        top: 0,
+        right: 18,
+        zIndex: 1,
+    },
+    groupMainImage: {
         width: '100%',
         height: 140,
     },
-    container2: {
+    ticcleNum: {
         backgroundColor: colors.sub,
         paddingHorizontal: 7,
         paddingVertical: 3,
         borderRadius: 10,
     },
-    container3: {
+    groupInfo: {
         alignItems: 'flex-end',
         marginRight: 18,
         marginVertical: 25,
