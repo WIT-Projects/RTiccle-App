@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput, View, Image } from "react-native";
-import { searchTiccleByTitltAndTag, searchTiccleByTitltAndTagInGroup } from '../../model/SearchModel';
+import { searchTiccleByTitltAndTag } from '../../model/SearchModel';
 import colors from '../../theme/colors';
 
-const SearchBar = ({ placeholderContext }) => {
+const SearchBar = ({ placeholderContext, setExistResult }) => {
     const [searchInput, onSearchInput] = useState("");
 
     function pressSearchBtn(){
-        let query = ["개발"];
-        let tagQuery = ["6"];
-        searchTiccleByTitltAndTag(query, tagQuery).then(res => console.log("search result: ", res));
+        let query = searchInput.split(" ");
+        let tagQuery = [];
+        query.map((item) => {
+            item.search("#") !==-1 ? tagQuery.push(item) : null
+        })
+        console.log("쿼리: "+query);
+        console.log("태그 쿼리: "+tagQuery);
+        searchTiccleByTitltAndTag(query, tagQuery, setExistResult);
     }
 
     return (

@@ -10,14 +10,23 @@ import { searchTiccleWithAlgolia, searchTiccleInGroup } from "../service/SearchS
     }
  */
 
+// group list
+var searchList = [];
+
+function initializeSearchList(){
+    searchList.length = 0;
+}
+
 /**
  * Search ticcle by title and tag with Algolia
  * @param {Array} query to search (title & tagList)
  * @param {Array} tagQuery ONLY search tagList
  * @returns {Promise} Array of Ticcle Meatadata
  */
-function searchTiccleByTitltAndTag(query, tagQuery) {
-    return searchTiccleWithAlgolia(query, tagQuery); // TODO sorting
+async function searchTiccleByTitltAndTag(query, tagQuery, setExistResult) {
+    searchList = await searchTiccleWithAlgolia(query, tagQuery); // TODO sorting
+    searchList.length !== 0? setExistResult(true) : setExistResult(false);
+    console.log(searchList);
 }
 
 /**
@@ -33,6 +42,8 @@ function searchTiccleByTitltAndTag(query, tagQuery) {
 
 
 export {
+    searchList,
     searchTiccleByTitltAndTag,
     searchTiccleByTitltAndTagInGroup,
+    initializeSearchList,
 }

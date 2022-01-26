@@ -2,22 +2,15 @@ import React from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import SearchExistResult from './SearchExistResult';
 import { type } from '../../../theme/fonts';
+import { searchList } from '../../../model/SearchModel';
 
 const SearchExistResultList = () => {
-    const resultList = [
-        { ticcleType: 1, title: "화산귀환", tag: ["데못죽", "회차"], group: "무협" },
-        { ticcleType: 1, title: "화산귀환", tag: ["데못죽", "회차"], group: "무협" },
-        { ticcleType: 1, title: "화산귀환", tag: ["데못죽", "회차"], group: "무협" },
-        { ticcleType: 1, title: "화산귀환", tag: ["데못죽", "회차"], group: "무협" },
-        { ticcleType: 1, title: "화산귀환", tag: ["데못죽", "회차"], group: "무협" },
-        { ticcleType: 1, title: "화산귀환", tag: ["데못죽", "회차"], group: "무협" },
-    ]
     return (
         <>
-            <Text style={styles.resultText}>총 {resultList.length}개의 검색결과</Text>
+            <Text style={styles.resultText}>총 {searchList.length}개의 검색결과</Text>
             <ScrollView>
-                {resultList.map((item, index) => {
-                    return (<SearchExistResult key={index} ticcleType={item.ticcleType} title={item.title} tag={item.tag} group={item.group} />)
+                {searchList.map((item, index) => {
+                    return (<SearchExistResult key={index} ticcle={item} />)
                 })}
             </ScrollView>
         </>
