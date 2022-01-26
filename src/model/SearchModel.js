@@ -12,8 +12,8 @@ import { searchTiccleWithAlgolia, searchTiccleInGroup } from "../service/SearchS
 
 /**
  * Search ticcle by title and tag with Algolia
- * @param {string} query to search (title & tagList)
- * @param {string} tagQuery ONLY search tagList
+ * @param {Array} query to search (title & tagList)
+ * @param {Array} tagQuery ONLY search tagList
  * @returns {Promise} Array of Ticcle Meatadata
  */
 function searchTiccleByTitltAndTag(query, tagQuery) {
@@ -23,8 +23,8 @@ function searchTiccleByTitltAndTag(query, tagQuery) {
 /**
  * Search ticcle by title and tag in Gorup (local search)
  * @param {Array} ticcleList ticcle list in same group (MUST CONTAIN "title" and "tagList")
- * @param {string} query to search (title & tagList)
- * @param {string} tagQuery ONLY search tagList
+ * @param {Array} query to search (title & tagList)
+ * @param {Array} tagQuery ONLY search tagList
  * @returns {Array} searched ticcle list
  */
  function searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery) {

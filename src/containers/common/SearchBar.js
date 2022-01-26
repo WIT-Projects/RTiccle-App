@@ -7,8 +7,9 @@ const SearchBar = ({ placeholderContext }) => {
     const [searchInput, onSearchInput] = useState("");
 
     function pressSearchBtn(){
-        // searchTiccleByTitle(searchInput).then(res => console.log("title search result: ", res));
-        // searchTiccleByTag(searchInput).then(res => console.log("tag search result: ", res));
+        let query = ["개발"];
+        let tagQuery = ["6"];
+        searchTiccleByTitltAndTag(query, tagQuery).then(res => console.log("search result: ", res));
     }
 
     return (
