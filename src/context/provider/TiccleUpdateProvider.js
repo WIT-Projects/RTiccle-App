@@ -54,16 +54,27 @@ const TiccleUpdateProvider = ({children}) => {
             return {...state, images: [...state.images, imagePath]};
         });
     };
-    const deleteTiccleUpdateImage = imagePath => {
+    const deleteTiccleUpdateImage = index => {
         setTiccleUpdate(state => {
+            state.images.splice(index,1);
             return {
                 ...state,
-                images: state.images.filter(
-                    ticcleImage => ticcleImage !== imagePath,
-                ),
-            };
+            }
         });
     };
+    const setTiccleUpdateImageUrls = imagePath => {
+        setTiccleUpdate(state => {
+            return {...state, imageUrl: [...state.imageUrl, imagePath]};
+        });
+    };
+    const deleteTiccleUpdateImageUrl = index => {
+        setTiccleUpdate(state => {
+            state.imageUrl.splice(index,1)
+            return {
+                ...state,
+            }
+    })
+    }
     const initialTiccleUpdate = () => {
         setTiccleUpdate({
             groupId: '',
@@ -88,6 +99,8 @@ const TiccleUpdateProvider = ({children}) => {
                 setTiccleUpdateContent,
                 setTiccleUpdateImages,
                 deleteTiccleUpdateImage,
+                setTiccleUpdateImageUrls,
+                deleteTiccleUpdateImageUrl,
                 initialTiccleUpdate,
             }}>
             {children}

@@ -54,15 +54,13 @@ const TiccleCreateProvider = ({children}) => {
             return {...state, images: [...state.images, imagePath]};
         });
     };
-    const deleteTiccleImage = imagePath => {
+    const deleteTiccleImage = index => {
         setTiccle(state => {
+            state.images.splice(index,1)
             return {
                 ...state,
-                images: ticcle.images.filter(
-                    ticcleImage => ticcleImage !== imagePath,
-                ),
-            };
-        });
+            }
+    })
     };
     const initialTiccle = () => {
         setTiccle({
