@@ -8,12 +8,14 @@ const userDoc = firestore().collection('RTiccle').doc(user.uid);
 
 /**
  * @param {*} newTiccle
- * @returns {Array} Ticcle Data
+ * @returns {Promise} Ticcle Data
  */
 async function createTiccle(newTiccle) {
     const ref = userDoc.collection("Ticcle"); // using auto id
     const ticcleRef = await ref.add(newTiccle);
-    return { id: ticcleRef.id, ...newTiccle };
+    return new Promise (resolve => {
+        resolve( { id: ticcleRef.id, ...newTiccle });
+    });
 }
 
 /**
@@ -67,31 +69,32 @@ function updateTiccleInfo(groupId, ticcleId, newInfo) {
     const ref = userDoc.collection("Ticcle").doc(ticcleId);
     var updateInfo = {...newInfo, lastModifiedTime: Date.now()};
     ref.update(updateInfo);
-    //if (newInfo.title) updateGroupInfo(groupId, {latestTiccleTitle: newInfo.title}) // 최근 title 에는 수정된 것도 포함인지?
+    if (newInfo.title) updateGroupInfo(groupId, {latestTiccleTitle: newInfo.title}) // 최근 title 은 업데이트순
 }
 
 /**
  * Update ticcle images
- * @param {Array} images old images array // if not exists, put []
- * @param {string} oldImageName old image name // if not exists, put null
- * @param {*} newImageSource new image source
- * @returns {Array} newImageName array
+ * @param {Array} oldImageNames array of old image names // (BE DELETED IMAGE ONLY) if no old images, put []
+ * @param {Array} newImageSources array of new image sources // if no new images, put []
+ * @returns {Array} list of images, imageUrl (- {images: images, imageUrl: imageUrl})
  */
-function updateTiccleImage(images, oldImageName, newImageSource) {
-    var newImages = [...images];
-    // delete original image first
-    if (oldImageName) {
-        deleteImageFromStorage(oldImageName, true);
-        let idx = newImages.indexOf(oldImageName);
-        newImages.splice(idx, 1);
+async function updateTiccleImage(oldImageNames, newImageSources) {
+    // delete old images first
+    oldImageNames.forEach((imageName) => {
+        deleteImageFromStorage(imageName, true);
+    })
+    // upload new images
+    var images = [];
+    var imageUrl = [];
+    for (let imageSource of newImageSources) {
+        const newImageName = Date.now() + ".jpg";
+        const downloadUrl = await uploadImageToStorage(newImageName, imageSource);
+        images.push(newImageName);
+        imageUrl.push(downloadUrl)
     }
-    // upload new image
-    newImageName = Date.now() + ".jpg";
-    uploadImageToStorage(newImageName, newImageSource);
-    newImages.push(newImageName);
-    // update group info
-    //updateTiccleInfo(groupId, ticcleId, {images: newImages});
-    return newImages;
+    return new Promise(resolve => {
+        resolve({images: images, imageUrl: imageUrl});
+    });
 }
 
 /**
