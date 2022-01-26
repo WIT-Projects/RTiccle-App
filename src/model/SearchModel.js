@@ -1,4 +1,4 @@
-import { searchTiccleWithAlgolia } from "../service/SearchService";
+import { searchTiccleWithAlgolia, searchTiccleInGroup } from "../service/SearchService";
 
 /*
  * Ticcle Metadata
@@ -11,24 +11,28 @@ import { searchTiccleWithAlgolia } from "../service/SearchService";
  */
 
 /**
- * Search ticcle by title
- * @param {string} query to search
+ * Search ticcle by title and tag with Algolia
+ * @param {string} query to search (title & tagList)
+ * @param {string} tagQuery ONLY search tagList
  * @returns {Promise} Array of Ticcle Meatadata
  */
-function searchTiccleByTitle(query) {
-    return searchTiccleWithAlgolia(query, "title");
+function searchTiccleByTitltAndTag(query, tagQuery) {
+    return searchTiccleWithAlgolia(query, tagQuery); // TODO sorting
 }
 
 /**
- * Search ticcle by tag
- * @param {string} query to search
- * @returns {Promise} Array of Ticcle Meatadata
+ * Search ticcle by title and tag in Gorup (local search)
+ * @param {Array} ticcleList ticcle list in same group (MUST CONTAIN "title" and "tagList")
+ * @param {string} query to search (title & tagList)
+ * @param {string} tagQuery ONLY search tagList
+ * @returns {Array} searched ticcle list
  */
-function searchTiccleByTag(query) {
-    return searchTiccleWithAlgolia(query, "tagList");
+ function searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery) {
+    return searchTiccleInGroup(ticcleList, query, tagQuery); // TODO sorting
 }
 
+
 export {
-    searchTiccleByTitle,
-    searchTiccleByTag,
+    searchTiccleByTitltAndTag,
+    searchTiccleByTitltAndTagInGroup,
 }

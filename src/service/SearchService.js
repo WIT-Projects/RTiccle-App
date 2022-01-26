@@ -22,16 +22,24 @@ async function initAlgolia() {
  * @param {string} restrictAttr MUST BE title or tagList
  * @returns {Promise} Array of Ticcle Meatadata
  */
- async function searchTiccleWithAlgolia(query, restrictAttr) {
+ async function searchTiccleWithAlgolia(query, tagQuery) {
     // search with Algolia
-    const result = await collectionIndex.search(query, {
+    const queryResult = await collectionIndex.search(query, {
         restrictSearchableAttributes: [
-            restrictAttr, // ONLY look at title or tagList value
+            "title",
+            "tagList"
         ],
         filters: userFilter,
     });
+    const tagQueryResult = await collectionIndex.search(tagQuery, {
+        restrictSearchableAttributes: [
+            "tagList" // ONLY look at "tagList" value
+        ],
+        filters: userFilter,
+    });
+
     var ticcleMetadataList = [];
-    result.hits.forEach(element => {
+    queryResult.hits.forEach(element => {
         const record = {
             id: element.objectID,
             title: element.title,
@@ -40,6 +48,18 @@ async function initAlgolia() {
         }
         ticcleMetadataList.push(record);
     });
+    tagQueryResult.hits.forEach(element => {
+        const found = ticcleMetadataList.findIndex(ticcle => ticcle.id == element.id) > -1;
+        if (found) {
+            const record = {
+                id: element.objectID,
+                title: element.title,
+                groupId: element.groupId,
+                tagList: element.tagList,
+            }
+            ticcleMetadataList.push(record);
+        }
+    })
     // return search result
     return new Promise(resolve => {
         resolve(ticcleMetadataList);
@@ -47,12 +67,29 @@ async function initAlgolia() {
 }
 
 /**
- * Search ticcle by title (in group)
+ * Search ticcle by title and tag (in group)
+ * @param {Array} ticcleList ticcle list in same group (MUST CONTAIN "title" and "tagList")
  * @param {string} query 
- * @param {Array} ticcleList ticcle list in same group (MUST CONTAIN "title")
- * @returns 
+ * @param {string} tagQuery tag
+ * @returns {Array} searched ticcle list
  */
-function searchTiccleByTitleInGroup(query, ticcleList) {
+function searchTiccleInGroup(ticcleList, query, tagQuery) {
+    const result = searchTiccleByTitleInGroup(ticcleList, query);
+    const tagQueryResult = searchTiccleByTagInGroup(ticcleList, tagQuery);
+    tagQueryResult.forEach(element => {
+        const found = result.findIndex(ticcle => ticcle.id == element.id) > -1;
+        if (found) result.push(element);
+    })
+    return result;
+}
+
+/**
+ * Search ticcle by title (in group)
+ * @param {Array} ticcleList ticcle list in same group (MUST CONTAIN "title")
+ * @param {string} query 
+ * @returns {Array} searched ticcle list
+ */
+ function searchTiccleByTitleInGroup(ticcleList, query) {
     const result = ticcleList.filter((ticcle) => {
         if (ticcle.title.indexOf(query) < 0) return false;
         else return true;
@@ -62,14 +99,13 @@ function searchTiccleByTitleInGroup(query, ticcleList) {
 
 /**
  * Search ticcle by tag (in group)
- * @param {string} query 
  * @param {Array} ticcleList ticcle list in same group (MUST CONTAIN "tagList")
- * @returns 
+ * @param {string} tagQuery tag
+ * @returns {Array} searched ticcle list
  */
-function searchTiccleByTagInGroup(query, ticcleList) {
+function searchTiccleByTagInGroup(ticcleList, tagQuery) {
     const result = ticcleList.filter((ticcle) => {
-        if (ticcle.tagList.find(val => val == query) == undefined) return false;
-        // if (JSON.stringify(ticcle.tagList).indexOf(query) < 0) return false; // if not exact match
+        if (JSON.stringify(ticcle.tagList).indexOf(tagQuery) < 0) return false; // not exact match
         else return true;
     });
     return result;
@@ -78,6 +114,5 @@ function searchTiccleByTagInGroup(query, ticcleList) {
 export {
     initAlgolia,
     searchTiccleWithAlgolia,
-    searchTiccleByTitleInGroup,
-    searchTiccleByTagInGroup,
+    searchTiccleInGroup,
 };
