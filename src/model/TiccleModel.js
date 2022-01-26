@@ -81,19 +81,28 @@ async function doCreateTiccle(ticcleData, images) {
         tagList: Array<String>
     }
  * @param {boolean} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
+ * @param {Array} images images of ticcle
  * @param {Array} oldImageNames array of old image names // (BE DELETED IMAGE ONLY) if no old images, put []
- * @param {Array} newImageSources array of new image sources
+ * @param {Array} newImageSources array of new image sources // if no new images, put []
  * @returns {Array} updated ticcle data (all)
  */
-async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, oldImageNames, newImageSources) {
+async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, images, oldImageNames, newImageSources) {
     var info = {...newInfo};
 
     // to server
-    if(isIncludingImage) {
+    if (isIncludingImage) {
         // newImagesInfo = {images: images, imageUrl: imageUrl}
         const newImagesInfo = await updateTiccleImage(oldImageNames, newImageSources);
-        updateTiccleInfo(groupId, ticcleId, {...newInfo, images: newImagesInfo.images});
-        info = {...info, ...newImagesInfo}; // including imageUrls of new images
+
+        const newImages = [...images];
+        oldImageNames.forEach((name) => {
+            const idx = newImages.findIndex(imageName => imageName === name);
+            if (idx >= 0) newImages.splice(idx, 1);
+        })
+        newImages = [...newImages, newImagesInfo.images];
+
+        updateTiccleInfo(groupId, ticcleId, {...newInfo, images: newImages});
+        info = {...info, images: newImages, imageUrl: newImagesInfo.imageUrl}; // including imageUrls of new images
     }
     else updateTiccleInfo(groupId, ticcleId, newInfo);
 

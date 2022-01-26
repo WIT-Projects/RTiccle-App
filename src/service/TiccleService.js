@@ -75,7 +75,7 @@ function updateTiccleInfo(groupId, ticcleId, newInfo) {
 /**
  * Update ticcle images
  * @param {Array} oldImageNames array of old image names // (BE DELETED IMAGE ONLY) if no old images, put []
- * @param {Array} newImageSources array of new image sources
+ * @param {Array} newImageSources array of new image sources // if no new images, put []
  * @returns {Array} list of images, imageUrl (- {images: images, imageUrl: imageUrl})
  */
 async function updateTiccleImage(oldImageNames, newImageSources) {
