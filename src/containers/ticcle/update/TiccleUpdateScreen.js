@@ -7,17 +7,16 @@ import PhotoModal from "../../common/PhotoModal";
 import GroupListModal from "../create/components/group/GroupListModal";
 import TiccleCreateGroupSelect from "../create/components/group/TiccleCreateGroupSelect";
 import TiccleCreateTextInputTitleLink from "../create/components/textinput/TiccleCreateTextInputTitleLink";
+import TiccleCreateImageAdd from "../create/components/image/TiccleCreateImageAdd";
 import TiccleContentTextInput from "../create/components/textinput/TiccleContentTextInput";
 import TiccleCreateTags from "../create/components/TiccleCreateTags";
 import TiccleCreateTextInputTag from "../create/components/textinput/TiccleCreateTextInputTag";
-import TiccleCreateImageAdd from "../create/components/image/TiccleCreateImageAdd"
 
 const TiccleUpdateScreen = ({route}) => {
     const { ticcleUpdate, setTiccleUpdate, setTiccleUpdateGroup,
         setTiccleUpdateTitle, setTiccleUpdateLink, setTiccleUpdateTagList,
         deleteTiccleUpdateTagList, setTiccleUpdateContent, setTiccleUpdateImages,
-        deleteTiccleUpdateImage, deleteTiccleUpdateImageUrl, setTiccleUpdateImageUrls,
-        initialTiccleUpdate, } = useTiccleUpdate();
+        deleteTiccleUpdateImage, initialTiccleUpdate, } = useTiccleUpdate();
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const scrollRef = useRef();
@@ -26,21 +25,13 @@ const TiccleUpdateScreen = ({route}) => {
         const orginalTiccle = route.params.ticcleData;
         setTiccleUpdate(orginalTiccle);
     },[route])
-    const setTiccleUpdateImageNamesUrls = imagePath =>{
-        setTiccleUpdateImages(imagePath);
-        setTiccleUpdateImageUrls(imagePath)
-    }
-    const deleteTiccleUpdateImageNameUrls = index => {
-        deleteTiccleUpdateImage(index);
-        deleteTiccleUpdateImageUrl(index);
-    }
 
     return(
         <>
             <TiccleUpdateHeader updateTiccleData={ticcleUpdate}/>
             <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
-                <PhotoModal setImage={setTiccleUpdateImageNamesUrls} isModalVisible={photoModalVisible}
+                <PhotoModal setImage={setTiccleUpdateImages} isModalVisible={photoModalVisible}
                     setModalVisible={setPhotoModalVisible}/>
                 <GroupListModal
                     isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}
@@ -56,8 +47,7 @@ const TiccleUpdateScreen = ({route}) => {
                 />
                 <TiccleCreateImageAdd
                     setPhotoModalVisible={setPhotoModalVisible}
-                    ticcleImages={ticcleUpdate.imageUrl}
-                    deleteTiccleImage={deleteTiccleUpdateImageNameUrls}
+                    ticcleImages={ticcleUpdate.imageUrl} deleteTiccleImage={deleteTiccleUpdateImage}
                 />
                 <TiccleContentTextInput
                     ticcleContent={ticcleUpdate.content} setTiccleContent={setTiccleUpdateContent}

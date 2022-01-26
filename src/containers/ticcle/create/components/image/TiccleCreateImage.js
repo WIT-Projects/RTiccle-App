@@ -4,7 +4,7 @@ import colors from '../../../../../theme/colors';
 import CustomModal from '../../../../common/CustomModal'
 import TiccleCreateImageExpansion from './TiccleCreateImageExpansion';
 
-const TiccleCreateImage = ({deleteTiccleImage ,imagePath, index}) => {
+const TiccleCreateImage = ({deleteTiccleImage ,imagePath}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
     const [imageExpansion, setImageExpansion] = useState(false)
@@ -13,8 +13,7 @@ const TiccleCreateImage = ({deleteTiccleImage ,imagePath, index}) => {
     const modalLeftButton = "뒤로가기"
     const modalRightButton = "삭제"
     const deleteImage = () => {
-        deleteTiccleImage(index);
-        setDeleteModal(false);
+        deleteTiccleImage(imagePath)
     }
 
     return (

@@ -5,16 +5,14 @@ const useTiccleUpdate = () => {
     const { ticcleUpdate, setTiccleUpdate, setTiccleUpdateGroup,
         setTiccleUpdateTitle, setTiccleUpdateLink, setTiccleUpdateTagList,
         deleteTiccleUpdateTagList, setTiccleUpdateContent, setTiccleUpdateImages,
-        deleteTiccleUpdateImage, deleteTiccleUpdateImageUrl, initialTiccleUpdate,
-        setTiccleUpdateImageUrls,
+        deleteTiccleUpdateImage, initialTiccleUpdate,
     } = useContext(TiccleUpdateContext);
     
     
     return { ticcleUpdate, setTiccleUpdate, setTiccleUpdateGroup,
         setTiccleUpdateTitle, setTiccleUpdateLink, setTiccleUpdateTagList,
         deleteTiccleUpdateTagList, setTiccleUpdateContent, setTiccleUpdateImages,
-        deleteTiccleUpdateImage, deleteTiccleUpdateImageUrl, initialTiccleUpdate,
-        setTiccleUpdateImageUrls,
+        deleteTiccleUpdateImage, initialTiccleUpdate,
     };
 }
 

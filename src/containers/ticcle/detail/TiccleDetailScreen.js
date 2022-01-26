@@ -28,9 +28,8 @@ const TiccleDetailScreen = ({route}) => {
             "hardwareBackPress",
             goToHomeStack
         );
-        const ticcleData = route.params.ticcleData;
         getTiccleImageFromFirebase();
-        console.log(ticcleData)
+        console.log(route.params.ticcleData)
         return () => backHandler.remove();
     }, [route]);
 
