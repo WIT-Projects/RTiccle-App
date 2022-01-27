@@ -9,8 +9,6 @@ import useGroupChanged from '../../context/hook/useGroupChanged'
 import CustomModal from '../common/CustomModal';
 
 const Home = ({navigation}) => {
-    const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
-
     const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
     const [appExitModal, setAppExitModal] = useState(false)
     
@@ -39,7 +37,7 @@ const Home = ({navigation}) => {
                 leftButton={'아니오'} rightButton={'네'} rightButtonFunction={BackHandler.exitApp}
             />
             <MyMount></MyMount>
-            <BookMarkList></BookMarkList>
+            <BookmarkGroupList></BookmarkGroupList>
             <NewTiccleGroupList></NewTiccleGroupList>
         </ScrollView>
     )

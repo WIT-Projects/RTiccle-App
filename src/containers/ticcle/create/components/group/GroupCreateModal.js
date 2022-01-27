@@ -5,6 +5,7 @@ import colors from "../../../../../theme/colors";
 import GroupCreateModalTitle from "./create/GroupCreateModalTitle";
 import GroupCreateModalTextInput from "./create/GroupCreateModalTextInput";
 import GroupCreateModalButton from "./create/GroupCreateModalButton";
+import { type } from "../../../../../theme/fonts";
 import { uploadNewGroup } from "../../../../../service/GroupService";
 
 const GroupCreateModal = ({isModalVisible, setModalVisible}) => {

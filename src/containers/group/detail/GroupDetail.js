@@ -38,7 +38,7 @@ const GroupDetail = ({route, navigation}) => {
             : 
             <ZeroTiccle />
             }
-            <GroupDetailFloatingButton groupId={groupId}/>
+            <GroupDetailFloatingButton groupId={group.groupId}/>
         </>
     );
 };
