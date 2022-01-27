@@ -1,16 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import useTiccleDetail from '../../../../context/hook/useTiccleDetail';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-const TiccleDetailText = () => {
-    const {ticcleDetail} = useTiccleDetail();
-    const content = ticcleDetail.content
+const TiccleDetailText = ({content}) => {
+    const ticcleContent = content
     return(
         <View style={styles.container}>
             <Text style={styles.text}>
-                {content}
+                {ticcleContent}
             </Text>
         </View>
     )

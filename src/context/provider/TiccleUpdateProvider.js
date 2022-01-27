@@ -11,6 +11,7 @@ const TiccleUpdateProvider = ({children}) => {
         tagList: [],
         content: '',
         images: [],
+        id: ''
     });
 
     const setTiccleUpdateGroup = id => {
@@ -72,6 +73,7 @@ const TiccleUpdateProvider = ({children}) => {
             tagList: [],
             content: '',
             images: [],
+            id: ''
         });
     };
 

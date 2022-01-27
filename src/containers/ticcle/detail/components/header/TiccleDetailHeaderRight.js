@@ -3,11 +3,9 @@ import { Text,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
-import useTiccleDetail from '../../../../../context/hook/useTiccleDetail';
 
-const TiccleDetailHeaderRight = () => {
+const TiccleDetailHeaderRight = ({ticcleDetail}) => {
     const navigateTo = useNavigation()
-    const {ticcleDetail} = useTiccleDetail();    
 
     return (
         <TouchableOpacity

@@ -12,7 +12,7 @@ import GroupListModal from './components/group/GroupListModal';
 import TiccleCreateHeader from './components/header/TiccleCreateHeader';
 import useTiccleCreate from '../../../context/hook/useTiccleCreate';
 import { useNavigation } from '@react-navigation/native';
-import { checkGroupId } from './service/checkGroupId';
+import { checkGroupId } from './function/checkGroupId';
 
 const TiccleCreateScreen = ({route}) => {
     const { ticcle, setTiccle, setTiccleGroup, setTiccleTitle, setTiccleLink,

@@ -2,10 +2,8 @@ import React from 'react';
 import { Image,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
-import useTiccleDetail from '../../../../../context/hook/useTiccleDetail';
 
-const TiccleDetailHeaderLeft = () => {
-    const {initialTiccleDetail} = useTiccleDetail();
+const TiccleDetailHeaderLeft = ({initialTiccleDetail}) => {
     const navigateTo = useNavigation()
     return (
         <TouchableOpacity

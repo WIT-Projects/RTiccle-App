@@ -3,16 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity,Image, Linking } from 'react-n
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 import { timeStampToFormatDate } from '../../../../service/CommonService';
-import useTiccleDetail from '../../../../context/hook/useTiccleDetail';
 
-const TiccleDetailInfo = () => {
-    const {ticcleDetail} = useTiccleDetail();
+const TiccleDetailInfo = ({title, lastModifiedTime ,link}) => {
     var formattedday = ""
-    if(ticcleDetail.lastModifiedTime !== ""){
-        formattedday = timeStampToFormatDate(ticcleDetail.lastModifiedTime);
+    if(lastModifiedTime !== ""){
+        formattedday = timeStampToFormatDate(lastModifiedTime);
     }
-    const ticcleDetailTitle = ticcleDetail.title
-    const URLLink = ticcleDetail.link
+    const ticcleDetailTitle = title
+    const URLLink = link
 
     const goToURL = () => {
         Linking.openURL(URLLink)
@@ -32,9 +30,7 @@ const TiccleDetailInfo = () => {
         </View>
         : null
     }
-            
-
-        </View>
+      </View>
     )
 }
 
