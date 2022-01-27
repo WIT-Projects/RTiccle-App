@@ -1,5 +1,5 @@
 import storage from '@react-native-firebase/storage';
-import { getCurrentUser } from './AuthService';
+import { currentUser } from './AuthService';
 
 /**
  * @param {string} imageName: fileName
@@ -8,8 +8,8 @@ import { getCurrentUser } from './AuthService';
  * @returns Promise includes downloadURL
  */
 async function uploadImageToStorage(imageName, source, isTiccle) {
-    const user = getCurrentUser();
-    const userRef = isTiccle ? storage().ref("ticcle").child(user.uid) : storage().ref("group").child(user.uid);
+    const uid = currentUser.uid;
+    const userRef = isTiccle ? storage().ref("ticcle").child(uid) : storage().ref("group").child(uid);
 
     // source: use the Blob or File API or Uint8Array or ...
 
@@ -39,16 +39,14 @@ async function uploadImageToStorage(imageName, source, isTiccle) {
  * @returns URL
  */
 async function getDownloadURLByName(imageName, isTiccle) {
-    const user = getCurrentUser();
     var path = isTiccle ? "ticcle" : "group";
-    path = `${path}/${user.uid}/${imageName}`;
+    path = `${path}/${currentUser.uid}/${imageName}`;
     return await storage().ref(path).getDownloadURL();
 }
 
 function deleteImageFromStorage(imageName, isTiccle) {
-    const user = getCurrentUser();
     var path = isTiccle ? "ticcle" : "group";
-    path = `${path}/${user.uid}/${imageName}`;
+    path = `${path}/${currentUser.uid}/${imageName}`;
     storage().ref(path).delete();
 }
 

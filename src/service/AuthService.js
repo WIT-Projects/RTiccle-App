@@ -2,18 +2,19 @@ import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
-function anonSignIn() {
+var currentUser = getCurrentUser();
+function getCurrentUser() {
+  return auth().currentUser;
+}
+
+async function anonSignIn() {
     // [START auth_anon_sign_in]
-    auth().signInAnonymously()
-      .then((res) => {
-        // Signed in
-        console.log('[Auth] Successfully created anonUserID')
-      })
-      .catch((error) => {
-        var errorMessage = error.message;
-        console.log('[Auth] Failed to create anonUserID with ex:', errorMessage);t
-      });
-    // [END auth_anon_sign_in]
+    const user = await auth().signInAnonymously()
+    currentUser = getCurrentUser();
+    console.log('[Auth] Successfully created anonUserID');
+    return new Promise(resolve => {
+      resolve(user);
+    })
 };
 
 function googleSigninConfigure() {
@@ -33,9 +34,11 @@ async function googleLoginAndLink() {
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
     // Sign-in the user with the credential and link it with current user
-    auth().currentUser.linkWithCredential(googleCredential)
-    .then(res => {
-      console.log("[Auth] Successfully link current user with google credential.");
+    const user = await auth().currentUser.linkWithCredential(googleCredential)
+    currentUser = getCurrentUser();
+    console.log("[Auth] Successfully link current user with google credential.");
+    return new Promise(resolve => {
+      resolve(user);
     })
 };
 
@@ -48,19 +51,17 @@ async function googleLogin() {
     
     // Sign-in the user with the credential
     // auth().signInWithCredential(googleCredential);
-    auth().signInWithCredential(googleCredential)
-        .then(res => {
-          console.log(res);
-          console.log("[Auth] Successfully sign in with google credential.");
-        });
+    const user = await auth().signInWithCredential(googleCredential);
+    currentUser = getCurrentUser();
+    console.log("[Auth] Successfully sign in with google credential.");
+    return new Promise(resolve => {
+      resolve(user);
+    })
 }
 
 function logout () {
+    currentUser = null;
     return auth().signOut();
-}
-
-function getCurrentUser() {
-  return auth().currentUser;
 }
 
 function getUserProfile(setState) {
@@ -78,6 +79,7 @@ function getUserProfile(setState) {
 }
 
 export {
+  currentUser,
   anonSignIn,
   googleSigninConfigure,
   googleLoginAndLink,
