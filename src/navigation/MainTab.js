@@ -1,4 +1,5 @@
 import React from 'react';
+import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStackNavigatior from './stack/HomeStackNavigator';
 import MyPage from '../containers/user/MyPage';
@@ -15,7 +16,10 @@ const isTabActive = route => {
         case 'GroupCreateName':
         case 'GroupCreateImage':
         case 'GroupUpdate':
+        case 'GroupDetail':
             return {display: 'none'};
+        default:
+            return {backgroundColor: colors.main, height: 67, paddingBottom: 13, paddingTop: 14};
     }
 };
 
@@ -23,7 +27,15 @@ const MainTab = () => {
     const Tab = createBottomTabNavigator();
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={{
+                tabBarStyle: {backgroundColor: colors.main, height: 67, paddingBottom: 13, paddingTop: 14},
+                tabBarLabelStyle: {
+                    fontSize: 9,
+                    color: colors.white,
+                    fontFamily: type.spoqaHanSansNeo_Light,
+                },
+            }}>
             <Tab.Screen
                 name="HomeStack"
                 component={HomeStackNavigatior}
@@ -31,6 +43,9 @@ const MainTab = () => {
                     title: '홈',
                     headerShown: false,
                     tabBarStyle: isTabActive(route),
+                    tabBarIcon: ({focused}) => (
+                        <Image source={focused ? require('../assets/images/tabHomeActive.png') : require('../assets/images/tabHome.png')} />
+                    ),
                 })}
             />
             <Tab.Screen
@@ -39,7 +54,8 @@ const MainTab = () => {
                 initialParams={{groupId : ''}}
                 options={() =>  ({
                     headerShown: false,
-                    tabBarStyle: {display : 'none'},
+                    tabBarStyle: {display: 'none'},
+                    tabBarIcon: () => <Image source={require('../assets/images/tabTiccleCreate.png')} />
                 })}
             />
             <Tab.Screen
@@ -55,10 +71,13 @@ const MainTab = () => {
                         color: colors.white,
                         fontFamily : type.notoSansKR_Medium,
                         fontSize: 20,
-                    }
+                    },
+                    tabBarLabel: 'MY',
+                    tabBarIcon: ({focused}) => (
+                        <Image source={focused ? require('../assets/images/tabMypageActive.png') : require('../assets/images/tabMypage.png')} />
+                    ),
                 }}
             />
-
         </Tab.Navigator>
     );
 };

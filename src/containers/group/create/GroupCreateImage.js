@@ -1,13 +1,7 @@
 import React, {useState} from 'react';
-import {
-    View,
-    Text,
-    Image,
-    ImageBackground,
-    StyleSheet,
-    TouchableOpacity,
-} from 'react-native';
-import GroupSaveButton from '../../common/GroupSaveButton';
+import {View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
+import GroupSaveButton from './components/GroupSaveButton';
+import GroupSaveButtonSkip from './components/GroupSaveButtonSkip';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
 
@@ -21,12 +15,8 @@ const GroupCreateImage = ({navigation}) => {
     const title = groupCreate.title;
     const description = groupCreate.description;
     let source;
-    mainImage === ''
-        ? (source = require('../../../assets/images/blankImage.png'))
-        : (source = {uri: mainImage});
+    mainImage == '' || mainImage == null ? (source = require('../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
-    const [groupCreateButtonDisable, setGroupCreateButtonDisable] =
-        useState(false);
 
     return (
         <View style={styles.container}>
@@ -36,37 +26,22 @@ const GroupCreateImage = ({navigation}) => {
                 setModalVisible={setModalVisible}
                 width={412}
                 height={256}></PhotoModal>
-            <TextInfo
-                title="마지막 단계예요."
-                subtitle="나만의 커버 이미지을 추가해 보세요!"></TextInfo>
+            <TextInfo title="마지막 단계예요." subtitle="나만의 커버 이미지을 추가해 보세요!"></TextInfo>
             <ImageBackground source={source} style={styles.headerImage}>
-                <ImageBackground
-                    source={require('../../../assets/images/groupImageGradation.png')}
-                    style={styles.headerImageGradation}>
+                <ImageBackground source={require('../../../assets/images/groupImageGradation.png')} style={styles.headerImageGradation}>
                     <View style={styles.headerImageInner}>
                         <View>
                             <Text style={styles.imageTitle}>{title}</Text>
-                            <Text style={styles.imageSubtitle}>
-                                {description}
-                            </Text>
+                            <Text style={styles.imageSubtitle}>{description}</Text>
                         </View>
                         <TouchableOpacity onPress={() => setModalVisible(true)}>
-                            <Image
-                                source={require('../../../assets/images/camera.png')}
-                                onPress={() => setModalVisible(true)}></Image>
+                            <Image source={require('../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
             </ImageBackground>
-            <GroupSaveButton
-                text="저장하기"
-                buttonDisabled={groupCreateButtonDisable}
-                navigation={navigation}></GroupSaveButton>
-            <View style={{alignItems: 'center'}}>
-                <TouchableOpacity style={styles.skipButton}>
-                    <Text style={styles.skipText}>건너뛰기</Text>
-                </TouchableOpacity>
-            </View>
+            <GroupSaveButton text="저장하기" navigation={navigation}></GroupSaveButton>
+            <GroupSaveButtonSkip text="건너뛰기" navigation={navigation}></GroupSaveButtonSkip>
         </View>
     );
 };
@@ -82,6 +57,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 256,
         marginBottom: 128,
+        marginTop: 57,
     },
     headerImageGradation: {
         resizeMode: 'cover',
@@ -106,19 +82,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingTop: 8,
         color: colors.white,
-    },
-    skipButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 168,
-        height: 40,
-        borderRadius: 24,
-        marginTop: 6,
-    },
-    skipText: {
-        fontFamily: type.spoqaHanSansNeo_Regular,
-        fontSize: 16,
-        color: colors.gray3,
     },
 });
 

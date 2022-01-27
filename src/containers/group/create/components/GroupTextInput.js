@@ -3,11 +3,10 @@ import {View, StyleSheet} from 'react-native';
 import GroupTitleInput from './GroupTitleInput';
 import GroupDescriptionInput from './GroupDescriptionInput';
 
-const GroupTextInput = ({setButtonDisable}) => {
+const GroupTextInput = ({setButtonDisable, isExistGroup}) => {
     return (
         <View style={styles.container}>
-            <GroupTitleInput
-                setButtonDisable={setButtonDisable}></GroupTitleInput>
+            <GroupTitleInput setButtonDisable={setButtonDisable} isExistGroup={isExistGroup}></GroupTitleInput>
             <GroupDescriptionInput></GroupDescriptionInput>
         </View>
     );
@@ -17,9 +16,8 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         width: '100%',
-        height: 240,
         paddingHorizontal: 18,
-        marginBottom: 146,
+        paddingTop: 46,
     },
 });
 

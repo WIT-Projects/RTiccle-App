@@ -1,20 +1,39 @@
-import { 
+import {
     uploadNewGroup,
-    updateGroupInfo,
+    updateGroupInfo, 
     updateGroupImage,
     deleteGroup,
-    findAllGroupIncludeImage, } from "../service/GroupService";
+    findAllGroupIncludeImage } from '../service/GroupService';
+
+/*
+ * Group data
+    {
+        id: string, // random, unique id
+        title: string,
+        description: string,
+        bookmark: Boolean, // true if bookmarked
+        mainImage: string, // path in storage
+        imageUrl: string, // downloadUrl of image
+        ticcleNum: integer, 
+        latestTiccleTitle: string, 
+        lastModifiedTime: number // this treated like 'createdTime' (NOT UPDATE after create)
+    }
+*/
 
 // group list
 var groupList = [];
 const setGroupListAtOne = (targetGId, groupData) => {
-    const idx = groupList.findIndex((obj => obj.id == targetGId));
+    const idx = groupList.findIndex(obj => obj.id == targetGId);
     groupList[idx] = groupData;
-}
+};
 const deleteOneGroupOfList = targetGId => {
-    const idx = groupList.findIndex((obj => obj.id == targetGId));
+    const idx = groupList.findIndex(obj => obj.id == targetGId);
     groupList.splice(idx, 1);
-}
+};
+
+// limit
+const limitGroupNum = 20;
+const limitTiccleNum = 100;
 
 const getGroupTitleByGId = (targetGId, setGroupTitle) => {
     const targetGroup = groupList.find(group => group.id === targetGId);
@@ -35,7 +54,6 @@ async function getAllGroupIncludeImages() {
  * Upload new group and add to groupList
  * @param {*} groupData: group info
  * *  {
-        type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
@@ -44,11 +62,13 @@ async function getAllGroupIncludeImages() {
  */
 async function doCreateGroup(groupData, mainImageSource) {
     // to server
-    const newGroupInfo = await uploadNewGroup(groupData, mainImageSource);
+    var newGroupInfo = uploadNewGroup(groupData, mainImageSource);
 
     // to local data
-    groupList = ([...groupList, newGroupInfo])
-    console.log(groupList);
+    groupList = [await newGroupInfo, ...groupList];
+    return new Promise(resolve => {
+        resolve(newGroupInfo);
+    });
 }
 
 /**
@@ -57,37 +77,45 @@ async function doCreateGroup(groupData, mainImageSource) {
  * @param {*} newInfo: new group info (CHANGED INFO ONLY)
  * Support info:
  * *  {
-        type: integer, // BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
-    }
+ *    }
  * @param {*} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
  * @param {*} oldImageName old image name
  * @param {*} newImageSource new image source
  */
-function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImageSource) {
+async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImageSource) {
     var info = {...newInfo};
+    var imageUrl = '';
 
     // to server
-    if(isIncludingImage) {
-        const newImageName = updateGroupImage(oldImageName, newImageSource);
+    if (isIncludingImage) {
+        const newImageInfo = await updateGroupImage(oldImageName, newImageSource);
+        const [downloadUrl, newImageName] = newImageInfo;
+        imageUrl = downloadUrl;
         info = {...info, mainImage: newImageName};
     }
-    updateGroupInfo(groupId, info);    
+    updateGroupInfo(groupId, info);
 
     // to local data
     const oldInfo = groupList.find(g => g.id == groupId);
-    setGroupListAtOne(groupId, {...oldInfo, ...info});
+    var newInfo = {};
+    if (imageUrl == '') newInfo = {...oldInfo, ...info}
+    else newInfo = {...oldInfo, ...info, imageUrl: imageUrl}
+    setGroupListAtOne(groupId, newInfo);
+
+    // for updating imageUrl in screen
+    if (isIncludingImage) return imageUrl;
 }
 
 /**
  * Delete one group add apply to groupList
- * @param {Array} groupData 
+ * @param {Array} groupData
  */
 function doDeleteGroup(groupData) {
     // to server
-    deleteGroup(groupData)
+    deleteGroup(groupData);
 
     // to local data
     deleteOneGroupOfList(groupData.id);
@@ -95,21 +123,64 @@ function doDeleteGroup(groupData) {
 
 /**
  * check whether a group name exists or not
- * @param {*} groupTitle 
+ * @param {*} groupTitle
  * @returns {boolean} true: existed, false: not existed
  */
 function checkIsExistingGroup(groupTitle) {
     const found = groupList.find(g => g.title == groupTitle);
-    if(found == undefined) return false;
+    if (found == undefined) return false;
     else return true;
 }
 
-export {
-    groupList,
-    getAllGroupIncludeImages,
-    getGroupTitleByGId,
-    doCreateGroup,
-    doUpdateGroup,
-    doDeleteGroup,
-    checkIsExistingGroup,
+/**
+ * Get user's group nubmer
+ * @returns {integer} total number of groups
+ */
+ function getTotalGroupNum() {
+    return groupList.length;
 }
+
+/**
+ * Check user has more groups than limit
+ * @returns {boolean}
+ */
+function checkIsFullGroupNum() {
+    if (getTotalGroupNum() >= limitGroupNum) return true;
+    else return false;  
+}
+
+/**
+ * Get user's ticcle nubmer
+ * @returns {integer} total number of ticcles
+ */
+function getTotalTiccleNum() {
+    var totalNum = 0;
+    groupList.forEach((group) => {
+        totalNum = totalNum + group.ticcleNum;
+    })
+    return totalNum;
+}
+
+/**
+ * Check user has more ticcles than limit
+ * @returns {boolean}
+ */
+function checkIsFullTiccleNum() {
+    if (getTotalTiccleNum() >= limitTiccleNum) return true;
+    else return false;    
+}
+
+export {
+    groupList, 
+    limitGroupNum,
+    limitTiccleNum,
+    getAllGroupIncludeImages,
+    doCreateGroup, 
+    doUpdateGroup, 
+    doDeleteGroup, 
+    checkIsExistingGroup,
+    getTotalGroupNum,
+    checkIsFullGroupNum,
+    getTotalTiccleNum,
+    checkIsFullTiccleNum,
+};

@@ -6,7 +6,7 @@ import { type } from '../../../../theme/fonts';
 const windowHeight = Dimensions.get('window').height;
 const remainder = 256 + 48 + 66; //GroupInfo + search + bottom 의 height
 
-const  ZeroTiccle = () => {
+const ZeroTiccle = () => {
   return(
     <>
         <View style={styles.container}>

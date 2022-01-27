@@ -5,8 +5,6 @@ import {FBDate} from '../../service/CommonService';
 const AppProvider = ({children}) => {
     // Group
     const [groupCreate, setGroupCreate] = useState({
-        lastModifiedTime: '',
-        type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
         title: '',
         description: '',
         bookmark: false,
@@ -14,8 +12,6 @@ const AppProvider = ({children}) => {
     });
     const initialGroupCreate = () => {
         setGroupCreate({
-            lastModifiedTime: '',
-            type: '', // integer. BOOK(0), BLOG(1), NEWS(2), SERIAL(3), SNS(4), ETC(5)
             title: '',
             description: '',
             bookmark: false,
@@ -26,11 +22,6 @@ const AppProvider = ({children}) => {
         const today = FBDate();
         setGroupCreate(state => {
             return {...state, date: today};
-        });
-    };
-    const setGroupType = num => {
-        setGroupCreate(state => {
-            return {...state, type: num};
         });
     };
     const setGroupTitle = text => {
@@ -57,11 +48,6 @@ const AppProvider = ({children}) => {
     const [groupUpdate, setGroupUpdate] = useState([]);
     const initialGroupUpdate = () => {
         setGroupUpdate([]);
-    };
-    const setGroupUpdateType = num => {
-        setGroupUpdate(state => {
-            return {...state, type: num};
-        });
     };
     const setGroupUpdateTitle = text => {
         setGroupUpdate(state => {
@@ -91,7 +77,6 @@ const AppProvider = ({children}) => {
                 setGroupCreate,
                 initialGroupCreate,
                 setGroupDate,
-                setGroupType,
                 setGroupTitle,
                 setGroupDescription,
                 setGroupBookmark,
@@ -99,7 +84,6 @@ const AppProvider = ({children}) => {
                 groupUpdate,
                 setGroupUpdate,
                 initialGroupUpdate,
-                setGroupUpdateType,
                 setGroupUpdateTitle,
                 setGroupUpdateDescription,
                 setGroupUpdateImage,

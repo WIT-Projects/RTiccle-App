@@ -5,9 +5,7 @@ import colors from "../../../../../theme/colors";
 import GroupCreateModalTitle from "./create/GroupCreateModalTitle";
 import GroupCreateModalTextInput from "./create/GroupCreateModalTextInput";
 import GroupCreateModalButton from "./create/GroupCreateModalButton";
-import { doCreateGroup } from "../../../../../model/GroupModel";
-import useGroupChanged from "../../../../../context/hook/useGroupChanged";
-import { type } from "../../../../../theme/fonts";
+import { uploadNewGroup } from "../../../../../service/GroupService";
 
 const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
 
@@ -21,8 +19,8 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
 
     const fastGroupCreateFirebase = async () => {
         const newGroup = {
-            type: 0,
-            title: groupTitle,
+            type: type,
+            title: groupName,
             description: '',
             bookmark: false,
         };
