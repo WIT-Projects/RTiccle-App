@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-const TiccleCreateTags = ({tags, deleteTiccleTagList}) => {
+const TiccleCreateTags = ({ticcleTags, deleteTiccleTagList}) => {
 
-    const tagGroup = tags.map(
+    const tagGroup = ticcleTags.map(
         (tag, index) => (
             <View key={index} style={styles.tag}>
                 <Text style={styles.text}>#{tag}</Text>

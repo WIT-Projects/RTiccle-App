@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import Modal from 'react-native-modal';
 import colors from "../../../../../theme/colors";
 import GroupCreateModalTitle from "./create/GroupCreateModalTitle";
 import GroupCreateModalTextInput from "./create/GroupCreateModalTextInput";
-import GroupCreateModalGroupType from "./create/GroupCreateModalGroupType";
 import GroupCreateModalButton from "./create/GroupCreateModalButton";
+import { type } from "../../../../../theme/fonts";
 import { uploadNewGroup } from "../../../../../service/GroupService";
 
 const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
-    const [type, setType] = useState(10);
-    const initialTypeTitle = () => {
-        setType(10);
+
+    const [groupTitle, setGroupTitle] = useState('');
+    const initialTitle = () => {
         setGroupTitle('');
     }
-    const [groupTitle, setGroupTitle] = useState('');
+    const [createFail, setCreateFail] = useState(false);
     const [buttonDisable, setButtonDisable] = useState(true);
+    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
 
-    const fastUploadNewGroup = () => {
-        const groupName = groupTitle
+    const fastGroupCreateFirebase = async () => {
         const newGroup = {
             type: type,
             title: groupName,
@@ -26,14 +26,18 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
             bookmark: false,
         };
         const imageSource = '';
-        uploadNewGroup(groupName, newGroup, imageSource)
-            .then((ref) => console.log(ref))
-    }
+                await doCreateGroup(newGroup, imageSource);
+        setIsGroupChanged(!isGroupChanged); // notify groupData changed
+    };
 
     useEffect(() => {
-        (type >= 0 && type <6 && groupTitle.length > 0) ? 
-        setButtonDisable(false) : setButtonDisable(true)
-    },[type, groupTitle])
+        if (groupTitle.length > 0) {
+            setButtonDisable(false)
+            setCreateFail(false)
+        } else {
+            setButtonDisable(true)
+        } 
+    },[groupTitle])
 
     return(
         <Modal
@@ -50,11 +54,19 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
         hideModalContentWhileAnimating={true}
         >
             <View style={styles.container}>
-                <GroupCreateModalTitle initialTypeTitle={initialTypeTitle} setModalVisible={setModalVisible}/>
-                <GroupCreateModalGroupType type={type} setType={setType}/>
-                <GroupCreateModalTextInput groupTitle={groupTitle} setGroupTitle={setGroupTitle}/>
-                <GroupCreateModalButton buttonDisable={buttonDisable} fastUploadNewGroup={fastUploadNewGroup}
-                                        initialTypeTitle={initialTypeTitle} setModalVisible={setModalVisible}/>
+                <GroupCreateModalTitle initialTitle={initialTitle} setModalVisible={setModalVisible}/>
+                <GroupCreateModalTextInput
+                        groupTitle={groupTitle} setGroupTitle={setGroupTitle}
+                        createFail={createFail}/>
+                {createFail ?
+                <View style={styles.createFailTextContainer}>
+                    <Text style={styles.createFailText}>이미 존재하는 그룹입니다.</Text>
+                </View>
+                : null
+                }
+                <GroupCreateModalButton buttonDisable={buttonDisable} fastGroupCreateFirebase={fastGroupCreateFirebase}
+                                        initialTitle={initialTitle} setModalVisible={setModalVisible}
+                                        groupTitle={groupTitle}  setCreateFail={setCreateFail}/>
                 
             </View>
         </Modal>
@@ -69,10 +81,22 @@ const styles = StyleSheet.create({
     },
     container:{
         width: '85%',
-        height : 400,
+        height : 260,
         backgroundColor: colors.white,
         borderRadius: 10,
     },
+    createFailTextContainer:{
+        // for position absolute
+    },
+    createFailText:{
+        position: 'absolute',
+        marginTop: 6,
+        paddingHorizontal: 20,
+        color : colors.red,
+        fontFamily : type.notoSansKR_Medium,
+        fontSize:12,
+        lineHeight: 16,
+    }
 
 })
 

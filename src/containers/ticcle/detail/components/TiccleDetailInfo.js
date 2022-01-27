@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,Image, Linking, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Image, Linking } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
+import { timeStampToFormatDate } from '../../../../service/CommonService';
 
-const TiccleDetailInfo = ({title, date, link}) => {
-
-    const ticcleDetailDate = date
+const TiccleDetailInfo = ({title, lastModifiedTime ,link}) => {
+    var formattedday = ""
+    if(lastModifiedTime !== ""){
+        formattedday = timeStampToFormatDate(lastModifiedTime);
+    }
     const ticcleDetailTitle = title
     const URLLink = link
 
@@ -15,7 +18,7 @@ const TiccleDetailInfo = ({title, date, link}) => {
 
     return(
         <View style={styles.container}>
-            <Text style={styles.date}>{ticcleDetailDate}</Text>
+            <Text style={styles.date}>{formattedday}</Text>
             <Text style={styles.title}>{ticcleDetailTitle}</Text>
 
         {URLLink.length > 0 ? 
@@ -27,9 +30,7 @@ const TiccleDetailInfo = ({title, date, link}) => {
         </View>
         : null
     }
-            
-
-        </View>
+      </View>
     )
 }
 

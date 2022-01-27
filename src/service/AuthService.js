@@ -44,10 +44,25 @@ function getCurrentUser() {
   return auth().currentUser;
 }
 
+function getUserProfile(setState) {
+  const user = auth().currentUser;
+  if (user !== null) {
+    user.providerData.forEach((profile) => {
+      const userName = profile.displayName;
+      const userEmail = profile.email;
+      setState({
+        name : userName,
+        email : userEmail,
+      });
+    });
+  }
+}
+
 export {
   currentUser,
   anonSignIn,
   googleSigninConfigure,
   googleLoginAndLink,
   getCurrentUser,
+  getUserProfile
 };

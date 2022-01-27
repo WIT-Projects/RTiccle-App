@@ -35,6 +35,11 @@ const deleteOneGroupOfList = targetGId => {
 const limitGroupNum = 20;
 const limitTiccleNum = 100;
 
+const getGroupTitleByGId = (targetGId, setGroupTitle) => {
+    const targetGroup = groupList.find(group => group.id === targetGId);
+    (targetGroup !== undefined) ? setGroupTitle(targetGroup.title) : setGroupTitle('');
+}
+
 /**
  * Get all group list and set groupList
  */
