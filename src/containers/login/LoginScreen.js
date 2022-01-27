@@ -4,6 +4,7 @@ import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
 import { getCurrentUser, anonSignIn, googleLoginAndLink } from "../../service/AuthService";
 import {ASStoreData} from '../../service/AsyncStoageService'
+import { googleSigninConfigure } from "../../service/AuthService";
 
 const LoginScreen = ({setIsLoggedIn}) => {
 
@@ -11,15 +12,24 @@ const LoginScreen = ({setIsLoggedIn}) => {
     const textTwo = "환영합니다."
 
     useEffect(() => {
-        if (getCurrentUser() == null) { // temp
-            anonSignIn();
-        }
+        googleSigninConfigure();
     }, [])
+
     function setIsLoggedInTrue(){
         setIsLoggedIn(true);
         ASStoreData('LoggedIn');
     }
+
+    function guestSignIn() {
+        console.log("Guest Sign In");
+        if (getCurrentUser() == null) {
+            anonSignIn();
+        }
+        setIsLoggedInTrue();
+    }
+
     function googleSignIn() {
+        console.log("Google Sign In");
         googleLoginAndLink();
         setIsLoggedInTrue();
     }
@@ -31,7 +41,7 @@ const LoginScreen = ({setIsLoggedIn}) => {
                 <Text style={styles.text}>{textTwo}</Text> 
             </View>
             <TouchableOpacity
-                style={styles.imageTouchable} onPress={setIsLoggedInTrue}>
+                style={styles.imageTouchable} onPress={guestSignIn}>
                   <Image source={require('../../assets/images/login_guest.png')} style={styles.image}/>
             </TouchableOpacity>
             <TouchableOpacity

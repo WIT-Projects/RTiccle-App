@@ -1,4 +1,5 @@
 import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { ToastAndroid } from 'react-native'
 
@@ -17,10 +18,12 @@ function anonSignIn() {
 };
 
 function googleSigninConfigure() {
-  GoogleSignin.configure({
-    // scopes: [],
-    webClientId: '806729501348-db5jcn4ujv055iqfrj02i59cm0tmi102.apps.googleusercontent.com',
-  })
+  firestore().collection("SignIn").doc("Google").get()
+      .then((doc) => {
+        GoogleSignin.configure({
+          webClientId: doc.data().webClientId,
+        })
+      })
 };
 
 async function googleLoginAndLink() {
