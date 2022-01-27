@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {View,StyleSheet,Text, Image, TouchableOpacity } from 'react-native'
 import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
-import { getCurrentUser, anonSignIn, googleSigninConfigure, googleLogin } from "../../service/AuthService";
+import { anonSignIn, googleSigninConfigure, googleLogin } from "../../service/AuthService";
 import { getAllGroupIncludeImages } from "../../model/GroupModel";
 
 const LoginScreen = ({setIsLoggedIn}) => {
@@ -19,15 +19,10 @@ const LoginScreen = ({setIsLoggedIn}) => {
     }
 
     function guestSignIn() {
-        console.log("Guest Sign In");
-        if (getCurrentUser() == null) {
-            anonSignIn();
-        }
-        setIsLoggedInTrue();
+        anonSignIn().then(() => setIsLoggedInTrue())
     }
 
     function googleSignIn() {
-        console.log("Google Sign In");
         googleLogin().then(() => {
             getAllGroupIncludeImages().then(() => {
                 setIsLoggedInTrue();
