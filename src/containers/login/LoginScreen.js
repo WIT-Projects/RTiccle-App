@@ -3,8 +3,7 @@ import {View,StyleSheet,Text, Image, TouchableOpacity } from 'react-native'
 import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
 import { getCurrentUser, anonSignIn, googleSigninConfigure, googleLogin } from "../../service/AuthService";
-import {ASStoreData} from '../../service/AsyncStoageService'
-import { googleSigninConfigure } from "../../service/AuthService";
+import { getAllGroupIncludeImages } from "../../model/GroupModel";
 
 const LoginScreen = ({setIsLoggedIn}) => {
 
@@ -17,7 +16,6 @@ const LoginScreen = ({setIsLoggedIn}) => {
 
     function setIsLoggedInTrue(){
         setIsLoggedIn(true);
-        ASStoreData('LoggedIn');
     }
 
     function guestSignIn() {
@@ -30,8 +28,11 @@ const LoginScreen = ({setIsLoggedIn}) => {
 
     function googleSignIn() {
         console.log("Google Sign In");
-        googleLogin();
-        setIsLoggedInTrue();
+        googleLogin().then(() => {
+            getAllGroupIncludeImages().then(() => {
+                setIsLoggedInTrue();
+            })
+        });
     }
     
     return(
