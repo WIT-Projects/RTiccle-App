@@ -7,9 +7,9 @@ import TiccleDetailText from './components/TiccleDetailText';
 import TiccleDetailTags from './components/TiccleDetailTags';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
 import TiccleDetailFloatingButton from './components/TiccleDetailFloatingButton';
-import { getTiccleIncludeImages } from '../../../model/TiccleModel';
 import { useNavigation } from '@react-navigation/native';
 import TiccleDetailHeader from './components/header/TiccleDetailHeader';
+import { getTiccleImageFromFirebase } from './function/getTiccleImageFromFirebase';
 
 const TiccleDetail = ({route}) => {
     const [ticcleDetail, setTiccleDetail] = useState({
@@ -22,18 +22,6 @@ const TiccleDetail = ({route}) => {
         images: [],
         id: '',
     })
-    const initialTiccleDetail = () => {
-        setTiccleDetail({
-            lastModifiedTime: '',
-            groupId: '',
-            title: '',
-            link: '',
-            tagList: [],
-            content: '',
-            images: [],
-            id: '',
-        })
-    }
 
     const [imageExpansion, setImageExpansion] = useState(false)
     const [imagePathForExpansion, setImagePathForExpansion] = useState('')
@@ -51,23 +39,16 @@ const TiccleDetail = ({route}) => {
         );
 
         const ticcleData = route.params.ticcleData;
-        getTiccleImageFromFirebase();            
-        console.log(ticcleData)
+        getTiccleImageFromFirebase(ticcleData, setTiccleDetail);            
         
         return () => backHandler.remove();
     }, [route]);
 
-    const getTiccleImageFromFirebase = async() => {
-        const ticcleData = route.params.ticcleData
-        const ticcleGetImage = await getTiccleIncludeImages(ticcleData);
-        console.log(ticcleGetImage);
-        setTiccleDetail(ticcleGetImage);
-    }
     
     return (
         <>
             <TiccleDetailHeader
-                initialTiccleDetail={initialTiccleDetail} ticcleDetail={ticcleDetail}
+                ticcleDetail={ticcleDetail}
             />
             <ScrollView style={styles.container}>
                 <TiccleDetailImageExpansion
