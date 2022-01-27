@@ -1,7 +1,6 @@
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { ToastAndroid } from 'react-native'
 
 function anonSignIn() {
     // [START auth_anon_sign_in]
@@ -18,28 +17,47 @@ function anonSignIn() {
 };
 
 function googleSigninConfigure() {
-  firestore().collection("SignIn").doc("Google").get()
-      .then((doc) => {
-        GoogleSignin.configure({
-          webClientId: doc.data().webClientId,
+    firestore().collection("SignIn").doc("Google").get()
+        .then((doc) => {
+          GoogleSignin.configure({
+            webClientId: doc.data().webClientId,
+          })
         })
-      })
 };
 
 async function googleLoginAndLink() {
-  // Get the users ID token
-  const { idToken } = await GoogleSignin.signIn();
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
 
-  // Create a Google credential with the token
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-  // Sign-in the user with the credential
-  // auth().signInWithCredential(googleCredential);
-  auth().currentUser.linkWithCredential(googleCredential)
-  .then(res => {
-    ToastAndroid.show(res.user.uid, ToastAndroid.SHORT)
-  })
+    // Sign-in the user with the credential and link it with current user
+    auth().currentUser.linkWithCredential(googleCredential)
+    .then(res => {
+      console.log("[Auth] Successfully link current user with google credential.");
+    })
 };
+
+async function googleLogin() {
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    
+    // Sign-in the user with the credential
+    // auth().signInWithCredential(googleCredential);
+    auth().signInWithCredential(googleCredential)
+        .then(res => {
+          console.log(res);
+          console.log("[Auth] Successfully sign in with google credential.");
+        });
+}
+
+function logout () {
+    return auth().signOut();
+}
 
 function getCurrentUser() {
   return auth().currentUser;
@@ -63,6 +81,8 @@ export {
   anonSignIn,
   googleSigninConfigure,
   googleLoginAndLink,
+  googleLogin,
   getCurrentUser,
-  getUserProfile
+  getUserProfile,
+  logout,
 };

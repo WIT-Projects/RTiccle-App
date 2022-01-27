@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {View,StyleSheet,Text, Image, TouchableOpacity } from 'react-native'
 import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
-import { getCurrentUser, anonSignIn, googleLoginAndLink } from "../../service/AuthService";
+import { getCurrentUser, anonSignIn, googleSigninConfigure, googleLogin } from "../../service/AuthService";
 import {ASStoreData} from '../../service/AsyncStoageService'
 import { googleSigninConfigure } from "../../service/AuthService";
 
@@ -30,7 +30,7 @@ const LoginScreen = ({setIsLoggedIn}) => {
 
     function googleSignIn() {
         console.log("Google Sign In");
-        googleLoginAndLink();
+        googleLogin();
         setIsLoggedInTrue();
     }
     
