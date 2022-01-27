@@ -2,7 +2,10 @@ import React from 'react';
 import { View,TouchableOpacity, Image, StyleSheet } from 'react-native';
 import colors from '../../../../../theme/colors';
 
-const TicclePlusBox = ({photoModalVisibleTrue}) => {
+const TicclePlusBox = ({setPhotoModalVisible}) => {
+    const photoModalVisibleTrue = () => {
+        setPhotoModalVisible(true)
+    }
     return (
         <View style={styles.container}>
             <TouchableOpacity

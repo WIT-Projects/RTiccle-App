@@ -1,14 +1,12 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import GroupDetailTiccle from './GroupDetailTiccle';
-import { timeStampToFormatDate } from '../../../../service/CommonService';
 
 const GroupDetailTiccleList = ({ ticcleList }) => {
     return (
         <ScrollView style={styles.container}>
             {ticcleList.map((item, index) => {
-                let formattedday = timeStampToFormatDate(item.lastModifiedTime);
-                return (<GroupDetailTiccle key={index} ticcleDate={formattedday} title={item.title} tag={item.tagList}></GroupDetailTiccle>)
+                return (<GroupDetailTiccle key={index} item={item}></GroupDetailTiccle>)
             })}
         </ScrollView>
     );

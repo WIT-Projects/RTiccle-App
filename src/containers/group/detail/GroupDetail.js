@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 import GroupInfo from './components/GroupInfo';
 import SearchBar from '../../common/SearchBar';
 import ZeroTiccle from './components/ZeroTiccle';
@@ -7,6 +6,7 @@ import GroupDetailTiccleList from './components/GroupDetailTiccleList';
 import useTiccleChanged from '../../../context/hook/useTiccleChanged';
 import {getTiccleListByGId} from '../../../model/TiccleModel';
 import {ticcleList} from '../../../model/TiccleModel';
+import GroupDetailFloatingButton from './components/GroupDetailFloatingButton'
 
 const GroupDetail = ({route, navigation}) => {
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
@@ -33,31 +33,14 @@ const GroupDetail = ({route, navigation}) => {
         <>
             <GroupInfo groupData={group} navigation={navigation} />
             <SearchBar placeholderContext="#태그이름, 티끌이름"></SearchBar>
-            {group.ticcleNum != 0 ? <GroupDetailTiccleList ticcleList={list} /> : <ZeroTiccle />}
-            {/* Floating Button */}
-            <TouchableOpacity activeOpacity={0.5} style={styles.touchableOpacityStyle}>
-                <Image source={require('../../../assets/icon/make.png')} style={styles.floatingButtonStyle} />
-            </TouchableOpacity>
+            {route.params.groupData.ticcleNum != 0 ? 
+            <GroupDetailTiccleList ticcleList={list} />
+            : 
+            <ZeroTiccle />
+            }
+            <GroupDetailFloatingButton groupId={group.groupId}/>
         </>
     );
 };
-
-const styles = StyleSheet.create({
-    // Floating button css
-    touchableOpacityStyle: {
-        position: 'absolute',
-        width: 50,
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        right: 30,
-        bottom: 30,
-    },
-    floatingButtonStyle: {
-        resizeMode: 'contain',
-        width: 60,
-        height: 60,
-    },
-});
 
 export default GroupDetail;

@@ -5,11 +5,8 @@ import colors from '../../../../../theme/colors';
 import metrics from '../../../../../theme/metrices';
 import { type } from '../../../../../theme/fonts';
 import CustomModal from '../../../../common/CustomModal';
-import UseTiccleCreate from '../../../../../context/hook/UseTiccleCreate';
 
-const TiccleCreateImageExpansion = ({isModalVisible, setModalVisible, imagePath}) => {
-
-    const {deleteTiccleImage} = UseTiccleCreate();
+const TiccleCreateImageExpansion = ({isModalVisible, setModalVisible, imagePath, deleteTiccleImage}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
     const cancelText = "닫기"

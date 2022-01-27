@@ -4,7 +4,7 @@ import colors from '../../../../../theme/colors';
 import CustomModal from '../../../../common/CustomModal'
 import TiccleCreateImageExpansion from './TiccleCreateImageExpansion';
 
-const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imagePath}) => {
+const TiccleCreateImage = ({deleteTiccleImage ,imagePath}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
     const [imageExpansion, setImageExpansion] = useState(false)
@@ -12,15 +12,18 @@ const TiccleCreateImage = ({photoModalVisibleTrue, deleteImage ,imagePath}) => {
     const modalTitle = "사진을 삭제하시겠습니까?"
     const modalLeftButton = "뒤로가기"
     const modalRightButton = "삭제"
-    const deleteTiccleImage = () => {
-        deleteImage(imagePath)
+    const deleteImage = () => {
+        deleteTiccleImage(imagePath)
     }
 
     return (
         <View style={styles.container}>
             <CustomModal title={modalTitle} leftButton={modalLeftButton} rightButton={modalRightButton}
-            isModalVisible={deleteModal} setModalVisible={setDeleteModal} rightButtonFunction={deleteTiccleImage}/>
-            <TiccleCreateImageExpansion isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePath}/>
+            isModalVisible={deleteModal} setModalVisible={setDeleteModal} rightButtonFunction={deleteImage}/>
+            <TiccleCreateImageExpansion
+                isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePath}
+                deleteTiccleImage={deleteTiccleImage}
+            />
             <TouchableOpacity
                 style={styles.touchableConatiner} onPress={() => setImageExpansion(true)}
                 activeOpacity={1}>

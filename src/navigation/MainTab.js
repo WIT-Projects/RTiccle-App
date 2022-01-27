@@ -2,15 +2,17 @@ import React from 'react';
 import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStackNavigatior from './stack/HomeStackNavigator';
-import TiccleStackNavigator from './stack/TiccleStackNavigator';
 import MyPage from '../containers/user/MyPage';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import colors from '../theme/colors';
-import {type} from '../theme/fonts';
+import { type } from '../theme/fonts';
+import TiccleCreate from '../containers/ticcle/create/TiccleCreate';
 
 const isTabActive = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
     switch (routeName) {
+        case 'GroupDetail':
+        case 'GroupCreateType':
         case 'GroupCreateName':
         case 'GroupCreateImage':
         case 'GroupUpdate':
@@ -47,20 +49,29 @@ const MainTab = () => {
                 })}
             />
             <Tab.Screen
-                name="TiccleStack"
-                component={TiccleStackNavigator}
-                options={{
-                    title: '티끌쓰기',
+                name="TiccleCreate"
+                component={TiccleCreate}
+                initialParams={{groupId : ''}}
+                options={() =>  ({
                     headerShown: false,
                     tabBarStyle: {display: 'none'},
-                    tabBarIcon: () => <Image source={require('../assets/images/tabTiccleCreate.png')} />,
-                }}
+                    tabBarIcon: () => <Image source={require('../assets/images/tabTiccleCreate.png')} />
+                })}
             />
             <Tab.Screen
                 name="MyPage"
                 component={MyPage}
                 options={{
                     title: '마이페이지',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: colors.main,
+                    },
+                    headerTitleStyle:{
+                        color: colors.white,
+                        fontFamily : type.notoSansKR_Medium,
+                        fontSize: 20,
+                    },
                     tabBarLabel: 'MY',
                     tabBarIcon: ({focused}) => (
                         <Image source={focused ? require('../assets/images/tabMypageActive.png') : require('../assets/images/tabMypage.png')} />

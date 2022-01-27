@@ -1,23 +1,34 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { View, Text, Pressable,  StyleSheet, ScrollView } from "react-native";
+import useTiccleCreate from "../../../../../../context/hook/useTiccleCreate";
 import colors from "../../../../../../theme/colors";
 import { type } from "../../../../../../theme/fonts";
+import { groupList } from "../../../../../../model/GroupModel";
+import useGroupChanged from "../../../../../../context/hook/useGroupChanged";
 
 const groupCotainerHeight = 48;
 const groupNumberInScroll = 8;
 
-const GroupListModalGroupList = ({groupList, setModalVisible, isExistGroup, setTiccleGroup , ticcleGroup}) => {
+const GroupListModalGroupList = ({setModalVisible, ticcleGroup, setTiccleGroup}) => {
 
-    const isSelectedGroup = group => {
-        if(ticcleGroup === group) return true;
+    const [groupData, setGroupData] = useState([]);
+    const [isExistGroup, setExistGroup] = useState(false);
+    const { isGroupChanged } = useGroupChanged();
+
+    useEffect(() => {
+        setExistGroup(groupList.length != 0);
+        setGroupData(groupList); // TODO sorting
+    }, [isGroupChanged]);
+
+    const isSelectedGroup = groupId => {
+        if(ticcleGroup === groupId) return true;
         return false
     }
-
     return(
         <View style={styles.groupListViewConatiner}>
             {isExistGroup ? 
             <ScrollView style={styles.scrollView}>
-                {groupList.map((group, index) => (
+                {groupData.map((group, index) => (
                 <Pressable key={index}
                     style={({ pressed }) => [
                     styles.groupNameContainer,
@@ -29,7 +40,7 @@ const GroupListModalGroupList = ({groupList, setModalVisible, isExistGroup, setT
                     }}
                     disabled={isSelectedGroup(group.id)}
                 >                            
-                    <Text style={styles.groupNameText}>{group.id}</Text>
+                    <Text style={styles.groupNameText}>{group.title}</Text>
                 </Pressable>
                 ))}
             </ScrollView>

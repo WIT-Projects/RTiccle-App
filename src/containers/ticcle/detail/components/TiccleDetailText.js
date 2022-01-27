@@ -4,11 +4,11 @@ import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
 const TiccleDetailText = ({content}) => {
-
+    const ticcleContent = content
     return(
         <View style={styles.container}>
             <Text style={styles.text}>
-                {content}
+                {ticcleContent}
             </Text>
         </View>
     )

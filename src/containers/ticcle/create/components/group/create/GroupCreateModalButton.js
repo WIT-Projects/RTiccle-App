@@ -1,19 +1,29 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
+import { checkIsExistingGroup } from '../../../../../../model/GroupModel';
 import colors from '../../../../../../theme/colors';
 import { type } from '../../../../../../theme/fonts';
 
-const GroupCreateModalButton = ({buttonDisable, fastUploadNewGroup, initialTypeTitle, setModalVisible}) => {
+const GroupCreateModalButton = ({
+    buttonDisable, fastGroupCreateFirebase, initialTitle,
+    setModalVisible, setCreateFail, groupTitle
+}) => {
 
+    const createGroup = () =>{
+        if(checkIsExistingGroup(groupTitle)){
+            setCreateFail(true)
+        }
+        else {
+            fastGroupCreateFirebase()
+            initialTitle()
+            setModalVisible(false)
+        }
+    }
     return(
         <View style={styles.createTouchableContainer}>
             <TouchableOpacity disabled={buttonDisable} 
             style={[styles.createTouchable, buttonDisable ? styles.createTouchableDisable : styles.createTouchableAble]}
-            onPress={() => {
-                fastUploadNewGroup()
-                initialTypeTitle()
-                setModalVisible(false)
-            }}>
+            onPress={() => createGroup()}>
                 <Text style={[styles.createText, buttonDisable ? styles.createTextColorDisable : styles.createTextColor]}>
                     그룹생성
                 </Text>
@@ -25,7 +35,7 @@ const GroupCreateModalButton = ({buttonDisable, fastUploadNewGroup, initialTypeT
 const styles = StyleSheet.create({
     createTouchableContainer:{
         alignItems: 'center',
-        paddingTop: 80,
+        marginTop: 60,
     },
     createTouchable:{
         alignItems: 'center',

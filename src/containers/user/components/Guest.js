@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
 import colors from '../../../theme/colors';
-import { googleLoginAndLink } from '../../../service/AuthService';
+import { type } from '../../../theme/fonts';
+import {  googleLoginAndLink } from '../../../service/AuthService';
 
 const GuestInfo = () => {
+
     return (
         <View style={styles.rowContainer}>
-            <Text style={styles.font1}>게스트</Text>
+            <Text style={styles.font1}>Guest</Text>
             <Text style={styles.font2}>님</Text>
             <Text style={styles.font3} onPress={() => googleLoginAndLink()}>계정연동</Text>
         </View>
@@ -24,24 +26,29 @@ const GuestGuide = () => {
 
 const styles = StyleSheet.create({
     rowContainer:{
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+        marginHorizontal: 24,
+        height : 36,
+        textAlignVertical : 'center',
         flexDirection: 'row',
         alignItems: 'center',
+        marginBottom: 10,
     },
     font1:{
-        fontWeight: 'bold',
-        fontSize: 20,
+        fontFamily: type.spoqaHanSansNeo_Bold,
+        fontSize: 18
     },
     font2:{
-        fontSize: 15,
-        marginLeft: 10,
+        fontFamily: type.spoqaHanSansNeo_Regular,
+        fontSize : 16,
+        marginLeft : 6,
     },
     font3:{
-        fontSize: 15,
-        color: colors.gray4,
-        position: 'absolute', 
-        right: 25,
+        position: 'absolute',
+        right : 0,
+        fontFamily: type.spoqaHanSansNeo_Regular,
+        fontSize : 14,
+        marginRight: 4,
+
     },
     guideContainer:{
         alignItems: 'center',

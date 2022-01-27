@@ -3,8 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
-const TiccleDetailTags = ({tags}) => {
-
+const TiccleDetailTags = ({tagList}) => {
+    const tags = tagList
+    
     const tagGroup = tags.map(
         (tag, index) => (
             <View key={index} style={styles.tag}>

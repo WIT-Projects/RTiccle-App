@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getUserProfile } from '../../../service/AuthService';
 import colors from '../../../theme/colors';
+import { type } from '../../../theme/fonts';
 
-const UserInfo = (props) => {
-    const email = props.email;
+const UserInfo = () => {
+    
+    const [userProfile, setUserProfile] = useState({
+        name: '',
+        email: '',
+    })
+    useEffect(()=>{
+        getUserProfile(setUserProfile);
+    },[])
+
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.rowContainer}>
-                <Text style={styles.font1}>사용자</Text>
+                <Text style={styles.font1}>{userProfile.name}</Text>
                 <Text style={styles.font2}>님</Text>
             </View>
             <View style={styles.rowContainer}>
-                <Image style={styles.icon} source={require('../../../assets/images/Google_Logo.png')}></Image>
-                <Text style={styles.font2}>{email}</Text>
+                <Image style={styles.logo} source={require('../../../assets/images/Google_Logo.png')}/>
+                <Text style={styles.font2}>{userProfile.email}</Text>
                 <View style={styles.right}>
                     <Text style={styles.font3}>계정연동</Text>
-                    <Icon name="checkmark-circle-outline" size={20} color={colors.sub}></Icon>
+                    <Image style={styles.checkIcon} source={require('../../../assets/icon/check_circle.png')}/>
                 </View>
             </View>
            
@@ -25,33 +35,47 @@ const UserInfo = (props) => {
 }
 
 const styles = StyleSheet.create({
+    container:{
+        paddingHorizontal: 24,
+        marginBottom : 9,
+    },
     rowContainer:{
-        paddingHorizontal: 20,
-        paddingVertical: 10,
         flexDirection: 'row',
         alignItems: 'center',
+        height:36,
     },
     font1:{
-        fontWeight: 'bold',
-        fontSize: 20,
+        fontFamily: type.spoqaHanSansNeo_Bold,
+        fontSize: 18
     },
     font2:{
-        fontSize: 15,
-        marginLeft: 10,
+        fontFamily: type.spoqaHanSansNeo_Regular,
+        fontSize : 16,
+        marginLeft : 6,
     },
     font3:{
-        fontSize: 15,
-        marginRight: 5,
+        fontFamily: type.spoqaHanSansNeo_Regular,
+        fontSize : 14,
+        marginRight: 4,
     },
     right:{
         flexDirection: 'row',
-        position: 'absolute', 
         alignItems: 'center',
-        right: 25,
+        position: 'absolute',
+        right : 0,
     },
-    icon:{
-        width: 15, 
-        height: 15,
+    logo:{
+        resizeMode: 'contain',
+        width: 16, 
+        height: 16,
+        top: 2,
+    },
+    checkIcon:{
+        top: 1,
+        resizeMode: 'contain',
+        width: 14,
+        height: 14,
+
     }
 });
 
