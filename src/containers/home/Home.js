@@ -16,7 +16,7 @@ const Home = ({navigation}) => {
         (async () => {
             await getAllGroupIncludeImages(); // init group data
             setIsGroupChanged(!isGroupChanged);
-        })
+        })();
 
         // Home BackButton
         const backAction = () => {

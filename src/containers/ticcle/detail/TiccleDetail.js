@@ -51,7 +51,7 @@ const TiccleDetail = ({route}) => {
         );
 
         const ticcleData = route.params.ticcleData;
-        (ticcleData.imageUrl !== undefined) ? setTiccleDetail(ticcleData) : getTiccleImageFromFirebase();            
+        getTiccleImageFromFirebase();            
         console.log(ticcleData)
         
         return () => backHandler.remove();

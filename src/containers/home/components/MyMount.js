@@ -60,8 +60,8 @@ const MyMount = () => {
                 resizeMode="cover"
                 style={styles.imageContainer}>
                 <View style={styles.container}>
-                    <Text style={styles.blackFont}>곧 {mountData[section+1].name}으로 갈 수 있어요.</Text>
-                    <Text style={styles.whiteFont}>{mountData[section].name}</Text>
+                    <Text style={styles.blackFont}>산</Text>
+                    <Text style={styles.whiteFont}>산</Text>
                 </View>
             </ImageBackground>
         </>

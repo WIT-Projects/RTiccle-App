@@ -6,7 +6,8 @@ import GroupCreateModalTitle from "./create/GroupCreateModalTitle";
 import GroupCreateModalTextInput from "./create/GroupCreateModalTextInput";
 import GroupCreateModalButton from "./create/GroupCreateModalButton";
 import { type } from "../../../../../theme/fonts";
-import { uploadNewGroup } from "../../../../../service/GroupService";
+import { doCreateGroup } from "../../../../../model/GroupModel";
+import useGroupChanged from "../../../../../context/hook/useGroupChanged";
 
 const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
 
@@ -26,7 +27,7 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
             bookmark: false,
         };
         const imageSource = '';
-                await doCreateGroup(newGroup, imageSource);
+        await doCreateGroup(newGroup, imageSource);
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
     };
 

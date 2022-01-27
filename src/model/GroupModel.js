@@ -174,6 +174,7 @@ export {
     groupList, 
     limitGroupNum,
     limitTiccleNum,
+    getGroupTitleByGId,
     getAllGroupIncludeImages,
     doCreateGroup, 
     doUpdateGroup, 
