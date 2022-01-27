@@ -4,14 +4,14 @@ import { uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage } fr
 import { updateGroupInfo, updateTiccleNumOfGroup } from './GroupService';
 
 const user = getCurrentUser();
-const userDoc = firestore().collection('RTiccle').doc(user.uid);
+const collection = firestore().collection('RTiccle');
 
 /**
  * @param {*} newTiccle
  * @returns {Promise} Ticcle Data
  */
 async function createTiccle(newTiccle) {
-    const ref = userDoc.collection("Ticcle"); // using auto id
+    const ref = collection.doc(user.uid).collection("Ticcle"); // using auto id
     const ticcleRef = await ref.add(newTiccle);
     return new Promise (resolve => {
         resolve( { id: ticcleRef.id, ...newTiccle });
@@ -66,7 +66,7 @@ function uploadNewTiccle(ticcle, images) {
     }
  */
 function updateTiccleInfo(groupId, ticcleId, newInfo) {
-    const ref = userDoc.collection("Ticcle").doc(ticcleId);
+    const ref = collection.doc(user.uid).collection("Ticcle").doc(ticcleId);
     var updateInfo = {...newInfo, lastModifiedTime: Date.now()};
     ref.update(updateInfo);
     if (newInfo.title) updateGroupInfo(groupId, {latestTiccleTitle: newInfo.title}) // 최근 title 은 업데이트순
@@ -107,7 +107,7 @@ function deleteTiccle(ticcle) {
         ticcle.images.forEach((imageName) => deleteImageFromStorage(imageName, true));
     }
     // delete ticcle info
-    const ref = userDoc.collection("Ticcle").doc(ticcle.id);
+    const ref = collection.doc(user.uid).collection("Ticcle").doc(ticcle.id);
     ref.delete();
     // update group info (ticcleNum - 1)
     updateTiccleNumOfGroup(ticcle.groupId, false);
@@ -119,7 +119,7 @@ function deleteTiccle(ticcle) {
  * @returns {Array} Ticcle List
  */
 async function findTiccleListByGroupId(groupId) {
-    const query = userDoc.collection("Ticcle")
+    const query = collection.doc(user.uid).collection("Ticcle")
         .where("groupId", "==", groupId);
     const querySnapshot = await query.get();
 
@@ -139,7 +139,7 @@ async function findTiccleListByGroupId(groupId) {
  * @returns {Array} (of Ticcle doc) if exist, else null
  */
 async function findTiccleById(ticcleId) {
-    const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
+    const ticcle = await collection.doc(user.uid).collection("Ticcle").doc(ticcleId).get()
     if (ticcle.exists) return ticcle.data();
     else return null;
 }
