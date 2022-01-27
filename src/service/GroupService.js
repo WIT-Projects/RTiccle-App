@@ -7,12 +7,14 @@ const collection = firestore().collection('RTiccle');
 /**
  * Group create function
  * @param {*} newGroup
- * @returns {Array} Group Data
+ * @returns {Promise<Array>} Group Data
  */
 async function createGroup(newGroup) {
     const ref = collection.doc(currentUser.uid).collection('Group');
     const groupRef = await ref.add(newGroup);
-    return {id: groupRef.id, ...newGroup};
+    return new Promise(resolve => {
+        resolve({id: groupRef.id, ...newGroup});
+    });
 }
 
 /**
@@ -25,7 +27,7 @@ async function createGroup(newGroup) {
         // mainImage: string, ticcleNum: integer, latestTiccleTitle: string, lastModifiedTime: number
     }
  * @param {*} mainImageSource: main image source of group
- * @returns {Array} Group Data
+ * @returns {Promise<Array>} Group Data
  */
 async function uploadNewGroup(group, mainImageSource) {
     let imageName = '';
@@ -81,7 +83,7 @@ async function updateTiccleNumOfGroup(groupId, isPlus) {
  * Update group main image
  * @param {string} oldImageName // if not exists, put null
  * @param {*} newImageSource
- * @returns {string} newImageName
+ * @returns {Promise<Array>} [downloadUrl, newImageName]
  */
 async function updateGroupImage(oldImageName, newImageSource) {
     // delete original image first
@@ -129,7 +131,7 @@ async function findAllGroup(setState) {
 
 /**
  * Get All Group of User (include main image url)
- * @returns {Array} Group List (include image url)
+ * @returns {Promise<Array>} Group List (include image url)
  */
 async function findAllGroupIncludeImage() {
     const querySnapshot = await collection.doc(currentUser.uid).collection('Group').get();
@@ -146,7 +148,9 @@ async function findAllGroupIncludeImage() {
         data = {...data, imageUrl: mainImageURL, id: id};
         groups = [...groups, data];
     }
-    return groups;
+    return new Promise(resolve => {
+        resolve(groups);
+    });
 }
 
 /* deprecated */
