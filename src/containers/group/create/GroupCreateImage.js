@@ -17,12 +17,8 @@ const GroupCreateImage = ({navigation}) => {
     let source;
     mainImage == '' || mainImage == null ? (source = require('../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
-    const Bomb = () => {
-        throw new Error('💥 Error 💥')
-    }
     return (
         <View style={ styles.container }>
-            <Bomb></Bomb>
             <PhotoModal
                 setImage={setGroupImage}
                 isModalVisible={isModalVisible}

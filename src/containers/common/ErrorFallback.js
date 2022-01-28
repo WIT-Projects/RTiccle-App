@@ -12,8 +12,8 @@ const ErrorFallback = ( { error } ) =>
     return (
         <View style={styles.container}>
             <Text style={styles.errorText}>네트워크 연결에 문제가 생겼어요.</Text>
-            <Text style={styles.errorText}>확인 후 다시 시도해주세요.</Text>
-            <Text style={styles.errorText}>Error : { error.message }</Text>
+            <Text style={styles.errorText}>개발자 연락처: rticcle@gmail.com</Text>
+            <Text style={[styles.errorText, styles.red]}>Error : { error.message }</Text>
             <TouchableOpacity style={ styles.homeButton } onPress={()=> restartApp()}>
                 <Text style={ styles.homeButtonText }>앱 재시작</Text>
             </TouchableOpacity>
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 26,
     },
+    red: {
+        color: colors.red,
+    },
     homeButton: {
         marginTop: 50,
         backgroundColor: colors.main,
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
         borderRadius:24
     },
     homeButtonText: {
-        color: colors.white, 
+        color: colors.white,
     }
 });
 
