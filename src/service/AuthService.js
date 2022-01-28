@@ -1,5 +1,6 @@
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
+import { firebase } from '@react-native-firebase/functions';
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 var currentUser = getCurrentUser();
@@ -64,6 +65,14 @@ function logout () {
     return auth().signOut();
 }
 
+function resetUserData(uid) {
+    const functions = firebase.app().functions('asia-northeast2');
+    functions.httpsCallable('clearDataOnCall')({uid: uid})
+        .then((res) => {
+          console.log(res);
+        })
+}
+
 function getUserProfile(setState) {
   const user = auth().currentUser;
   if (user !== null) {
@@ -87,4 +96,5 @@ export {
   getCurrentUser,
   getUserProfile,
   logout,
+  resetUserData,
 };
