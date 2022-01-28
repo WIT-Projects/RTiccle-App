@@ -1,20 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image, } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { getUserProfile } from '../../../service/AuthService';
-import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 
-const UserInfo = () => {
-    
-    const [userProfile, setUserProfile] = useState({
-        name: '',
-        email: '',
-    })
-    useEffect(()=>{
-        getUserProfile(setUserProfile);
-    },[])
-
+const User = ({ userProfile }) => {
     return (
         <View style={styles.container}>
             <View style={styles.rowContainer}>
@@ -79,4 +67,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default UserInfo;
+export default User;

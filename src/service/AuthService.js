@@ -1,47 +1,67 @@
 import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { ToastAndroid } from 'react-native'
 
-const currentUser = getCurrentUser();
+var currentUser = getCurrentUser();
+function getCurrentUser() {
+  return auth().currentUser;
+}
 
-function anonSignIn() {
+async function anonSignIn() {
     // [START auth_anon_sign_in]
-    auth().signInAnonymously()
-      .then((res) => {
-        // Signed in
-        console.log('[Auth] Successfully created anonUserID')
-      })
-      .catch((error) => {
-        var errorMessage = error.message;
-        console.log('[Auth] Failed to create anonUserID with ex:', errorMessage);t
-      });
-    // [END auth_anon_sign_in]
+    const user = await auth().signInAnonymously()
+    currentUser = getCurrentUser();
+    console.log('[Auth] Successfully created anonUserID');
+    return new Promise(resolve => {
+      resolve(user);
+    })
 };
 
 function googleSigninConfigure() {
-  GoogleSignin.configure({
-    // scopes: [],
-    webClientId: '806729501348-db5jcn4ujv055iqfrj02i59cm0tmi102.apps.googleusercontent.com',
-  })
+    firestore().collection("SignIn").doc("Google").get()
+        .then((doc) => {
+          GoogleSignin.configure({
+            webClientId: doc.data().webClientId,
+          })
+        })
 };
 
 async function googleLoginAndLink() {
-  // Get the users ID token
-  const { idToken } = await GoogleSignin.signIn();
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
 
-  // Create a Google credential with the token
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-  // Sign-in the user with the credential
-  // auth().signInWithCredential(googleCredential);
-  auth().currentUser.linkWithCredential(googleCredential)
-  .then(res => {
-    ToastAndroid.show(res.user.uid, ToastAndroid.SHORT)
-  })
+    // Sign-in the user with the credential and link it with current user
+    const user = await auth().currentUser.linkWithCredential(googleCredential)
+    currentUser = getCurrentUser();
+    console.log("[Auth] Successfully link current user with google credential.");
+    return new Promise(resolve => {
+      resolve(user);
+    })
 };
 
-function getCurrentUser() {
-  return auth().currentUser;
+async function googleLogin() {
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    
+    // Sign-in the user with the credential
+    // auth().signInWithCredential(googleCredential);
+    const user = await auth().signInWithCredential(googleCredential);
+    currentUser = getCurrentUser();
+    console.log("[Auth] Successfully sign in with google credential.");
+    return new Promise(resolve => {
+      resolve(user);
+    })
+}
+
+function logout () {
+    currentUser = null;
+    return auth().signOut();
 }
 
 function getUserProfile(setState) {
@@ -63,6 +83,8 @@ export {
   anonSignIn,
   googleSigninConfigure,
   googleLoginAndLink,
+  googleLogin,
   getCurrentUser,
-  getUserProfile
+  getUserProfile,
+  logout,
 };

@@ -42,23 +42,27 @@ const getGroupTitleByGId = (targetGId, setGroupTitle) => {
 
 /**
  * Get all group list and set groupList
+ * @returns {Promise<Array>} group list
  */
 async function getAllGroupIncludeImages() {
     // from server
     const result = await findAllGroupIncludeImage();
     groupList = result;
-    console.log(result);
+    return new Promise(resolve => {
+        resolve(result);
+    });
 }
 
 /**
  * Upload new group and add to groupList
- * @param {*} groupData: group info
+ * @param {Array} groupData: group info
  * *  {
         title: String,
         description: String,
         bookmark: Boolean, // true if bookmarked
     }
  * @param {*} mainImageSource: main image source of group
+ * @returns {Promise<Array>} new group info
  */
 async function doCreateGroup(groupData, mainImageSource) {
     // to server
@@ -84,6 +88,7 @@ async function doCreateGroup(groupData, mainImageSource) {
  * @param {*} isIncludingImage if update image, ture. else false(: no need to consider below parameters)
  * @param {*} oldImageName old image name
  * @param {*} newImageSource new image source
+ * @returns {Promise<String>} new imageUrl
  */
 async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, newImageSource) {
     var info = {...newInfo};
@@ -106,7 +111,11 @@ async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, n
     setGroupListAtOne(groupId, newInfo);
 
     // for updating imageUrl in screen
-    if (isIncludingImage) return imageUrl;
+    if (isIncludingImage) {
+        return new Promise(resolve => {
+            resolve(imageUrl);
+        });
+    }
 }
 
 /**

@@ -1,33 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import colors from '../../theme/colors';
-import auth from "@react-native-firebase/auth";
-
 import Setting from './components/Settings';
-import GuestInfo, { GuestGuide } from './components/Guest';
-import UserInfo from './components/User';
+import Guest, { GuestGuide } from './components/Guest';
+import User from './components/User';
 import { type } from '../../theme/fonts';
+import { currentUser, getUserProfile, logout } from '../../service/AuthService';
 
 const MyPage = () => {
-// function MyPageScreen( {navigation}) {
     const [isGuest, setIsGuest] = useState(true);
+    const [userProfile, setUserProfile] = useState({
+        name: '',
+        email: '',
+    })
 
-    // Handle user state changes
-    function onAuthStateChanged(user) {
-        setIsGuest(user.isAnonymous);
-    }
     useEffect(() => {
-        auth().onAuthStateChanged(onAuthStateChanged); // init listener
+        if (currentUser != null) setIsGuest(currentUser.isAnonymous);
     }, []);
 
+    useEffect(() => {
+        if (!isGuest) getUserProfile(setUserProfile);
+    }, [isGuest])
 
     return (
         <View style={styles.container}>
             <Text style={styles.myInfo}>내 정보</Text>
-            { isGuest ? <GuestInfo /> : <UserInfo/> }
+            { isGuest ? <Guest setIsGuest={setIsGuest}/> : <User userProfile={userProfile}/> }
             <View style={styles.block}></View>
             <Setting isGuest={isGuest}/>
             { isGuest ? <GuestGuide /> : null }
+            <Button title="로그아웃(임시)" onPress={logout}/>
         </View>
       );
 }

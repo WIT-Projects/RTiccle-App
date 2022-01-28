@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import {View,StyleSheet,Text, Image, TouchableOpacity } from 'react-native'
 import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
-import { getCurrentUser, anonSignIn, googleLoginAndLink } from "../../service/AuthService";
-import {ASStoreData} from '../../service/AsyncStoageService'
+import { anonSignIn, googleSigninConfigure, googleLogin } from "../../service/AuthService";
+import { getAllGroupIncludeImages } from "../../model/GroupModel";
 
 const LoginScreen = ({setIsLoggedIn}) => {
 
@@ -11,17 +11,23 @@ const LoginScreen = ({setIsLoggedIn}) => {
     const textTwo = "환영합니다."
 
     useEffect(() => {
-        if (getCurrentUser() == null) { // temp
-            anonSignIn();
-        }
+        googleSigninConfigure();
     }, [])
+
     function setIsLoggedInTrue(){
         setIsLoggedIn(true);
-        ASStoreData('LoggedIn');
     }
+
+    function guestSignIn() {
+        anonSignIn().then(() => setIsLoggedInTrue())
+    }
+
     function googleSignIn() {
-        googleLoginAndLink();
-        setIsLoggedInTrue();
+        googleLogin().then(() => {
+            getAllGroupIncludeImages().then(() => {
+                setIsLoggedInTrue();
+            })
+        });
     }
     
     return(
@@ -31,7 +37,7 @@ const LoginScreen = ({setIsLoggedIn}) => {
                 <Text style={styles.text}>{textTwo}</Text> 
             </View>
             <TouchableOpacity
-                style={styles.imageTouchable} onPress={setIsLoggedInTrue}>
+                style={styles.imageTouchable} onPress={guestSignIn}>
                   <Image source={require('../../assets/images/login_guest.png')} style={styles.image}/>
             </TouchableOpacity>
             <TouchableOpacity
