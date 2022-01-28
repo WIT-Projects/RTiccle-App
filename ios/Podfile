@@ -14,6 +14,8 @@ target 'RTiccle' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'react-native-restart', :path => '../node_modules/react-native-restart'
+
   target 'RTiccleTests' do
     inherit! :complete
     # Pods for testing

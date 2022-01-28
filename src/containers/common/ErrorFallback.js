@@ -2,12 +2,12 @@ import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet, BackHandler} from 'react-native';
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
-
+import RNRestart from 'react-native-restart'; // Import package from node modules
 const ErrorFallback = ( { error } ) =>
 {
     const restartApp = () =>
     {
-        alert('reset-')
+        RNRestart.Restart();
     }
     return (
         <View style={styles.container}>
@@ -15,7 +15,7 @@ const ErrorFallback = ( { error } ) =>
             <Text style={styles.errorText}>확인 후 다시 시도해주세요.</Text>
             <Text style={styles.errorText}>Error : { error.message }</Text>
             <TouchableOpacity style={ styles.homeButton } onPress={()=> restartApp()}>
-                <Text style={ styles.homeButtonText }>홈으로</Text>
+                <Text style={ styles.homeButtonText }>앱 재시작</Text>
             </TouchableOpacity>
         </View>
     );
@@ -41,8 +41,7 @@ const styles = StyleSheet.create({
         borderRadius:24
     },
     homeButtonText: {
-        color: colors.white,
-        
+        color: colors.white, 
     }
 });
 
