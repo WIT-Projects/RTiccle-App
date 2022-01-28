@@ -1,6 +1,6 @@
 import { getTiccleIncludeImages } from "../../../../model/TiccleModel";
 
-const getTiccleImageFromFirebase = async(ticcleData, setState) => {
+const setTiccleDetailIncludeImageUrl = async(ticcleData, setState) => {
     let tryNumber = 5;
     for(let i = 0; i< tryNumber; i++){
         try{
@@ -14,5 +14,5 @@ const getTiccleImageFromFirebase = async(ticcleData, setState) => {
 }
 
 export {
-    getTiccleImageFromFirebase,
+    setTiccleDetailIncludeImageUrl,
 }

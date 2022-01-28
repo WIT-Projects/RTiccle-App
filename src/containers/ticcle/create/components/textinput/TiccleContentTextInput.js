@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
-import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
 import colors from '../../../../../theme/colors';
 
 const TiccleContentTextInput = ({ticcleContent, setTiccleContent}) => {

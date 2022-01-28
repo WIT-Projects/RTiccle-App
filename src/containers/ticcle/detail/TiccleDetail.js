@@ -9,7 +9,7 @@ import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion'
 import TiccleDetailFloatingButton from './components/TiccleDetailFloatingButton';
 import { useNavigation } from '@react-navigation/native';
 import TiccleDetailHeader from './components/header/TiccleDetailHeader';
-import { getTiccleImageFromFirebase } from './function/getTiccleImageFromFirebase';
+import {setTiccleDetailIncludeImageUrl} from './function/setTiccleDetailIncludeImageUrl'
 
 const TiccleDetail = ({route}) => {
     const [ticcleDetail, setTiccleDetail] = useState({
@@ -39,7 +39,7 @@ const TiccleDetail = ({route}) => {
         );
 
         const ticcleData = route.params.ticcleData;
-        getTiccleImageFromFirebase(ticcleData, setTiccleDetail);
+        setTiccleDetailIncludeImageUrl(ticcleData, setTiccleDetail);
         console.log(ticcleData);         
         return () => backHandler.remove();
     }, [route]);

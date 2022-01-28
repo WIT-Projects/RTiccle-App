@@ -22,6 +22,7 @@ const TiccleUpdateScreen = ({route}) => {
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const [originalTiccle, setOriginalTiccle] = useState({});
     const scrollRef = useRef();
+    
     useEffect(()=> {
         console.log(route);
         const ticcle = route.params.ticcleData;

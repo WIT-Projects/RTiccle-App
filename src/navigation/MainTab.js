@@ -53,6 +53,7 @@ const MainTab = () => {
                 component={TiccleCreate}
                 initialParams={{groupId : ''}}
                 options={() =>  ({
+                    title: '티끌쓰기',
                     headerShown: false,
                     tabBarStyle: {display: 'none'},
                     tabBarIcon: () => <Image source={require('../assets/images/tabTiccleCreate.png')} />
