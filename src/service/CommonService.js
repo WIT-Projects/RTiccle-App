@@ -1,14 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
 
-/* deprecated */
-/**
- * Return firebase firestore timestamp of now
- * @returns {FirebaseFirestoreTypes.Timestamp}
- */
-function FBDate() {
-    return firestore.Timestamp.fromDate(new Date());
-}
-
 /**
  * Convert firebase firestore timestamp to YY.MM.DD format date
  * @param {number} timeStamp

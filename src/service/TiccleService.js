@@ -134,15 +134,18 @@ async function findTiccleListByGroupId(groupId) {
     });
 }
 
-/* deprecated */
 /**
- * Get One Ticcle By Id (DocumentSnapshot.id)
- * @param {*} ticcleId 
- * @returns {Array} (of Ticcle doc) if exist, else null
+ * Get one ticcle by ticcle id
+ * @param {string} ticcleId 
+ * @returns {Promise<Array>} ticcle data if exist, else null
  */
 async function findTiccleById(ticcleId) {
-    const ticcle = await collection.doc(currentUser.uid).collection("Ticcle").doc(ticcleId).get()
-    if (ticcle.exists) return ticcle.data();
+    const doc = await collection.doc(currentUser.uid).collection("Ticcle").doc(ticcleId).get();
+    if (doc.exists) {
+        return new Promise(resolve => {
+            resolve({...doc.data(), id: doc.id});
+        });
+    }
     else return null;
 }
 
