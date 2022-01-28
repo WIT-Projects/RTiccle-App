@@ -87,9 +87,9 @@ async function updateTiccleImage(oldImageNames, newImageSources) {
     var imageUrl = [];
     for (let imageSource of newImageSources) {
         const newImageName = Date.now() + ".jpg";
-        const downloadUrl = await uploadImageToStorage(newImageName, imageSource);
+        const downloadUrl = await uploadImageToStorage(newImageName, imageSource, true);
         images.push(newImageName);
-        imageUrl.push(downloadUrl)
+        imageUrl.push(downloadUrl);
     }
     return new Promise(resolve => {
         resolve({images: images, imageUrl: imageUrl});

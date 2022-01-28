@@ -7,9 +7,9 @@ import TiccleDetailText from './components/TiccleDetailText';
 import TiccleDetailTags from './components/TiccleDetailTags';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
 import TiccleDetailFloatingButton from './components/TiccleDetailFloatingButton';
-import { getTiccleIncludeImages } from '../../../model/TiccleModel';
 import { useNavigation } from '@react-navigation/native';
 import TiccleDetailHeader from './components/header/TiccleDetailHeader';
+import { getTiccleIncludeImages } from '../../../model/TiccleModel';
 
 const TiccleDetail = ({route}) => {
     const [ticcleDetail, setTiccleDetail] = useState({
@@ -22,27 +22,20 @@ const TiccleDetail = ({route}) => {
         images: [],
         id: '',
     })
-    const initialTiccleDetail = () => {
-        setTiccleDetail({
-            lastModifiedTime: '',
-            groupId: '',
-            title: '',
-            link: '',
-            tagList: [],
-            content: '',
-            images: [],
-            id: '',
-        })
-    }
 
     const [imageExpansion, setImageExpansion] = useState(false)
     const [imagePathForExpansion, setImagePathForExpansion] = useState('')
     const navigation = useNavigation();
+
+    const setTiccleDetailIncludeImageUrl = async(ticcleData, setState) => {
+        await getTiccleIncludeImages(ticcleData).then(
+                (res) => setState(res)
+        );
+    }
     
     useEffect(() => {
         const goToHomeStack = () => {
-            navigation.navigate('Home');
-            initialTiccleDetail();
+            navigation.navigate('HomeStack');
             return true
         };
         const backHandler = BackHandler.addEventListener(
@@ -51,23 +44,16 @@ const TiccleDetail = ({route}) => {
         );
 
         const ticcleData = route.params.ticcleData;
-        (ticcleData.imageUrl !== undefined) ? setTiccleDetail(ticcleData) : getTiccleImageFromFirebase();            
-        console.log(ticcleData)
-        
+        setTiccleDetailIncludeImageUrl(ticcleData, setTiccleDetail);
+        console.log(ticcleData);         
         return () => backHandler.remove();
     }, [route]);
 
-    const getTiccleImageFromFirebase = async() => {
-        const ticcleData = route.params.ticcleData
-        const ticcleGetImage = await getTiccleIncludeImages(ticcleData);
-        console.log(ticcleGetImage);
-        setTiccleDetail(ticcleGetImage);
-    }
     
     return (
         <>
             <TiccleDetailHeader
-                initialTiccleDetail={initialTiccleDetail} ticcleDetail={ticcleDetail}
+                ticcleDetail={ticcleDetail}
             />
             <ScrollView style={styles.container}>
                 <TiccleDetailImageExpansion

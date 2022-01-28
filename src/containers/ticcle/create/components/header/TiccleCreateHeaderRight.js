@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Text,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { doCreateTiccle, doUpdateTiccle } from '../../../../../model/TiccleModel';
+import { doCreateTiccle } from '../../../../../model/TiccleModel';
 import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
 import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
@@ -18,8 +18,10 @@ const TiccleCreateHeaderRight = () => {
         : setSaveButtonDisable(true);
     },[ticcle.title, ticcle.content, ticcle.groupId])
 
-    const saveButtonEvent = () => {
-       doCreateTiccle(ticcle, ticcle.images)
+    const saveButtonEvent = async() => {
+        const updatedTiccle = await doCreateTiccle(ticcle, ticcle.images);
+        navigateTo.navigate('TiccleDetail',{ticcleData: updatedTiccle})
+       
     }
     
 
@@ -29,8 +31,6 @@ const TiccleCreateHeaderRight = () => {
             disabled={saveButtonDisable}
             onPress={ () => {
                 saveButtonEvent()
-                console.log(ticcle)
-                navigateTo.navigate('TiccleDetail',{screenFrom: 'TiccleCreate'})
             }}>
             <Text style={saveButtonDisable ? styles.headerRightTextDisable : styles.headerRightText}>저장</Text>
         </TouchableOpacity>

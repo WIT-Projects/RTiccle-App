@@ -44,6 +44,7 @@ const GroupDetail = ({route, navigation}) => {
             {pressSearchBtn? (existResult? <SearchExistResultList isGroupDetail= {true} /> : <NotExistTiccle/>):
                 (group.ticcleNum != 0 ? <GroupDetailTiccleList ticcleList={list} /> : <ZeroTiccle />)}
             <GroupDetailFloatingButton groupId={group.groupId}/>
+
         </>
     );
 };

@@ -26,8 +26,11 @@ const NewTiccleGroupList = () => {
             <View style={styles.newTiccleGroupListHeader}>
                 <View style={styles.groupCreateButton}>
                     <Text style={styles.blackBoldFont}>내 그룹</Text>
-                    <TouchableOpacity style={styles.groupCreateButtonImage} onPress={() => navigation.navigate('GroupCreateName')}>
-                        <Image source={require('../../../assets/images/groupCreateButton.png')}></Image>
+                    <TouchableOpacity style={styles.groupCreateButtonTouchable} onPress={() => navigation.navigate('GroupCreateName')}>
+                        <Image 
+                            source={require('../../../assets/images/groupCreateButton.png')}
+                            style={styles.groupCreateButtonImage}
+                        />
                     </TouchableOpacity>
                 </View>
                 {isExistGroup ? (
@@ -58,7 +61,7 @@ const NewTiccleGroupList = () => {
 const styles = StyleSheet.create({
     newTiccleGroupListHeader: {
         flexDirection: 'row',
-        marginTop: 36,
+        marginTop: 34,
         marginHorizontal: 18,
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -71,8 +74,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    groupCreateButtonImage: {
+    groupCreateButtonTouchable: {
         marginLeft: 5,
+        marginTop: 2,
+        width : 31,
+        height: 31,
+    },
+    groupCreateButtonImage:{
+        resizeMode: 'contain',
+        width: '100%',
+        height: '100%',
     },
     existTiccle: {
         flex: 1,

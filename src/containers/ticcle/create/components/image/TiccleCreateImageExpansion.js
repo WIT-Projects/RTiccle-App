@@ -6,16 +6,13 @@ import metrics from '../../../../../theme/metrices';
 import { type } from '../../../../../theme/fonts';
 import CustomModal from '../../../../common/CustomModal';
 
-const TiccleCreateImageExpansion = ({isModalVisible, setModalVisible, imagePath, deleteTiccleImage}) => {
+const TiccleCreateImageExpansion = ({isModalVisible, setModalVisible, imagePath, deleteImage}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
     const cancelText = "닫기"
     const modalTitle = "사진을 삭제하시겠습니까?"
     const modalLeftButton = "뒤로가기"
     const modalRightButton = "삭제"
-    const deleteImage = () => {
-        deleteTiccleImage(imagePath)
-    }
 
     return(
         <Modal

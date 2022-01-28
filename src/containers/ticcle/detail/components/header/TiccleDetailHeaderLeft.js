@@ -3,14 +3,13 @@ import { Image,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
 
-const TiccleDetailHeaderLeft = ({initialTiccleDetail}) => {
+const TiccleDetailHeaderLeft = () => {
     const navigateTo = useNavigation()
     return (
         <TouchableOpacity
             style={styles.headerLeftTouchable}
             onPress={() => {
-                initialTiccleDetail();
-                navigateTo.goBack();
+                navigateTo.navigate('HomeStack');
             }}>
                 <Image source={require('../../../../../assets/images/chevron_left.png')}
                         style={styles.headerLeftImage}

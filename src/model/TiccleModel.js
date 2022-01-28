@@ -101,13 +101,12 @@ async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, imag
         // newImagesInfo = {images: images, imageUrl: imageUrl}
         const newImagesInfo = await updateTiccleImage(oldImageNames, newImageSources);
 
-        const newImages = [...images];
+        var newImages = [...images];
         oldImageNames.forEach((name) => {
             const idx = newImages.findIndex(imageName => imageName === name);
             if (idx >= 0) newImages.splice(idx, 1);
         })
-        newImages = [...newImages, newImagesInfo.images];
-
+        newImages = [...newImages, ...newImagesInfo.images];
         updateTiccleInfo(groupId, ticcleId, {...newInfo, images: newImages});
         info = {...info, images: newImages, imageUrl: newImagesInfo.imageUrl}; // including imageUrls of new images
     }
