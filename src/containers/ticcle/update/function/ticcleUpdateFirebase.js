@@ -6,7 +6,7 @@ const TiccleUpdateFirebase = async (ticcleUpdate, originalTiccle) => {
     let ticcleId = originalTiccle.id;
     let newInfo = [];
     let isIncludingImage = false;
-    let images = [];
+    let images = originalTiccle.images;
     let oldImageNames = [];
     let newImageSources = [];
 

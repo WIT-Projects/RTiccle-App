@@ -9,7 +9,7 @@ import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion'
 import TiccleDetailFloatingButton from './components/TiccleDetailFloatingButton';
 import { useNavigation } from '@react-navigation/native';
 import TiccleDetailHeader from './components/header/TiccleDetailHeader';
-import {setTiccleDetailIncludeImageUrl} from './function/setTiccleDetailIncludeImageUrl'
+import { getTiccleIncludeImages } from '../../../model/TiccleModel';
 
 const TiccleDetail = ({route}) => {
     const [ticcleDetail, setTiccleDetail] = useState({
@@ -26,6 +26,12 @@ const TiccleDetail = ({route}) => {
     const [imageExpansion, setImageExpansion] = useState(false)
     const [imagePathForExpansion, setImagePathForExpansion] = useState('')
     const navigation = useNavigation();
+
+    const setTiccleDetailIncludeImageUrl = async(ticcleData, setState) => {
+        await getTiccleIncludeImages(ticcleData).then(
+                (res) => setState(res)
+        );
+    }
     
     useEffect(() => {
         const goToHomeStack = () => {
