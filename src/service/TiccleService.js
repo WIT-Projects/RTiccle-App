@@ -118,9 +118,10 @@ function deleteTiccle(ticcle) {
  * @returns {Promise<Array>} Ticcle List
  */
 async function findTiccleListByGroupId(groupId) {
-    const query = collection.doc(currentUser.uid).collection("Ticcle")
-        .where("groupId", "==", groupId);
-    const querySnapshot = await query.get();
+    const querySnapshot = await userDoc.collection("Ticcle")
+        .where("groupId", "==", groupId)
+        .orderBy('lastModifiedTime', 'desc')
+        .get();
 
     var ticcleList = [];
     querySnapshot.forEach(snapshot => {
