@@ -2,6 +2,8 @@ import auth from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { ToastAndroid } from 'react-native'
 
+const currentUser = getCurrentUser();
+
 function anonSignIn() {
     // [START auth_anon_sign_in]
     auth().signInAnonymously()
@@ -57,6 +59,7 @@ function getUserProfile(setState) {
 }
 
 export {
+  currentUser,
   anonSignIn,
   googleSigninConfigure,
   googleLoginAndLink,

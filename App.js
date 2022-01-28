@@ -3,14 +3,18 @@ import { anonSignIn, googleSigninConfigure, getCurrentUser } from './src/service
 import AppProvider from './src/context/provider/AppProvider';
 import MainStackNavigator from './src/navigation/stack/MainStackNavigator';
 import SplashScreen from 'react-native-splash-screen';
+import {initAlgolia} from './src/service/SearchService';
 import LoginScreen from './src/containers/login/LoginScreen';
-import {checkIsLoggedIn} from './src/service/AsyncStoageService'
+import {checkIsLoggedIn} from './src/service/AsyncStoageService';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
     
     useEffect(() => {
+        // configure
         googleSigninConfigure();
+        initAlgolia();
+        
         if (getCurrentUser() == null) {
             anonSignIn();
         }
