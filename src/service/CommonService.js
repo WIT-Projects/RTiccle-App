@@ -1,11 +1,4 @@
-/* deprecated */
-/**
- * Return firebase firestore timestamp of now
- * @returns {FirebaseFirestoreTypes.Timestamp}
- */
-function FBDate() {
-    return firestore.Timestamp.fromDate(new Date());
-}
+import firestore from '@react-native-firebase/firestore';
 
 /**
  * Convert firebase firestore timestamp to YY.MM.DD format date
@@ -21,6 +14,19 @@ function timeStampToFormatDate(timeStamp) {
     return formattedday;
 }
 
+/**
+ * Get privacy policy of RTiccle from firestore
+ * @returns {Promise<String>} privacy policy
+ */
+async function getPrivacyPolicy() {
+    const doc = await firestore().collection('Info').doc('Privacy').get();
+    const policy = doc.data().policy;
+    return new Promise(resolve => {
+        resolve(policy);
+    });
+}
+
 export {
     timeStampToFormatDate,
+    getPrivacyPolicy,
 }

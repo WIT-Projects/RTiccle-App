@@ -7,7 +7,7 @@ const userFilter = `uid:${currentUser.uid}`
 
 async function initAlgolia() {
     // Get Algolia keys first
-    const doc = await firestore().collection('Algolia').doc('algolia').get();
+    const doc = await firestore().collection('Info').doc('Algolia').get();
     const algolia = doc.data();
 
     // Generate Algolia client and target index
