@@ -11,7 +11,7 @@ async function initAlgolia() {
     const algolia = doc.data();
 
     // Generate Algolia client and target index
-    const searchClient = algoliasearch(algolia.AppId, algolia.APIKey);
+    const searchClient = algoliasearch(algolia.AppID, algolia.APIKey);
     const indexName = 'dev_ticcletitle';
     collectionIndex = searchClient.initIndex(indexName);
 };
@@ -91,8 +91,7 @@ function searchTiccleInGroup(ticcleList, query, tagQuery) {
         const tagQueryResult = searchTiccleByTagInGroup(ticcleList, tag);
         // push ticcle that not in result to result
         tagQueryResult.forEach(element => {
-            const found = result.findIndex(ticcle => ticcle.id == element.id) > -1;
-            if (found) result.push(element);
+            result.push(element);
         })
     }    
 
@@ -102,11 +101,14 @@ function searchTiccleInGroup(ticcleList, query, tagQuery) {
         const tagQueryResult = searchTiccleByTagInGroup(ticcleList, tag);
         // push ticcle that not in result to result
         tagQueryResult.forEach(element => {
-            const found = result.findIndex(ticcle => ticcle.id == element.id) > -1;
-            if (found) result.push(element);
+            result.push(element);
         })
-    }    
-    return result;
+    }
+
+    const set = new Set(result);
+    const uniqueArr = [...set];
+
+    return uniqueArr;
 }
 
 /**
@@ -137,8 +139,18 @@ function searchTiccleInGroup(ticcleList, query, tagQuery) {
  */
 function searchTiccleByTagInGroup(ticcleList, tagQuery) {
     const result = ticcleList.filter((ticcle) => {
-        if (JSON.stringify(ticcle.tagList).indexOf(tagQuery) < 0) return false; // not exact match
-        else return true;
+        var flag = false;
+        for (let q of tagQuery) {
+            for (let list of ticcle.tagList){
+                if (list.indexOf(q) >= 0) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        return flag;
+        // if (JSON.stringify(ticcle.tagList).indexOf(tagQuery) < 0) return false; // not exact match
+        // else return true;
     });
     return result;
 }

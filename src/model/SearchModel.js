@@ -37,8 +37,10 @@ async function searchTiccleByTitltAndTag(query, tagQuery, setExistResult) {
  * @param {Array} tagQuery ONLY search tagList
  * @returns {Array} searched ticcle list
  */
- function searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery) {
-    return searchTiccleInGroup(ticcleList, query, tagQuery); // TODO sorting
+ function searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery, setExistResult) {
+    searchList = searchTiccleInGroup(ticcleList, query, tagQuery); // TODO sorting
+    searchList.length !== 0? setExistResult(true) : setExistResult(false);
+    console.log(searchList);
 }
 
 
