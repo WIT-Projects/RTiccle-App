@@ -1,5 +1,6 @@
 const checkGroupId = (groupId, setTiccleGroup, initialTiccle) => {
-    (groupId === '') ? initialTiccle() : setTiccleGroup(groupId);
+    initialTiccle();
+    (groupId !== '') ? setTiccleGroup(groupId) : null;
 }
 
 export {

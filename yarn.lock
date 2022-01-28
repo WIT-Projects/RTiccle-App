@@ -1347,7 +1347,7 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/masked-view/-/masked-view-0.1.11.tgz"
   "version" "0.1.11"
 
-"@react-native-firebase/app@13.0.1":
+"@react-native-firebase/app@13.0.1", "@react-native-firebase/app@14.3.0":
   "integrity" "sha512-ZURaagmBy97oI5it9IiZkX+0Fpfbv6nc5CKs9ISShxEmDqgTbGXcD8o6k0uDxtG9nbi0ft2dsWgKqXm6YI1o9w=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-13.0.1.tgz"
   "version" "13.0.1"
@@ -1365,6 +1365,11 @@
   "integrity" "sha512-kOkoQvdYU5W9iAZX9SAN7aoNvZpZZ3CywzoQer0uHp2gFwm02TCeOeEGOVhsbuh+D4uRdD3k5My/zV97OWTlFw=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-13.0.1.tgz"
   "version" "13.0.1"
+
+"@react-native-firebase/functions@14.3.0":
+  "integrity" "sha512-bGKe+kuZhITapUgDw8ihWjuQ2a1JPQanofBG38VbHRK5BZ1DjKwTAuXJPLRHLKM+BQ+b//ga39GjvhLHOWBC2g=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/functions/-/functions-14.3.0.tgz"
+  "version" "14.3.0"
 
 "@react-native-firebase/storage@13.0.1":
   "integrity" "sha512-85g8PH4BN15uq7qZ6Ul4w3HdIQV/5H+uVyeKuKt57XtJxVVJRFfwgEekOayLyT2GHnxkjf13oMseZSeaGqTHQQ=="
@@ -4075,11 +4080,6 @@
   "resolved" "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz"
   "version" "7.0.0"
 
-"is-plain-obj@^2.1.0":
-  "integrity" "sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA=="
-  "resolved" "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-2.1.0.tgz"
-  "version" "2.1.0"
-
 "is-plain-object@^2.0.3", "is-plain-object@^2.0.4":
   "integrity" "sha512-h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og=="
   "resolved" "https://registry.npmjs.org/is-plain-object/-/is-plain-object-2.0.4.tgz"
@@ -5094,13 +5094,6 @@
   "version" "1.0.0"
   dependencies:
     "object-visit" "^1.0.0"
-
-"merge-options@^3.0.4":
-  "integrity" "sha512-2Sug1+knBjkaMsMgf1ctR1Ujx+Ayku4EdJN4Z+C2+JzoeF7A3OZ9KM2GY0CpQS51NR61LTurMJrRKPhSs3ZRTQ=="
-  "resolved" "https://registry.npmjs.org/merge-options/-/merge-options-3.0.4.tgz"
-  "version" "3.0.4"
-  dependencies:
-    "is-plain-obj" "^2.1.0"
 
 "merge-stream@^2.0.0":
   "integrity" "sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w=="
@@ -6335,7 +6328,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.66 || 1000.0.0", "react-native@>=0.38.0", "react-native@>=0.40.0", "react-native@>=0.42.0", "react-native@>=0.43.0", "react-native@>=0.55", "react-native@>=0.56", "react-native@>=0.56.0", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.63.0", "react-native@>=0.65.0", "react-native@0.65.1":
+"react-native@*", "react-native@>=0.38.0", "react-native@>=0.40.0", "react-native@>=0.42.0", "react-native@>=0.43.0", "react-native@>=0.55", "react-native@>=0.56", "react-native@>=0.56.0", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.63.0", "react-native@>=0.65.0", "react-native@0.65.1":
   "integrity" "sha512-0UOVSnlssweQZjuaUtzViCifE/4tXm8oRbxwakopc8GavPu9vLulde145GOw6QVYiOy4iL50f+2XXRdX9NmMeQ=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.65.1.tgz"
   "version" "0.65.1"
