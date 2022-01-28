@@ -16,22 +16,34 @@ const TiccleUpdateScreen = ({route}) => {
     const { ticcleUpdate, setTiccleUpdate, setTiccleUpdateGroup,
         setTiccleUpdateTitle, setTiccleUpdateLink, setTiccleUpdateTagList,
         deleteTiccleUpdateTagList, setTiccleUpdateContent, setTiccleUpdateImages,
-        deleteTiccleUpdateImage, initialTiccleUpdate, } = useTiccleUpdate();
+        deleteTiccleUpdateImage, setTiccleUpdateImageUrl, deleteTiccleUpdateImageUrl,
+        initialTiccleUpdate, } = useTiccleUpdate();
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
+    const [originalTiccle, setOriginalTiccle] = useState({});
     const scrollRef = useRef();
     useEffect(()=> {
         console.log(route);
-        const orginalTiccle = route.params.ticcleData;
-        setTiccleUpdate(orginalTiccle);
+        const ticcle = route.params.ticcleData;
+        setTiccleUpdate(ticcle);
+        setOriginalTiccle(ticcle);
     },[route])
+
+    const setTiccleUpdateImageNamesUrls = imagePath =>{
+        setTiccleUpdateImages(imagePath);
+        setTiccleUpdateImageUrl(imagePath)
+    }
+    const deleteTiccleUpdateImageNameUrls = index => {
+        deleteTiccleUpdateImage(index);
+        deleteTiccleUpdateImageUrl(index);
+    }
 
     return(
         <>
-            <TiccleUpdateHeader updateTiccleData={ticcleUpdate}/>
+            <TiccleUpdateHeader ticcleUpdate={ticcleUpdate} originalTiccle={originalTiccle}/>
             <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
-                <PhotoModal setImage={setTiccleUpdateImages} isModalVisible={photoModalVisible}
+                <PhotoModal setImage={setTiccleUpdateImageNamesUrls} isModalVisible={photoModalVisible}
                     setModalVisible={setPhotoModalVisible}/>
                 <GroupListModal
                     isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}
@@ -47,13 +59,13 @@ const TiccleUpdateScreen = ({route}) => {
                 />
                 <TiccleCreateImageAdd
                     setPhotoModalVisible={setPhotoModalVisible}
-                    ticcleImages={ticcleUpdate.imageUrl} deleteTiccleImage={deleteTiccleUpdateImage}
+                    ticcleImages={ticcleUpdate.imageUrl} deleteTiccleImage={deleteTiccleUpdateImageNameUrls}
                 />
                 <TiccleContentTextInput
                     ticcleContent={ticcleUpdate.content} setTiccleContent={setTiccleUpdateContent}
                 />
                 <TiccleCreateTextInputTag
-                    scrollRef={scrollRef} setTiccleUpdateTagList={setTiccleUpdateTagList}
+                    scrollRef={scrollRef} setTiccleTagList={setTiccleUpdateTagList}
                 />
                 <TiccleCreateTags
                     ticcleTags={ticcleUpdate.tagList} deleteTiccleTagList={deleteTiccleUpdateTagList}

@@ -4,7 +4,7 @@ import colors from '../../../../../theme/colors';
 import CustomModal from '../../../../common/CustomModal'
 import TiccleCreateImageExpansion from './TiccleCreateImageExpansion';
 
-const TiccleCreateImage = ({deleteTiccleImage ,imagePath}) => {
+const TiccleCreateImage = ({deleteTiccleImage ,imagePath, index}) => {
 
     const [deleteModal, setDeleteModal] = useState(false)
     const [imageExpansion, setImageExpansion] = useState(false)
@@ -13,7 +13,8 @@ const TiccleCreateImage = ({deleteTiccleImage ,imagePath}) => {
     const modalLeftButton = "뒤로가기"
     const modalRightButton = "삭제"
     const deleteImage = () => {
-        deleteTiccleImage(imagePath)
+        deleteTiccleImage(index);
+        setDeleteModal(false);
     }
 
     return (
@@ -22,7 +23,7 @@ const TiccleCreateImage = ({deleteTiccleImage ,imagePath}) => {
             isModalVisible={deleteModal} setModalVisible={setDeleteModal} rightButtonFunction={deleteImage}/>
             <TiccleCreateImageExpansion
                 isModalVisible={imageExpansion} setModalVisible={setImageExpansion} imagePath={imagePath}
-                deleteTiccleImage={deleteTiccleImage}
+                deleteImage={deleteImage}
             />
             <TouchableOpacity
                 style={styles.touchableConatiner} onPress={() => setImageExpansion(true)}
