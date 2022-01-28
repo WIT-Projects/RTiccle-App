@@ -4,13 +4,17 @@ import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 import {  googleLoginAndLink } from '../../../service/AuthService';
 
-const GuestInfo = () => {
+const Guest = ({ setIsGuest }) => {
+
+    function linkWithGoogle() {
+        googleLoginAndLink().then(() => setIsGuest(false))
+    }
 
     return (
         <View style={styles.rowContainer}>
             <Text style={styles.font1}>Guest</Text>
             <Text style={styles.font2}>님</Text>
-            <Text style={styles.font3} onPress={() => googleLoginAndLink()}>계정연동</Text>
+            <Text style={styles.font3} onPress={() => linkWithGoogle()}>계정연동</Text>
         </View>
     )
 }
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default GuestInfo;
+export default Guest;
 
 export { 
     GuestGuide

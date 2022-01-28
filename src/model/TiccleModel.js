@@ -10,6 +10,7 @@ import {
 /*
  * Ticcle data
     {
+        id: ticcle id,
         groupId: group id,
         title: string,
         link: string, // URL of original content
@@ -39,11 +40,15 @@ const deleteOneTiccleOfList = targetTId => {
 /**
  * Get ticcle list of one group by groupId and set ticcleList
  * @param {string} groupId 
+ * @returns {Promise<Array>} ticcle list
  */
 async function getTiccleListByGId(groupId) {
     // from server
     const result = await findTiccleListByGroupId(groupId);
     setNewTiccleList(groupId, result);
+    return new Promise(resolve => {
+        resolve(result);
+    });
 }
 
 /**
@@ -57,7 +62,7 @@ async function getTiccleListByGId(groupId) {
         tagList: Array<String>
     }
  * @param {Array} images: image source array - LIMIT 2
- * @returns {Array} new ticcle data (info)    
+ * @returns {Promise<Array>} new ticcle data (info)    
  */
 async function doCreateTiccle(ticcleData, images) {
     // to server
@@ -65,7 +70,9 @@ async function doCreateTiccle(ticcleData, images) {
 
     // to local data
     ticcleList = [...ticcleList, newTiccleInfo];
-    return newTiccleInfo;
+    return new Promise(resolve => {
+        resolve(newTiccleInfo);
+    });
 }
 
 /**
@@ -84,7 +91,7 @@ async function doCreateTiccle(ticcleData, images) {
  * @param {Array} images images of ticcle
  * @param {Array} oldImageNames array of old image names // (BE DELETED IMAGE ONLY) if no old images, put []
  * @param {Array} newImageSources array of new image sources // if no new images, put []
- * @returns {Array} updated ticcle data (all)
+ * @returns {Promise<Array>} updated ticcle data (all)
  */
 async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, images, oldImageNames, newImageSources) {
     var info = {...newInfo};
@@ -107,8 +114,10 @@ async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, imag
 
     // to local data
     const oldInfo = ticcleList.find(t => t.id == ticcleId)
-    setTiccleListAtOne(ticcleId, {...oldInfo, ...info})
-    return {...oldInfo, ...info};
+    setTiccleListAtOne(ticcleId, {...oldInfo, ...info});
+    return new Promise(resolve => {
+        resolve({...oldInfo, ...info});
+    });
 }
 
 /**
@@ -126,10 +135,34 @@ function doDeleteTiccle(ticcleData) {
 /**
  * Get ticcle data including image urls
  * @param {Array} ticcleData full ticcle data
- * @returns {Array} ticcle data include image url array
+ * @returns {Promise<Array>} ticcle data include image url array
  */
-async function getTiccleIncludeImages(ticcleData) {
-    return await findImagesOfTiccle(ticcleData);
+function getTiccleIncludeImages(ticcleData) {
+    return findImagesOfTiccle(ticcleData);
+}
+
+/**
+ * Sort by LMT (asc)
+ * @param {Array} ticcleList (MUST CONTAIN "lastModifiedTime")
+ * @returns {Array} sorted ticcleList
+ */
+ function sortAscByLMT(ticcleList) {
+    const result = ticcleList.sort((a, b) => {
+        a.lastModifiedTime - b.lastModifiedTime;
+    })
+    return result;
+}
+
+/**
+ * Sort by LMT (desc)
+ * @param {Array} ticcleList (MUST CONTAIN "lastModifiedTime")
+ * @returns {Array} sorted ticcleList
+ */
+function sortDescByLMT(ticcleList) {
+    const result = ticcleList.sort((a, b) => {
+        b.lastModifiedTime - a.lastModifiedTime;
+    })
+    return result;
 }
 
 export {
@@ -140,4 +173,6 @@ export {
     doUpdateTiccle,
     doDeleteTiccle,
     getTiccleIncludeImages,
+    sortAscByLMT,
+    sortDescByLMT,
 }

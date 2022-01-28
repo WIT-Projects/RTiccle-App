@@ -1,17 +1,16 @@
 import firestore from '@react-native-firebase/firestore';
-import { getCurrentUser } from './AuthService';
+import { currentUser } from './AuthService';
 import { uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage } from './ImageService';
 import { updateGroupInfo, updateTiccleNumOfGroup } from './GroupService';
 
-const user = getCurrentUser();
-const userDoc = firestore().collection('RTiccle').doc(user.uid);
+const collection = firestore().collection('RTiccle');
 
 /**
  * @param {*} newTiccle
- * @returns {Promise} Ticcle Data
+ * @returns {Promise<Array>} Ticcle Data
  */
 async function createTiccle(newTiccle) {
-    const ref = userDoc.collection("Ticcle"); // using auto id
+    const ref = collection.doc(currentUser.uid).collection("Ticcle"); // using auto id
     const ticcleRef = await ref.add(newTiccle);
     return new Promise (resolve => {
         resolve( { id: ticcleRef.id, ...newTiccle });
@@ -30,7 +29,7 @@ async function createTiccle(newTiccle) {
         // images, lastModifiedTime: TimeStamp,
     }
  * @param {Array} images: image source array - LIMIT 2
- * @returns {Array} Ticcle Data
+ * @returns {Promise<Array>} Ticcle Data
  */
 function uploadNewTiccle(ticcle, images) {
     // upload images first
@@ -66,7 +65,7 @@ function uploadNewTiccle(ticcle, images) {
     }
  */
 function updateTiccleInfo(groupId, ticcleId, newInfo) {
-    const ref = userDoc.collection("Ticcle").doc(ticcleId);
+    const ref = collection.doc(currentUser.uid).collection("Ticcle").doc(ticcleId);
     var updateInfo = {...newInfo, lastModifiedTime: Date.now()};
     ref.update(updateInfo);
     if (newInfo.title) updateGroupInfo(groupId, {latestTiccleTitle: newInfo.title}) // 최근 title 은 업데이트순
@@ -76,7 +75,7 @@ function updateTiccleInfo(groupId, ticcleId, newInfo) {
  * Update ticcle images
  * @param {Array} oldImageNames array of old image names // (BE DELETED IMAGE ONLY) if no old images, put []
  * @param {Array} newImageSources array of new image sources // if no new images, put []
- * @returns {Array} list of images, imageUrl (- {images: images, imageUrl: imageUrl})
+ * @returns {Promise<Array>} list of images, imageUrl (- {images: images, imageUrl: imageUrl})
  */
 async function updateTiccleImage(oldImageNames, newImageSources) {
     // delete old images first
@@ -107,7 +106,7 @@ function deleteTiccle(ticcle) {
         ticcle.images.forEach((imageName) => deleteImageFromStorage(imageName, true));
     }
     // delete ticcle info
-    const ref = userDoc.collection("Ticcle").doc(ticcle.id);
+    const ref = collection.doc(currentUser.uid).collection("Ticcle").doc(ticcle.id);
     ref.delete();
     // update group info (ticcleNum - 1)
     updateTiccleNumOfGroup(ticcle.groupId, false);
@@ -116,12 +115,13 @@ function deleteTiccle(ticcle) {
 /**
  * Get ticcle list by group id
  * @param {string} groupId 
- * @returns {Array} Ticcle List
+ * @returns {Promise<Array>} Ticcle List
  */
 async function findTiccleListByGroupId(groupId) {
-    const query = userDoc.collection("Ticcle")
-        .where("groupId", "==", groupId);
-    const querySnapshot = await query.get();
+    const querySnapshot = await userDoc.collection("Ticcle")
+        .where("groupId", "==", groupId)
+        .orderBy('lastModifiedTime', 'desc')
+        .get();
 
     var ticcleList = [];
     querySnapshot.forEach(snapshot => {
@@ -129,7 +129,9 @@ async function findTiccleListByGroupId(groupId) {
         const ticcle = { ...snapshot.data(), id }
         ticcleList = [...ticcleList, ticcle];
     });
-    return ticcleList;
+    return new Promise(resolve => {
+        resolve(ticcleList);
+    });
 }
 
 /* deprecated */
@@ -139,7 +141,7 @@ async function findTiccleListByGroupId(groupId) {
  * @returns {Array} (of Ticcle doc) if exist, else null
  */
 async function findTiccleById(ticcleId) {
-    const ticcle = await userDoc.collection("Ticcle").doc(ticcleId).get()
+    const ticcle = await collection.doc(currentUser.uid).collection("Ticcle").doc(ticcleId).get()
     if (ticcle.exists) return ticcle.data();
     else return null;
 }
@@ -147,7 +149,7 @@ async function findTiccleById(ticcleId) {
 /**
  * Get images of ticcle
  * @param {Array} ticcle full ticcle info
- * @returns {Array} ticcle info include image url array
+ * @returns {Promise<Array>} ticcle info include image url array
  */
  async function findImagesOfTiccle(ticcle) {
     var imageURLArr = [];
@@ -158,7 +160,9 @@ async function findTiccleById(ticcleId) {
             imageURLArr.push(URL);
         }
     }
-    return {...ticcle, imageUrl: imageURLArr};
+    return new Promise(resolve => {
+        resolve({...ticcle, imageUrl: imageURLArr});
+    });
 }
 
 export {

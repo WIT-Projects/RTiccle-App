@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { anonSignIn, googleSigninConfigure, getCurrentUser } from './src/service/AuthService';
 import AppProvider from './src/context/provider/AppProvider';
 import MainStackNavigator from './src/navigation/stack/MainStackNavigator';
 import SplashScreen from 'react-native-splash-screen';
+import {initAlgolia} from './src/service/SearchService';
 import LoginScreen from './src/containers/login/LoginScreen';
-import {checkIsLoggedIn} from './src/service/AsyncStoageService'
+import { getAllGroupIncludeImages } from './src/model/GroupModel';
+import { getCurrentUser } from './src/service/AuthService';
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     
-    useEffect(() => {
-        googleSigninConfigure();
-        if (getCurrentUser() == null) {
-            anonSignIn();
+    useEffect(() => { // initialize app data
+        if (getCurrentUser() == null) { // new user
+            setTimeout(() => {
+                SplashScreen.hide();
+            }, 2000);
+        } else { // logged-in user
+            // initialize user data
+            getAllGroupIncludeImages().then(() => {
+                setIsLoggedIn(true);
+                initAlgolia();
+                // Then hide splash screen
+                setTimeout(() => {
+                    SplashScreen.hide();
+                }, 1000);
+            })
         }
-        checkIsLoggedIn(setIsLoggedIn);
-        SplashScreen.hide();
     }, []);
 
     return (

@@ -4,20 +4,12 @@ import MyMount from './components/MyMount';
 import BookmarkGroupList from './components/BookmarkGroupList';
 import NewTiccleGroupList from './components/NewTiccleGroupList';
 import colors from '../../theme/colors';
-import { getAllGroupIncludeImages } from '../../model/GroupModel';
-import useGroupChanged from '../../context/hook/useGroupChanged'
 import CustomModal from '../common/CustomModal';
 
 const Home = ({navigation}) => {
-    const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
     const [appExitModal, setAppExitModal] = useState(false)
     
     useEffect(() => {
-        (async () => {
-            await getAllGroupIncludeImages(); // init group data
-            setIsGroupChanged(!isGroupChanged);
-        })();
-
         // Home BackButton
         const backAction = () => {
             setAppExitModal(true)
