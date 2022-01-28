@@ -1,3 +1,5 @@
+import firestore from '@react-native-firebase/firestore';
+
 /* deprecated */
 /**
  * Return firebase firestore timestamp of now
@@ -21,6 +23,19 @@ function timeStampToFormatDate(timeStamp) {
     return formattedday;
 }
 
+/**
+ * Get privacy policy of RTiccle from firestore
+ * @returns {Promise<String>} privacy policy
+ */
+async function getPrivacyPolicy() {
+    const doc = await firestore().collection('Info').doc('Privacy').get();
+    const policy = doc.data().policy;
+    return new Promise(resolve => {
+        resolve(policy);
+    });
+}
+
 export {
     timeStampToFormatDate,
+    getPrivacyPolicy,
 }

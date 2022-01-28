@@ -134,7 +134,7 @@ async function findAllGroup(setState) {
  * @returns {Promise<Array>} Group List (include image url)
  */
 async function findAllGroupIncludeImage() {
-    const querySnapshot = await userDoc.collection('Group')
+    const querySnapshot = await collection.doc(currentUser.uid).collection('Group')
         .orderBy('lastModifiedTime', 'desc')
         .get();
     var snapshots = [];
