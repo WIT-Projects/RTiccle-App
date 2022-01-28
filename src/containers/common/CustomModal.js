@@ -6,7 +6,7 @@ import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 
 const CustomModal = ({isModalVisible, setModalVisible, title, leftButton, rightButton,
-rightButtonFunction}) => {
+rightButtonFunction, rightButtonStyle}) => {
     return(
         <Modal
             isVisible={isModalVisible}
@@ -27,7 +27,7 @@ rightButtonFunction}) => {
                     <TouchableOpacity style={styles.buttonTouchable} onPress={()=>setModalVisible(false)}>
                         <Text style={[styles.buttonText,styles.leftButtonText]}>{leftButton}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonTouchable} onPress={rightButtonFunction}>
+                    <TouchableOpacity style={[styles.buttonTouchable, rightButtonStyle]} onPress={rightButtonFunction}>
                         <Text style={[styles.buttonText, styles.rightButtonText]}>{rightButton}</Text>
                     </TouchableOpacity>
                 </View>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
     },
     titleText :{
-        fontFamily: type.notoSansKR_Regular,
+        fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize : 16,
         lineHeight : 20,
         color: colors.main

@@ -1,22 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import CustomModal from "../../../common/CustomModal";
 
 const GroupDetailFloatingButton = ({groupId}) => {
     const navigateTo = useNavigation();
+    const ticcleNum = 100;
+    const [ticcleAlertModal, setTiccleAlertModal] = useState(false)
+
+    const floatingButtonEvent = () => {
+        if(ticcleNum > 100) {
+            setTiccleAlertModal(true);
+        } else {
+            navigateTo.navigate('TiccleCreate', {groupId : groupId});
+        }
+    }
 
     return (
-        <TouchableOpacity
-            activeOpacity={0.5}
-            style={styles.touchableOpacityStyle}
-            onPress={() => {
-                navigateTo.navigate('TiccleCreate', {groupId : groupId});
-            }}>
-            <Image
-                source={require('../../../../assets/icon/make.png')}
-                style={styles.floatingButtonStyle}
+        <>
+            <CustomModal
+                isModalVisible={ticcleAlertModal} setModalVisible={setTiccleAlertModal}
+                title={"티끌은 100개까지 생성 가능합니다."} rightButton={"확인"}
+                rightButtonFunction={() => setTiccleAlertModal(false)}
+                rightButtonStyle={{marginLeft: 20}}
             />
-        </TouchableOpacity>
+            <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.touchableOpacityStyle}
+                onPress={floatingButtonEvent}>
+                <Image
+                    source={require('../../../../assets/icon/make.png')}
+                    style={styles.floatingButtonStyle}
+                />
+            </TouchableOpacity>
+        </>
+        
     )
 }
 
