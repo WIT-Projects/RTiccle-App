@@ -43,7 +43,7 @@ const GroupDetail = ({route, navigation}) => {
             <SearchBar pressSearchBtn = {pressSearchBtn} setPressSearchBtn = {setPressSearchBtn} setExistResult={setExistResult} placeholderContext="#태그이름, 티끌이름"></SearchBar>
             {pressSearchBtn? (existResult? <SearchExistResultList isGroupDetail= {true} /> : <NotExistTiccle/>):
                 (group.ticcleNum != 0 ? <GroupDetailTiccleList ticcleList={list} /> : <ZeroTiccle />)}
-            <GroupDetailFloatingButton groupId={group.groupId}/>
+            <GroupDetailFloatingButton groupId={group.id}/>
 
         </>
     );

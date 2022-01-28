@@ -21,8 +21,7 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
 
     const fastGroupCreateFirebase = async () => {
         const newGroup = {
-            type: type,
-            title: groupName,
+            title: groupTitle,
             description: '',
             bookmark: false,
         };

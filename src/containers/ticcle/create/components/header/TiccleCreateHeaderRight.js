@@ -5,12 +5,13 @@ import { doCreateTiccle } from '../../../../../model/TiccleModel';
 import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
 import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
+import useTiccleChanged from '../../../../../context/hook/useTiccleChanged';
 
 const TiccleCreateHeaderRight = () => {
     const navigateTo = useNavigation()
     const {ticcle} = useTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
-
+    const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
     useEffect(() => {
         (ticcle.title && ticcle.content && ticcle.groupId)
         ?
@@ -20,8 +21,8 @@ const TiccleCreateHeaderRight = () => {
 
     const saveButtonEvent = async() => {
         const updatedTiccle = await doCreateTiccle(ticcle, ticcle.images);
-        navigateTo.navigate('TiccleDetail',{ticcleData: updatedTiccle})
-       
+        setIsTiccleListChanged(!isTiccleListChanged);
+        navigateTo.navigate('TiccleDetail',{ticcleData: updatedTiccle}) 
     }
     
 
