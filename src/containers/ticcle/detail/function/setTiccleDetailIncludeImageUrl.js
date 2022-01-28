@@ -1,16 +1,9 @@
 import { getTiccleIncludeImages } from "../../../../model/TiccleModel";
 
 const setTiccleDetailIncludeImageUrl = async(ticcleData, setState) => {
-    let tryNumber = 5;
-    for(let i = 0; i< tryNumber; i++){
-        try{
-            const ticcleGetImage = await getTiccleIncludeImages(ticcleData);
-            setState(ticcleGetImage);
-            return true;
-        } catch(error) {
-            console.log(error);
-        }
-    }
+    await getTiccleIncludeImages(ticcleData).then(
+            (res) => setState(res)
+    );
 }
 
 export {

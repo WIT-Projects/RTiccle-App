@@ -3,7 +3,7 @@ import { Text,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
-import { TiccleUpdateFirebase } from '../../function/TiccleUpdateFirebase';
+import { ticcleUpdateFirebase } from '../../function/ticcleUpdateFirebase';
 import useTiccleChanged from '../../../../../context/hook/useTiccleChanged';
 
 const TiccleUpdateHeaderRight = ({ticcleUpdate, originalTiccle}) => {
@@ -11,7 +11,7 @@ const TiccleUpdateHeaderRight = ({ticcleUpdate, originalTiccle}) => {
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
 
     const saveButtonEvent = async() => {
-        const updatedTiccleData = await TiccleUpdateFirebase(ticcleUpdate, originalTiccle);
+        const updatedTiccleData = await ticcleUpdateFirebase(ticcleUpdate, originalTiccle);
         navigation.navigate('TiccleDetail', {ticcleData: updatedTiccleData});
         setIsTiccleListChanged(!isTiccleListChanged);
         console.log("티끌 수정 완료. TiccleDetail로 수정된 Ticcle 보내기")
