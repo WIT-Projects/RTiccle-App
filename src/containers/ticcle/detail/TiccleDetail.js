@@ -29,8 +29,7 @@ const TiccleDetail = ({route}) => {
     
     useEffect(() => {
         const goToHomeStack = () => {
-            navigation.navigate('Home');
-            initialTiccleDetail();
+            navigation.navigate('HomeStack');
             return true
         };
         const backHandler = BackHandler.addEventListener(

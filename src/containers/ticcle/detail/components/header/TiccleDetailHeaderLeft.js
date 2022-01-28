@@ -9,7 +9,7 @@ const TiccleDetailHeaderLeft = () => {
         <TouchableOpacity
             style={styles.headerLeftTouchable}
             onPress={() => {
-                navigateTo.goBack();
+                navigateTo.navigate('HomeStack');
             }}>
                 <Image source={require('../../../../../assets/images/chevron_left.png')}
                         style={styles.headerLeftImage}
