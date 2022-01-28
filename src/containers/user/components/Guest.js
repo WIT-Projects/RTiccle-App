@@ -4,7 +4,7 @@ import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 import {  googleLoginAndLink } from '../../../service/AuthService';
 
-const GuestInfo = ({ setIsGuest }) => {
+const Guest = ({ setIsGuest }) => {
 
     function linkWithGoogle() {
         googleLoginAndLink().then(() => setIsGuest(false))
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default GuestInfo;
+export default Guest;
 
 export { 
     GuestGuide

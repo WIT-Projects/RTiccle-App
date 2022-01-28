@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import colors from '../../theme/colors';
 import Setting from './components/Settings';
-import GuestInfo, { GuestGuide } from './components/Guest';
-import UserInfo from './components/User';
+import Guest, { GuestGuide } from './components/Guest';
+import User from './components/User';
 import { type } from '../../theme/fonts';
 import { currentUser, getUserProfile, logout } from '../../service/AuthService';
 
@@ -25,7 +25,7 @@ const MyPage = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.myInfo}>내 정보</Text>
-            { isGuest ? <GuestInfo setIsGuest={setIsGuest}/> : <UserInfo userProfile={userProfile}/> }
+            { isGuest ? <Guest setIsGuest={setIsGuest}/> : <User userProfile={userProfile}/> }
             <View style={styles.block}></View>
             <Setting isGuest={isGuest}/>
             { isGuest ? <GuestGuide /> : null }

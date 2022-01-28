@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, } from 'react-native';
 import { type } from '../../../theme/fonts';
 
-const UserInfo = ({ userProfile }) => {
+const User = ({ userProfile }) => {
     return (
         <View style={styles.container}>
             <View style={styles.rowContainer}>
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default UserInfo;
+export default User;
