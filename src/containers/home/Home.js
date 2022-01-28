@@ -8,6 +8,9 @@ import CustomModal from '../common/CustomModal';
 
 const Home = ({navigation}) => {
     const [appExitModal, setAppExitModal] = useState(false)
+    function Bomb() {
+        throw new Error('💥 Error 💥')
+    }
     
     useEffect(() => {
         // Home BackButton
@@ -23,7 +26,8 @@ const Home = ({navigation}) => {
     }, [])
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={ styles.container }>
+            <Bomb></Bomb>
             <CustomModal
                 isModalVisible={appExitModal} setModalVisible={setAppExitModal} title={'앱을 종료하시겠습니까?'}
                 leftButton={'아니오'} rightButton={'네'} rightButtonFunction={BackHandler.exitApp}

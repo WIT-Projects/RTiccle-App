@@ -1,0 +1,49 @@
+import React from 'react';
+import {View, TouchableOpacity, Text, StyleSheet, BackHandler} from 'react-native';
+import colors from '../../theme/colors';
+import {type} from '../../theme/fonts';
+
+const ErrorFallback = ( { error } ) =>
+{
+    const restartApp = () =>
+    {
+        alert('reset-')
+    }
+    return (
+        <View style={styles.container}>
+            <Text style={styles.errorText}>네트워크 연결에 문제가 생겼어요.</Text>
+            <Text style={styles.errorText}>확인 후 다시 시도해주세요.</Text>
+            <Text style={styles.errorText}>Error : { error.message }</Text>
+            <TouchableOpacity style={ styles.homeButton } onPress={()=> restartApp()}>
+                <Text style={ styles.homeButtonText }>홈으로</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.white,
+        alignItems: 'center',
+        justifyContent:'center'
+    },
+    errorText: {
+        fontFamily: type.notoSansKR_Regular,
+        fontSize: 16,
+        lineHeight: 26,
+    },
+    homeButton: {
+        marginTop: 50,
+        backgroundColor: colors.main,
+        paddingHorizontal: 50,
+        paddingVertical: 10,
+        borderRadius:24
+    },
+    homeButtonText: {
+        color: colors.white,
+        
+    }
+});
+
+export default ErrorFallback;
