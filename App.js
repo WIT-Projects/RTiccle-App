@@ -9,7 +9,7 @@ import { getCurrentUser } from './src/service/AuthService';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    
+
     useEffect(() => { // initialize app data
         if (getCurrentUser() == null) { // new user
             setTimeout(() => {

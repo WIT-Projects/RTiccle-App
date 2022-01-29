@@ -3,10 +3,12 @@ import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {doDeleteGroup} from '../../../model/GroupModel';
 import {useNavigation} from '@react-navigation/native';
 import useGroupChanged from '../../../context/hook/useGroupChanged';
+import { useErrorHandler } from 'react-error-boundary'
 
 const GroupDeleteButton = ({groupData}) => {
     const navigation = useNavigation();
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
+    const handleError = useErrorHandler() // for error handling
 
     console.log(groupData);
     return (
@@ -16,8 +18,8 @@ const GroupDeleteButton = ({groupData}) => {
                     doDeleteGroup(groupData);
                     setIsGroupChanged(!isGroupChanged);
                     navigation.navigate('Home');
-                } catch (error) {
-                    console.error(error);
+                } catch (err) {
+                    handleError(err)
                 }
             }}>
             <Image style={styles.deleteButton} source={require('../../../assets/icon/trashCan.png')}></Image>
