@@ -18,7 +18,7 @@ const GroupCreateImage = ({navigation}) => {
     mainImage == '' || mainImage == null ? (source = require('../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
     return (
-        <View style={ styles.container }>
+        <View style={styles.container}>
             <PhotoModal
                 setImage={setGroupImage}
                 isModalVisible={isModalVisible}

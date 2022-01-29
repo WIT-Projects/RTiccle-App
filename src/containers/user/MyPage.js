@@ -12,7 +12,7 @@ const MyPage = () => {
     const [userProfile, setUserProfile] = useState({
         name: '',
         email: '',
-    } )
+    })
     // Error handling example
     // const Bomb = () => {
     //     throw new Error('MyPage rendering error')
@@ -27,7 +27,7 @@ const MyPage = () => {
     }, [isGuest])
 
     return (
-        <View style={ styles.container }>
+        <View style={styles.container}>
             {/* <Bomb></Bomb> */}
             <Text style={styles.myInfo}>내 정보</Text>
             { isGuest ? <Guest setIsGuest={setIsGuest}/> : <User userProfile={userProfile}/> }
