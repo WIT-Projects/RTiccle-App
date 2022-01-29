@@ -8,7 +8,6 @@ const GroupDeleteButton = ({groupData}) => {
     const navigation = useNavigation();
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
-    console.log(groupData);
     return (
         <TouchableOpacity
             onPress={() => {

@@ -39,7 +39,6 @@ const TiccleDetail = ({route}) => {
 
         const ticcleData = route.params.ticcleData;
         setTiccleDetailIncludeImageUrl(ticcleData, setTiccleDetail);
-        console.log(ticcleData);         
         return () => backHandler.remove();
     }, [route]);
 

@@ -11,8 +11,6 @@ const BookmarkGroup = ({groupData}) => {
         : (source = {uri: groupData.imageUrl});
 
     useEffect(() => {
-        console.log('BookmarkGroup=================');
-        console.log(groupData);
         navigation.setParams({groupData: groupData});
     }, [groupData]);
 

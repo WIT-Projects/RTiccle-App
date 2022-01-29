@@ -24,7 +24,6 @@ const TiccleUpdateScreen = ({route}) => {
     const scrollRef = useRef();
     
     useEffect(()=> {
-        console.log(route);
         const ticcle = route.params.ticcleData;
         setTiccleUpdate(ticcle);
         setOriginalTiccle(ticcle);

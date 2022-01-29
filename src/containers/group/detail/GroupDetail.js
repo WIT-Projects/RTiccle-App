@@ -22,6 +22,8 @@ const GroupDetail = ({route, navigation}) => {
     useEffect(() => {
         // get/set ticcle List
         getTiccleListByGId(route.params.groupData.id).then(() => {
+            console.log("ticclelist --------- ", ticcleList);
+            console.log(ticcleList);    
             setList(ticcleList);
             setIsTiccleListChanged(!isTiccleListChanged); // notify ticcle changed
         });
