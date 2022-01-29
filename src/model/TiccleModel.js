@@ -6,6 +6,7 @@ import {
     findTiccleListByGroupId,
     findImagesOfTiccle,
 } from "../service/TiccleService";
+import { updateGroupInfoOfList } from "./GroupModel";
 
 /*
  * Ticcle data
@@ -28,9 +29,10 @@ function setNewTiccleList(_groupId, _ticcleList){
     groupId = _groupId;
     ticcleList = _ticcleList;
 }
-const setTiccleListAtOne = (targetTId, ticcleData) => {
+const updateTiccleListAtOne = (targetTId, ticcleData) => {
     const idx = ticcleList.findIndex((obj => obj.id == targetTId));
-    ticcleList[idx] = ticcleData;
+    ticcleList.splice(idx, 1);
+    ticcleList.unshift(ticcleData);
 }
 const deleteOneTiccleOfList = targetTId => {
     const idx = ticcleList.findIndex((obj => obj.id == targetTId));
@@ -69,7 +71,8 @@ async function doCreateTiccle(ticcleData, images) {
     const newTiccleInfo = await uploadNewTiccle(ticcleData, images);
 
     // to local data
-    ticcleList = [...ticcleList, newTiccleInfo];
+    updateGroupInfoOfList(ticcleData.groupId, ticcleData.title, true, true); // update ticcleNum and latestTiccleTitle at local group data
+    ticcleList = [newTiccleInfo, ...ticcleList];
     return new Promise(resolve => {
         resolve(newTiccleInfo);
     });
@@ -83,6 +86,7 @@ async function doCreateTiccle(ticcleData, images) {
  * Support info:
  * *  {
         title: String,
+        groupId: String,
         link: String, // URL of original content
         content: String,
         tagList: Array<String>
@@ -114,9 +118,11 @@ async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, imag
 
     // to local data
     const oldInfo = ticcleList.find(t => t.id == ticcleId)
-    setTiccleListAtOne(ticcleId, {...oldInfo, ...info});
+    const updateInfo = {...oldInfo, ...info};
+    updateGroupInfoOfList(groupId, updateInfo.title, false); // update latestTiccleTitle at local group data
+    updateTiccleListAtOne(ticcleId, updateInfo);
     return new Promise(resolve => {
-        resolve({...oldInfo, ...info});
+        resolve(updateInfo);
     });
 }
 
@@ -130,6 +136,7 @@ function doDeleteTiccle(ticcleData) {
 
     // to local data
     deleteOneTiccleOfList(ticcleData.id);
+    updateGroupInfoOfList(ticcleData.groupId, null, true, false); // update ticcleNum at local group data
 }
 
 /**

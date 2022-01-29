@@ -30,6 +30,21 @@ const deleteOneGroupOfList = targetGId => {
     const idx = groupList.findIndex(obj => obj.id == targetGId);
     groupList.splice(idx, 1);
 };
+const updateGroupInfoOfList = (targetGId, latestTiccleTitle, isTiccleNum, isPlus) => {
+    const idx = groupList.findIndex(obj => obj.id == targetGId);
+
+    const updateInfo = {};
+    if (latestTiccleTitle != null) {
+        updateInfo.latestTiccleTitle = latestTiccleTitle;
+    }
+    if (isTiccleNum) {
+        var ticcleNum = groupList[idx].ticcleNum;
+        ticcleNum = isPlus ? ticcleNum +1 : ticcleNum = ticcleNum - 1;
+        updateInfo.ticcleNum = ticcleNum;
+    }
+    
+    groupList[idx] = {...groupList[idx], ...updateInfo};
+}
 
 // limit
 const limitGroupNum = 20;
@@ -193,4 +208,5 @@ export {
     checkIsFullGroupNum,
     getTotalTiccleNum,
     checkIsFullTiccleNum,
+    updateGroupInfoOfList,
 };
