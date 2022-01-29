@@ -15,7 +15,7 @@ const TiccleImageGroup = ({setPhotoModalVisible, ticcleImages, deleteTiccleImage
     return(
         <View style={styles.container}>
             {ticcleImageList}
-            {ticcleImages.length < 3 ? <TiccleCreatePlusBox setPhotoModalVisible={setPhotoModalVisible}/> : null}    
+            {ticcleImages.length < 2 ? <TiccleCreatePlusBox setPhotoModalVisible={setPhotoModalVisible}/> : null}    
         </View>
     )
 }
