@@ -12,11 +12,11 @@ const MyMount = () => {
     const mountData = [
         { 
             image: require('../../../assets/images/mount1.png'),
-            name: "찌끄마한 산"
+            name: "언덕"
         },
         { 
             image: require('../../../assets/images/mount2.png'),
-            name:"쪼그마한 산"
+            name:"동산"
          },
         { 
             image: require('../../../assets/images/mount3.png'),
@@ -24,16 +24,12 @@ const MyMount = () => {
          },
         { 
             image: require('../../../assets/images/mount4.png'),
-            name: "뒷산"
+            name: "큰 산"
          },
         { 
             image: require('../../../assets/images/mount5.png'),
-            name:"어엿한 산"
+            name:"태산"
          },
-        { 
-            image: require('../../../assets/images/mount6.png'),
-            name: "태산"
-        },
     ]
 
     useEffect(() => {
@@ -47,10 +43,8 @@ const MyMount = () => {
             setSection(2);
         }else if(ticcleCount<=80){
             setSection(3);
-        }else if(ticcleCount<=100){
-            setSection(4);
         }else{
-            setSection(5);
+            setSection(4);
         }
     }, [isGroupChanged]);
 
@@ -60,7 +54,8 @@ const MyMount = () => {
                 resizeMode="cover"
                 style={styles.imageContainer}>
                 <View style={styles.container}>
-                    <Text style={styles.blackFont}>곧 {mountData[section+1].name}으로 갈 수 있어요.</Text>
+                    {section == 4 ? <Text style={styles.blackFont}>멋져요! 드디어 태산이 되었네요!</Text>
+                    : <Text style={styles.blackFont}>곧 {mountData[section+1].name}으로 갈 수 있어요.</Text>}
                     <Text style={styles.whiteFont}>{mountData[section].name}</Text>
                 </View>
             </ImageBackground>

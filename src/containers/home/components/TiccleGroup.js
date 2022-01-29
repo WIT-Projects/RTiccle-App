@@ -29,7 +29,7 @@ const TiccleGroup = ({groupData}) => {
                     <View style={styles.groupInfo}>
                         <Text style={styles.subFont}>{groupData.title}</Text>
                         <Text style={styles.whiteFont}>최신글</Text>
-                        <Text style={styles.whiteFont}>{groupData.latestTiccleTitle}</Text>
+                        <Text style={styles.whiteFont}>{groupData.ticcleNum == 0 ? "" : groupData.latestTiccleTitle}</Text>
                         <View style={styles.ticcleNum}>
                             <Text style={styles.blackFont}>+{groupData.ticcleNum}</Text>
                         </View>
