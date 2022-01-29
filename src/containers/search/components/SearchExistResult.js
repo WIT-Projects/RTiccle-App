@@ -6,31 +6,38 @@ import { groupList } from '../../../model/GroupModel';
 import { ticcleList } from '../../../model/TiccleModel';
 import { useNavigation } from '@react-navigation/native';
 import { timeStampToFormatDate } from '../../../service/CommonService';
+import { findTiccleById } from '../../../service/TiccleService';
 
-const SearchExistResult = ({ ticcle }) => {
+const SearchExistResult = ({ ticcle, isGroupDetail }) => {
     const navigateTo = useNavigation();
     const ticcleData = getTiccle();
     let ticcleDate = timeStampToFormatDate(ticcleData.lastModifiedTime);
 
-    function getTitle() {
+    function getGroupTitle() {
         const idx = groupList.findIndex(obj => obj.id === ticcle.groupId);
         return groupList[idx].title;
     }
 
-    function getTiccle(){
-        const idx = ticcleList.findIndex(obj => obj.id === ticcle.id);
-        return ticcleList[idx];
+    function getTiccle() {
+        if (isGroupDetail) {
+            const idx = ticcleList.findIndex(obj => obj.id === ticcle.id);
+            return ticcleList[idx];
+        } else {
+            findTiccleById(ticcle.id).then((res) => {
+                return res;
+            });
+        }
     }
 
     const goToTiccleDetail = () => {
-        navigateTo.navigate('TiccleDetail', {ticcleData: ticcleData});
+        navigateTo.navigate('TiccleDetail', { ticcleData: ticcleData });
     }
 
     return (
         <View style={styles.container} onTouchEnd={goToTiccleDetail}>
             <Text style={styles.dateFont}>{ticcleDate}</Text>
             <View style={styles.container2}>
-                <Text style={styles.groupFont}>{getTitle(ticcle.groupId)}</Text>
+                <Text style={styles.groupFont}>{getGroupTitle(ticcle.groupId)}</Text>
                 <Text style={styles.titleFont}>{ticcle.title}</Text>
                 <View style={styles.tagContainer}>
                     {ticcle.tagList.map((item, index) => { return (<Text style={styles.tagFont} key={index}>#{item} </Text>) })}

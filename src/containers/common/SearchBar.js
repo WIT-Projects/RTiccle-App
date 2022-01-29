@@ -18,7 +18,7 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setExistResult, setPres
         setPressSearchBtn(true);
     }
 
-    const pressDeleteSearchBtn = (e) => {
+    const pressDeleteSearchBtn = () => {
         setSearchInput('');
         setPressSearchBtn(false);
     }
