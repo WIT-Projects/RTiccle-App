@@ -62,7 +62,6 @@ const GroupInfo = ({groupData, navigation}) => {
                 <ImageBackground source={require('../../../../assets/images/gradation2.png')} resizeMode="cover" style={styles.groupMainImage}>
                     <View style={styles.headerContainer}>
                         <TouchableOpacity
-                            style={styles.backBtn}
                             onPress={() => {
                                 navigation.navigate('Home');
                             }}>

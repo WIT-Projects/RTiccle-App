@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     modal: {
         margin: 0,
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
     },
     container: {
         width: '100%',

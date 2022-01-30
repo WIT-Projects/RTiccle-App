@@ -5,6 +5,7 @@ import {type} from '../../../theme/fonts';
 import GroupUpdateSaveButton from './components/GroupUpdateSaveButton';
 import GroupUpdateInfo from './components/GroupUpdateInfo';
 import useGroupUpdate from '../../../context/hook/useGroupUpdate';
+import GroupUpdateHeader from './components/GroupUpdateHeader';
 
 const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate} = useGroupUpdate();
@@ -18,6 +19,7 @@ const GroupUpdate = ({navigation, route}) => {
 
     return (
         <View style={styles.container}>
+            <GroupUpdateHeader modalActive={modalActive}></GroupUpdateHeader>
             <View style={styles.groupInfo}>
                 <GroupUpdateInfo
                     navigation={navigation}
@@ -29,11 +31,9 @@ const GroupUpdate = ({navigation, route}) => {
                     modalActive={modalActive}
                     setModalActive={setModalActive}></GroupUpdateInfo>
             </View>
-            {!modalActive && (
-                <View style={styles.saveButton}>
-                    <GroupUpdateSaveButton navigation={navigation} initialData={initialData}></GroupUpdateSaveButton>
-                </View>
-            )}
+            <View style={styles.saveButton}>
+                <GroupUpdateSaveButton navigation={navigation} initialData={initialData}></GroupUpdateSaveButton>
+            </View>
         </View>
     );
 };
@@ -45,16 +45,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
     },
     groupInfo: {
-        paddingBottom: 28,
-    },
-    title: {
-        fontFamily: type.spoqaHanSansNeo_Bold,
-        fontSize: 16,
-        paddingLeft: 22,
-        paddingBottom: 46,
+        marginTop: 151,
     },
     saveButton: {
-        paddingTop: 300,
+        marginTop: 173,
     },
 });
 
