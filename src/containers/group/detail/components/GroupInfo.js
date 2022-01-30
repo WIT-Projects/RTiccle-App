@@ -4,21 +4,22 @@ import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
 import {doUpdateGroup} from '../../../../model/GroupModel';
+import {doDeleteGroup} from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
-import GroupDeleteButton from '../../delete/GroupDeleteButton';
+import GroupKebabModal from './GroupKebabModal';
+import {useErrorHandler} from 'react-error-boundary';
 
 const GroupInfo = ({groupData, navigation}) => {
-    const {setGroupUpdate} = useGroupUpdate();
-
-    let source =
-        groupData.imageUrl == null || groupData.imageUrl == '' ? require('../../../../assets/images/blankImage.png') : {uri: groupData.imageUrl};
-
+    let source = groupData.imageUrl == null || groupData.imageUrl == '' ? require('../../../../assets/images/blankImage.png') : {uri: groupData.imageUrl};
+    const {initialGroupUpdate} = useGroupUpdate();
     const [isBookmark, setIsBookmark] = useState(groupData.bookmark);
-
+    const [isExistGroupDesc, setIsExistGroupDesc] = useState(groupData.description);
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
+    const [isModalVisible, setModalVisible] = useState(false);
+    const handleError = useErrorHandler(); // for error handling
 
-    function setFirebaseBookmark() {
+    const setFirebaseBookmark = () => {
         if (isBookmark == true) {
             setIsBookmark(false);
             doUpdateGroup(groupData.id, {bookmark: false}, false);
@@ -27,50 +28,63 @@ const GroupInfo = ({groupData, navigation}) => {
             doUpdateGroup(groupData.id, {bookmark: true}, false);
         }
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
-    }
+    };
+    const moveToGroupUpdate = () => {
+        setModalVisible(false);
+        initialGroupUpdate();
+        navigation.navigate('GroupUpdate', {
+            groupData: groupData,
+        });
+    };
+    const deleteGroup = () => {
+        try {
+            setModalVisible(false);
+            doDeleteGroup(groupData);
+            setIsGroupChanged(!isGroupChanged);
+            navigation.navigate('Home');
+        } catch (err) {
+            handleError(err);
+        }
+    };
 
     return (
         <>
-            <ImageBackground source={source} resizeMode="cover" style={styles.container5}>
-                <ImageBackground source={require('../../../../assets/images/gradation2.png')} resizeMode="cover" style={styles.container5}>
-                    <View style={styles.backDeleteContainer}>
-                        <Image
+            <GroupKebabModal
+                isModalVisible={isModalVisible}
+                setModalVisible={setModalVisible}
+                option1={'수정하기'}
+                option2={'삭제하기'}
+                option1Function={moveToGroupUpdate}
+                option2Function={deleteGroup}
+                top={43}
+                right={12}></GroupKebabModal>
+            <ImageBackground source={source} resizeMode="cover" style={styles.groupMainImage}>
+                <ImageBackground source={require('../../../../assets/images/gradation2.png')} resizeMode="cover" style={styles.groupMainImage}>
+                    <View style={styles.headerContainer}>
+                        <TouchableOpacity
                             style={styles.backBtn}
-                            onTouchEnd={() => {
+                            onPress={() => {
                                 navigation.navigate('Home');
-                            }}
-                            source={require('../../../../assets/icon/backWhite.png')}
-                        />
-                        <GroupDeleteButton groupData={groupData} style={styles.deleteButton}></GroupDeleteButton>
+                            }}>
+                            <Image source={require('../../../../assets/icon/backWhite.png')} />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                setModalVisible(true);
+                            }}>
+                            <Image source={require('../../../../assets/icon/kebabMenu.png')}></Image>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.container}>
-                        <View style={styles.container2}>
-                            <View style={styles.container3}>
-                                <Text style={styles.title}>{groupData.title}</Text>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        setGroupUpdate([]);
-                                        navigation.navigate('GroupUpdate', {
-                                            groupData: groupData,
-                                        });
-                                    }}>
-                                    <Image style={styles.pencil} source={require('../../../../assets/icon/pencil.png')}></Image>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.container4}>
-                                <Text style={styles.content}>{groupData.description}</Text>
-                                <Image
-                                    style={styles.star}
-                                    onTouchEnd={() => {
-                                        setFirebaseBookmark();
-                                    }}
-                                    source={
-                                        isBookmark
-                                            ? require('../../../../assets/icon/bookmarkTrue.png')
-                                            : require('../../../../assets/icon/bookmarkFalse.png')
-                                    }></Image>
-                            </View>
+                    <View style={styles.groupInfoContainer}>
+                        <View>
+                            <Text style={styles.title}>{groupData.title}</Text>
+                            {isExistGroupDesc ? <Text style={styles.description}>{groupData.description}</Text> : null}
                         </View>
+                        <Image
+                            onTouchEnd={() => {
+                                setFirebaseBookmark();
+                            }}
+                            source={isBookmark ? require('../../../../assets/icon/bookmarkTrue.png') : require('../../../../assets/icon/bookmarkFalse.png')}></Image>
                     </View>
                 </ImageBackground>
             </ImageBackground>
@@ -79,61 +93,35 @@ const GroupInfo = ({groupData, navigation}) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+    groupMainImage: {
+        width: metrics.screenWidth,
+        height: 256,
+    },
+    headerContainer: {
+        paddingHorizontal: 18,
+        height: 58,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    groupInfoContainer: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-end',
-    },
-    container2: {
-        flexDirection: 'column',
-    },
-    container3: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    container4: {
-        flexDirection: 'row',
         justifyContent: 'space-between',
-        width: metrics.screenWidth,
-        alignItems: 'center',
-        paddingRight: 18,
-    },
-    container5: {
-        width: '100%',
-        height: 256,
-    },
-    pencil: {
-        marginTop: 10,
-    },
-    star: {
-        marginBottom: 12,
+        paddingHorizontal: 17,
+        paddingBottom: 17,
     },
     title: {
         fontSize: 24,
         color: colors.white,
-        fontWeight: 'bold',
-        marginLeft: 18,
-        marginTop: 8,
-        marginRight: 8,
         fontFamily: type.spoqaHanSansNeo_Bold,
     },
-    content: {
+    description: {
         fontSize: 16,
         color: colors.white,
-        marginLeft: 18,
-        marginBottom: 18,
         fontFamily: type.spoqaHanSansNeo_Regular,
-    },
-    backBtn: {
-        width: 8,
-        height: 16,
-    },
-    backDeleteContainer: {
-        paddingHorizontal: 18,
-        paddingTop: 21,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        paddingTop: 8,
     },
 });
 
