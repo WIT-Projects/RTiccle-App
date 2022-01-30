@@ -6,7 +6,7 @@ import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 
 const CustomModal = ({isModalVisible, setModalVisible, title, leftButton, rightButton,
-rightButtonFunction, rightButtonStyle}) => {
+rightButtonFunction, rightButtonStyle, warning}) => {
     return(
         <Modal
             isVisible={isModalVisible}
@@ -19,6 +19,11 @@ rightButtonFunction, rightButtonStyle}) => {
             hideModalContentWhileAnimating={true}
         >
             <View style={styles.container}>
+                {warning ?
+                <View style={styles.warningContainer}>
+                    <Text style={styles.warningText}>주의</Text>
+                </View>
+                : null}
                 <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{title}</Text>
                 </View>
@@ -49,6 +54,15 @@ const styles = StyleSheet.create({
         paddingTop : 16,
         paddingBottom: 5,
     },
+    warningContainer:{
+        alignItems: 'center',
+        paddingVertical: 4
+    },
+    warningText:{
+        fontFamily: type.spoqaHanSansNeo_Bold,
+        color: colors.red,
+        fontSize: 16
+    },
     titleContainer:{
         alignItems: 'center',
         paddingVertical: 16,
@@ -57,7 +71,8 @@ const styles = StyleSheet.create({
         fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize : 16,
         lineHeight : 20,
-        color: colors.main
+        color: colors.main,
+        textAlign: 'center'
     },
     buttonContainer:{
         flexDirection : 'row',

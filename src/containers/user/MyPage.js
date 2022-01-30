@@ -7,11 +7,9 @@ import GuestGuide from './components/guest/GusetGuide';
 import User from './components/User';
 import { type } from '../../theme/fonts';
 import { currentUser, getUserProfile } from '../../service/AuthService';
-import PrivacyModal from './components/PrivacyModal';
 
 const MyPage = () => {
     const [isGuest, setIsGuest] = useState(true);
-    const [privacyModalVisible, setPrivacyModalVisible] = useState(false);
     const [userProfile, setUserProfile] = useState({
         name: '',
         email: '',
@@ -31,16 +29,12 @@ const MyPage = () => {
 
     return (
         <>
-            <PrivacyModal
-                isModalVisible={privacyModalVisible} setModalVisible={setPrivacyModalVisible}
-            />
             <View style={styles.container}>
                 <Text style={styles.myInfo}>내 정보</Text>
-                { isGuest ? <GuestInfo setIsGuest={setIsGuest}/> : <User userProfile={userProfile}/> }
+                { isGuest ? <GuestInfo setIsGuest={setIsGuest}/> : <User userProfile={userProfile}/>}
                 <View style={styles.block}></View>
                 <Setting 
                     isGuest={isGuest} setIsGuest={setIsGuest}
-                    setPrivacyModalVisible={setPrivacyModalVisible}
                 />
                 { isGuest ? <GuestGuide /> : null }
             </View>
