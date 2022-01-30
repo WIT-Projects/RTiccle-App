@@ -10,7 +10,7 @@ const SearchExistResultList = (isGroupDetail) => {
             {isGroupDetail? null : <Text style={styles.resultText}>총 {searchList.length}개의 검색결과</Text>}
             <ScrollView>
                 {searchList.map((item, index) => {
-                    return (<SearchExistResult key={index} ticcle={item} />)
+                    return (<SearchExistResult key={index} ticcle={item} isGroupDetail={isGroupDetail} />)
                 })}
             </ScrollView>
         </>

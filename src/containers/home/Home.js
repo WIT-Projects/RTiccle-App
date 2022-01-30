@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {View, ScrollView, StyleSheet, Button, BackHandler} from 'react-native';
+import {ScrollView, StyleSheet, BackHandler} from 'react-native';
 import MyMount from './components/MyMount';
 import BookmarkGroupList from './components/BookmarkGroupList';
 import NewTiccleGroupList from './components/NewTiccleGroupList';
 import colors from '../../theme/colors';
 import CustomModal from '../common/CustomModal';
+import { initAlgolia } from '../../service/SearchService';
 
 const Home = ({navigation}) => {
     const [appExitModal, setAppExitModal] = useState(false)
     
     useEffect(() => {
+        initAlgolia();
         // Home BackButton
         const backAction = () => {
             setAppExitModal(true)

@@ -9,7 +9,7 @@ const SearchScreen = () => {
 
     return (
         <>
-            <SearchBar setPressSearchBtn={setPressSearchBtn} setExistResult = {setExistResult} placeholderContext="제목, #태그 등을 입력하세요." />
+            <SearchBar isSearchScreen={true} setPressSearchBtn={setPressSearchBtn} setExistResult = {setExistResult} placeholderContext="제목, #태그 등을 입력하세요." />
             {existResult ? <SearchExistResultList isGroupDetail={false} /> : <SearchZeroResult />}
         </>
     );

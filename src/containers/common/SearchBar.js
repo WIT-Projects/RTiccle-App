@@ -1,32 +1,34 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput, View, Image } from "react-native";
-import { searchTiccleByTitltAndTag } from '../../model/SearchModel';
+import { searchTiccleByTitltAndTag, searchTiccleByTitltAndTagInGroup} from '../../model/SearchModel';
 import colors from '../../theme/colors';
+import { ticcleList } from '../../model/TiccleModel';
 
-const SearchBar = ({ placeholderContext, setExistResult, setPressSearchBtn, pressSearchBtn }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setExistResult, setPressSearchBtn, pressSearchBtn }) => {
     const [searchInput, setSearchInput] = useState("");
 
-    function getSearchResult(){
+    function getSearchResult() {
         let query = searchInput.split(" ");
         let tagQuery = [];
         query.map((item) => {
-            item.search("#") !==-1 ? tagQuery.push(item.replace('#','')) : null
-        })
-        searchTiccleByTitltAndTag(query, tagQuery, setExistResult);
+            item.search("#") !== -1 ? tagQuery.push(item.replace('#', '')) : null
+        });
+        console.log("태그:"+tagQuery);
+        {isSearchScreen? searchTiccleByTitltAndTag(query, tagQuery, setExistResult): searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery, setExistResult)}
         setPressSearchBtn(true);
     }
-    
-    const pressDeleteSearchBtn = (e) =>{
+
+    const pressDeleteSearchBtn = () => {
         setSearchInput('');
-        setPressSearchBtn(false); 
+        setPressSearchBtn(false);
     }
 
     return (
         <>
             <View style={styles.container}>
                 <TextInput style={styles.textInput} value={searchInput} onChangeText={(text) => setSearchInput(text)} placeholder={placeholderContext}></TextInput>
-                {pressSearchBtn? <Image source={require('../../assets/icon/deleteSearch.png')} onTouchEnd={() => pressDeleteSearchBtn()}/> : null}
-                <Image onTouchEnd={() => {getSearchResult()}} style={styles.icon} source={require('../../assets/icon/search.png')}></Image>
+                {pressSearchBtn ? <Image source={require('../../assets/icon/deleteSearch.png')} onTouchEnd={() => pressDeleteSearchBtn()} /> : null}
+                <Image onTouchEnd={() => { getSearchResult() }} style={styles.icon} source={require('../../assets/icon/search.png')}></Image>
                 <Image style={styles.icon} source={require('../../assets/icon/line.png')}></Image>
                 <Image style={styles.icon} source={require('../../assets/icon/menu.png')}></Image>
             </View>
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
-    icon:{
+    icon: {
         marginLeft: 18,
     }
 })
