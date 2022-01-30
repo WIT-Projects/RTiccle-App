@@ -2,6 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import { currentUser } from './AuthService';
 import { uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage } from './ImageService';
 import { updateGroupInfo, updateTiccleNumOfGroup } from './GroupService';
+import { getKSTTime } from './CommonService';
 
 const collection = firestore().collection('RTiccle');
 
@@ -47,7 +48,7 @@ function uploadNewTiccle(ticcle, images) {
     updateTiccleNumOfGroup(ticcle.groupId, true);
     updateGroupInfo(ticcle.groupId, {latestTiccleTitle: ticcle.title})
     // upload ticcle info
-    return createTiccle({ ...ticcle, images: imageArr, lastModifiedTime: Date.now() });
+    return createTiccle({ ...ticcle, images: imageArr, lastModifiedTime: getKSTTime() });
 }
 
 
@@ -67,7 +68,7 @@ function uploadNewTiccle(ticcle, images) {
  */
 function updateTiccleInfo(groupId, ticcleId, newInfo) {
     const ref = collection.doc(currentUser.uid).collection("Ticcle").doc(ticcleId);
-    var updateInfo = {...newInfo, lastModifiedTime: Date.now()};
+    var updateInfo = {...newInfo, lastModifiedTime: getKSTTime()};
     ref.update(updateInfo);
     if (newInfo.title) updateGroupInfo(groupId, {latestTiccleTitle: newInfo.title}) // 최근 title 은 업데이트순
 }
