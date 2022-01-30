@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from "react-native";
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
@@ -10,23 +10,30 @@ import { findTiccleById } from '../../../service/TiccleService';
 
 const SearchExistResult = ({ ticcle, isGroupDetail }) => {
     const navigateTo = useNavigation();
-    const ticcleData = getTiccle();
-    let ticcleDate = timeStampToFormatDate(ticcleData.lastModifiedTime);
+    let ticcleData = getTiccle();
+    const [ticcleDate, setTiccleDate] = useState('');
+
+    function getTiccle(){
+        if(isGroupDetail === true){
+            const idx = ticcleList.findIndex(obj => obj.id === ticcle.id);
+            ticcleData = ticcleList[idx];
+            setTiccleDate(timeStampToFormatDate(ticcleData.lastModifiedTime));
+        }else{
+            getTiccleByServer(ticcle.id).catch(
+                err => handleError(err)
+            );
+        }
+    }
 
     function getGroupTitle() {
         const idx = groupList.findIndex(obj => obj.id === ticcle.groupId);
         return groupList[idx].title;
     }
 
-    function getTiccle() {
-        if (isGroupDetail) {
-            const idx = ticcleList.findIndex(obj => obj.id === ticcle.id);
-            return ticcleList[idx];
-        } else {
-            findTiccleById(ticcle.id).then((res) => {
-                return res;
-            });
-        }
+    async function getTiccleByServer(ticcleId) {
+        const result = await findTiccleById(ticcleId);
+        ticcleData = result;
+        setTiccleDate(timeStampToFormatDate(ticcleData.lastModifiedTime));
     }
 
     const goToTiccleDetail = () => {
