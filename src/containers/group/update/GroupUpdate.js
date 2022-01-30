@@ -9,10 +9,12 @@ import GroupUpdateHeader from './components/GroupUpdateHeader';
 
 const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate} = useGroupUpdate();
-    const [initialData, setInitialData] = useState([]);
+    const [initialData, setInitialData] = useState({});
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
 
-    useEffect(() => {
+    useEffect( () =>
+    {
+        const JSONGroupData = JSON.parse(JSON.stringify(route.params.groupData))
         setInitialData(route.params.groupData);
         setGroupUpdate(route.params.groupData);
     }, []);
@@ -24,7 +26,8 @@ const GroupUpdate = ({navigation, route}) => {
                 <GroupUpdateInfo
                     navigation={navigation}
                     style={styles.groupInfo}
-                    initialData={initialData}
+                    initialData={ initialData }
+                    setInitialData={setInitialData}
                     mainImage={groupUpdate.imageUrl}
                     title={groupUpdate.title}
                     description={groupUpdate.description}

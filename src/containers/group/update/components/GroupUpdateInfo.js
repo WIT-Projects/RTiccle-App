@@ -8,7 +8,7 @@ import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import GroupUpdateTitleModal from './GroupUpdateTitleModal';
 import GroupUpdateDescriptionModal from './GroupUpdateDescriptionModal';
 
-const GroupUpdateInfo = ({mainImage, title, description, setModalActive, initialData}) => {
+const GroupUpdateInfo = ({mainImage, title, description, setModalActive, initialData, setInitialData}) => {
     const {setGroupUpdateImage} = useGroupUpdate();
     let source;
     mainImage == null || mainImage == '' ? (source = require('../../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
@@ -20,12 +20,14 @@ const GroupUpdateInfo = ({mainImage, title, description, setModalActive, initial
             <PhotoModal setImage={setGroupUpdateImage} isModalVisible={isPhotoModalVisible} setModalVisible={setPhotoModalVisible} width={412} height={256}></PhotoModal>
             <GroupUpdateTitleModal
                 initialData={initialData}
+                setInitialData={setInitialData}
                 isModalVisible={isTitleModalVisible}
                 setModalVisible={setTitleModalVisible}
                 setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
                 title={title}></GroupUpdateTitleModal>
             <GroupUpdateDescriptionModal
                 initialData={initialData}
+                setInitialData={setInitialData}
                 isModalVisible={isDescModalVisible}
                 setModalVisible={setDescModalVisible}
                 setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.

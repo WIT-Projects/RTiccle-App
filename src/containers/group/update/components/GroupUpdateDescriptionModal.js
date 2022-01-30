@@ -1,21 +1,29 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 
-const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalActive, description, initialData}) => {
+const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalActive, description, initialData, setInitialData}) => {
     const {setGroupUpdateDescription} = useGroupUpdate();
     let groupDescriptionLength;
     const maxLength = 23;
-    const [isMaxLength, setIsMaxLength] = useState(false);
 
     if (description != null) groupDescriptionLength = description.length;
 
-    useEffect(() => {
-        groupDescriptionLength === maxLength ? setIsMaxLength(true) : setIsMaxLength(false);
-    }, [description]);
+    const cancelGroupUpdateDesc = () => {
+        setModalVisible(false);
+        setModalActive(false);
+        setGroupUpdateDescription(initialData.description);
+    };
+
+    const saveGroupUpdateDesc = () =>
+    {
+        setInitialData({...initialData, description})
+        setModalVisible(false);
+        setModalActive(false);
+    };
 
     return (
         <Modal style={styles.modal} isVisible={isModalVisible}>
@@ -24,9 +32,7 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
-                            setModalVisible(false);
-                            setModalActive(false);
-                            setGroupUpdateDescription(initialData.description);
+                            cancelGroupUpdateDesc();
                         }}>
                         <Text style={styles.defaultText}>취소</Text>
                     </TouchableOpacity>
@@ -34,25 +40,24 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
-                            setModalVisible(false);
-                            setModalActive(false);
+                            saveGroupUpdateDesc();
                         }}>
                         <Text style={styles.defaultText}>저장</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={[styles.underline, isMaxLength ? styles.red : null]}>
+                <View style={styles.underline}>
                     <TextInput autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateDescription} maxLength={maxLength}>
                         {description}
                     </TextInput>
                     <TouchableOpacity
-                        style={styles.editButton}
+                        style={styles.deleteButton}
                         onPress={() => {
                             setGroupUpdateDescription('');
                         }}>
-                        <Image style={isMaxLength ? styles.xCircleRed : null} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
+                        <Image source={require('../../../../assets/images/xCircleWhite.png')}></Image>
                     </TouchableOpacity>
                 </View>
-                <Text style={[styles.textCount, isMaxLength ? styles.red : null]}>
+                <Text style={styles.textCount}>
                     {groupDescriptionLength}/{maxLength}
                 </Text>
             </View>
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
     },
     underline: {
         width: '100%',
-        paddingTop: 308,
+        paddingTop: 280,
         borderBottomWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -106,16 +111,9 @@ const styles = StyleSheet.create({
         paddingTop: 15,
         color: colors.white,
     },
-    editButton: {
+    deleteButton: {
         paddingLeft: 20,
         paddingVertical: 10,
-    },
-    red: {
-        borderColor: colors.red,
-        color: colors.red,
-    },
-    xCircleRed: {
-        tintColor: colors.red,
     },
 });
 
