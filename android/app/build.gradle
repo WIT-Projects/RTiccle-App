@@ -215,6 +215,8 @@ dependencies {
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics'
+
+    implementation project(':react-native-restart')
 }
 
 // Run this once to be able to run the application with BUCK

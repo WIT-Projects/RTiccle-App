@@ -61,9 +61,9 @@ async function getAllGroupIncludeImages() {
         description: String,
         bookmark: Boolean, // true if bookmarked
     }
- * @param {*} mainImageSource: main image source of group
- * @returns {Promise<Array>} new group info
- */
+* @param {*} mainImageSource: main image source of group
+* @returns {Promise<Array>} new group info
+*/
 async function doCreateGroup(groupData, mainImageSource) {
     // to server
     var newGroupInfo = uploadNewGroup(groupData, mainImageSource);
@@ -71,6 +71,7 @@ async function doCreateGroup(groupData, mainImageSource) {
     // to local data
     groupList = [await newGroupInfo, ...groupList];
     return new Promise(resolve => {
+        // throw new Error('doCreateGroup error');
         resolve(newGroupInfo);
     });
 }

@@ -9,12 +9,14 @@ import {getTiccleListByGId} from '../../../model/TiccleModel';
 import {ticcleList} from '../../../model/TiccleModel';
 import SearchExistResultList from '../../search/components/SearchExistResultList';
 import GroupDetailFloatingButton from './components/GroupDetailFloatingButton'
+import { useErrorHandler } from 'react-error-boundary'
 
 const GroupDetail = ({route, navigation}) => {
     const [pressSearchBtn, setPressSearchBtn] = useState(false);
     const [existResult, setExistResult] = useState(false);
 
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
+    const handleError = useErrorHandler() // for error handling
 
     const [list, setList] = useState([]);
     const [group, setGroup] = useState(route.params?.groupData);
@@ -24,7 +26,9 @@ const GroupDetail = ({route, navigation}) => {
         getTiccleListByGId(route.params.groupData.id).then(() => {
             setList(ticcleList);
             setIsTiccleListChanged(!isTiccleListChanged); // notify ticcle changed
-        });
+        }).catch(
+            err => handleError(err)
+        );;
     }, []);
 
     useEffect(() => {

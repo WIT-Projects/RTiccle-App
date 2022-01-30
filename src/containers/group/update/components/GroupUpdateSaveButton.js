@@ -5,10 +5,12 @@ import {type} from '../../../../theme/fonts';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import {doUpdateGroup} from '../../../../model/GroupModel';
+import { useErrorHandler } from 'react-error-boundary'
 
 const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const {groupUpdate, initialGroupUpdate, setGroupUpdateImage} = useGroupUpdate();
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
+    const handleError = useErrorHandler() // for error handling
 
     const groupUpdateFirebase = async () => {
         let newInfo = [];
@@ -18,27 +20,27 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
         if (groupUpdate.imageUrl != initialData.imageUrl) image = groupUpdate.imageUrl; // imageUrl이지만 새로 업로드되는 이미지의 source임.
 
         const groupId = initialData.id;
-        try {
-            if (image != '') {
-                const oldImageName = initialData.mainImage;
-                const newImageSource = image;
-                const newImageUrl = await doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource);
-                setGroupUpdateImage(newImageUrl);
-            } else {
-                doUpdateGroup(groupId, newInfo, false);
-            }
-            setIsGroupChanged(!isGroupChanged); // notify groupData changed
-            navigation.navigate({
-                name: 'GroupDetail',
-                params: {
-                    groupData: groupUpdate,
-                },
-                merge: true,
-            });
-            initialGroupUpdate();
-        } catch (error) {
-            console.error(error);
+        if (image != '') {
+            const oldImageName = initialData.mainImage;
+            const newImageSource = image;
+            const newImageUrl = await doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource).catch(
+                err => handleError(err)
+            );;
+            setGroupUpdateImage(newImageUrl);
+        } else {
+            doUpdateGroup(groupId, newInfo, false).catch(
+                err => handleError(err)
+            );;
         }
+        setIsGroupChanged(!isGroupChanged); // notify groupData changed
+        navigation.navigate({
+            name: 'GroupDetail',
+            params: {
+                groupData: groupUpdate,
+            },
+            merge: true,
+        });
+        initialGroupUpdate();
     };
 
     return (
