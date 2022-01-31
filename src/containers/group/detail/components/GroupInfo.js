@@ -14,7 +14,6 @@ const GroupInfo = ({groupData, navigation}) => {
     let source = groupData.imageUrl == null || groupData.imageUrl == '' ? require('../../../../assets/images/blankImage.png') : {uri: groupData.imageUrl};
     const {initialGroupUpdate} = useGroupUpdate();
     const [isBookmark, setIsBookmark] = useState(groupData.bookmark);
-    const [isExistGroupDesc, setIsExistGroupDesc] = useState(groupData.description);
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
     const [isModalVisible, setModalVisible] = useState(false);
     const handleError = useErrorHandler(); // for error handling
@@ -77,7 +76,7 @@ const GroupInfo = ({groupData, navigation}) => {
                     <View style={styles.groupInfoContainer}>
                         <View>
                             <Text style={styles.title}>{groupData.title}</Text>
-                            {isExistGroupDesc ? <Text style={styles.description}>{groupData.description}</Text> : null}
+                            <Text style={styles.description}>{groupData.description}</Text>
                         </View>
                         <Image
                             onTouchEnd={() => {

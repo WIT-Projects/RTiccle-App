@@ -5,12 +5,12 @@ import {type} from '../../../../theme/fonts';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import {doUpdateGroup} from '../../../../model/GroupModel';
-import { useErrorHandler } from 'react-error-boundary'
+import {useErrorHandler} from 'react-error-boundary';
 
 const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const {groupUpdate, initialGroupUpdate, setGroupUpdateImage} = useGroupUpdate();
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
-    const handleError = useErrorHandler() // for error handling
+    const handleError = useErrorHandler(); // for error handling
 
     const groupUpdateFirebase = async () => {
         let newInfo = [];
@@ -23,16 +23,11 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
         if (image != '') {
             const oldImageName = initialData.mainImage;
             const newImageSource = image;
-            const newImageUrl = await doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource).catch(
-                err => handleError(err)
-            );
+            const newImageUrl = await doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource).catch(err => handleError(err));
             setGroupUpdateImage(newImageUrl);
         } else {
-            doUpdateGroup(groupId, newInfo, false).catch(
-                err => handleError(err)
-            );;
+            doUpdateGroup(groupId, newInfo, false).catch(err => handleError(err));
         }
-
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
         navigation.navigate({
             name: 'GroupDetail',
