@@ -2,13 +2,16 @@ import React from 'react';
 import { Image,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
+import useGroupChanged from '../../../../../context/hook/useGroupChanged';
 
 const TiccleDetailHeaderLeft = () => {
-    const navigateTo = useNavigation()
+    const navigateTo = useNavigation();
+    const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
     return (
         <TouchableOpacity
             style={styles.headerLeftTouchable}
             onPress={() => {
+                setIsGroupChanged(!isGroupChanged);
                 navigateTo.navigate('HomeStack');
             }}>
                 <Image source={require('../../../../../assets/images/chevron_left.png')}
