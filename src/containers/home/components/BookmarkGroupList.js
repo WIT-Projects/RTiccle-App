@@ -17,8 +17,6 @@ const BookmarkGroupList = () => {
             setExistBookmark(true);
         }
         setData(bookmarkedList);
-        console.log('\n\nBookmarkGroupList----------------------');
-        console.log(data);
     }, [isGroupChanged]);
     if (existBookmark) {
         return (

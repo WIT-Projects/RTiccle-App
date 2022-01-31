@@ -59,6 +59,7 @@ function uploadNewTiccle(ticcle, images) {
  * Support info:
  * *  {
         title: String,
+        groupId: String,
         link: String, // URL of original content
         content: String,
         tagList: Array<String>

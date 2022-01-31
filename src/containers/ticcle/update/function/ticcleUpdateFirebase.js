@@ -1,6 +1,6 @@
 import { doUpdateTiccle } from "../../../../model/TiccleModel";
 
-const TiccleUpdateFirebase = async (ticcleUpdate, originalTiccle) => {
+const ticcleUpdateFirebase = async (ticcleUpdate, originalTiccle) => {
 
     let groupId = originalTiccle.groupId;
     let ticcleId = originalTiccle.id;
@@ -28,11 +28,13 @@ const TiccleUpdateFirebase = async (ticcleUpdate, originalTiccle) => {
     oldImageNames = differenceOriginal;
     newImageSources = differenceUpdate;
     isIncludingImage = (JSON.stringify(updateImages) == JSON.stringify(orginalImages)) ? false : true; 
-
+        
     const updatedTiccleData = await doUpdateTiccle(groupId, ticcleId, newInfo,
-        isIncludingImage, images,oldImageNames, newImageSources);
+        isIncludingImage, images, oldImageNames, newImageSources);
 
     return updatedTiccleData;
 }
 
-export {TiccleUpdateFirebase}
+export {
+    ticcleUpdateFirebase,
+}
