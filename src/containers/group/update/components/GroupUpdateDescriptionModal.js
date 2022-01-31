@@ -5,7 +5,7 @@ import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 
-const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalActive, description, initialData, setInitialData}) => {
+const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalActive, description, tempData, setTempData}) => {
     const {setGroupUpdateDescription} = useGroupUpdate();
     let groupDescriptionLength;
     const maxLength = 23;
@@ -15,12 +15,12 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
     const cancelGroupUpdateDesc = () => {
         setModalVisible(false);
         setModalActive(false);
-        setGroupUpdateDescription(initialData.description);
+        setGroupUpdateDescription(tempData.description);
     };
 
     const saveGroupUpdateDesc = () =>
     {
-        setInitialData({...initialData, description})
+        setTempData({...tempData, description: description})
         setModalVisible(false);
         setModalActive(false);
     };

@@ -10,13 +10,14 @@ import GroupUpdateHeader from './components/GroupUpdateHeader';
 const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate} = useGroupUpdate();
     const [initialData, setInitialData] = useState({});
+    const [tempData, setTempData] = useState({}) // title modal, description modal의 임시 저장 기능에 사용.
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
 
     useEffect( () =>
     {
-        const JSONGroupData = JSON.parse(JSON.stringify(route.params.groupData))
         setInitialData(route.params.groupData);
         setGroupUpdate(route.params.groupData);
+        setTempData(route.params.groupData);
     }, []);
 
     return (
@@ -26,8 +27,8 @@ const GroupUpdate = ({navigation, route}) => {
                 <GroupUpdateInfo
                     navigation={navigation}
                     style={styles.groupInfo}
-                    initialData={ initialData }
-                    setInitialData={setInitialData}
+                    tempData={ tempData }
+                    setTempData={setTempData}
                     mainImage={groupUpdate.imageUrl}
                     title={groupUpdate.title}
                     description={groupUpdate.description}

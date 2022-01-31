@@ -25,13 +25,14 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
             const newImageSource = image;
             const newImageUrl = await doUpdateGroup(groupId, newInfo, true, oldImageName, newImageSource).catch(
                 err => handleError(err)
-            );;
+            );
             setGroupUpdateImage(newImageUrl);
         } else {
             doUpdateGroup(groupId, newInfo, false).catch(
                 err => handleError(err)
             );;
         }
+
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
         navigation.navigate({
             name: 'GroupDetail',

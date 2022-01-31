@@ -6,7 +6,7 @@ import colors from '../../../../theme/colors';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import {checkIsExistingGroup} from '../../../../model/GroupModel';
 
-const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive, title, initialData, setInitialData}) => {
+const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive, title, tempData, setTempData}) => {
     const {setGroupUpdateTitle} = useGroupUpdate();
     let groupTitleLength;
     const maxLength = 15;
@@ -18,19 +18,20 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
     const cancelGroupUpdateTitle = () => {
         setModalVisible(false);
         setModalActive(false);
-        setGroupUpdateTitle(initialData.title);
+        setGroupUpdateTitle(tempData.title);
         setIsExistGroup(false);
     };
 
-    const saveGroupUpdateTitle = () => {
-        if (title != initialData.title) {
+    const saveGroupUpdateTitle = () =>
+    {
+        if (title != tempData.title) {
             if (checkIsExistingGroup(title)) {
                 setButtonDisable(true);
                 setIsExistGroup(true);
                 return;
             }
         }
-        setInitialData({...initialData, title})
+        setTempData({...tempData, title: title})
         setModalVisible(false);
         setModalActive(false);
         setIsExistGroup(false);
