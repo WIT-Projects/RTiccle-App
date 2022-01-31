@@ -3,9 +3,11 @@ import { StyleSheet, TextInput, View, Image } from "react-native";
 import { searchTiccleByTitltAndTag, searchTiccleByTitltAndTagInGroup} from '../../model/SearchModel';
 import colors from '../../theme/colors';
 import { ticcleList } from '../../model/TiccleModel';
+import { useErrorHandler } from 'react-error-boundary'
 
 const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult }) => {
     const [searchInput, setSearchInput] = useState("");
+    const handleError = useErrorHandler() // for error handling
 
     function getSearchResult() {
         let query = searchInput.split(" ");
@@ -17,7 +19,8 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
 
         if (isSearchScreen) {
             searchTiccleByTitltAndTag(query,tagQuery)
-                .then((res) => setSearchResult(res));
+                .then((res) => setSearchResult(res))
+                .catch(err => handleError(err))
         } else {
             const result = searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery);
             setSearchResult(result);
