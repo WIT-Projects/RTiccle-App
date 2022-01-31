@@ -76,7 +76,7 @@ function updateTiccleInfo(groupId, ticcleId, newInfo) {
  * Update ticcle images
  * @param {Array} oldImageNames array of old image names // (BE DELETED IMAGE ONLY) if no old images, put []
  * @param {Array} newImageSources array of new image sources // if no new images, put []
- * @returns {Promise<Array>} list of images, imageUrl (- {images: images, imageUrl: imageUrl})
+ * @returns {Promise<Array>} list of images ({images: images})
  */
 async function updateTiccleImage(oldImageNames, newImageSources) {
     // delete old images first
@@ -85,15 +85,13 @@ async function updateTiccleImage(oldImageNames, newImageSources) {
     })
     // upload new images
     var images = [];
-    var imageUrl = [];
     for (let imageSource of newImageSources) {
         const newImageName = Date.now() + ".jpg";
         const downloadUrl = await uploadImageToStorage(newImageName, imageSource, true);
         images.push(newImageName);
-        imageUrl.push(downloadUrl);
     }
     return new Promise(resolve => {
-        resolve({images: images, imageUrl: imageUrl});
+        resolve({images: images});
     });
 }
 

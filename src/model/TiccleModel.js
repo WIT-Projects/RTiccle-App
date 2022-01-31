@@ -102,7 +102,7 @@ async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, imag
 
     // to server
     if (isIncludingImage) {
-        // newImagesInfo = {images: images, imageUrl: imageUrl}
+        // newImagesInfo = {images: images}
         const newImagesInfo = await updateTiccleImage(oldImageNames, newImageSources);
 
         var newImages = [...images];
@@ -112,7 +112,7 @@ async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, imag
         })
         newImages = [...newImages, ...newImagesInfo.images];
         updateTiccleInfo(groupId, ticcleId, {...newInfo, images: newImages});
-        info = {...info, images: newImages, imageUrl: newImagesInfo.imageUrl}; // including imageUrls of new images
+        info = {...info, images: newImages}; // not including imageUrls of new images
     }
     else updateTiccleInfo(groupId, ticcleId, newInfo);
 
