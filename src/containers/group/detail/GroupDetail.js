@@ -19,7 +19,7 @@ const GroupDetail = ({route, navigation}) => {
     const handleError = useErrorHandler(); // for error handling
 
     const [list, setList] = useState([]);
-    const [ group, setGroup ] = useState( route.params?.groupData );
+    const [group, setGroup] = useState(route.params?.groupData);
 
     useEffect(() => {
         // get/set ticcle List

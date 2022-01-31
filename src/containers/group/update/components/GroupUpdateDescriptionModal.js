@@ -18,9 +18,9 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
         setGroupUpdateDescription(tempData.description);
     };
 
-    const saveGroupUpdateDesc = () =>
-    {
-        setTempData({...tempData, description: description})
+    const saveGroupUpdateDesc = () => {
+        if (description != tempData.description)
+            setTempData({ ...tempData, description: description})
         setModalVisible(false);
         setModalActive(false);
     };

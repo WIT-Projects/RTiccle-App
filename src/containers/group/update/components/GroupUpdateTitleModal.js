@@ -22,16 +22,15 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
         setIsExistGroup(false);
     };
 
-    const saveGroupUpdateTitle = () =>
-    {
+    const saveGroupUpdateTitle = () => {
         if (title != tempData.title) {
             if (checkIsExistingGroup(title)) {
                 setButtonDisable(true);
                 setIsExistGroup(true);
                 return;
             }
+            setTempData({...tempData, title: title})
         }
-        setTempData({...tempData, title: title})
         setModalVisible(false);
         setModalActive(false);
         setIsExistGroup(false);
