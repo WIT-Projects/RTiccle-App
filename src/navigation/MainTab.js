@@ -8,6 +8,7 @@ import colors from '../theme/colors';
 import { type } from '../theme/fonts';
 import TiccleCreate from '../containers/ticcle/create/TiccleCreate';
 import CustomModal from '../containers/common/CustomModal';
+import {limitTiccleNum, checkIsFullTiccleNum} from '../model/GroupModel'
 
 const isTabActive = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -33,7 +34,7 @@ const MainTab = () => {
         <>
             <CustomModal
                 isModalVisible={ticcleAlertModal} setModalVisible={setTiccleAlertModal}
-                title={"티끌은 100개까지 생성 가능합니다."} rightButton={"확인"}
+                title={`티끌은 ${limitTiccleNum}개까지 생성 가능합니다.`} rightButton={"확인"}
                 rightButtonFunction={() => setTiccleAlertModal(false)}
                 rightButtonStyle={{marginLeft: 20}}
             />
@@ -64,7 +65,7 @@ const MainTab = () => {
                     initialParams={{groupId : ''}}
                     listeners={() => ({
                         tabPress: e => {
-                            if(ticcleNum > 100) {
+                            if(checkIsFullTiccleNum()) {
                                 setTiccleAlertModal(true);
                                 e.preventDefault();
                             }

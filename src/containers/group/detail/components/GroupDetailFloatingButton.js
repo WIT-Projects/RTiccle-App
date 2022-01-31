@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import CustomModal from "../../../common/CustomModal";
+import { checkIsFullTiccleNum, limitTiccleNum } from "../../../../model/GroupModel";
 
 const GroupDetailFloatingButton = ({groupId}) => {
     const navigateTo = useNavigation();
-    const ticcleNum = 100;
     const [ticcleAlertModal, setTiccleAlertModal] = useState(false)
 
     const floatingButtonEvent = () => {
-        if(ticcleNum > 100) {
+        if(checkIsFullTiccleNum()) {
             setTiccleAlertModal(true);
         } else {
             navigateTo.navigate('TiccleCreate', {groupId : groupId});
@@ -20,7 +20,7 @@ const GroupDetailFloatingButton = ({groupId}) => {
         <>
             <CustomModal
                 isModalVisible={ticcleAlertModal} setModalVisible={setTiccleAlertModal}
-                title={"티끌은 100개까지 생성 가능합니다."} rightButton={"확인"}
+                title={`티끌은 ${limitTiccleNum}개까지 생성 가능합니다.`} rightButton={"확인"}
                 rightButtonFunction={() => setTiccleAlertModal(false)}
                 rightButtonStyle={{marginLeft: 20}}
             />

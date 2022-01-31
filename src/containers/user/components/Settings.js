@@ -13,6 +13,7 @@ const Setting = ({isGuest, setIsGuest}) => {
     const logoutButtonEvent = () => {
         logout();
         setIsGuest(true);
+        RNRestart.Restart();
     }
     const resetButtonEvent = () => {
         resetUserData(currentUser.uid)
