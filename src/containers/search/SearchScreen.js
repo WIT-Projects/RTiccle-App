@@ -13,7 +13,7 @@ const SearchScreen = () => {
                 isSearchScreen={true}
                 pressSearchBtn={pressSearchBtn}
                 setPressSearchBtn={setPressSearchBtn}
-                placeholderContext="제목, #태그 등을 입력하세요."
+                placeholderContext="티끌 제목 혹은 #태그를 입력하세요."
                 setSearchResult={setSearchResult} />
             {pressSearchBtn
                 ? (searchResult.length > 0 
