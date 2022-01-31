@@ -2,14 +2,13 @@ import React from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import SearchExistResult from './SearchExistResult';
 import { type } from '../../../theme/fonts';
-import { searchList } from '../../../model/SearchModel';
 
-const SearchExistResultList = (isGroupDetail) => {
+const SearchExistResultList = ({isGroupDetail, searchResult}) => {
     return (
         <>
-            {isGroupDetail? null : <Text style={styles.resultText}>총 {searchList.length}개의 검색결과</Text>}
+            {isGroupDetail? null : <Text style={styles.resultText}>총 {searchResult.length}개의 검색결과</Text>}
             <ScrollView>
-                {searchList.map((item, index) => {
+                {searchResult.map((item, index) => {
                     return (<SearchExistResult key={index} ticcle={item} isGroupDetail={isGroupDetail} />)
                 })}
             </ScrollView>

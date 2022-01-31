@@ -4,7 +4,7 @@ import { searchTiccleByTitltAndTag, searchTiccleByTitltAndTagInGroup} from '../.
 import colors from '../../theme/colors';
 import { ticcleList } from '../../model/TiccleModel';
 
-const SearchBar = ({ isSearchScreen, placeholderContext, setExistResult, setPressSearchBtn, pressSearchBtn }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult }) => {
     const [searchInput, setSearchInput] = useState("");
 
     function getSearchResult() {
@@ -14,7 +14,14 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setExistResult, setPres
             item.search("#") !== -1 ? tagQuery.push(item.replace('#', '')) : null
         });
         console.log("태그:"+tagQuery);
-        {isSearchScreen? searchTiccleByTitltAndTag(query, tagQuery, setExistResult): searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery, setExistResult)}
+
+        if (isSearchScreen) {
+            searchTiccleByTitltAndTag(query,tagQuery)
+                .then((res) => setSearchResult(res));
+        } else {
+            const result = searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery);
+            setSearchResult(result);
+        }
         setPressSearchBtn(true);
     }
 
