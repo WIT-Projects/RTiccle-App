@@ -5,35 +5,39 @@ import {type} from '../../../theme/fonts';
 import GroupUpdateSaveButton from './components/GroupUpdateSaveButton';
 import GroupUpdateInfo from './components/GroupUpdateInfo';
 import useGroupUpdate from '../../../context/hook/useGroupUpdate';
+import GroupUpdateHeader from './components/GroupUpdateHeader';
 
 const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate} = useGroupUpdate();
-    const [initialData, setInitialData] = useState([]);
+    const [initialData, setInitialData] = useState({});
+    const [tempData, setTempData] = useState({}) // title modal, description modal의 임시 저장 기능에 사용.
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
 
-    useEffect(() => {
+    useEffect( () =>
+    {
         setInitialData(route.params.groupData);
         setGroupUpdate(route.params.groupData);
+        setTempData(route.params.groupData);
     }, []);
 
     return (
         <View style={styles.container}>
+            <GroupUpdateHeader modalActive={modalActive}></GroupUpdateHeader>
             <View style={styles.groupInfo}>
                 <GroupUpdateInfo
                     navigation={navigation}
                     style={styles.groupInfo}
-                    initialData={initialData}
+                    tempData={ tempData }
+                    setTempData={setTempData}
                     mainImage={groupUpdate.imageUrl}
                     title={groupUpdate.title}
                     description={groupUpdate.description}
                     modalActive={modalActive}
                     setModalActive={setModalActive}></GroupUpdateInfo>
             </View>
-            {!modalActive && (
-                <View style={styles.saveButton}>
-                    <GroupUpdateSaveButton navigation={navigation} initialData={initialData}></GroupUpdateSaveButton>
-                </View>
-            )}
+            <View style={styles.saveButton}>
+                <GroupUpdateSaveButton navigation={navigation} initialData={initialData}></GroupUpdateSaveButton>
+            </View>
         </View>
     );
 };
@@ -45,16 +49,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
     },
     groupInfo: {
-        paddingBottom: 28,
-    },
-    title: {
-        fontFamily: type.spoqaHanSansNeo_Bold,
-        fontSize: 16,
-        paddingLeft: 22,
-        paddingBottom: 46,
+        marginTop: 151,
     },
     saveButton: {
-        paddingTop: 300,
+        marginTop: 173,
     },
 });
 

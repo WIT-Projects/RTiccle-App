@@ -8,7 +8,7 @@ import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import GroupUpdateTitleModal from './GroupUpdateTitleModal';
 import GroupUpdateDescriptionModal from './GroupUpdateDescriptionModal';
 
-const GroupUpdateInfo = ({navigation, mainImage, title, description, modalActive, setModalActive, initialData}) => {
+const GroupUpdateInfo = ({mainImage, title, description, setModalActive, tempData, setTempData}) => {
     const {setGroupUpdateImage} = useGroupUpdate();
     let source;
     mainImage == null || mainImage == '' ? (source = require('../../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
@@ -17,37 +17,29 @@ const GroupUpdateInfo = ({navigation, mainImage, title, description, modalActive
     const [isDescModalVisible, setDescModalVisible] = useState(false);
     return (
         <View style={styles.container}>
-            <PhotoModal
-                setImage={setGroupUpdateImage}
-                isModalVisible={isPhotoModalVisible}
-                setModalVisible={setPhotoModalVisible}
-                width={412}
-                height={256}></PhotoModal>
+            <PhotoModal setImage={setGroupUpdateImage} isModalVisible={isPhotoModalVisible} setModalVisible={setPhotoModalVisible} width={412} height={256}></PhotoModal>
             <GroupUpdateTitleModal
-                initialData={initialData}
+                tempData={tempData}
+                setTempData={setTempData}
                 isModalVisible={isTitleModalVisible}
                 setModalVisible={setTitleModalVisible}
                 setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
                 title={title}></GroupUpdateTitleModal>
             <GroupUpdateDescriptionModal
-                initialData={initialData}
+                tempData={tempData}
+                setTempData={setTempData}
                 isModalVisible={isDescModalVisible}
                 setModalVisible={setDescModalVisible}
                 setModalActive={setModalActive} // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
                 description={description}></GroupUpdateDescriptionModal>
             <ImageBackground source={source} style={styles.headerImage}>
-                <ImageBackground source={require('../../../../assets/images/groupUpdateGradation.png')} style={styles.headerImageGradation}>
+                <ImageBackground source={require('../../../../assets/images/gradation2.png')} style={styles.headerImage}>
+                    <Image source={require('../../../../assets/images/groupUpdateGradation.png')} style={styles.headerImageGradation}></Image>
                     <View style={styles.headerImageInner}>
-                        <View style={!modalActive ? null : {opacity: 0}}>
-                            <View style={styles.headerImageContainer1}>
-                                <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
-                                    <Text style={styles.cancelButtonText}>취소</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => setPhotoModalVisible(true)}>
-                                    <Image style={ styles.cameraImage } source={ require( '../../../../assets/images/camera.png' ) }
-                                        onPress={ () => setPhotoModalVisible( true ) }></Image>
-                                </TouchableOpacity>
-                            </View>
+                        <View style={styles.headerImageContainer1}>
+                            <TouchableOpacity onPress={() => setPhotoModalVisible(true)}>
+                                <Image style={styles.cameraImage} source={require('../../../../assets/images/camera.png')} onPress={() => setPhotoModalVisible(true)}></Image>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.headerImageContainer2}>
                             <View style={styles.underline}>
@@ -96,27 +88,20 @@ const styles = StyleSheet.create({
         height: '100%',
         opacity: 0.8,
     },
-    cancelButton: {
-        paddingRight: 18,
-        paddingVertical: 9,
-    },
-    cancelButtonText: {
-        fontFamily: type.spoqaHanSansNeo_Bold,
-        color: colors.white,
-        fontSize: 16,
-    },
     cameraImage: {
         width: 35,
-        height:35
+        height: 35,
     },
     headerImageInner: {
         paddingHorizontal: 18,
         paddingTop: 18,
         paddingBottom: 18,
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
     },
     headerImageContainer1: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        alignItems: 'flex-end',
     },
     headerImageContainer2: {
         paddingTop: 93,
@@ -135,7 +120,7 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
     },
     underline: {
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderColor: colors.white,
         flexDirection: 'row',
         justifyContent: 'space-between',
