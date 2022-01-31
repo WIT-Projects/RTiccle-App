@@ -31,7 +31,6 @@ const TiccleCreateScreen = ({route}) => {
         if (route.params !== undefined){
             checkGroupId(route.params.groupId, setTiccleGroup, initialTiccle);
         }
-        console.log(route);
         return () => {
             tabPress;
         };

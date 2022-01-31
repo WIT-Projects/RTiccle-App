@@ -27,7 +27,6 @@ async function searchTiccleByTitltAndTag(query, tagQuery, setExistResult) {
     initializeSearchList();
     searchList = await searchTiccleWithAlgolia(query, tagQuery); // TODO sorting
     searchList.length !== 0? setExistResult(true) : setExistResult(false);
-    console.log(searchList);
 }
 
 /**

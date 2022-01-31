@@ -10,7 +10,6 @@ const GroupDeleteButton = ({groupData}) => {
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
     const handleError = useErrorHandler() // for error handling
 
-    console.log(groupData);
     return (
         <TouchableOpacity
             onPress={() => {

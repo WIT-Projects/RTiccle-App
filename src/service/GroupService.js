@@ -73,7 +73,7 @@ function updateGroupInfo(groupId, newInfo) {
  */
 async function updateTiccleNumOfGroup(groupId, isPlus) {
     const ref = collection.doc(currentUser.uid).collection('Group').doc(groupId);
-    const group = await ref.get();
+    const group = (await ref.get()).data();
     var num = group.ticcleNum;
     num = isPlus ? num + 1 : num - 1;
     ref.update({ticcleNum: num});

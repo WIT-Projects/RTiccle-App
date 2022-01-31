@@ -11,7 +11,6 @@ const TiccleDetailHeaderRight = ({ticcleDetail}) => {
         <TouchableOpacity
             style={styles.headerRightTouchable}
             onPress={ () => {
-                console.log(ticcleDetail)
                 navigateTo.navigate('TiccleUpdate', {ticcleData: ticcleDetail})
             }}>
             <Text style={styles.headerRightText}>수정</Text>
