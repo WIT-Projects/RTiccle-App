@@ -1,4 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
+import RNRestart from 'react-native-restart'; // Import package from node modules
+import SplashScreen from 'react-native-splash-screen';
 
 /**
  * Convert firebase firestore timestamp to YY.MM.DD format date
@@ -26,7 +28,14 @@ async function getPrivacyPolicy() {
     });
 }
 
+const restartApp = () =>
+{
+    RNRestart.Restart();
+    SplashScreen.show();
+}
+
 export {
     timeStampToFormatDate,
     getPrivacyPolicy,
+    restartApp,
 }
