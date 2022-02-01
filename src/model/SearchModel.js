@@ -10,23 +10,15 @@ import { searchTiccleWithAlgolia, searchTiccleInGroup } from "../service/SearchS
     }
  */
 
-// group list
-var searchList = [];
-
-function initializeSearchList(){
-    searchList.length = 0;
-}
-
 /**
  * Search ticcle by title and tag with Algolia
  * @param {Array} query to search (title & tagList)
  * @param {Array} tagQuery ONLY search tagList
- * @returns {Promise} Array of Ticcle Meatadata
+ * @returns {Promise<Array>} Array of Ticcle Meatadata
  */
-async function searchTiccleByTitltAndTag(query, tagQuery, setExistResult) {
-    initializeSearchList();
-    searchList = await searchTiccleWithAlgolia(query, tagQuery); // TODO sorting
-    searchList.length !== 0? setExistResult(true) : setExistResult(false);
+async function searchTiccleByTitltAndTag(query, tagQuery) {
+    const result = await searchTiccleWithAlgolia(query, tagQuery); // TODO sorting
+    return result;
 }
 
 /**
@@ -36,16 +28,13 @@ async function searchTiccleByTitltAndTag(query, tagQuery, setExistResult) {
  * @param {Array} tagQuery ONLY search tagList
  * @returns {Array} searched ticcle list
  */
- function searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery, setExistResult) {
-    searchList = searchTiccleInGroup(ticcleList, query, tagQuery); // TODO sorting
-    searchList.length !== 0? setExistResult(true) : setExistResult(false);
-    console.log(searchList);
+ function searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery) {
+    const result = searchTiccleInGroup(ticcleList, query, tagQuery); // TODO sorting
+    return result;
 }
 
 
 export {
-    searchList,
     searchTiccleByTitltAndTag,
     searchTiccleByTitltAndTagInGroup,
-    initializeSearchList,
 }

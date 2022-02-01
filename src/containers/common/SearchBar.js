@@ -3,9 +3,11 @@ import { StyleSheet, TextInput, View, Image } from "react-native";
 import { searchTiccleByTitltAndTag, searchTiccleByTitltAndTagInGroup} from '../../model/SearchModel';
 import colors from '../../theme/colors';
 import { ticcleList } from '../../model/TiccleModel';
+import { useErrorHandler } from 'react-error-boundary'
 
-const SearchBar = ({ isSearchScreen, placeholderContext, setExistResult, setPressSearchBtn, pressSearchBtn }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult }) => {
     const [searchInput, setSearchInput] = useState("");
+    const handleError = useErrorHandler() // for error handling
 
     function getSearchResult() {
         let query = searchInput.split(" ");
@@ -14,7 +16,15 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setExistResult, setPres
             item.search("#") !== -1 ? tagQuery.push(item.replace('#', '')) : null
         });
         console.log("태그:"+tagQuery);
-        {isSearchScreen? searchTiccleByTitltAndTag(query, tagQuery, setExistResult): searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery, setExistResult)}
+
+        if (isSearchScreen) {
+            searchTiccleByTitltAndTag(query,tagQuery)
+                .then((res) => setSearchResult(res))
+                .catch(err => handleError(err))
+        } else {
+            const result = searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery);
+            setSearchResult(result);
+        }
         setPressSearchBtn(true);
     }
 

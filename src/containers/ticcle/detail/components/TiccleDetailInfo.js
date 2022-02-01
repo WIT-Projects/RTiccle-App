@@ -4,16 +4,18 @@ import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 import { timeStampToFormatDate } from '../../../../service/CommonService';
 
-const TiccleDetailInfo = ({title, lastModifiedTime ,link}) => {
+const TiccleDetailInfo = ({title, lastModifiedTime, link}) => {
     var formattedday = ""
     if(lastModifiedTime !== ""){
         formattedday = timeStampToFormatDate(lastModifiedTime);
     }
-    const ticcleDetailTitle = title
-    const URLLink = link
+    const ticcleDetailTitle = title;
+    const URLLink = link.trim();
 
     const goToURL = () => {
-        Linking.openURL(URLLink)
+        if (URLLink.startsWith('http'))
+            Linking.openURL(URLLink)
+        else Linking.openURL(`http://${URLLink}`);
     }
 
     return(

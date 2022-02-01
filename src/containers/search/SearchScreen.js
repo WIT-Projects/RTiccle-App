@@ -5,12 +5,21 @@ import SearchExistResultList from './components/SearchExistResultList';
 
 const SearchScreen = () => {
     const [pressSearchBtn, setPressSearchBtn] = useState(false);
-    const [existResult, setExistResult] = useState(false);
+    const [searchResult, setSearchResult] = useState([]);
 
     return (
         <>
-            <SearchBar isSearchScreen={true} setPressSearchBtn={setPressSearchBtn} setExistResult = {setExistResult} placeholderContext="제목, #태그 등을 입력하세요." />
-            {existResult ? <SearchExistResultList isGroupDetail={false} /> : <SearchZeroResult />}
+            <SearchBar 
+                isSearchScreen={true}
+                pressSearchBtn={pressSearchBtn}
+                setPressSearchBtn={setPressSearchBtn}
+                placeholderContext="티끌 제목 혹은 #태그를 입력하세요."
+                setSearchResult={setSearchResult} />
+            {pressSearchBtn
+                ? (searchResult.length > 0 
+                    ? <SearchExistResultList isGroupDetail={false} searchResult={searchResult} />
+                    : <SearchZeroResult />)
+                : <SearchZeroResult />}
         </>
     );
 };

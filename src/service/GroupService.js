@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import {currentUser} from './AuthService';
 import {uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage} from './ImageService';
+import { getKSTTime } from './CommonService';
 
 const collection = firestore().collection('RTiccle');
 
@@ -41,7 +42,7 @@ async function uploadNewGroup(group, mainImageSource) {
         mainImage: imageName,
         ticcleNum: 0,
         latestTiccleTitle: '',
-        lastModifiedTime: Date.now(), // this treated like 'createdTime' (NOT UPDATE after create)
+        lastModifiedTime: getKSTTime(), // this treated like 'createdTime' (NOT UPDATE after create)
     });
     return new Promise(resolve => {
         resolve({...result, imageUrl: downloadURL});

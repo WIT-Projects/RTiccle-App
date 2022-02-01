@@ -1,8 +1,21 @@
 import firestore from '@react-native-firebase/firestore';
+import RNRestart from 'react-native-restart'; // Import package from node modules
+import SplashScreen from 'react-native-splash-screen';
 
 /**
- * Convert firebase firestore timestamp to YY.MM.DD format date
- * @param {number} timeStamp
+ * Get KST Time
+ * @returns {number} KST Time (time value in milliseconds)
+ */
+function getKSTTime() {
+    const curr = new Date();
+    const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
+    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+    return utc + KR_TIME_DIFF;
+}
+
+/**
+ * Convert milliseconds to YY.MM.DD format date
+ * @param {number} timeStamp (time value in milliseconds)
  * @returns {string} YY.MM.DD
  */
 function timeStampToFormatDate(timeStamp) {
@@ -26,7 +39,15 @@ async function getPrivacyPolicy() {
     });
 }
 
+const restartApp = () =>
+{
+    RNRestart.Restart();
+    SplashScreen.show();
+}
+
 export {
+    getKSTTime,
     timeStampToFormatDate,
     getPrivacyPolicy,
+    restartApp,
 }

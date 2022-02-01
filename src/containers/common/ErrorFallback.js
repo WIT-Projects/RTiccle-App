@@ -2,13 +2,11 @@ import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet, BackHandler} from 'react-native';
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
-import RNRestart from 'react-native-restart'; // Import package from node modules
+import { restartApp } from '../../service/CommonService';
+
 const ErrorFallback = ({error}) =>
 {
-    const restartApp = () =>
-    {
-        RNRestart.Restart();
-    }
+   
 
     return (
         <View style={styles.container}>
