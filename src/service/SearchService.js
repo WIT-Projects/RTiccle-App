@@ -40,6 +40,7 @@ async function initAlgolia() {
             title: element.title,
             groupId: element.groupId,
             tagList: element.tagList,
+            lastModifiedTime: element.lastModifiedTime,
         }
         ticcleMetadataList.push(record);
     });
@@ -62,6 +63,7 @@ async function initAlgolia() {
                     title: element.title,
                     groupId: element.groupId,
                     tagList: element.tagList,
+                    lastModifiedTime: element.lastModifiedTime,
                 }
                 ticcleMetadataList.push(record);
             }

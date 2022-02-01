@@ -149,27 +149,27 @@ function getTiccleIncludeImages(ticcleData) {
 }
 
 /**
- * Sort by LMT (asc)
+ * Sort by LMT (asc) - old
  * @param {Array} ticcleList (MUST CONTAIN "lastModifiedTime")
  * @returns {Array} sorted ticcleList
  */
  function sortAscByLMT(ticcleList) {
-    const result = ticcleList.sort((a, b) => {
-        a.lastModifiedTime - b.lastModifiedTime;
-    })
-    return result;
+    ticcleList.sort(function(a, b) {
+        return a.lastModifiedTime - b.lastModifiedTime;
+    });
+    return ticcleList;
 }
 
 /**
- * Sort by LMT (desc)
+ * Sort by LMT (desc) - lastest
  * @param {Array} ticcleList (MUST CONTAIN "lastModifiedTime")
  * @returns {Array} sorted ticcleList
  */
 function sortDescByLMT(ticcleList) {
-    const result = ticcleList.sort((a, b) => {
-        b.lastModifiedTime - a.lastModifiedTime;
-    })
-    return result;
+    ticcleList.sort(function(a, b) {
+        return b.lastModifiedTime - a.lastModifiedTime;
+    });
+    return ticcleList;
 }
 
 export {
