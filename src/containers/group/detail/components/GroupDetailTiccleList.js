@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import GroupDetailTiccle from './GroupDetailTiccle';
+import colors from '../../../../theme/colors';
 
 const GroupDetailTiccleList = ({ ticcleList }) => {
     return (
@@ -15,6 +16,7 @@ const GroupDetailTiccleList = ({ ticcleList }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: colors.white,
     },
 })
 

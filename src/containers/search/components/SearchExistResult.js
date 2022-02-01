@@ -41,7 +41,7 @@ const SearchExistResult = ({ ticcle, isGroupDetail }) => {
 
     return (
         <View style={styles.container} onTouchEnd={goToTiccleDetail}>
-            <Text style={styles.dateFont}>{timeStampToFormatDate(ticcleData.lastModifiedTime)}</Text>
+            <Text style={styles.dateFont}>{timeStampToFormatDate(ticcle.lastModifiedTime)}</Text>
             <View style={styles.container2}>
                 <Text style={styles.groupFont}>{getGroupTitle(ticcle.groupId)}</Text>
                 <Text style={styles.titleFont}>{ticcle.title}</Text>
