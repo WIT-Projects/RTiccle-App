@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput, View, Image, TouchableOpacity } from "react-native";
 import { searchTiccleByTitltAndTag, searchTiccleByTitltAndTagInGroup } from '../../model/SearchModel';
-import colors from '../../theme/colors';
 import { ticcleList } from '../../model/TiccleModel';
 import { useErrorHandler } from 'react-error-boundary';
 import SearchModal from './SearchModal';
 import { sortAscByLMT, sortDescByLMT } from '../../model/TiccleModel';
+import colors from '../../theme/colors';
 
 const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList }) => {
     const [searchInput, setSearchInput] = useState("");
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-
+        backgroundColor: colors.white,
     },
     icon: {
         marginLeft: 18,
