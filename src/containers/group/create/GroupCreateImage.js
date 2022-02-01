@@ -38,7 +38,7 @@ const GroupCreateImage = ({navigation}) => {
                 </ImageBackground>
             </ImageBackground>
             <GroupSaveButton text="저장하기" navigation={navigation} setIsLoading={setIsLoading} isLoading={isLoading}></GroupSaveButton>
-            <GroupSaveButtonSkip text="건너뛰기" navigation={navigation}></GroupSaveButtonSkip>
+            <GroupSaveButtonSkip text="건너뛰기" navigation={navigation} setIsLoading={setIsLoading}></GroupSaveButtonSkip>
         </View>
     );
 };

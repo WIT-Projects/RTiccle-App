@@ -8,7 +8,7 @@ import {doCreateGroup} from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import { useErrorHandler } from 'react-error-boundary'
 
-const GroupSaveButtonSkip = ({navigation, text}) => {
+const GroupSaveButtonSkip = ({navigation, text, setIsLoading}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();
     const title = groupCreate.title;
     const description = groupCreate.description;
@@ -28,11 +28,14 @@ const GroupSaveButtonSkip = ({navigation, text}) => {
             bookmark: false,
         };
         const imageSource = mainImage;
+
+        setIsLoading(true)
         const groupData = await doCreateGroup(newGroup, imageSource).catch(
             err => handleError(err)
         );;
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
         initialGroupCreate();
+        setIsLoading(false)
         navigation.navigate('GroupDetail', {groupData: groupData});
     };
 

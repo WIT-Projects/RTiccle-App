@@ -33,6 +33,7 @@ const GroupSaveButton = ({navigation, text, setIsLoading}) => {
         const groupData = await doCreateGroup(newGroup, imageSource).catch(err => handleError(err));
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
         initialGroupCreate();
+        setIsLoading(false);
         navigation.navigate('GroupDetail', {groupData: groupData});
     };
 

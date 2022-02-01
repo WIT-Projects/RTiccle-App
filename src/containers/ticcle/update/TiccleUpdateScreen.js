@@ -11,6 +11,7 @@ import TiccleCreateImageAdd from "../create/components/image/TiccleCreateImageAd
 import TiccleContentTextInput from "../create/components/textinput/TiccleContentTextInput";
 import TiccleCreateTags from "../create/components/TiccleCreateTags";
 import TiccleCreateTextInputTag from "../create/components/textinput/TiccleCreateTextInputTag";
+import Spinner from '../../common/Spinner';
 
 const TiccleUpdateScreen = ({route}) => {
     const { ticcleUpdate, setTiccleUpdate, setTiccleUpdateGroup,
@@ -22,7 +23,8 @@ const TiccleUpdateScreen = ({route}) => {
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const [originalTiccle, setOriginalTiccle] = useState({});
     const scrollRef = useRef();
-    
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(()=> {
         const ticcle = route.params.ticcleData;
         const JSONTiccle = JSON.parse(JSON.stringify(ticcle));
@@ -41,7 +43,8 @@ const TiccleUpdateScreen = ({route}) => {
 
     return(
         <>
-            <TiccleUpdateHeader ticcleUpdate={ticcleUpdate} originalTiccle={originalTiccle}/>
+            {isLoading && <Spinner></Spinner>}
+            <TiccleUpdateHeader ticcleUpdate={ ticcleUpdate } originalTiccle={ originalTiccle } setIsLoading={ setIsLoading }/>
             <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
                 <PhotoModal setImage={setTiccleUpdateImageNamesUrls} isModalVisible={photoModalVisible}

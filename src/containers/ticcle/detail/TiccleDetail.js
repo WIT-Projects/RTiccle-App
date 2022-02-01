@@ -10,6 +10,7 @@ import TiccleDetailFloatingButton from './components/TiccleDetailFloatingButton'
 import { useNavigation } from '@react-navigation/native';
 import TiccleDetailHeader from './components/header/TiccleDetailHeader';
 import { getTiccleIncludeImages } from '../../../model/TiccleModel';
+import {useErrorHandler} from 'react-error-boundary';
 
 const TiccleDetail = ({route}) => {
     const [ticcleDetail, setTiccleDetail] = useState({
@@ -26,7 +27,8 @@ const TiccleDetail = ({route}) => {
     const [imageExpansion, setImageExpansion] = useState(false)
     const [imagePathForExpansion, setImagePathForExpansion] = useState('')
     const navigation = useNavigation();
-    
+    const handleError = useErrorHandler(); // for error handling
+
     useEffect(() => {
         const goToHomeStack = () => {
             navigation.navigate('HomeStack');
@@ -38,7 +40,7 @@ const TiccleDetail = ({route}) => {
         );
 
         const ticcleData = route.params.ticcleData;
-        getTiccleIncludeImages(ticcleData).then((res) => setTiccleDetail(res));
+        getTiccleIncludeImages(ticcleData).then((res) => setTiccleDetail(res)).catch(err => handleError(err));
         return () => backHandler.remove();
     }, [route]);
 
