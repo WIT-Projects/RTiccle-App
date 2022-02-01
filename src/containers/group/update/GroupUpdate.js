@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import colors from '../../../theme/colors';
-import {type} from '../../../theme/fonts';
 import GroupUpdateSaveButton from './components/GroupUpdateSaveButton';
 import GroupUpdateInfo from './components/GroupUpdateInfo';
 import useGroupUpdate from '../../../context/hook/useGroupUpdate';
 import GroupUpdateHeader from './components/GroupUpdateHeader';
+import Spinner from '../../common/Spinner';
 
 const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate} = useGroupUpdate();
     const [initialData, setInitialData] = useState({});
-    const [tempData, setTempData] = useState({}) // title modal, description modal의 임시 저장 기능에 사용.
+    const [tempData, setTempData] = useState({}); // title modal, description modal의 임시 저장 기능에 사용.
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect( () =>
-    {
+    useEffect(() => {
         setInitialData(route.params.groupData);
         setGroupUpdate(route.params.groupData);
         setTempData(route.params.groupData);
@@ -23,11 +23,12 @@ const GroupUpdate = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <GroupUpdateHeader modalActive={modalActive}></GroupUpdateHeader>
+            {isLoading && <Spinner></Spinner>}
             <View style={styles.groupInfo}>
                 <GroupUpdateInfo
                     navigation={navigation}
                     style={styles.groupInfo}
-                    tempData={ tempData }
+                    tempData={tempData}
                     setTempData={setTempData}
                     mainImage={groupUpdate.imageUrl}
                     title={groupUpdate.title}
@@ -36,7 +37,7 @@ const GroupUpdate = ({navigation, route}) => {
                     setModalActive={setModalActive}></GroupUpdateInfo>
             </View>
             <View style={styles.saveButton}>
-                <GroupUpdateSaveButton navigation={navigation} initialData={initialData}></GroupUpdateSaveButton>
+                <GroupUpdateSaveButton navigation={navigation} initialData={initialData} setIsLoading={setIsLoading}></GroupUpdateSaveButton>
             </View>
         </View>
     );

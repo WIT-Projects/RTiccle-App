@@ -6,16 +6,16 @@ import {type} from '../../../../theme/fonts';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';
 import {doCreateGroup} from '../../../../model/GroupModel';
 import useGroupChanged from '../../../../context/hook/useGroupChanged';
-import { useErrorHandler } from 'react-error-boundary'
+import {useErrorHandler} from 'react-error-boundary';
 
-const GroupSaveButton = ({navigation, text}) => {
+const GroupSaveButton = ({navigation, text, setIsLoading}) => {
     const {groupCreate, initialGroupCreate} = useGroupCreate();
     const title = groupCreate.title;
     const description = groupCreate.description;
     const mainImage = groupCreate.mainImage;
     const [buttonDisable, setButtonDisable] = useState(true);
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
-    const handleError = useErrorHandler() // for error handling
+    const handleError = useErrorHandler(); // for error handling
 
     useEffect(() => {
         groupCreate.mainImage != '' ? setButtonDisable(false) : setButtonDisable(true);
@@ -28,9 +28,9 @@ const GroupSaveButton = ({navigation, text}) => {
             bookmark: false,
         };
         const imageSource = mainImage;
-        const groupData = await doCreateGroup(newGroup, imageSource).catch(
-            err => handleError(err)
-        );
+
+        setIsLoading(true);
+        const groupData = await doCreateGroup(newGroup, imageSource).catch(err => handleError(err));
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
         initialGroupCreate();
         navigation.navigate('GroupDetail', {groupData: groupData});
