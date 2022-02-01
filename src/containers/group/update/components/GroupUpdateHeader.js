@@ -8,16 +8,19 @@ import metrics from '../../../../theme/metrices';
 const GroupUpdateHeader = ({modalActive}) => {
     const navigateTo = useNavigation();
     return (
-        <View style={[styles.header, modalActive ? {opacity: 0} : null]}>
-            <TouchableOpacity
-                onPress={() => {
-                    navigateTo.goBack();
-                }}>
-                <Image source={require('../../../../assets/images/chevron_left.png')} style={styles.headerLeftImage} />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>그룹 수정</Text>
-            <View></View>
-        </View>
+        <>
+            <View style={[styles.header, modalActive ? {opacity: 0} : null]}>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigateTo.goBack();
+                    }}>
+                    <Image source={require('../../../../assets/images/chevron_left.png')} style={styles.headerLeftImage} />
+                </TouchableOpacity>
+                <Text style={styles.headerTitle}>그룹 수정</Text>
+                <View></View>
+            </View>
+            <View style={styles.headerShadow}></View>
+        </>
     );
 };
 
@@ -38,6 +41,13 @@ const styles = StyleSheet.create({
         fontFamily: type.notoSansKR_Medium,
         color: colors.main,
         fontSize: 20,
+    },
+    headerShadow: {
+        height: 1,
+        backgroundColor: '#F1F1F1',
+        shadowColor: colors.gray4,
+        shadowOpacity: 1,
+        elevation: 4,
     },
 });
 
