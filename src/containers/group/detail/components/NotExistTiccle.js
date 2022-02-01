@@ -4,7 +4,7 @@ import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
 const windowHeight = Dimensions.get('window').height;
-const remainder = 256 + 48 + 66; //GroupInfo + search + bottom 의 height
+const remainder = 256 + 48; //GroupInfo + search의 height
 
 const NotExistTiccle = () => {
   return(
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: windowHeight-remainder,
+        backgroundColor: colors.white,
     },
     font1:{
         fontSize: 16,

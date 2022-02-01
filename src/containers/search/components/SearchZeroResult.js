@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import colors from '../../../theme/colors';
 
 const SearchZeroResult = () => {
     return (
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         alignItems: 'center',
+        backgroundColor: colors.white,
     },
     logoImage: {
         marginTop: '60%',

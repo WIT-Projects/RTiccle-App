@@ -50,6 +50,9 @@ const GroupDetail = ({route, navigation}) => {
                 setPressSearchBtn={setPressSearchBtn}
                 placeholderContext="티끌 제목 혹은 #태그를 입력하세요."
                 setSearchResult={setSearchResult}
+                searchResult={searchResult}
+                list = {list}
+                setList = {setList}
             ></SearchBar>
             {pressSearchBtn
                 ? (searchResult.length > 0 
