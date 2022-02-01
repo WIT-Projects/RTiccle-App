@@ -6,24 +6,24 @@ import { useErrorHandler } from 'react-error-boundary';
 import SearchModal from './SearchModal';
 import { sortAscByLMT, sortDescByLMT } from '../../model/TiccleModel';
 import colors from '../../theme/colors';
-import useTiccleChanged from '../../context/hook/useTiccleChanged';
 
-const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList, isSearchResultChanged, setIsSearchResultChanged }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList }) => {
     const [searchInput, setSearchInput] = useState("");
     const handleError = useErrorHandler() // for error handling
     const [isModalVisible, setModalVisible] = useState(false);
     const [isLatestSort, setIsLatestSort] = useState(true);
     const [isListChanged, setIsListChanged] = useState(false);
-    const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
 
     useEffect(() => {
         if (searchResult.length != 0) {
-            isLatestSort ? setSearchResult(sortDescByLMT(searchResult)) : setSearchResult(sortAscByLMT(searchResult));
-            setIsSearchResultChanged(!isSearchResultChanged);
+            let sortResult = isLatestSort ? sortDescByLMT(searchResult) : sortAscByLMT(searchResult);
+            let JSONSortResult = JSON.parse(JSON.stringify(sortResult));
+            setSearchResult(JSONSortResult);
         }
         if (!isSearchScreen) {
-            isLatestSort ? setList(sortDescByLMT(list)) : setList(sortAscByLMT(list));
-            setIsTiccleListChanged(!isTiccleListChanged);
+            let sortResult = isLatestSort ? sortDescByLMT(list) : sortAscByLMT(list);
+            let JSONSortResult = JSON.parse(JSON.stringify(sortResult));
+            setList(JSONSortResult);
         }
     }, [isListChanged]);
 
@@ -38,12 +38,14 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
         if (isSearchScreen) {
             searchTiccleByTitltAndTag(query, tagQuery)
                 .then((res) => {
-                    isLatestSort ? setSearchResult(sortDescByLMT(res)) : setSearchResult(sortAscByLMT(res));
+                    let sortResult = isLatestSort ? sortDescByLMT(res) : sortAscByLMT(res);
+                    setSearchResult(sortResult);
                 })
                 .catch(err => handleError(err))
         } else {
             const result = searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery);
-            isLatestSort ? setSearchResult(sortDescByLMT(result)) : setSearchResult(sortAscByLMT(result));
+            let sortResult = isLatestSort ? sortDescByLMT(result) : sortAscByLMT(result);
+            setSearchResult(sortResult);
         }
         setPressSearchBtn(true);
     }

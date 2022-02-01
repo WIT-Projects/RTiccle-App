@@ -14,7 +14,6 @@ import {useErrorHandler} from 'react-error-boundary';
 const GroupDetail = ({route, navigation}) => {
     const [pressSearchBtn, setPressSearchBtn] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
-    const [isSearchResultChanged, setIsSearchResultChanged] = useState(false);
 
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
     const handleError = useErrorHandler(); // for error handling
@@ -41,10 +40,6 @@ const GroupDetail = ({route, navigation}) => {
     useEffect(() => {
         setList(ticcleList); // update list
     }, [isTiccleListChanged]);
-    
-    useEffect(() => {
-        setSearchResult(searchResult); // update list
-    }, [isSearchResultChanged]);
 
     return (
         <>
@@ -58,8 +53,6 @@ const GroupDetail = ({route, navigation}) => {
                 searchResult={searchResult}
                 list={list}
                 setList={setList}
-                isSearchResultChanged={isSearchResultChanged}
-                setIsSearchResultChanged={setIsSearchResultChanged}
             ></SearchBar>
             {pressSearchBtn
                 ? (searchResult.length > 0 
