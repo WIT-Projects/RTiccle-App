@@ -4,7 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
 
 const TiccleDetailHeaderLeft = () => {
-    const navigateTo = useNavigation()
+    const navigateTo = useNavigation();
+
     return (
         <TouchableOpacity
             style={styles.headerLeftTouchable}

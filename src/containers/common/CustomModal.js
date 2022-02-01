@@ -6,7 +6,7 @@ import colors from '../../theme/colors';
 import { type } from '../../theme/fonts';
 
 const CustomModal = ({isModalVisible, setModalVisible, title, leftButton, rightButton,
-rightButtonFunction}) => {
+rightButtonFunction, rightButtonStyle, warning}) => {
     return(
         <Modal
             isVisible={isModalVisible}
@@ -19,6 +19,11 @@ rightButtonFunction}) => {
             hideModalContentWhileAnimating={true}
         >
             <View style={styles.container}>
+                {warning ?
+                <View style={styles.warningContainer}>
+                    <Text style={styles.warningText}>주의</Text>
+                </View>
+                : null}
                 <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{title}</Text>
                 </View>
@@ -27,7 +32,7 @@ rightButtonFunction}) => {
                     <TouchableOpacity style={styles.buttonTouchable} onPress={()=>setModalVisible(false)}>
                         <Text style={[styles.buttonText,styles.leftButtonText]}>{leftButton}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonTouchable} onPress={rightButtonFunction}>
+                    <TouchableOpacity style={[styles.buttonTouchable, rightButtonStyle]} onPress={rightButtonFunction}>
                         <Text style={[styles.buttonText, styles.rightButtonText]}>{rightButton}</Text>
                     </TouchableOpacity>
                 </View>
@@ -49,15 +54,25 @@ const styles = StyleSheet.create({
         paddingTop : 16,
         paddingBottom: 5,
     },
+    warningContainer:{
+        alignItems: 'center',
+        paddingVertical: 4
+    },
+    warningText:{
+        fontFamily: type.spoqaHanSansNeo_Bold,
+        color: colors.red,
+        fontSize: 16
+    },
     titleContainer:{
         alignItems: 'center',
         paddingVertical: 16,
     },
     titleText :{
-        fontFamily: type.notoSansKR_Regular,
+        fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize : 16,
         lineHeight : 20,
-        color: colors.main
+        color: colors.main,
+        textAlign: 'center'
     },
     buttonContainer:{
         flexDirection : 'row',

@@ -25,9 +25,10 @@ const TiccleUpdateScreen = ({route}) => {
     
     useEffect(()=> {
         const ticcle = route.params.ticcleData;
-        setTiccleUpdate(ticcle);
+        const JSONTiccle = JSON.parse(JSON.stringify(ticcle));
+        setTiccleUpdate(JSONTiccle);
         setOriginalTiccle(ticcle);
-    },[route])
+    },[])
 
     const setTiccleUpdateImageNamesUrls = imagePath =>{
         setTiccleUpdateImages(imagePath);

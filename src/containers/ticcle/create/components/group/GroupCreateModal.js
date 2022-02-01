@@ -48,8 +48,8 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
         }}
         backdropOpacity={0.5}
         style={styles.modal}
-        animationIn={'zoomIn'}
-        animationOut={'zoomOut'}
+        animationIn={'fadeIn'}
+        animationOut={'fadeOut'}
         backdropTransitionInTiming={0}
         hideModalContentWhileAnimating={true}
         >
