@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, View, Image, TouchableOpacity } from "react-native";
 import { searchTiccleByTitltAndTag, searchTiccleByTitltAndTagInGroup } from '../../model/SearchModel';
 import { ticcleList } from '../../model/TiccleModel';
@@ -7,11 +7,23 @@ import SearchModal from './SearchModal';
 import { sortAscByLMT, sortDescByLMT } from '../../model/TiccleModel';
 import colors from '../../theme/colors';
 
-const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList, setIsTiccleListChanged, isTiccleListChanged, isSearchResultChanged, setIsSearchResultChanged }) => {
     const [searchInput, setSearchInput] = useState("");
     const handleError = useErrorHandler() // for error handling
     const [isModalVisible, setModalVisible] = useState(false);
     const [isLatestSort, setIsLatestSort] = useState(true);
+    const [isListChanged, setIsListChanged] = useState(false);
+
+    useEffect(() => {
+        if (searchResult.length != 0) {
+            isLatestSort ? setSearchResult(sortDescByLMT(searchResult)) : setSearchResult(sortAscByLMT(searchResult));
+            setIsSearchResultChanged(!isSearchResultChanged);
+        }
+        if (!isSearchScreen) {
+            isLatestSort ? setList(sortDescByLMT(list)) : setList(sortAscByLMT(list));
+            setIsTiccleListChanged(!isTiccleListChanged);
+        }
+    }, [isListChanged]);
 
     function getSearchResult() {
         let query = searchInput.split(" ");
@@ -41,24 +53,14 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
 
     const sortLatest = () => {
         setIsLatestSort(true);
-        if (searchResult.length != 0) {
-            setSearchResult(sortDescByLMT(searchResult));
-        }
-        if (!isSearchScreen) {
-            setList(sortDescByLMT(list));
-        }
         setModalVisible(false);
+        setIsListChanged(!isListChanged);
     };
 
     const sortOld = () => {
         setIsLatestSort(false);
-        if (searchResult.length != 0) {
-            setSearchResult(sortAscByLMT(searchResult));
-        }
-        if (!isSearchScreen) {
-            setList(sortAscByLMT(list));
-        }
         setModalVisible(false);
+        setIsListChanged(!isListChanged);
     };
 
     return (
@@ -75,7 +77,7 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
             />
             <View style={styles.container}>
                 <TextInput style={styles.textInput} value={searchInput} onChangeText={(text) => setSearchInput(text)} placeholder={placeholderContext}></TextInput>
-                {pressSearchBtn ? <Image source={require('../../assets/icon/deleteSearch.png')} onTouchEnd={() => pressDeleteSearchBtn()} /> : null}
+                {pressSearchBtn ? <Image source={require('../../assets/icon/deleteSearch.png')} onTouchEnd={() => pressDeleteSearchBtn()} /> : <View style={{width: 19}}/>}
                 <Image onTouchEnd={() => { getSearchResult() }} style={styles.icon} source={require('../../assets/icon/search.png')}></Image>
                 <Image style={styles.icon} source={require('../../assets/icon/line.png')}></Image>
                 <TouchableOpacity
@@ -91,7 +93,7 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
 
 const styles = StyleSheet.create({
     textInput: {
-        fontSize: 18,
+        fontSize: 16,
         width: "70%",
     },
     container: {

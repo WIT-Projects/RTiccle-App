@@ -14,6 +14,7 @@ import {useErrorHandler} from 'react-error-boundary';
 const GroupDetail = ({route, navigation}) => {
     const [pressSearchBtn, setPressSearchBtn] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
+    const [isSearchResultChanged, setIsSearchResultChanged] = useState(false);
 
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
     const handleError = useErrorHandler(); // for error handling
@@ -40,6 +41,10 @@ const GroupDetail = ({route, navigation}) => {
     useEffect(() => {
         setList(ticcleList); // update list
     }, [isTiccleListChanged]);
+    
+    useEffect(() => {
+        setSearchResult(searchResult); // update list
+    }, [isSearchResultChanged]);
 
     return (
         <>
@@ -51,8 +56,12 @@ const GroupDetail = ({route, navigation}) => {
                 placeholderContext="티끌 제목 혹은 #태그를 입력하세요."
                 setSearchResult={setSearchResult}
                 searchResult={searchResult}
-                list = {list}
-                setList = {setList}
+                list={list}
+                setList={setList}
+                isTiccleListChanged ={isTiccleListChanged}
+                setIsTiccleListChanged ={setIsTiccleListChanged}
+                isSearchResultChanged={isSearchResultChanged}
+                setIsSearchResultChanged={setIsSearchResultChanged}
             ></SearchBar>
             {pressSearchBtn
                 ? (searchResult.length > 0 
