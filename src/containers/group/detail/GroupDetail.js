@@ -58,8 +58,6 @@ const GroupDetail = ({route, navigation}) => {
                 searchResult={searchResult}
                 list={list}
                 setList={setList}
-                isTiccleListChanged ={isTiccleListChanged}
-                setIsTiccleListChanged ={setIsTiccleListChanged}
                 isSearchResultChanged={isSearchResultChanged}
                 setIsSearchResultChanged={setIsSearchResultChanged}
             ></SearchBar>

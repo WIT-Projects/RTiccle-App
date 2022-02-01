@@ -6,13 +6,15 @@ import { useErrorHandler } from 'react-error-boundary';
 import SearchModal from './SearchModal';
 import { sortAscByLMT, sortDescByLMT } from '../../model/TiccleModel';
 import colors from '../../theme/colors';
+import useTiccleChanged from '../../context/hook/useTiccleChanged';
 
-const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList, setIsTiccleListChanged, isTiccleListChanged, isSearchResultChanged, setIsSearchResultChanged }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList, isSearchResultChanged, setIsSearchResultChanged }) => {
     const [searchInput, setSearchInput] = useState("");
     const handleError = useErrorHandler() // for error handling
     const [isModalVisible, setModalVisible] = useState(false);
     const [isLatestSort, setIsLatestSort] = useState(true);
     const [isListChanged, setIsListChanged] = useState(false);
+    const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
 
     useEffect(() => {
         if (searchResult.length != 0) {
