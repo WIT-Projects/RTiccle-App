@@ -8,15 +8,15 @@ import useTiccleChanged from '../../../context/hook/useTiccleChanged';
 import {getTiccleListByGId} from '../../../model/TiccleModel';
 import {ticcleList} from '../../../model/TiccleModel';
 import SearchExistResultList from '../../search/components/SearchExistResultList';
-import GroupDetailFloatingButton from './components/GroupDetailFloatingButton'
-import { useErrorHandler } from 'react-error-boundary'
+import GroupDetailFloatingButton from './components/GroupDetailFloatingButton';
+import {useErrorHandler} from 'react-error-boundary';
 
 const GroupDetail = ({route, navigation}) => {
     const [pressSearchBtn, setPressSearchBtn] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
 
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
-    const handleError = useErrorHandler() // for error handling
+    const handleError = useErrorHandler(); // for error handling
 
     const [list, setList] = useState([]);
     const [group, setGroup] = useState(route.params?.groupData);
@@ -28,7 +28,7 @@ const GroupDetail = ({route, navigation}) => {
             setIsTiccleListChanged(!isTiccleListChanged); // notify ticcle changed
         }).catch(
             err => handleError(err)
-        );;
+        );
     }, []);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const GroupDetail = ({route, navigation}) => {
             setGroup(route.params?.groupData);
         }
     }, [route.params?.groupData]);
-    
+
     useEffect(() => {
         setList(ticcleList); // update list
     }, [isTiccleListChanged]);
@@ -59,7 +59,6 @@ const GroupDetail = ({route, navigation}) => {
                     ? <GroupDetailTiccleList ticcleList={list} />
                     : <ZeroTiccle />)}
             <GroupDetailFloatingButton groupId={group.id}/>
-
         </>
     );
 };

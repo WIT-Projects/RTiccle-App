@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStackNavigatior from './stack/HomeStackNavigator';
@@ -7,6 +7,8 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import colors from '../theme/colors';
 import { type } from '../theme/fonts';
 import TiccleCreate from '../containers/ticcle/create/TiccleCreate';
+import CustomModal from '../containers/common/CustomModal';
+import {limitTiccleNum, checkIsFullTiccleNum} from '../model/GroupModel'
 
 const isTabActive = route => {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -25,9 +27,18 @@ const isTabActive = route => {
 
 const MainTab = () => {
     const Tab = createBottomTabNavigator();
+    const ticcleNum = 100;
+    const [ticcleAlertModal, setTiccleAlertModal]= useState(false)
 
     return (
-        <Tab.Navigator
+        <>
+            <CustomModal
+                isModalVisible={ticcleAlertModal} setModalVisible={setTiccleAlertModal}
+                title={`티끌은 ${limitTiccleNum}개까지 생성 가능합니다.`} rightButton={"확인"}
+                rightButtonFunction={() => setTiccleAlertModal(false)}
+                rightButtonStyle={{marginLeft: 20}}
+            />
+            <Tab.Navigator
             screenOptions={{
                 tabBarStyle: {backgroundColor: colors.main, height: 67, paddingBottom: 13, paddingTop: 14},
                 tabBarLabelStyle: {
@@ -36,50 +47,60 @@ const MainTab = () => {
                     fontFamily: type.spoqaHanSansNeo_Light,
                 },
             }}>
-            <Tab.Screen
-                name="HomeStack"
-                component={HomeStackNavigatior}
-                options={({route}) => ({
-                    title: '홈',
-                    headerShown: false,
-                    tabBarStyle: isTabActive(route),
-                    tabBarIcon: ({focused}) => (
-                        <Image source={focused ? require('../assets/images/tabHomeActive.png') : require('../assets/images/tabHome.png')} />
-                    ),
-                })}
-            />
-            <Tab.Screen
-                name="TiccleCreate"
-                component={TiccleCreate}
-                initialParams={{groupId : ''}}
-                options={() =>  ({
-                    title: '티끌쓰기',
-                    headerShown: false,
-                    tabBarStyle: {display: 'none'},
-                    tabBarIcon: () => <Image source={require('../assets/images/tabTiccleCreate.png')} />
-                })}
-            />
-            <Tab.Screen
-                name="MyPage"
-                component={MyPage}
-                options={{
-                    title: '마이페이지',
-                    headerTitleAlign: 'center',
-                    headerStyle: {
-                        backgroundColor: colors.main,
-                    },
-                    headerTitleStyle:{
-                        color: colors.white,
-                        fontFamily : type.notoSansKR_Medium,
-                        fontSize: 20,
-                    },
-                    tabBarLabel: 'MY',
-                    tabBarIcon: ({focused}) => (
-                        <Image source={focused ? require('../assets/images/tabMypageActive.png') : require('../assets/images/tabMypage.png')} />
-                    ),
-                }}
-            />
-        </Tab.Navigator>
+               <Tab.Screen
+                    name="HomeStack"
+                    component={HomeStackNavigatior}
+                    options={({route}) => ({
+                        title: '홈',
+                        headerShown: false,
+                        tabBarStyle: isTabActive(route),
+                        tabBarIcon: ({focused}) => (
+                            <Image source={focused ? require('../assets/images/tabHomeActive.png') : require('../assets/images/tabHome.png')} />
+                            ),
+                    })}
+                />
+                <Tab.Screen
+                    name="TiccleCreate"
+                    component={TiccleCreate}
+                    initialParams={{groupId : ''}}
+                    listeners={() => ({
+                        tabPress: e => {
+                            if(checkIsFullTiccleNum()) {
+                                setTiccleAlertModal(true);
+                                e.preventDefault();
+                            }
+                        }
+                    })}
+                    options={() =>  ({
+                        title: '티끌쓰기',
+                        headerShown: false,
+                        tabBarStyle: {display: 'none'},
+                        tabBarIcon: () => <Image source={require('../assets/images/tabTiccleCreate.png')} />
+                    })}
+                />
+                <Tab.Screen
+                    name="MyPage"
+                    component={MyPage}
+                    options={{
+                        title: '마이페이지',
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: colors.main,
+                        },
+                        headerTitleStyle:{
+                            color: colors.white,
+                            fontFamily : type.notoSansKR_Medium,
+                            fontSize: 20,
+                        },
+                        tabBarLabel: 'MY',
+                        tabBarIcon: ({focused}) => (
+                            <Image source={focused ? require('../assets/images/tabMypageActive.png') : require('../assets/images/tabMypage.png')} />
+                        ),
+                    }}
+                />
+            </Tab.Navigator>
+        </>
+        
     );
 };
 

@@ -4,19 +4,41 @@ import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
+import {checkIsExistingGroup} from '../../../../model/GroupModel';
 
-const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive, title, initialData}) => {
+const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive, title, tempData, setTempData}) => {
     const {setGroupUpdateTitle} = useGroupUpdate();
     let groupTitleLength;
     const maxLength = 15;
-    const [isMaxLength, setIsMaxLength] = useState(false);
-    const [noTitle, setNoTitle] = useState(false);
+    const [buttonDisabled, setButtonDisable] = useState(false);
+    const [isExistGroup, setIsExistGroup] = useState(false);
 
     if (title != null) groupTitleLength = title.length;
 
+    const cancelGroupUpdateTitle = () => {
+        setModalVisible(false);
+        setModalActive(false);
+        setGroupUpdateTitle(tempData.title);
+        setIsExistGroup(false);
+    };
+
+    const saveGroupUpdateTitle = () => {
+        if (title != tempData.title) {
+            if (checkIsExistingGroup(title)) {
+                setButtonDisable(true);
+                setIsExistGroup(true);
+                return;
+            }
+            setTempData({...tempData, title: title})
+        }
+        setModalVisible(false);
+        setModalActive(false);
+        setIsExistGroup(false);
+    };
+
     useEffect(() => {
-        groupTitleLength === maxLength ? setIsMaxLength(true) : setIsMaxLength(false);
-        groupTitleLength < 1 ? setNoTitle(true) : setNoTitle(false);
+        groupTitleLength < 1 ? setButtonDisable(true) : setButtonDisable(false);
+        setIsExistGroup(false);
     }, [title]);
 
     return (
@@ -26,39 +48,36 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
-                            setModalVisible(false);
-                            setModalActive(false);
-                            setGroupUpdateTitle(initialData.title);
+                            cancelGroupUpdateTitle();
                         }}>
                         <Text style={styles.defaultText}>취소</Text>
                     </TouchableOpacity>
                     <Text style={[styles.defaultText, styles.bold]}>그룹 제목</Text>
                     <TouchableOpacity
-                        disabled={noTitle ? true : false}
+                        disabled={buttonDisabled}
                         style={styles.button}
                         onPress={() => {
-                            setModalVisible(false);
-                            setModalActive(false);
+                            saveGroupUpdateTitle();
                         }}>
-                        <Text style={[styles.defaultText, noTitle ? styles.disabledButton : null]}>저장</Text>
+                        <Text style={[styles.defaultText, buttonDisabled ? styles.disabledButton : null]}>저장</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={[styles.underline, isMaxLength ? styles.red : null]}>
+                <View style={styles.underline}>
                     <TextInput autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateTitle} maxLength={maxLength}>
                         {title}
                     </TextInput>
-
                     <TouchableOpacity
-                        style={styles.editButton}
+                        style={styles.deleteButton}
                         onPress={() => {
                             setGroupUpdateTitle('');
                         }}>
-                        <Image style={isMaxLength ? styles.xCircleRed : null} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
+                        <Image source={require('../../../../assets/images/xCircleWhite.png')}></Image>
                     </TouchableOpacity>
                 </View>
-                <Text style={[styles.textCount, isMaxLength ? styles.red : null]}>
+                <Text style={styles.textCount}>
                     {groupTitleLength}/{maxLength}
                 </Text>
+                <Text style={[styles.createFailText, isExistGroup ? null : {opacity: 0}]}>이미 존재하는 그룹입니다!</Text>
             </View>
         </Modal>
     );
@@ -68,7 +87,7 @@ const styles = StyleSheet.create({
     modal: {
         margin: 0,
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
     },
     container: {
         width: '100%',
@@ -97,7 +116,7 @@ const styles = StyleSheet.create({
     },
     underline: {
         width: '100%',
-        paddingTop: 308,
+        paddingTop: 280,
         borderBottomWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -110,19 +129,18 @@ const styles = StyleSheet.create({
         paddingTop: 15,
         color: colors.white,
     },
-    editButton: {
+    deleteButton: {
         paddingLeft: 20,
         paddingVertical: 10,
     },
-    red: {
-        borderColor: colors.red,
-        color: colors.red,
-    },
-    xCircleRed: {
-        tintColor: colors.red,
-    },
     disabledButton: {
         color: colors.gray3,
+    },
+    createFailText: {
+        fontFamily: type.notoSansKR_Medium,
+        fontSize: 12,
+        color: '#FC6969',
+        paddingTop: 4,
     },
 });
 

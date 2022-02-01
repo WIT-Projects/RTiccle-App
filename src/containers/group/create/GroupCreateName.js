@@ -16,7 +16,7 @@ const GroupCreateName = ({navigation}) => {
                 <View style={styles.inner}>
                     <View style={styles.textContainer}>
                         <TextInfo title="그룹의 이름은 무엇인가요?" subtitle="나만의 그룹 이름을 입력해보세요!"></TextInfo>
-                        <GroupTextInput setButtonDisable={setButtonDisable} isExistGroup={isExistGroup}></GroupTextInput>
+                        <GroupTextInput setButtonDisable={setButtonDisable} isExistGroup={isExistGroup} setIsExistGroup={setIsExistGroup}></GroupTextInput>
                     </View>
                     <GroupCreateConfirmButton
                         text="확인"

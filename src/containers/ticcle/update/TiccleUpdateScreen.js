@@ -28,7 +28,7 @@ const TiccleUpdateScreen = ({route}) => {
         const JSONTiccle = JSON.parse(JSON.stringify(ticcle));
         setTiccleUpdate(JSONTiccle);
         setOriginalTiccle(ticcle);
-    },[route])
+    },[])
 
     const setTiccleUpdateImageNamesUrls = imagePath =>{
         setTiccleUpdateImages(imagePath);

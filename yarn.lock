@@ -6277,10 +6277,10 @@
     "mockdate" "^3.0.2"
     "string-hash-64" "^1.0.3"
 
-"react-native-restart@0.0.20":
-  "integrity" "sha512-lpWqKvfKaCfolosRHHH9+hDdjqMntEedRiLdVqmwNJejjfA4gUH+VEn0uhSaVueBgQJl5525X6B/0bSP55g+iQ=="
-  "resolved" "https://registry.npmjs.org/react-native-restart/-/react-native-restart-0.0.20.tgz"
-  "version" "0.0.20"
+"react-native-restart@^0.0.23":
+  "integrity" "sha512-BTs3YNl0MFyTgYgq6oQOspVV7+8Umm2QeuHWJ8xfRsjdHIUBoKF/Bxe1IMGAO5vHPcNwN+lHE6Mf58Tu4HS9/w=="
+  "resolved" "https://registry.npmjs.org/react-native-restart/-/react-native-restart-0.0.23.tgz"
+  "version" "0.0.23"
 
 "react-native-safe-area-context@>= 3.0.0", "react-native-safe-area-context@3.3.2":
   "integrity" "sha512-yOwiiPJ1rk+/nfK13eafbpW6sKW0jOnsRem2C1LPJjM3tfTof6hlvV5eWHATye3XOpu2cJ7N+HdkUvUDGwFD2Q=="

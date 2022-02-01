@@ -5,13 +5,14 @@ import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';
 
-const GroupTitleInput = ({setButtonDisable, isExistGroup}) => {
+const GroupTitleInput = ({setButtonDisable, isExistGroup, setIsExistGroup}) => {
     const {groupCreate, setGroupTitle} = useGroupCreate();
     var groupTitleLength = groupCreate.title.length;
     const maxLengthOfTitle = 15;
 
     useEffect(() => {
         groupTitleLength > 0 ? setButtonDisable(false) : setButtonDisable(true);
+        setIsExistGroup(false);
     }, [groupCreate.title]);
 
     return (

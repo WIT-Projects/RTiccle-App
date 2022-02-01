@@ -4,17 +4,20 @@ import { doDeleteTiccle } from "../../../../model/TiccleModel";
 import CustomModal from "../../../common/CustomModal"
 import { useNavigation } from "@react-navigation/native";
 import useTiccleChanged from "../../../../context/hook/useTiccleChanged";
+import useGroupChanged from "../../../../context/hook/useGroupChanged";
 
 
 const TiccleDetailFloatingButton = ({ticcleData}) => {
     const navigation = useNavigation();
     const { isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
+    const { isGroupChanged, setIsGroupChanged} = useGroupChanged();
 
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
     const deleteModalEvent = () => {
         doDeleteTiccle(ticcleData);
         setIsTiccleListChanged(!isTiccleListChanged);
-        navigation.navigate('Home');
+        setIsGroupChanged(!isGroupChanged);
+        navigation.navigate('HomeStack');
     }
 
     return (
