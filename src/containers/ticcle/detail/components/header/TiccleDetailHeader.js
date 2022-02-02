@@ -6,12 +6,12 @@ import metrics from '../../../../../theme/metrices'
 import TiccleDetailHeaderLeft from './TiccleDetailHeaderLeft'
 import TiccleDetailHeaderRight from './TiccleDetailHeaderRight'
 
-const TiccleDetailHeader = ({ticcleDetail}) => {
+const TiccleDetailHeader = ({ticcleDetail, ticcleGroupId, goBack}) => {
     var title = '티끌'
 
     return(
         <View style={styles.container}>
-            <TiccleDetailHeaderLeft />
+            <TiccleDetailHeaderLeft ticcleGroupId={ticcleGroupId} goBack={goBack}/>
             <Text style={styles.title}>{title}</Text>
             <TiccleDetailHeaderRight ticcleDetail={ticcleDetail}/>
         </View>

@@ -5,13 +5,12 @@ import { type } from '../../../../../theme/fonts'
 import metrics from '../../../../../theme/metrices'
 import TiccleUpdateHeaderLeft from './TiccleUpdateHeaderLeft'
 import TiccleUpdateHeaderRight from './TiccleUpdateHeaderRight'
-
-const TiccleUpdateHeader = ({ticcleUpdate, originalTiccle, setIsLoading}) => {
+const TiccleUpdateHeader = ({ticcleUpdate, originalTiccle, setIsLoading, setCancelModalVisible}) => {
     var title = '티끌 수정'
 
     return(
         <View style={styles.container}>
-            <TiccleUpdateHeaderLeft/>
+            <TiccleUpdateHeaderLeft setCancelModalVisible={setCancelModalVisible}/>
             <Text style={styles.title}>{title}</Text>
             <TiccleUpdateHeaderRight ticcleUpdate={ ticcleUpdate } originalTiccle={ originalTiccle } setIsLoading={ setIsLoading }/>
         </View>

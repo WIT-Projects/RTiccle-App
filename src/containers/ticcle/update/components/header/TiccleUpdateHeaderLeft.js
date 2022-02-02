@@ -1,23 +1,11 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { Image,StyleSheet,TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
-import CustomModal from '../../../../common/CustomModal';
 
-const TiccleUpdateHeaderLeft = () => {
-    const navigateTo = useNavigation();
-    const [cancelModalVisible, setCancelModalVisible] = useState(false);
-    const cancelModalEvent = () => {
-        navigateTo.goBack();
-    }
-    
+const TiccleUpdateHeaderLeft = ({setCancelModalVisible}) => {
+ 
     return (
         <>
-        <CustomModal
-                isModalVisible={cancelModalVisible} setModalVisible={setCancelModalVisible}
-                title={"티끌 수정을 취소하시겠습니까?"} leftButton={"취소"} rightButton={"확인"}
-                rightButtonFunction={cancelModalEvent}
-        />
         <TouchableOpacity
             style={styles.headerLeftTouchable}
             onPress={() => {

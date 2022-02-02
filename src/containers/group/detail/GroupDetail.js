@@ -10,6 +10,7 @@ import {ticcleList} from '../../../model/TiccleModel';
 import SearchExistResultList from '../../search/components/SearchExistResultList';
 import GroupDetailFloatingButton from './components/GroupDetailFloatingButton';
 import {useErrorHandler} from 'react-error-boundary';
+import { BackHandler } from 'react-native';
 import Spinner from '../../common/Spinner';
 
 const GroupDetail = ({route, navigation}) => {
@@ -31,6 +32,16 @@ const GroupDetail = ({route, navigation}) => {
         }).catch(
             err => handleError(err)
         );
+        //backButton
+        const goToHome = () => {
+            navigation.navigate('Home');
+            return true;
+        }
+        const backHandler= BackHandler.addEventListener(
+            "hardwareBackPress",
+            goToHome
+        )
+        return () => backHandler.remove();
     }, []);
 
     useEffect(() => {

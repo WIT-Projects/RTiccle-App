@@ -1,26 +1,22 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import metrics from '../../../../theme/metrices';
 
-const GroupUpdateHeader = ({modalActive}) => {
-    const navigateTo = useNavigation();
+const GroupUpdateHeader = ({modalActive, setCancelModal}) => {
+
     return (
-        <>
-            <View style={[styles.header, modalActive ? {opacity: 0} : null]}>
-                <TouchableOpacity
-                    onPress={() => {
-                        navigateTo.goBack();
-                    }}>
-                    <Image source={require('../../../../assets/images/chevron_left.png')} style={styles.headerLeftImage} />
-                </TouchableOpacity>
-                <Text style={styles.headerTitle}>그룹 수정</Text>
-                <View></View>
-            </View>
-            <View style={styles.headerShadow}></View>
-        </>
+        <View style={[styles.header, modalActive ? {opacity: 0} : null]}>
+            <TouchableOpacity
+                onPress={() => {
+                    setCancelModal(true);
+                }}>
+                <Image source={require('../../../../assets/images/chevron_left.png')} style={styles.headerLeftImage} />
+            </TouchableOpacity>
+            <Text style={styles.headerTitle}>그룹 수정</Text>
+            <View></View>
+        </View>
     );
 };
 

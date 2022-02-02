@@ -2,16 +2,21 @@ import React from 'react';
 import { Image,StyleSheet,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../../../theme/colors';
+import { getGroupDataByGId } from '../../../../../model/GroupModel';
 
-const TiccleDetailHeaderLeft = () => {
+const TiccleDetailHeaderLeft = ({ticcleGroupId,goBack}) => {
     const navigateTo = useNavigation();
+    const groupDetailData= getGroupDataByGId(ticcleGroupId);
+    const buttonEvent = () => {
+        (goBack) ?
+        navigateTo.goBack() :
+        navigateTo.navigate('GroupDetail', {groupData: groupDetailData});
+    }
 
     return (
         <TouchableOpacity
             style={styles.headerLeftTouchable}
-            onPress={() => {
-                navigateTo.navigate('HomeStack');
-            }}>
+            onPress={buttonEvent}>
                 <Image source={require('../../../../../assets/images/chevron_left.png')}
                         style={styles.headerLeftImage}
                 />
