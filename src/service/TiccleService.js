@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import { currentUser } from './AuthService';
 import { uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage } from './ImageService';
-import { updateGroupInfo, updateTiccleNumOfGroup } from './GroupService';
+import { updateGroupInfo, updateTiccleNumOfGroup, checkDeletedTiccleTitleAndUpdate } from './GroupService';
 import { getKSTTime } from './CommonService';
 
 const collection = firestore().collection('RTiccle');
@@ -109,17 +109,25 @@ async function updateTiccleImage(oldImageNames, newImageSources) {
 /**
  * Delete ticcle 
  * @param {Array} ticcle: ticcle info (MUST include 'id', 'group', 'images' information)
+ * @returns {Promise<string>} newlatestTiccleTitle if changed else null
  */
-function deleteTiccle(ticcle) {
+async function deleteTiccle(ticcle) {
     // delete images
     if (ticcle.images.length > 0) {
         ticcle.images.forEach((imageName) => deleteImageFromStorage(imageName, true));
     }
     // delete ticcle info
     const ref = collection.doc(currentUser.uid).collection("Ticcle").doc(ticcle.id);
-    ref.delete();
+    await ref.delete();
+
     // update group info (ticcleNum - 1)
-    updateTiccleNumOfGroup(ticcle.groupId, false);
+    const group = await updateTiccleNumOfGroup(ticcle.groupId, false);
+
+    // check latestTiccleTitle
+    const newLatestTiccleTitle = await checkDeletedTiccleTitleAndUpdate(group, ticcle.title);
+    return new Promise(resolve => {
+        resolve(newLatestTiccleTitle);
+    });
 }
 
 /**
