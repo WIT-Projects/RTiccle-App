@@ -36,7 +36,7 @@ const SearchExistResult = ({ ticcle, isGroupDetail }) => {
     }
 
     const goToTiccleDetail = () => {
-        navigateTo.navigate('TiccleDetail', { ticcleData: ticcleData });
+        navigateTo.navigate('TiccleDetail', { ticcleData: ticcleData, goBack : true });
     }
 
     return (

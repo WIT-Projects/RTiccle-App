@@ -13,6 +13,7 @@ import TiccleCreateHeader from './components/header/TiccleCreateHeader';
 import useTiccleCreate from '../../../context/hook/useTiccleCreate';
 import { useNavigation } from '@react-navigation/native';
 import { checkGroupId } from './function/checkGroupId';
+import Spinner from '../../common/Spinner';
 
 const TiccleCreateScreen = ({route}) => {
     const { ticcle, setTiccle, setTiccleGroup, setTiccleTitle, setTiccleLink,
@@ -23,6 +24,7 @@ const TiccleCreateScreen = ({route}) => {
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const scrollRef = useRef();
     const navigation = useNavigation();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const tabPress = navigation.addListener('tabPress', () => {
@@ -38,7 +40,8 @@ const TiccleCreateScreen = ({route}) => {
 
     return(
         <>
-            <TiccleCreateHeader/>
+            {isLoading && <Spinner></Spinner>}
+            <TiccleCreateHeader setIsLoading={setIsLoading}/>
             <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
                 <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>

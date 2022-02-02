@@ -12,7 +12,8 @@ const PrivacyModal = ({isModalVisible, setModalVisible }) => {
     useEffect(() => {
         (async() => {
             const policy = await getPrivacyPolicy();
-            setPrivacyPolicy(policy);
+            const policyReplace = policy.replace(/\\n+/g, '\n');
+            setPrivacyPolicy(policyReplace);
         })();
     },[])
 
@@ -43,7 +44,7 @@ const PrivacyModal = ({isModalVisible, setModalVisible }) => {
                     </TouchableOpacity>
                 </View>
                 <ScrollView style={styles.scrollContainer}>
-                    <Text>
+                    <Text style={styles.policyText}>
                         {privacyPolicy}
                     </Text>
                 </ScrollView>                
@@ -89,6 +90,11 @@ const styles = StyleSheet.create({
     scrollContainer:{
         paddingHorizontal : 18,
     },
+    policyText:{
+        fontFamily: type.spoqaHanSansNeo_Regular,
+        fontSize: 12,
+        lineHeight: 24,
+    }
 })
 
 export default PrivacyModal
