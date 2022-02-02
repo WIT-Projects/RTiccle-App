@@ -31,6 +31,10 @@ const TiccleDetail = ({route}) => {
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
 
     useEffect(() => {
+        const ticcleData = route.params.ticcleData;
+        const goBack = route.params.goBack
+        const groupDetailData = getGroupDataByGId(ticcleData.groupId);
+        getTiccleIncludeImages(ticcleData).then((res) => setTiccleDetail(res));
         const goToHomeStack = () => {
             setIsTiccleListChanged(!isTiccleListChanged);
             (goBack) ? 
@@ -42,10 +46,6 @@ const TiccleDetail = ({route}) => {
             "hardwareBackPress",
             goToHomeStack
         );
-        const ticcleData = route.params.ticcleData;
-        const goBack = route.params.goBack
-        const groupDetailData = getGroupDataByGId(ticcleData.groupId);
-        getTiccleIncludeImages(ticcleData).then((res) => setTiccleDetail(res));
         return () => backHandler.remove();
     }, [route]);
 
