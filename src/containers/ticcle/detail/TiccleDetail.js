@@ -36,7 +36,7 @@ const TiccleDetail = ({route}) => {
         const ticcleData = route.params.ticcleData;
         const goBack = route.params.goBack
         const groupDetailData = getGroupDataByGId(ticcleData.groupId);
-        getTiccleIncludeImages(ticcleData).then((res) => setTiccleDetail(res));
+        getTiccleIncludeImages(ticcleData).then((res) => setTiccleDetail(res)).catch(err => handleError(err));
         const goToHomeStack = () => {
             setIsTiccleListChanged(!isTiccleListChanged);
             (goBack) ? 
@@ -48,8 +48,6 @@ const TiccleDetail = ({route}) => {
             "hardwareBackPress",
             goToHomeStack
         );
-        const ticcleData = route.params.ticcleData;
-        getTiccleIncludeImages(ticcleData).then((res) => setTiccleDetail(res)).catch(err => handleError(err));
         return () => backHandler.remove();
     }, [route]);
 
