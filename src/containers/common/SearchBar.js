@@ -40,9 +40,9 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
                 .then((res) => {
                     let sortResult = isLatestSort ? sortDescByLMT(res) : sortAscByLMT(res);
                     setSearchResult(sortResult);
+                    setIsLoading(false);
                 })
                 .catch(err => handleError(err))
-                setIsLoading(false);
         } else {
             const result = searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery);
             let sortResult = isLatestSort ? sortDescByLMT(result) : sortAscByLMT(result);

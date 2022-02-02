@@ -14,10 +14,6 @@ const MyPage = () => {
         name: '',
         email: '',
     })
-    // Error handling example
-    // const Bomb = () => {
-    //     throw new Error('MyPage rendering error')
-    // }
 
     useEffect(() => {
         if (currentUser != null) setIsGuest(currentUser.isAnonymous);
