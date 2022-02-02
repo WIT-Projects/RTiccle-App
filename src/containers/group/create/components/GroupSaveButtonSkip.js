@@ -29,13 +29,13 @@ const GroupSaveButtonSkip = ({navigation, text, setIsLoading}) => {
         };
         const imageSource = mainImage;
 
-        setIsLoading(true)
+        setIsLoading(true);
         const groupData = await doCreateGroup(newGroup, imageSource).catch(
             err => handleError(err)
         );;
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
         initialGroupCreate();
-        setIsLoading(false)
+        setIsLoading(false);
         navigation.navigate('GroupDetail', {groupData: groupData});
     };
 
