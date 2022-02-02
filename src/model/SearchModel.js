@@ -29,7 +29,7 @@ async function searchTiccleByTitltAndTag(query, tagQuery) {
  * @returns {Array} searched ticcle list
  */
  function searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery) {
-    const result = searchTiccleInGroup(ticcleList, query, tagQuery); // TODO sorting
+    const result = searchTiccleInGroup(ticcleList, query, tagQuery);
     return result;
 }
 

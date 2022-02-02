@@ -7,7 +7,7 @@ import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import {doUpdateGroup} from '../../../../model/GroupModel';
 import {useErrorHandler} from 'react-error-boundary';
 
-const GroupUpdateSaveButton = ({navigation, initialData}) => {
+const GroupUpdateSaveButton = ({navigation, initialData, setIsLoading}) => {
     const {groupUpdate, initialGroupUpdate, setGroupUpdateImage} = useGroupUpdate();
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
     const handleError = useErrorHandler(); // for error handling
@@ -15,11 +15,13 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
     const groupUpdateFirebase = async () => {
         let newInfo = [];
         let image = '';
+        const groupId = initialData.id;
+
+        setIsLoading(true);
         if (groupUpdate.title != initialData.title) newInfo.title = groupUpdate.title;
         if (groupUpdate.description != initialData.description) newInfo.description = groupUpdate.description;
         if (groupUpdate.imageUrl != initialData.imageUrl) image = groupUpdate.imageUrl; // imageUrl이지만 새로 업로드되는 이미지의 source임.
 
-        const groupId = initialData.id;
         if (image != '') {
             const oldImageName = initialData.mainImage;
             const newImageSource = image;
@@ -29,6 +31,8 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
             doUpdateGroup(groupId, newInfo, false).catch(err => handleError(err));
         }
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
+        initialGroupUpdate();
+        setIsLoading(false);
         navigation.navigate({
             name: 'GroupDetail',
             params: {
@@ -36,7 +40,6 @@ const GroupUpdateSaveButton = ({navigation, initialData}) => {
             },
             merge: true,
         });
-        initialGroupUpdate();
     };
 
     return (

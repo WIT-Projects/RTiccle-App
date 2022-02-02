@@ -4,8 +4,10 @@ import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
 import { anonSignIn, googleSigninConfigure, googleLogin } from "../../service/AuthService";
 import { getAllGroupIncludeImages } from "../../model/GroupModel";
+import {useErrorHandler} from 'react-error-boundary';
 
 const LoginScreen = ({setIsLoggedIn}) => {
+    const handleError = useErrorHandler(); // for error handling
 
     const textOne = "RTICCLE에 오신 걸"
     const textTwo = "환영합니다."
@@ -27,7 +29,7 @@ const LoginScreen = ({setIsLoggedIn}) => {
             getAllGroupIncludeImages().then(() => {
                 setIsLoggedInTrue();
             })
-        });
+        }).catch(err => handleError(err));
     }
     
     return(

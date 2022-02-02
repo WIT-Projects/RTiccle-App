@@ -5,9 +5,11 @@ import SplashScreen from 'react-native-splash-screen';
 import LoginScreen from './src/containers/login/LoginScreen';
 import { getAllGroupIncludeImages } from './src/model/GroupModel';
 import { getCurrentUser } from './src/service/AuthService';
+import {useErrorHandler} from 'react-error-boundary';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const handleError = useErrorHandler(); // for error handling
 
     useEffect(() => { // initialize app data
         if (getCurrentUser() == null) { // new user
@@ -22,7 +24,7 @@ function App() {
                 setTimeout(() => {
                     SplashScreen.hide();
                 }, 1000);
-            })
+            }).catch(err => handleError(err));
         }
     }, []);
 

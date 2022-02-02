@@ -8,23 +8,22 @@ import TextInfo from '../../common/TextInfo';
 import {type} from '../../../theme/fonts';
 import colors from '../../../theme/colors';
 import useGroupCreate from '../../../context/hook/useGroupCreate';
+import Spinner from '../../common/Spinner';
 
 const GroupCreateImage = ({navigation}) => {
     const {groupCreate, setGroupImage} = useGroupCreate();
     const mainImage = groupCreate.mainImage;
     const title = groupCreate.title;
     const description = groupCreate.description;
+    const [isLoading, setIsLoading] = useState(false);
     let source;
     mainImage == '' || mainImage == null ? (source = require('../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
     return (
         <View style={styles.container}>
-            <PhotoModal
-                setImage={setGroupImage}
-                isModalVisible={isModalVisible}
-                setModalVisible={setModalVisible}
-                width={412}
-                height={256}></PhotoModal>
+            <PhotoModal setImage={setGroupImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible} width={412} height={256}></PhotoModal>
+            {isLoading && <Spinner></Spinner>}
+            <View style={styles.headerShadow}></View>
             <TextInfo title="마지막 단계예요." subtitle="나만의 커버 이미지을 추가해 보세요!"></TextInfo>
             <ImageBackground source={source} style={styles.headerImage}>
                 <ImageBackground source={require('../../../assets/images/gradation2.png')} style={styles.headerImageGradation}>
@@ -39,8 +38,8 @@ const GroupCreateImage = ({navigation}) => {
                     </View>
                 </ImageBackground>
             </ImageBackground>
-            <GroupSaveButton text="저장하기" navigation={navigation}></GroupSaveButton>
-            <GroupSaveButtonSkip text="건너뛰기" navigation={navigation}></GroupSaveButtonSkip>
+            <GroupSaveButton text="저장하기" navigation={navigation} setIsLoading={setIsLoading} isLoading={isLoading}></GroupSaveButton>
+            <GroupSaveButtonSkip text="건너뛰기" navigation={navigation} setIsLoading={setIsLoading}></GroupSaveButtonSkip>
         </View>
     );
 };
@@ -50,6 +49,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: colors.white,
+    },
+    headerShadow: {
+        height: 1,
+        backgroundColor: '#F1F1F1',
+        shadowColor: colors.gray4,
+        shadowOpacity: 1,
+        elevation: 4,
     },
     headerImage: {
         resizeMode: 'cover',

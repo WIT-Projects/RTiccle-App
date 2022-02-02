@@ -9,6 +9,7 @@ import useGroupChanged from '../../../../context/hook/useGroupChanged';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';
 import GroupKebabModal from './GroupKebabModal';
 import {useErrorHandler} from 'react-error-boundary';
+import CustomModal from '../../../common/CustomModal';
 
 const GroupInfo = ({groupData, navigation}) => {
     let source = groupData.imageUrl == null || groupData.imageUrl == '' ? require('../../../../assets/images/blankImage.png') : {uri: groupData.imageUrl};
@@ -16,6 +17,7 @@ const GroupInfo = ({groupData, navigation}) => {
     const [isBookmark, setIsBookmark] = useState(groupData.bookmark);
     const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
     const [isModalVisible, setModalVisible] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
     const handleError = useErrorHandler(); // for error handling
 
     const setFirebaseBookmark = () => {
@@ -45,16 +47,24 @@ const GroupInfo = ({groupData, navigation}) => {
             handleError(err);
         }
     };
+    const deleteModalOn = () => {
+        setDeleteModal(true);
+    } 
 
     return (
         <>
+            <CustomModal
+                isModalVisible={deleteModal} setModalVisible={setDeleteModal}
+                title={"그룹을 삭제하시겠어요?"} leftButton={"취소"}
+                rightButton={"삭제"} rightButtonFunction={deleteGroup}
+            />
             <GroupKebabModal
                 isModalVisible={isModalVisible}
                 setModalVisible={setModalVisible}
                 option1={'수정하기'}
                 option2={'삭제하기'}
                 option1Function={moveToGroupUpdate}
-                option2Function={deleteGroup}
+                option2Function={deleteModalOn}
                 top={43}
                 right={12}></GroupKebabModal>
             <ImageBackground source={source} resizeMode="cover" style={styles.groupMainImage}>

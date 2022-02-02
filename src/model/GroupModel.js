@@ -55,6 +55,11 @@ const getGroupTitleByGId = (targetGId, setGroupTitle) => {
     (targetGroup !== undefined) ? setGroupTitle(targetGroup.title) : setGroupTitle('');
 }
 
+function getGroupDataByGId(targetGId) {
+    const targetGroup = groupList.find(group => group.id === targetGId);
+    return targetGroup
+}
+
 /**
  * Get all group list and set groupList
  * @returns {Promise<Array>} group list
@@ -200,6 +205,7 @@ export {
     limitGroupNum,
     limitTiccleNum,
     getGroupTitleByGId,
+    getGroupDataByGId,
     getAllGroupIncludeImages,
     doCreateGroup, 
     doUpdateGroup, 

@@ -13,7 +13,7 @@ const GroupDetailTiccle = ({ item }) => {
     const tag = item.tagList
 
     const goToTiccleDetail = () => {
-        navigateTo.navigate('TiccleDetail', {ticcleData: item});
+        navigateTo.navigate('TiccleDetail', {ticcleData: item, goBack: true});
     }
     return (
         <View style={styles.container} onTouchEnd={goToTiccleDetail}>

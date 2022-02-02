@@ -3,32 +3,47 @@ import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {type} from '../../../theme/fonts';
 import TiccleGroup from './TiccleGroup';
 import {groupList} from '../../../model/GroupModel';
-import {limitGroupNum} from '../../../model/GroupModel';
+import {limitGroupNum, checkIsFullGroupNum} from '../../../model/GroupModel';
 import useGroupChanged from '../../../context/hook/useGroupChanged';
 import colors from '../../../theme/colors';
 import {useNavigation} from '@react-navigation/native';
+import CustomModal from '../../common/CustomModal';
 
 const NewTiccleGroupList = () => {
     const [isExistGroup, setIsExistGroup] = useState(false);
     const [data, setData] = useState([]);
     const {isGroupChanged} = useGroupChanged();
     const navigation = useNavigation();
+    const [groupAlertModal, setGroupAlertModal] = useState(false);
+
+    const groupCreateButtonEvent = () => {
+        if (checkIsFullGroupNum()) {
+            setGroupAlertModal(true);
+        } else {
+            navigation.navigate('GroupCreateName');
+        }
+    };
 
     useEffect(() => {
         setIsExistGroup(groupList.length != 0);
-        setData(groupList); // TODO sorting
+        setData(groupList);
     }, [isGroupChanged]);
 
     return (
         <>
+            <CustomModal
+                isModalVisible={groupAlertModal}
+                setModalVisible={setGroupAlertModal}
+                title={`그룹은 ${limitGroupNum}개까지 생성 가능합니다.`}
+                rightButton={'확인'}
+                rightButtonFunction={() => setGroupAlertModal(false)}
+                rightButtonStyle={{marginLeft: 20}}
+            />
             <View style={styles.newTiccleGroupListHeader}>
                 <View style={styles.groupCreateButton}>
                     <Text style={styles.blackBoldFont}>내 그룹</Text>
-                    <TouchableOpacity style={styles.groupCreateButtonTouchable} onPress={() => navigation.navigate('GroupCreateName')}>
-                        <Image 
-                            source={require('../../../assets/images/groupCreateButton.png')}
-                            style={styles.groupCreateButtonImage}
-                        />
+                    <TouchableOpacity style={styles.groupCreateButtonTouchable} onPress={groupCreateButtonEvent}>
+                        <Image source={require('../../../assets/images/groupCreateButton.png')} style={styles.groupCreateButtonImage} />
                     </TouchableOpacity>
                 </View>
                 {isExistGroup ? (
@@ -75,10 +90,10 @@ const styles = StyleSheet.create({
     groupCreateButtonTouchable: {
         marginLeft: 5,
         marginTop: 2,
-        width : 31,
+        width: 31,
         height: 31,
     },
-    groupCreateButtonImage:{
+    groupCreateButtonImage: {
         resizeMode: 'contain',
         width: '100%',
         height: '100%',
