@@ -5,13 +5,14 @@ import { type } from "../../../../../../theme/fonts";
 import CustomModal from "../../../../../common/CustomModal";
 import {limitGroupNum, checkIsFullGroupNum} from "../../../../../../model/GroupModel";
 
-const GroupListModalCreateButton = ( { setGroupCreateModalVisible } ) => {
+const GroupListModalCreateButton = ({ setGroupCreateModalVisible, setGroupListModalVisible}) => {
     const [groupAlertModal, setGroupAlertModal] = useState(false);
 
     const groupCreateButtonEvent = () => {
         if (checkIsFullGroupNum()) {
             setGroupAlertModal(true);
         } else {
+            setGroupListModalVisible(false);
             setGroupCreateModalVisible(true);
         }
     };

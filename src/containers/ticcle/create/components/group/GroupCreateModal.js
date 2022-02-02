@@ -9,7 +9,7 @@ import { type } from "../../../../../theme/fonts";
 import { doCreateGroup } from "../../../../../model/GroupModel";
 import useGroupChanged from "../../../../../context/hook/useGroupChanged";
 
-const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
+const GroupCreateModal = ({isModalVisible, setModalVisible, setTiccleGroup}) => {
 
     const [groupTitle, setGroupTitle] = useState('');
     const initialTitle = () => {
@@ -26,7 +26,8 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
             bookmark: false,
         };
         const imageSource = '';
-        await doCreateGroup(newGroup, imageSource);
+        const newGroupData = await doCreateGroup(newGroup, imageSource);
+        setTiccleGroup(newGroupData.id);
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
     };
 

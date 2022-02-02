@@ -14,6 +14,7 @@ import useTiccleCreate from '../../../context/hook/useTiccleCreate';
 import { useNavigation } from '@react-navigation/native';
 import { checkGroupId } from './function/checkGroupId';
 import Spinner from '../../common/Spinner';
+import GroupCreateModal from './components/group/GroupCreateModal';
 
 const TiccleCreateScreen = ({route}) => {
     const { ticcle, setTiccle, setTiccleGroup, setTiccleTitle, setTiccleLink,
@@ -21,6 +22,7 @@ const TiccleCreateScreen = ({route}) => {
         deleteTiccleImage, initialTiccle
     } = useTiccleCreate();
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
+    const [groupCreateModalVisible, setGroupCreateModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const scrollRef = useRef();
     const navigation = useNavigation();
@@ -46,8 +48,13 @@ const TiccleCreateScreen = ({route}) => {
                 {/* Modal */}
                 <PhotoModal setImage={setTiccleImages} isModalVisible={photoModalVisible} setModalVisible={setPhotoModalVisible}/>
                 <GroupListModal
-                    isModalVisible={groupListModalVisible} setModalVisible={setGroupListModalVisible}
+                    groupListModalVisible={groupListModalVisible} setGroupListModalVisible={setGroupListModalVisible}
                     ticcleGroup={ticcle.groupId} setTiccleGroup={setTiccleGroup}
+                    setGroupCreateModalVisible={setGroupCreateModalVisible}
+                />
+                <GroupCreateModal 
+                    isModalVisible={groupCreateModalVisible} setModalVisible={setGroupCreateModalVisible}
+                    setTiccleGroup={setTiccleGroup}
                 />
                 {/* ticcle */}
                 <TiccleCreateGroupSelect
