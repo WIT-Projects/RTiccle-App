@@ -1347,7 +1347,7 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/masked-view/-/masked-view-0.1.11.tgz"
   "version" "0.1.11"
 
-"@react-native-firebase/app@13.0.1", "@react-native-firebase/app@14.3.0":
+"@react-native-firebase/app@13.0.1":
   "integrity" "sha512-ZURaagmBy97oI5it9IiZkX+0Fpfbv6nc5CKs9ISShxEmDqgTbGXcD8o6k0uDxtG9nbi0ft2dsWgKqXm6YI1o9w=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-13.0.1.tgz"
   "version" "13.0.1"
@@ -1366,10 +1366,10 @@
   "resolved" "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-13.0.1.tgz"
   "version" "13.0.1"
 
-"@react-native-firebase/functions@14.3.0":
-  "integrity" "sha512-bGKe+kuZhITapUgDw8ihWjuQ2a1JPQanofBG38VbHRK5BZ1DjKwTAuXJPLRHLKM+BQ+b//ga39GjvhLHOWBC2g=="
-  "resolved" "https://registry.npmjs.org/@react-native-firebase/functions/-/functions-14.3.0.tgz"
-  "version" "14.3.0"
+"@react-native-firebase/functions@13.0.1":
+  "integrity" "sha512-OTvkEbjkueocR9ylQxc6mGXAIsX60QinBdzBSxcb0YMOXMl2Tc7zQNGYyiQOBzqAy3LRQMERuZ5LppLWTl5fLQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/functions/-/functions-13.0.1.tgz"
+  "version" "13.0.1"
 
 "@react-native-firebase/storage@13.0.1":
   "integrity" "sha512-85g8PH4BN15uq7qZ6Ul4w3HdIQV/5H+uVyeKuKt57XtJxVVJRFfwgEekOayLyT2GHnxkjf13oMseZSeaGqTHQQ=="

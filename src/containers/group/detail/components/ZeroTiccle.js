@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, Dimensions, View} from "react-native";
+import {StyleSheet, Text, Dimensions, View, Image} from "react-native";
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 
@@ -10,7 +10,7 @@ const ZeroTiccle = () => {
   return(
     <>
         <View style={styles.container}>
-        <View style={styles.image}></View>
+            <Image source={require('../../../../assets/images/noTiccle.png')} style={styles.image}></Image>
             <Text style={styles.font1}>작성된 티끌이 없네요.</Text>
             <Text style={styles.font1}>첫 티끌을 생성해보세요!</Text>
         </View>
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     image:{
         width:68,
         height:68,
-        backgroundColor:colors.gray2,
         marginBottom: 10,
+        resizeMode: 'contain',
     },
 })
 
