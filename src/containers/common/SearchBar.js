@@ -34,7 +34,7 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
             item.search("#") !== -1 ? tagQuery.push(item.replace('#', '')) : null
         });
         setIsLoading(true);
-
+      
         if (isSearchScreen) {
             searchTiccleByTitltAndTag(query, tagQuery)
                 .then((res) => {

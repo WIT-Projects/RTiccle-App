@@ -23,7 +23,7 @@ const SearchScreen = () => {
             />
             {pressSearchBtn
                 ? (searchResult.length > 0 
-                    ? <SearchExistResultList isGroupDetail={false} searchResult={searchResult} />
+                    ? <SearchExistResultList isGroupDetail={false} searchResult={searchResult} setSearchResult={setSearchResult} />
                     : <SearchZeroResult />)
                 : <SearchZeroResult />}
         </>

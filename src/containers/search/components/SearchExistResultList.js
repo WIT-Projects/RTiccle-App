@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import SearchExistResult from './SearchExistResult';
 import { type } from '../../../theme/fonts';
 import colors from '../../../theme/colors';
 
-const SearchExistResultList = ({isGroupDetail, searchResult}) => {
+const SearchExistResultList = ({isGroupDetail, searchResult, setSearchResult}) => {
+    useEffect(() => {
+        return () => setSearchResult([]); // cleanup function을 이용
+      }, []);
+
     return (
         <>
             {isGroupDetail? null : <Text style={styles.resultText}>총 {searchResult.length}개의 검색결과</Text>}
