@@ -12,6 +12,7 @@ import GroupDetailFloatingButton from './components/GroupDetailFloatingButton';
 import {useErrorHandler} from 'react-error-boundary';
 import { BackHandler } from 'react-native';
 import Spinner from '../../common/Spinner';
+import { sortAscByLMT, sortDescByLMT } from '../../../model/TiccleModel';
 
 const GroupDetail = ({route, navigation}) => {
     const [pressSearchBtn, setPressSearchBtn] = useState(false);
@@ -23,6 +24,8 @@ const GroupDetail = ({route, navigation}) => {
     const [list, setList] = useState([]);
     const [group, setGroup] = useState(route.params?.groupData);
     const [isLoading, setIsLoading] = useState(false);
+
+    const [isLatestSort, setIsLatestSort] = useState(true);
 
     useEffect(() => {
         // get/set ticcle List
@@ -51,7 +54,9 @@ const GroupDetail = ({route, navigation}) => {
     }, [route.params?.groupData]);
 
     useEffect(() => {
-        setList(ticcleList); // update list
+        let sortResult = isLatestSort ? sortDescByLMT(ticcleList) : sortAscByLMT(ticcleList);
+        let JSONSortResult = JSON.parse(JSON.stringify(sortResult));
+        setList(JSONSortResult);
     }, [isTiccleListChanged]);
 
     return (
@@ -68,6 +73,8 @@ const GroupDetail = ({route, navigation}) => {
                 list={list}
                 setList={setList}
                 setIsLoading={setIsLoading}
+                isLatestSort={isLatestSort}
+                setIsLatestSort={setIsLatestSort}
             ></SearchBar>
             {pressSearchBtn
                 ? (searchResult.length > 0 

@@ -8,6 +8,7 @@ const SearchScreen = () => {
     const [pressSearchBtn, setPressSearchBtn] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isLatestSort, setIsLatestSort] = useState(true);
 
     return (
         <>
@@ -20,6 +21,8 @@ const SearchScreen = () => {
                 searchResult={searchResult}
                 setSearchResult={setSearchResult}
                 setIsLoading={setIsLoading}
+                isLatestSort={isLatestSort}
+                setIsLatestSort={setIsLatestSort}
             />
             {pressSearchBtn
                 ? (searchResult.length > 0 
