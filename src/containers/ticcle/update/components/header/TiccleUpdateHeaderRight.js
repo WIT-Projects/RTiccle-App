@@ -5,16 +5,19 @@ import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
 import { ticcleUpdateFirebase } from '../../function/ticcleUpdateFirebase';
 import useTiccleChanged from '../../../../../context/hook/useTiccleChanged';
+import {useErrorHandler} from 'react-error-boundary';
 
-const TiccleUpdateHeaderRight = ({ticcleUpdate, originalTiccle}) => {
+const TiccleUpdateHeaderRight = ({ticcleUpdate, originalTiccle, setIsLoading}) => {
     const navigation = useNavigation();
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
+    const handleError = useErrorHandler(); // for error handling
 
     const saveButtonEvent = async() => {
-        const updatedTiccleData = await ticcleUpdateFirebase(ticcleUpdate, originalTiccle);
-        navigation.navigate('TiccleDetail', {ticcleData: updatedTiccleData});
+        setIsLoading(true);
+        const updatedTiccleData = await ticcleUpdateFirebase(ticcleUpdate, originalTiccle).catch(err => handleError(err));
         setIsTiccleListChanged(!isTiccleListChanged);
-        console.log("티끌 수정 완료. TiccleDetail로 수정된 Ticcle 보내기")
+        setIsLoading(false);
+        navigation.navigate('TiccleDetail', {ticcleData: updatedTiccleData});
     }
 
     return (

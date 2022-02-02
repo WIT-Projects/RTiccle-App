@@ -6,13 +6,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 
-const PhotoModal = ({
-    setImage,
-    isModalVisible,
-    setModalVisible,
-    width,
-    height,
-}) => {
+const PhotoModal = ({setImage, isModalVisible, setModalVisible, width, height}) => {
     const isFixed = !!width && !!height ? true : false;
 
     const takePhotoFromCamera = () => {
@@ -25,11 +19,13 @@ const PhotoModal = ({
                       cropperToolbarTitle: '',
                       cropping: true,
                       compressImageQuality: 0.7,
+                      cropperActiveWidgetColor: '#00CE9D',
                   }
                 : {
                       cropperToolbarTitle: '',
                       cropping: true,
                       compressImageQuality: 0.7,
+                      cropperActiveWidgetColor: '#00CE9D',
                   },
         )
             .then(image => {
@@ -52,11 +48,13 @@ const PhotoModal = ({
                       cropperToolbarTitle: '',
                       cropping: true,
                       compressImageQuality: 0.7,
+                      cropperActiveWidgetColor: '#00CE9D',
                   }
                 : {
                       cropperToolbarTitle: '',
                       cropping: true,
                       compressImageQuality: 0.7,
+                      cropperActiveWidgetColor: '#00CE9D',
                   },
         )
             .then(image => {

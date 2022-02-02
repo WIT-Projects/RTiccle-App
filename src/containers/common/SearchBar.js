@@ -7,7 +7,7 @@ import SearchModal from './SearchModal';
 import { sortAscByLMT, sortDescByLMT } from '../../model/TiccleModel';
 import colors from '../../theme/colors';
 
-const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList,setIsLoading }) => {
     const [searchInput, setSearchInput] = useState("");
     const handleError = useErrorHandler() // for error handling
     const [isModalVisible, setModalVisible] = useState(false);
@@ -33,7 +33,7 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
         query.map((item) => {
             item.search("#") !== -1 ? tagQuery.push(item.replace('#', '')) : null
         });
-        console.log("태그:" + tagQuery);
+        setIsLoading(true);
 
         if (isSearchScreen) {
             searchTiccleByTitltAndTag(query, tagQuery)
@@ -42,10 +42,12 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
                     setSearchResult(sortResult);
                 })
                 .catch(err => handleError(err))
+                setIsLoading(false);
         } else {
             const result = searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery);
             let sortResult = isLatestSort ? sortDescByLMT(result) : sortAscByLMT(result);
             setSearchResult(sortResult);
+            setIsLoading(false);
         }
         setPressSearchBtn(true);
     }
