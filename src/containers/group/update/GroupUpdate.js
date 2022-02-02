@@ -63,7 +63,7 @@ const GroupUpdate = ({navigation, route}) => {
                         setModalActive={setModalActive}></GroupUpdateInfo>
                 </View>
                 <View style={styles.saveButton}>
-                    <GroupUpdateSaveButton navigation={navigation} initialData={initialData}></GroupUpdateSaveButton>
+                    <GroupUpdateSaveButton navigation={navigation} initialData={initialData} setIsLoading={setIsLoading}></GroupUpdateSaveButton>
                 </View>
             </View>
         </>
