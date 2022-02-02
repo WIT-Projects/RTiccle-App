@@ -46,7 +46,6 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
             <View style={styles.container}>
                 <View style={styles.headerContainer}>
                     <TouchableOpacity
-                        style={styles.button}
                         onPress={() => {
                             cancelGroupUpdateTitle();
                         }}>
@@ -55,7 +54,6 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
                     <Text style={[styles.defaultText, styles.bold]}>그룹 제목</Text>
                     <TouchableOpacity
                         disabled={buttonDisabled}
-                        style={styles.button}
                         onPress={() => {
                             saveGroupUpdateTitle();
                         }}>
@@ -95,10 +93,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 18,
     },
-    button: {
-        paddingRight: 18,
-        paddingVertical: 9,
-    },
     defaultText: {
         fontFamily: type.spoqaHanSansNeo_Regular,
         color: colors.white,
@@ -116,7 +110,7 @@ const styles = StyleSheet.create({
     },
     underline: {
         width: '100%',
-        paddingTop: 280,
+        marginTop: 290,
         borderBottomWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
