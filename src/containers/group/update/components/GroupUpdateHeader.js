@@ -10,13 +10,14 @@ const GroupUpdateHeader = ({modalActive, setCancelModal}) => {
         <>
             <View style={[styles.header, modalActive ? {opacity: 0} : null]}>
                 <TouchableOpacity
+                    style={styles.backButton}
                     onPress={() => {
                         setCancelModal(true);
                     }}>
                     <Image source={require('../../../../assets/images/chevron_left.png')} style={styles.headerLeftImage} />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>그룹 수정</Text>
-                <View></View>
+                <View style={styles.alignView}></View>
             </View>
             <View style={styles.headerShadow}></View>
         </>
@@ -27,7 +28,6 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         height: metrics.topNavigationHeight,
-        paddingHorizontal: 18,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -35,6 +35,14 @@ const styles = StyleSheet.create({
     headerLeftImage: {
         width: 11,
         height: 22,
+    },
+    backButton: {
+        paddingHorizontal: 18,
+        paddingVertical: 20,
+        width: 50,
+    },
+    alignView: {
+        width:50,
     },
     headerTitle: {
         fontFamily: type.notoSansKR_Medium,

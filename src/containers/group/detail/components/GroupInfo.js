@@ -71,12 +71,14 @@ const GroupInfo = ({groupData, navigation}) => {
                 <ImageBackground source={require('../../../../assets/images/gradation2.png')} resizeMode="cover" style={styles.groupMainImage}>
                     <View style={styles.headerContainer}>
                         <TouchableOpacity
+                            style={styles.paddingBtn}
                             onPress={() => {
                                 navigation.navigate('Home');
                             }}>
                             <Image source={require('../../../../assets/icon/backWhite.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity
+                            style={styles.paddingBtn}
                             onPress={() => {
                                 setModalVisible(true);
                             }}>
@@ -88,11 +90,13 @@ const GroupInfo = ({groupData, navigation}) => {
                             <Text style={styles.title}>{groupData.title}</Text>
                             {groupData.description.length > 0 && <Text style={ styles.description }>{groupData.description}</Text>}
                         </View>
-                        <Image
-                            onTouchEnd={() => {
+                        <TouchableOpacity
+                            style={styles.bookmark}
+                            onPress={() => {
                                 setFirebaseBookmark();
-                            }}
-                            source={isBookmark ? require('../../../../assets/icon/bookmarkTrue.png') : require('../../../../assets/icon/bookmarkFalse.png')}></Image>
+                            }}>
+                            <Image source={isBookmark ? require('../../../../assets/icon/bookmarkTrue.png') : require('../../../../assets/icon/bookmarkFalse.png')}></Image>
+                        </TouchableOpacity>
                     </View>
                 </ImageBackground>
             </ImageBackground>
@@ -106,31 +110,39 @@ const styles = StyleSheet.create({
         height: 256,
     },
     headerContainer: {
-        paddingHorizontal: 18,
         height: 58,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    paddingBtn: {
+        paddingHorizontal: 18,
+        paddingVertical:15,
     },
     groupInfoContainer: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        paddingHorizontal: 17,
         paddingBottom: 17,
     },
     title: {
+        paddingLeft: 17,
         fontSize: 24,
         color: colors.white,
         fontFamily: type.spoqaHanSansNeo_Bold,
     },
     description: {
+        paddingLeft: 17,
         fontSize: 16,
         color: colors.white,
         fontFamily: type.spoqaHanSansNeo_Regular,
         paddingTop: 8,
     },
+    bookmark: {
+        paddingHorizontal: 17,
+        paddingTop:17,
+    }
 });
 
 export default GroupInfo;
