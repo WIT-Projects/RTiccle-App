@@ -33,7 +33,6 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
         query.map((item) => {
             item.search("#") !== -1 ? tagQuery.push(item.replace('#', '')) : null
         });
-        console.log("태그:" + tagQuery);
 
         if (isSearchScreen) {
             searchTiccleByTitltAndTag(query, tagQuery)
