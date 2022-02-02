@@ -7,11 +7,10 @@ import SearchModal from './SearchModal';
 import { sortAscByLMT, sortDescByLMT } from '../../model/TiccleModel';
 import colors from '../../theme/colors';
 
-const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList,setIsLoading }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList,setIsLoading, isLatestSort, setIsLatestSort }) => {
     const [searchInput, setSearchInput] = useState("");
     const handleError = useErrorHandler() // for error handling
     const [isModalVisible, setModalVisible] = useState(false);
-    const [isLatestSort, setIsLatestSort] = useState(true);
     const [isListChanged, setIsListChanged] = useState(false);
 
     useEffect(() => {
