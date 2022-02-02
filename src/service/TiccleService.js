@@ -32,23 +32,33 @@ async function createTiccle(newTiccle) {
  * @param {Array} images: image source array - LIMIT 2
  * @returns {Promise<Array>} Ticcle Data
  */
-function uploadNewTiccle(ticcle, images) {
+async function uploadNewTiccle(ticcle, images) {
     // upload images first
     const isTiccle = true
     var imageArr = [];
     if (images !== undefined) {
-        images.map((image, idx) => {
+        var idx = 0;
+        for (let image of images) {
             const imageName = Date.now() + idx + ".jpg";
             imageArr.push(imageName);
-            uploadImageToStorage(imageName, image, isTiccle);
-        })
+            await uploadImageToStorage(imageName, image, isTiccle);
+            idx = idx + 1;
+        }
     }
 
     // update group info (ticcleNum + 1, latestTiccleTitle)
     updateTiccleNumOfGroup(ticcle.groupId, true);
     updateGroupInfo(ticcle.groupId, {latestTiccleTitle: ticcle.title})
+
+    const result = await createTiccle({
+        ...ticcle, 
+        images: imageArr, 
+        lastModifiedTime: getKSTTime(),
+    })
     // upload ticcle info
-    return createTiccle({ ...ticcle, images: imageArr, lastModifiedTime: getKSTTime() });
+    return new Promise(resolve => {
+        resolve(result);
+    });
 }
 
 

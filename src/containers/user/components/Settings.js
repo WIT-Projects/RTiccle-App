@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import { View, StyleSheet, } from 'react-native';
 import SettingItem from './SettingItem';
 import { logout, resetUserData, currentUser } from '../../../service/AuthService';
-import RNRestart from 'react-native-restart';
 import CustomModal from '../../common/CustomModal';
 import PrivacyModal from './PrivacyModal';
+import { restartApp } from '../../../service/CommonService';
 
 const Setting = ({isGuest, setIsGuest}) => {
 
@@ -13,11 +13,11 @@ const Setting = ({isGuest, setIsGuest}) => {
     const logoutButtonEvent = () => {
         logout();
         setIsGuest(true);
-        RNRestart.Restart();
+        restartApp();
     }
     const resetButtonEvent = () => {
         resetUserData(currentUser.uid)
-        RNRestart.Restart();
+        restartApp();
     }
     const PrivacyModalVisibleTrue = () => {
         setPrivacyModalVisible(true)

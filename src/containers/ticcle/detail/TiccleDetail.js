@@ -71,7 +71,7 @@ const TiccleDetail = ({route}) => {
                     title={ticcleDetail.title} lastModifiedTime={ticcleDetail.lastModifiedTime}
                     link={ticcleDetail.link}
                 /> 
-                {(ticcleDetail.images.length > 0) ?
+                {(ticcleDetail.images.length > 0 && ticcleDetail.imageUrl !== undefined) ?
                 <TiccleDetailImageSwiper images={ticcleDetail.imageUrl} setImageExpansion={setImageExpansion} setImagePathForExpansion={setImagePathForExpansion}/> 
                 : null}
                 <TiccleDetailText

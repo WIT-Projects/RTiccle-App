@@ -6,6 +6,7 @@ import colors from '../../../../../theme/colors';
 import { type } from '../../../../../theme/fonts';
 import useTiccleCreate from '../../../../../context/hook/useTiccleCreate';
 import useTiccleChanged from '../../../../../context/hook/useTiccleChanged';
+import useGroupChanged from '../../../../../context/hook/useGroupChanged';
 import {useErrorHandler} from 'react-error-boundary';
 
 const TiccleCreateHeaderRight = ({setIsLoading}) => {
@@ -13,6 +14,7 @@ const TiccleCreateHeaderRight = ({setIsLoading}) => {
     const {ticcle} = useTiccleCreate();
     const [saveButtonDisable, setSaveButtonDisable] = useState(true);
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
+    const {isGroupChanged, setIsGroupChanged} = useGroupChanged();
     const handleError = useErrorHandler(); // for error handling
 
     useEffect(() => {
@@ -20,16 +22,16 @@ const TiccleCreateHeaderRight = ({setIsLoading}) => {
         ?
         setSaveButtonDisable(false)
         : setSaveButtonDisable(true);
-    },[ticcle.title, ticcle.content, ticcle.groupId])
+    }, [ticcle.title, ticcle.content, ticcle.groupId])
 
     const saveButtonEvent = async () => {
         setIsLoading(true);
         const updatedTiccle = await doCreateTiccle(ticcle, ticcle.images).catch(err => handleError(err));
-        setIsTiccleListChanged( !isTiccleListChanged );
+        setIsTiccleListChanged(!isTiccleListChanged);
+        setIsGroupChanged(!isGroupChanged);
         setIsLoading(false);
         navigateTo.navigate('TiccleDetail',{ticcleData: updatedTiccle}) 
     }
-    
 
     return (
         <TouchableOpacity
