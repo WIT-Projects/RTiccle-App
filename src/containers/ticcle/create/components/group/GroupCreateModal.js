@@ -44,7 +44,7 @@ const GroupCreateModal = ({isModalVisible, setModalVisible}) => {
         isVisible={isModalVisible}
         onBackdropPress={() => {
             setModalVisible(false)
-            initialTypeTitle()
+            initialTitle()
         }}
         backdropOpacity={0.5}
         style={styles.modal}
