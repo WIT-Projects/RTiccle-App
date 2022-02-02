@@ -17,7 +17,7 @@ const GroupListModalGroupList = ({setModalVisible, ticcleGroup, setTiccleGroup})
 
     useEffect(() => {
         setExistGroup(groupList.length != 0);
-        setGroupData(groupList); // TODO sorting
+        setGroupData(groupList);
     }, [isGroupChanged]);
 
     const isSelectedGroup = groupId => {

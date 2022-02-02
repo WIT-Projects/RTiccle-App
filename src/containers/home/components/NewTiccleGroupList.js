@@ -16,7 +16,7 @@ const NewTiccleGroupList = () => {
 
     useEffect(() => {
         setIsExistGroup(groupList.length != 0);
-        setData(groupList); // TODO sorting
+        setData(groupList);
     }, [isGroupChanged]);
 
     return (

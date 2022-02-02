@@ -9,6 +9,7 @@ const BookmarkGroupList = () => {
     const [existBookmark, setExistBookmark] = useState(false);
     const [data, setData] = useState([]);
     const {isGroupChanged} = useGroupChanged();
+
     useEffect(() => {
         let bookmarkedList = groupList.filter(obj => obj.bookmark == true);
         if (bookmarkedList.length == 0) {
@@ -18,6 +19,7 @@ const BookmarkGroupList = () => {
         }
         setData(bookmarkedList);
     }, [isGroupChanged]);
+
     if (existBookmark) {
         return (
             <>
