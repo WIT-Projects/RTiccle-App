@@ -12,6 +12,7 @@ import TiccleDetailHeader from './components/header/TiccleDetailHeader';
 import { getTiccleIncludeImages } from '../../../model/TiccleModel';
 import useTiccleChanged from '../../../context/hook/useTiccleChanged';
 import { getGroupDataByGId } from '../../../model/GroupModel';
+import {useErrorHandler} from 'react-error-boundary';
 
 const TiccleDetail = ({route}) => {
     const [ticcleDetail, setTiccleDetail] = useState({
@@ -29,6 +30,7 @@ const TiccleDetail = ({route}) => {
     const [imagePathForExpansion, setImagePathForExpansion] = useState('')
     const navigation = useNavigation();
     const {isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
+    const handleError = useErrorHandler(); // for error handling
 
     useEffect(() => {
         const ticcleData = route.params.ticcleData;
@@ -46,6 +48,8 @@ const TiccleDetail = ({route}) => {
             "hardwareBackPress",
             goToHomeStack
         );
+        const ticcleData = route.params.ticcleData;
+        getTiccleIncludeImages(ticcleData).then((res) => setTiccleDetail(res)).catch(err => handleError(err));
         return () => backHandler.remove();
     }, [route]);
 

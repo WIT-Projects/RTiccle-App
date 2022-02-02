@@ -5,19 +5,24 @@ import CustomModal from "../../../common/CustomModal"
 import { useNavigation } from "@react-navigation/native";
 import useTiccleChanged from "../../../../context/hook/useTiccleChanged";
 import useGroupChanged from "../../../../context/hook/useGroupChanged";
-
+import {useErrorHandler} from 'react-error-boundary';
 
 const TiccleDetailFloatingButton = ({ticcleData}) => {
     const navigation = useNavigation();
     const { isTiccleListChanged, setIsTiccleListChanged} = useTiccleChanged();
     const { isGroupChanged, setIsGroupChanged} = useGroupChanged();
+    const handleError = useErrorHandler(); // for error handling
 
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
     const deleteModalEvent = () => {
-        doDeleteTiccle(ticcleData);
-        setIsTiccleListChanged(!isTiccleListChanged);
-        setIsGroupChanged(!isGroupChanged);
-        navigation.navigate('HomeStack');
+        try {
+            doDeleteTiccle( ticcleData );
+            setIsTiccleListChanged( !isTiccleListChanged );
+            setIsGroupChanged( !isGroupChanged );
+            navigation.navigate( 'HomeStack' );
+        } catch (err) {
+            handleError(err);
+        }
     }
 
     return (

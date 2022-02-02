@@ -6,16 +6,18 @@ import GroupUpdateInfo from './components/GroupUpdateInfo';
 import useGroupUpdate from '../../../context/hook/useGroupUpdate';
 import GroupUpdateHeader from './components/GroupUpdateHeader';
 import CustomModal from '../../common/CustomModal'
+import Spinner from '../../common/Spinner';
+
 
 const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate} = useGroupUpdate();
     const [initialData, setInitialData] = useState({});
-    const [tempData, setTempData] = useState({}) // title modal, description modal의 임시 저장 기능에 사용.
+    const [tempData, setTempData] = useState({}); // title modal, description modal의 임시 저장 기능에 사용.
     const [modalActive, setModalActive] = useState(false); // modal 유무에 따라 보여지는 화면 요소가 다른 것에 사용.
     const [cancelModal, setCancelModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect( () =>
-    {
+    useEffect(() => {
         setInitialData(route.params.groupData);
         setGroupUpdate(route.params.groupData);
         setTempData(route.params.groupData);
@@ -47,6 +49,7 @@ const GroupUpdate = ({navigation, route}) => {
                     modalActive={modalActive}
                     setCancelModal={setCancelModal}    
                 />
+                {isLoading && <Spinner></Spinner>}
                 <View style={styles.groupInfo}>
                     <GroupUpdateInfo
                         navigation={navigation}

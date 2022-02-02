@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import colors from "../../../../../../theme/colors";
 import { type } from "../../../../../../theme/fonts";
+import CustomModal from "../../../../../common/CustomModal";
+import {limitGroupNum, checkIsFullGroupNum} from "../../../../../../model/GroupModel";
 
-const GroupListModalCreateButton = ({setGroupCreateModalVisible}) => {
-    return(
-        <TouchableOpacity style={styles.newGroupButtonContainer} onPress={() => setGroupCreateModalVisible(true)}>
-            <Image source={require('../../../../../../assets/icon/plus_circle.png')} style={styles.newGroupButtonImage}/>
-            <Text style={styles.newGroupButtonText}>새로운 그룹 생성하기</Text>
-        </TouchableOpacity>
+const GroupListModalCreateButton = ( { setGroupCreateModalVisible } ) => {
+    const [groupAlertModal, setGroupAlertModal] = useState(false);
+
+    const groupCreateButtonEvent = () => {
+        if (checkIsFullGroupNum()) {
+            setGroupAlertModal(true);
+        } else {
+            setGroupCreateModalVisible(true);
+        }
+    };
+
+    return (
+        <>
+            <CustomModal
+            isModalVisible={groupAlertModal}
+            setModalVisible={setGroupAlertModal}
+            title={`그룹은 ${limitGroupNum}개까지 생성 가능합니다.`}
+            rightButton={'확인'}
+            rightButtonFunction={() => setGroupAlertModal(false)}
+            rightButtonStyle={{marginLeft: 20}} />
+            <TouchableOpacity style={styles.newGroupButtonContainer} onPress={groupCreateButtonEvent}>
+                <Image source={require('../../../../../../assets/icon/plus_circle.png')} style={styles.newGroupButtonImage}/>
+                <Text style={styles.newGroupButtonText}>새로운 그룹 생성하기</Text>
+            </TouchableOpacity>
+        </>
     )
 }
 

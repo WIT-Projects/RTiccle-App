@@ -12,6 +12,7 @@ const GroupCreateName = ({navigation}) => {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null} style={styles.container}>
+            <View style={styles.headerShadow}></View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inner}>
                     <View style={styles.textContainer}>
@@ -35,6 +36,13 @@ const styles = StyleSheet.create({
         width: '100%',
         flex: 1,
         backgroundColor: colors.white,
+    },
+    headerShadow: {
+        height: 1,
+        backgroundColor: '#F1F1F1',
+        shadowColor: colors.gray4,
+        shadowOpacity: 1,
+        elevation: 4,
     },
     inner: {
         width: '100%',

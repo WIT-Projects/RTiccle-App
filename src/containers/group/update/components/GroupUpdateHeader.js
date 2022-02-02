@@ -38,6 +38,13 @@ const styles = StyleSheet.create({
         color: colors.main,
         fontSize: 20,
     },
+    headerShadow: {
+        height: 1,
+        backgroundColor: '#F1F1F1',
+        shadowColor: colors.gray4,
+        shadowOpacity: 1,
+        elevation: 4,
+    },
 });
 
 export default GroupUpdateHeader;

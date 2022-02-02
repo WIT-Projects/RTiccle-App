@@ -12,6 +12,7 @@ import TiccleContentTextInput from "../create/components/textinput/TiccleContent
 import TiccleCreateTags from "../create/components/TiccleCreateTags";
 import TiccleCreateTextInputTag from "../create/components/textinput/TiccleCreateTextInputTag";
 import CustomModal from "../../common/CustomModal";
+import Spinner from '../../common/Spinner';
 
 const TiccleUpdateScreen = ({route, navigation}) => {
     const { ticcleUpdate, setTiccleUpdate, setTiccleUpdateGroup,
@@ -24,7 +25,8 @@ const TiccleUpdateScreen = ({route, navigation}) => {
     const [originalTiccle, setOriginalTiccle] = useState({});
     const [cancelModalVisible, setCancelModalVisible] = useState(false);
     const scrollRef = useRef();
-    
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(()=> {
         const ticcle = route.params.ticcleData;
         const JSONTiccle = JSON.parse(JSON.stringify(ticcle));
@@ -65,6 +67,7 @@ const TiccleUpdateScreen = ({route, navigation}) => {
                 ticcleUpdate={ticcleUpdate} originalTiccle={originalTiccle}
                 setCancelModalVisible = {setCancelModalVisible}
             />
+            {isLoading && <Spinner></Spinner>}
             <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
                 <PhotoModal setImage={setTiccleUpdateImageNamesUrls} isModalVisible={photoModalVisible}

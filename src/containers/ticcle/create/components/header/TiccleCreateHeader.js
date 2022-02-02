@@ -6,7 +6,7 @@ import metrics from '../../../../../theme/metrices'
 import TiccleCreateHeaderLeft from './TiccleCreateHeaderLeft'
 import TiccleCreateHeaderRight from './TiccleCreateHeaderRight'
 
-const TiccleCreateHeader = () => {
+const TiccleCreateHeader = ({setIsLoading}) => {
 
     var title = '티끌 작성'
 
@@ -14,7 +14,7 @@ const TiccleCreateHeader = () => {
         <View style={styles.container}>
             <TiccleCreateHeaderLeft/>
             <Text style={styles.title}>{title}</Text>
-            <TiccleCreateHeaderRight/>
+            <TiccleCreateHeaderRight setIsLoading={setIsLoading}/>
         </View>
     )
 }
