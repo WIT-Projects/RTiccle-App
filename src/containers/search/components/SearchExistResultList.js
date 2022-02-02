@@ -6,7 +6,7 @@ import colors from '../../../theme/colors';
 
 const SearchExistResultList = ({isGroupDetail, searchResult, setSearchResult}) => {
     useEffect(() => {
-        return () => searchResult([]); // cleanup function을 이용
+        return () => setSearchResult([]); // cleanup function을 이용
       }, []);
 
     return (
