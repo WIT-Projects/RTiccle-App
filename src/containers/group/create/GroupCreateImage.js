@@ -33,7 +33,7 @@ const GroupCreateImage = ({navigation}) => {
                             <Text style={styles.imageSubtitle}>{description}</Text>
                         </View>
                         <TouchableOpacity onPress={() => setModalVisible(true)}>
-                            <Image source={require('../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
+                            <Image style={styles.camera} source={require('../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
@@ -88,6 +88,9 @@ const styles = StyleSheet.create({
         paddingTop: 8,
         color: colors.white,
     },
+    camera: {
+        marginBottom:8
+    }
 });
 
 export default GroupCreateImage;
