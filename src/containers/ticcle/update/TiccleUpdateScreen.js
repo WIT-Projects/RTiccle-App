@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, BackHandler } from "react-native";
 import colors from "../../../theme/colors";
 import TiccleUpdateHeader from "./components/header/TiccleUpdateHeader";
 import useTiccleUpdate from "../../../context/hook/useTiccleUpdate";
@@ -11,8 +11,9 @@ import TiccleCreateImageAdd from "../create/components/image/TiccleCreateImageAd
 import TiccleContentTextInput from "../create/components/textinput/TiccleContentTextInput";
 import TiccleCreateTags from "../create/components/TiccleCreateTags";
 import TiccleCreateTextInputTag from "../create/components/textinput/TiccleCreateTextInputTag";
+import CustomModal from "../../common/CustomModal";
 
-const TiccleUpdateScreen = ({route}) => {
+const TiccleUpdateScreen = ({route, navigation}) => {
     const { ticcleUpdate, setTiccleUpdate, setTiccleUpdateGroup,
         setTiccleUpdateTitle, setTiccleUpdateLink, setTiccleUpdateTagList,
         deleteTiccleUpdateTagList, setTiccleUpdateContent, setTiccleUpdateImages,
@@ -21,6 +22,7 @@ const TiccleUpdateScreen = ({route}) => {
     const [groupListModalVisible, setGroupListModalVisible] = useState(false);
     const [photoModalVisible, setPhotoModalVisible] = useState(false);
     const [originalTiccle, setOriginalTiccle] = useState({});
+    const [cancelModalVisible, setCancelModalVisible] = useState(false);
     const scrollRef = useRef();
     
     useEffect(()=> {
@@ -28,6 +30,16 @@ const TiccleUpdateScreen = ({route}) => {
         const JSONTiccle = JSON.parse(JSON.stringify(ticcle));
         setTiccleUpdate(JSONTiccle);
         setOriginalTiccle(ticcle);
+        //BackButton
+        const backButton = () => {
+            setCancelModalVisible(true)
+            return true;
+          };
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backButton
+        ); 
+        return () => backHandler.remove();
     },[])
 
     const setTiccleUpdateImageNamesUrls = imagePath =>{
@@ -38,10 +50,21 @@ const TiccleUpdateScreen = ({route}) => {
         deleteTiccleUpdateImage(index);
         deleteTiccleUpdateImageUrl(index);
     }
+    const cancelModalEvent = () => {
+        navigation.goBack();
+    }
 
     return(
         <>
-            <TiccleUpdateHeader ticcleUpdate={ticcleUpdate} originalTiccle={originalTiccle}/>
+            <CustomModal
+                isModalVisible={cancelModalVisible} setModalVisible={setCancelModalVisible}
+                title={"티끌 수정을 취소하시겠습니까?"} leftButton={"취소"} rightButton={"확인"}
+                rightButtonFunction={cancelModalEvent}
+            />
+            <TiccleUpdateHeader
+                ticcleUpdate={ticcleUpdate} originalTiccle={originalTiccle}
+                setCancelModalVisible = {setCancelModalVisible}
+            />
             <ScrollView style={styles.container} ref ={scrollRef}>
                 {/* Modal */}
                 <PhotoModal setImage={setTiccleUpdateImageNamesUrls} isModalVisible={photoModalVisible}
