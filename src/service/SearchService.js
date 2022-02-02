@@ -12,8 +12,7 @@ async function initAlgolia() {
 
     // Generate Algolia client and target index
     const searchClient = algoliasearch(algolia.AppID, algolia.APIKey);
-    const indexName = 'dev_ticcletitle';
-    collectionIndex = searchClient.initIndex(indexName);
+    collectionIndex = searchClient.initIndex(algolia.indexName);
 };
 
 /**
