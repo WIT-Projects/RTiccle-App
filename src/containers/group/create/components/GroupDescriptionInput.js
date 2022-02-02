@@ -25,6 +25,7 @@ const GroupDescriptionInput = () => {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -32,9 +33,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     textinput: {
-        width: 330,
         fontSize: 16,
         fontFamily: type.spoqaHanSansNeo_Regular,
+        width: '90%',
     },
     textCount: {
         color: colors.gray3,

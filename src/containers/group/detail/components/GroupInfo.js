@@ -86,7 +86,7 @@ const GroupInfo = ({groupData, navigation}) => {
                     <View style={styles.groupInfoContainer}>
                         <View>
                             <Text style={styles.title}>{groupData.title}</Text>
-                            <Text style={styles.description}>{groupData.description}</Text>
+                            {groupData.description.length > 0 && <Text style={ styles.description }>{groupData.description}</Text>}
                         </View>
                         <Image
                             onTouchEnd={() => {

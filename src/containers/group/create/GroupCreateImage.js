@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
     headerImageInner: {
         flexDirection: 'row',
-        paddingHorizontal: 20,
+        paddingHorizontal: 18,
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         paddingTop: 180,
@@ -79,12 +79,12 @@ const styles = StyleSheet.create({
     },
     imageTitle: {
         fontFamily: type.spoqaHanSansNeo_Bold,
-        fontSize: 24,
+        fontSize: 23,
         color: colors.white,
     },
     imageSubtitle: {
         fontFamily: type.spoqaHanSansNeo_Regular,
-        fontSize: 16,
+        fontSize: 15,
         paddingTop: 8,
         color: colors.white,
     },
