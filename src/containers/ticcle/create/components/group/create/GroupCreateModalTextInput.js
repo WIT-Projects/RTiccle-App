@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         borderColor: colors.red,
     },
     textinput: {
-        width: 260,
+        width:'80%',
         fontSize: 18,
         fontFamily: type.spoqaHanSansNeo_Bold,
     },

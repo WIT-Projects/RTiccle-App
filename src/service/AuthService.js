@@ -18,17 +18,16 @@ async function anonSignIn() {
     })
 };
 
-function googleSigninConfigure() {
-    firestore().collection("SignIn").doc("Google").get()
-        .then((doc) => {
-          GoogleSignin.configure({
-            webClientId: doc.data().webClientId,
-          })
-        })
+async function googleSigninConfigure() {
+    const doc = await firestore().collection("SignIn").doc("Google").get();
+    GoogleSignin.configure({
+      webClientId: doc.data().webClientId,
+    })
 };
 
 async function googleLoginAndLink() {
     // Get the users ID token
+    await googleSigninConfigure();
     const { idToken } = await GoogleSignin.signIn();
 
     // Create a Google credential with the token
@@ -45,6 +44,7 @@ async function googleLoginAndLink() {
 
 async function googleLogin() {
     // Get the users ID token
+    await googleSigninConfigure();
     const { idToken } = await GoogleSignin.signIn();
 
     // Create a Google credential with the token

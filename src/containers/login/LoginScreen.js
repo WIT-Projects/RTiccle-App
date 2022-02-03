@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {View,StyleSheet,Text, Image, TouchableOpacity } from 'react-native'
 import colors from "../../theme/colors";
 import { type } from "../../theme/fonts";
-import { anonSignIn, googleSigninConfigure, googleLogin } from "../../service/AuthService";
+import { anonSignIn, googleLogin } from "../../service/AuthService";
 import { getAllGroupIncludeImages } from "../../model/GroupModel";
 import {useErrorHandler} from 'react-error-boundary';
 
@@ -11,10 +11,6 @@ const LoginScreen = ({setIsLoggedIn}) => {
 
     const textOne = "RTICCLE에 오신 걸"
     const textTwo = "환영합니다."
-
-    useEffect(() => {
-        googleSigninConfigure();
-    }, [])
 
     function setIsLoggedInTrue(){
         setIsLoggedIn(true);
@@ -40,7 +36,7 @@ const LoginScreen = ({setIsLoggedIn}) => {
             </View>
             <TouchableOpacity
                 style={styles.imageTouchable} onPress={guestSignIn}>
-                  <Image source={require('../../assets/images/login_guest.png')} style={styles.image}/>
+                  <Image style={styles.image} source={require('../../assets/images/login_guest.png')} style={styles.image}/>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.imageTouchable} onPress={googleSignIn}>
@@ -71,6 +67,7 @@ const styles = StyleSheet.create({
     image:{
         width: '100%',
         height: 60,
+        resizeMode: 'contain',
     }
 })
 
