@@ -8,7 +8,7 @@ import { sortAscByLMT, sortDescByLMT } from '../../model/TiccleModel';
 import colors from '../../theme/colors';
 import metrics from '../..//theme/metrices';
 
-const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList,setIsLoading, isLatestSort, setIsLatestSort }) => {
+const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList,setIsLoading, isLatestSort, setIsLatestSort, setIsFirstComeIn }) => {
     const [searchInput, setSearchInput] = useState("");
     const handleError = useErrorHandler() // for error handling
     const [isModalVisible, setModalVisible] = useState(false);
@@ -42,7 +42,8 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
                     setSearchResult(sortResult);
                     setIsLoading(false);
                 })
-                .catch(err => handleError(err))
+                .catch(err => handleError(err));
+            setIsFirstComeIn(false);
         } else {
             const result = searchTiccleByTitltAndTagInGroup(ticcleList, query, tagQuery);
             let sortResult = isLatestSort ? sortDescByLMT(result) : sortAscByLMT(result);
