@@ -36,7 +36,7 @@ const LoginScreen = ({setIsLoggedIn}) => {
             </View>
             <TouchableOpacity
                 style={styles.imageTouchable} onPress={guestSignIn}>
-                  <Image source={require('../../assets/images/login_guest.png')} style={styles.image}/>
+                  <Image style={styles.image} source={require('../../assets/images/login_guest.png')} style={styles.image}/>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.imageTouchable} onPress={googleSignIn}>
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     image:{
         width: '100%',
         height: 60,
+        resizeMode: 'contain',
     }
 })
 
