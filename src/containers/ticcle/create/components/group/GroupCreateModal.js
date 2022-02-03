@@ -8,6 +8,7 @@ import GroupCreateModalButton from "./create/GroupCreateModalButton";
 import { type } from "../../../../../theme/fonts";
 import { doCreateGroup } from "../../../../../model/GroupModel";
 import useGroupChanged from "../../../../../context/hook/useGroupChanged";
+import {useErrorHandler} from 'react-error-boundary';
 
 const GroupCreateModal = ({isModalVisible, setModalVisible, setTiccleGroup}) => {
 
@@ -19,6 +20,8 @@ const GroupCreateModal = ({isModalVisible, setModalVisible, setTiccleGroup}) => 
     const [buttonDisable, setButtonDisable] = useState(true);
     const { isGroupChanged, setIsGroupChanged } = useGroupChanged();
 
+    const handleError = useErrorHandler(); // for error handling
+
     const fastGroupCreateFirebase = async () => {
         const newGroup = {
             title: groupTitle,
@@ -26,7 +29,8 @@ const GroupCreateModal = ({isModalVisible, setModalVisible, setTiccleGroup}) => 
             bookmark: false,
         };
         const imageSource = '';
-        const newGroupData = await doCreateGroup(newGroup, imageSource);
+        const newGroupData = await doCreateGroup(newGroup, imageSource)
+            .catch(err => handleError(err));
         setTiccleGroup(newGroupData.id);
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
     };

@@ -132,6 +132,7 @@ async function updateGroupImage(oldImageName, newImageSource) {
 /**
  * Delete group
  * @param {Array} group: group info (MUST include 'id', 'mainImage' information)
+ * @returns {Promise}
  */
 function deleteGroup(group) {
     // delete image
@@ -139,7 +140,7 @@ function deleteGroup(group) {
         deleteImageFromStorage(group.mainImage, false);
     // delete group info
     const ref = collection.doc(currentUser.uid).collection('Group').doc(group.id);
-    ref.delete();
+    return ref.delete();
 }
 
 /**

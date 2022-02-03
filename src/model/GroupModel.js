@@ -143,12 +143,16 @@ async function doUpdateGroup(groupId, newInfo, isIncludingImage, oldImageName, n
  * Delete one group add apply to groupList
  * @param {Array} groupData
  */
-function doDeleteGroup(groupData) {
+async function doDeleteGroup(groupData) {
     // to server
-    deleteGroup(groupData);
+    const deleted = await deleteGroup(groupData);
 
     // to local data
     deleteOneGroupOfList(groupData.id);
+
+    return new Promise(resolve => {
+        resolve(deleted);
+    });
 }
 
 /**
