@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
         top: 0,
         right: 10,
         alignSelf: 'flex-end',
+        width: 14,
+        height: 18,
+        resizeMode: 'contain',
     },
     groupMainImage: {
         width: 194,

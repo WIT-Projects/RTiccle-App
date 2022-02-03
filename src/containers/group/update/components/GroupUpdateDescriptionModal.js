@@ -52,7 +52,7 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
                         onPress={() => {
                             setGroupUpdateDescription('');
                         }}>
-                        <Image source={require('../../../../assets/images/xCircleWhite.png')}></Image>
+                        <Image style={styles.xBtn} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.textCount}>
@@ -109,6 +109,11 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingVertical: 10,
     },
+    xBtn:{
+        width: 16,
+        height: 16,
+        resizeMode: 'contain',
+    }
 });
 
 export default GroupUpdateDescriptionModal;

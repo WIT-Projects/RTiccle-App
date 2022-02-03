@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Image} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStackNavigatior from './stack/HomeStackNavigator';
 import MyPage from '../containers/user/MyPage';
@@ -55,7 +55,7 @@ const MainTab = () => {
                         headerShown: false,
                         tabBarStyle: isTabActive(route),
                         tabBarIcon: ({focused}) => (
-                            <Image source={focused ? require('../assets/images/tabHomeActive.png') : require('../assets/images/tabHome.png')} />
+                            <Image style={styles.icon} source={focused ? require('../assets/images/tabHomeActive.png') : require('../assets/images/tabHome.png')} />
                             ),
                     })}
                 />
@@ -75,7 +75,7 @@ const MainTab = () => {
                         title: '티끌쓰기',
                         headerShown: false,
                         tabBarStyle: {display: 'none'},
-                        tabBarIcon: () => <Image source={require('../assets/images/tabTiccleCreate.png')} />
+                        tabBarIcon: () => <Image style={styles.icon} source={require('../assets/images/tabTiccleCreate.png')} />
                     })}
                 />
                 <Tab.Screen
@@ -94,7 +94,7 @@ const MainTab = () => {
                         },
                         tabBarLabel: 'MY',
                         tabBarIcon: ({focused}) => (
-                            <Image source={focused ? require('../assets/images/tabMypageActive.png') : require('../assets/images/tabMypage.png')} />
+                            <Image style={styles.icon} source={focused ? require('../assets/images/tabMypageActive.png') : require('../assets/images/tabMypage.png')} />
                         ),
                     }}
                 />
@@ -103,5 +103,13 @@ const MainTab = () => {
         
     );
 };
+
+const styles = StyleSheet.create({
+    icon:{
+        width: 20, 
+        resizeMode: 'contain',
+    }
+});
+
 
 export default MainTab;

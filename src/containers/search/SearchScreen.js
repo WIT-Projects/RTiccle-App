@@ -3,13 +3,15 @@ import SearchBar from '../common/SearchBar';
 import SearchZeroResult from './components/SearchZeroResult';
 import SearchExistResultList from './components/SearchExistResultList';
 import Spinner from '../common/Spinner';
+import SearchNotExistTiccle from './components/SearchNotExistTiccle';
 
 const SearchScreen = () => {
     const [pressSearchBtn, setPressSearchBtn] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isLatestSort, setIsLatestSort] = useState(true);
-
+    const [isFirstComeIn, setIsFirstComeIn] = useState(true);
+    
     return (
         <>
             { isLoading && <Spinner></Spinner> }        
@@ -23,11 +25,12 @@ const SearchScreen = () => {
                 setIsLoading={setIsLoading}
                 isLatestSort={isLatestSort}
                 setIsLatestSort={setIsLatestSort}
+                setIsFirstComeIn={setIsFirstComeIn}
             />
             {pressSearchBtn
                 ? (searchResult.length > 0 
                     ? <SearchExistResultList isGroupDetail={false} searchResult={searchResult} setSearchResult={setSearchResult} />
-                    : <SearchZeroResult />)
+                    : isFirstComeIn? <SearchZeroResult/>: <SearchNotExistTiccle/>)
                 : <SearchZeroResult />}
         </>
     );
