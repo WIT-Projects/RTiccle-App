@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 24,
         fontFamily: type.spoqaHanSansNeo_Bold,
+        width: '90%',
     },
     red: {
         borderColor: 'red',

@@ -18,12 +18,6 @@ const AppProvider = ({children}) => {
             mainImage: '',
         });
     };
-    const setGroupDate = () => {
-        const today = FBDate();
-        setGroupCreate(state => {
-            return {...state, date: today};
-        });
-    };
     const setGroupTitle = text => {
         setGroupCreate(state => {
             return {...state, title: text};
@@ -76,7 +70,6 @@ const AppProvider = ({children}) => {
                 groupCreate,
                 setGroupCreate,
                 initialGroupCreate,
-                setGroupDate,
                 setGroupTitle,
                 setGroupDescription,
                 setGroupBookmark,

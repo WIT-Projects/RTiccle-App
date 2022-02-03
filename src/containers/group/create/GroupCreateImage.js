@@ -33,7 +33,7 @@ const GroupCreateImage = ({navigation}) => {
                             <Text style={styles.imageSubtitle}>{description}</Text>
                         </View>
                         <TouchableOpacity onPress={() => setModalVisible(true)}>
-                            <Image source={require('../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
+                            <Image style={styles.camera} source={require('../../../assets/images/camera.png')} onPress={() => setModalVisible(true)}></Image>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
     headerImageInner: {
         flexDirection: 'row',
-        paddingHorizontal: 20,
+        paddingHorizontal: 18,
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         paddingTop: 180,
@@ -79,15 +79,18 @@ const styles = StyleSheet.create({
     },
     imageTitle: {
         fontFamily: type.spoqaHanSansNeo_Bold,
-        fontSize: 24,
+        fontSize: 23,
         color: colors.white,
     },
     imageSubtitle: {
         fontFamily: type.spoqaHanSansNeo_Regular,
-        fontSize: 16,
+        fontSize: 15,
         paddingTop: 8,
         color: colors.white,
     },
+    camera: {
+        marginBottom:8
+    }
 });
 
 export default GroupCreateImage;

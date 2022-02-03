@@ -64,7 +64,7 @@ const TiccleUpdateScreen = ({route, navigation}) => {
                 rightButtonFunction={cancelModalEvent}
             />
             <TiccleUpdateHeader
-                ticcleUpdate={ticcleUpdate} originalTiccle={originalTiccle}
+                ticcleUpdate={ticcleUpdate} originalTiccle={originalTiccle} setIsLoading={setIsLoading}
                 setCancelModalVisible = {setCancelModalVisible}
             />
             {isLoading && <Spinner></Spinner>}

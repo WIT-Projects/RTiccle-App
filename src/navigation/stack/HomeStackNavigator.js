@@ -16,7 +16,7 @@ import metrics from '../../theme/metrices';
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigatior = () => {
-    const {initialGroupCreate} = useGroupCreate();
+    const {initialGroupCreate, setGroupImage} = useGroupCreate();
     const navigateTo = useNavigation();
 
     return (
@@ -97,6 +97,7 @@ const HomeStackNavigatior = () => {
                             style={styles.headerLeftTouchable}
                             onPress={() => {
                                 navigation.goBack();
+                                setGroupImage('');
                             }}>
                             <Image source={require('../../assets/images/chevron_left.png')} style={styles.headerLeftImage} />
                         </TouchableOpacity>
@@ -121,7 +122,8 @@ const styles = StyleSheet.create({
     headerLeftTouchable: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingLeft: 18,
+        paddingHorizontal: 18,
+        paddingVertical:18,
     },
     headerLeftImage: {
         width: 11,
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
     headerRightTouchable: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingRight: 18,
+        paddingHorizontal: 18,
     },
     headerRightText: {
         fontFamily: type.notoSansKR_Medium,

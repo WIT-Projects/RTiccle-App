@@ -30,7 +30,6 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
             <View style={styles.container}>
                 <View style={styles.headerContainer}>
                     <TouchableOpacity
-                        style={styles.button}
                         onPress={() => {
                             cancelGroupUpdateDesc();
                         }}>
@@ -38,7 +37,6 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
                     </TouchableOpacity>
                     <Text style={[styles.defaultText, styles.bold]}>그룹 설명</Text>
                     <TouchableOpacity
-                        style={styles.button}
                         onPress={() => {
                             saveGroupUpdateDesc();
                         }}>
@@ -77,10 +75,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 18,
     },
-    button: {
-        paddingRight: 18,
-        paddingVertical: 9,
-    },
     defaultText: {
         fontFamily: type.spoqaHanSansNeo_Regular,
         color: colors.white,
@@ -98,7 +92,7 @@ const styles = StyleSheet.create({
     },
     underline: {
         width: '100%',
-        paddingTop: 280,
+        paddingTop: 290,
         borderBottomWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
