@@ -1,6 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { TextInput, StyleSheet,View } from 'react-native'
-import { useEffect } from 'react/cjs/react.development'
 import colors from '../../../../../theme/colors'
 
 const TiccleCreateTextInputTag = ({scrollRef, setTiccleTagList}) => {
