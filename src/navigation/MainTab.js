@@ -55,7 +55,7 @@ const MainTab = () => {
                         headerShown: false,
                         tabBarStyle: isTabActive(route),
                         tabBarIcon: ({focused}) => (
-                            <Image source={focused ? require('../assets/images/tabHomeActive.png') : require('../assets/images/tabHome.png')} />
+                            <Image style={{ width: 20, resizeMode: 'contain'}} source={focused ? require('../assets/images/tabHomeActive.png') : require('../assets/images/tabHome.png')} />
                             ),
                     })}
                 />
@@ -75,7 +75,7 @@ const MainTab = () => {
                         title: '티끌쓰기',
                         headerShown: false,
                         tabBarStyle: {display: 'none'},
-                        tabBarIcon: () => <Image source={require('../assets/images/tabTiccleCreate.png')} />
+                        tabBarIcon: () => <Image style={{ width: 20, resizeMode: 'contain'}} source={require('../assets/images/tabTiccleCreate.png')} />
                     })}
                 />
                 <Tab.Screen
@@ -94,7 +94,7 @@ const MainTab = () => {
                         },
                         tabBarLabel: 'MY',
                         tabBarIcon: ({focused}) => (
-                            <Image source={focused ? require('../assets/images/tabMypageActive.png') : require('../assets/images/tabMypage.png')} />
+                            <Image style={{ width: 20, resizeMode: 'contain'}} source={focused ? require('../assets/images/tabMypageActive.png') : require('../assets/images/tabMypage.png')} />
                         ),
                     }}
                 />

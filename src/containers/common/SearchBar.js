@@ -6,6 +6,7 @@ import { useErrorHandler } from 'react-error-boundary';
 import SearchModal from './SearchModal';
 import { sortAscByLMT, sortDescByLMT } from '../../model/TiccleModel';
 import colors from '../../theme/colors';
+import metrics from '../..//theme/metrices';
 
 const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pressSearchBtn, setSearchResult, searchResult, list, setList,setIsLoading, isLatestSort, setIsLatestSort }) => {
     const [searchInput, setSearchInput] = useState("");
@@ -82,7 +83,7 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
             />
             <View style={styles.container}>
                 <TextInput style={styles.textInput} value={searchInput} onChangeText={(text) => setSearchInput(text)} placeholder={placeholderContext}></TextInput>
-                {pressSearchBtn ? <Image source={require('../../assets/icon/deleteSearch.png')} onTouchEnd={() => pressDeleteSearchBtn()} /> : <View style={{width: 19}}/>}
+                {pressSearchBtn ? <Image style={styles.deleteBtn} source={require('../../assets/icon/deleteSearch.png')} onTouchEnd={() => pressDeleteSearchBtn()} /> : <View style={{width: 19, marginRight: 10}}/>}
                 <Image onTouchEnd={() => { getSearchResult() }} style={styles.icon} source={require('../../assets/icon/search.png')}></Image>
                 <Image style={styles.icon} source={require('../../assets/icon/line.png')}></Image>
                 <TouchableOpacity
@@ -99,7 +100,7 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
 const styles = StyleSheet.create({
     textInput: {
         fontSize: 16,
-        width: "70%",
+        width: '70%',
     },
     container: {
         paddingHorizontal: 20,
@@ -110,10 +111,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: colors.white,
+        width: metrics.screenWidth,
     },
     icon: {
-        marginLeft: 18,
-    }
+        width: 19,
+        resizeMode: 'contain',
+    },
+    deleteBtn:{
+        width: 19, 
+        resizeMode: 'contain', 
+        marginRight: 10
+    },
 })
 
 export default SearchBar;

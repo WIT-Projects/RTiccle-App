@@ -89,7 +89,10 @@ const styles = StyleSheet.create({
         color: colors.white,
     },
     camera: {
-        marginBottom:8
+        marginBottom:8,
+        width:35,
+        height:35,
+        resizeMode: 'contain',
     }
 });
 

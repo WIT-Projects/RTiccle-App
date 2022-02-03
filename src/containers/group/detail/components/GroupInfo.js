@@ -75,14 +75,14 @@ const GroupInfo = ({groupData, navigation}) => {
                             onPress={() => {
                                 navigation.navigate('Home');
                             }}>
-                            <Image source={require('../../../../assets/icon/backWhite.png')} />
+                            <Image style={styles.backBtn} source={require('../../../../assets/icon/backWhite.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.paddingBtn}
                             onPress={() => {
                                 setModalVisible(true);
                             }}>
-                            <Image source={require('../../../../assets/icon/kebabMenu.png')}></Image>
+                            <Image style={styles.kebabBtn} source={require('../../../../assets/icon/kebabMenu.png')}></Image>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.groupInfoContainer}>
@@ -95,7 +95,7 @@ const GroupInfo = ({groupData, navigation}) => {
                             onPress={() => {
                                 setFirebaseBookmark();
                             }}>
-                            <Image source={isBookmark ? require('../../../../assets/icon/bookmarkTrue.png') : require('../../../../assets/icon/bookmarkFalse.png')}></Image>
+                            <Image style={styles.bookmarkBtn} source={isBookmark ? require('../../../../assets/icon/bookmarkTrue.png') : require('../../../../assets/icon/bookmarkFalse.png')}></Image>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     paddingBtn: {
-        paddingHorizontal: 18,
+        paddingHorizontal: 14,
         paddingVertical:15,
     },
     groupInfoContainer: {
@@ -142,6 +142,21 @@ const styles = StyleSheet.create({
     bookmark: {
         paddingHorizontal: 17,
         paddingTop:17,
+    },
+    backBtn:{
+        width: 8,
+        height: 16,
+        resizeMode: 'contain',
+    },
+    kebabBtn:{
+        width: 28,
+        height: 28,
+        resizeMode: 'contain',
+    },
+    bookmarkBtn:{
+        width: 14,
+        height: 18,
+        resizeMode: 'contain',
     }
 });
 
