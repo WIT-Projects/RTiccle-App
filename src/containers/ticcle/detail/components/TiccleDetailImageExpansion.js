@@ -12,8 +12,9 @@ const TiccleDetailImageExpansion = ({isModalVisible, setModalVisible, imagePath}
     return(
         <Modal
             isVisible={isModalVisible}
-            onBackdropPress={()=> setModalVisible(false)}
-            style={styles.modal}>
+            onBackButtonPress={()=> setModalVisible(false)}
+            style={styles.modal}
+            >
             <View style={styles.container}>
                 <View style={styles.tabBar}>
                     <TouchableOpacity
