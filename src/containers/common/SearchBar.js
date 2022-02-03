@@ -83,7 +83,7 @@ const SearchBar = ({ isSearchScreen, placeholderContext, setPressSearchBtn, pres
                 right={10}
             />
             <View style={styles.container}>
-                <TextInput style={styles.textInput} value={searchInput} onChangeText={(text) => setSearchInput(text)} placeholder={placeholderContext}></TextInput>
+                <TextInput onSubmitEditing={getSearchResult} style={styles.textInput} value={searchInput} onChangeText={(text) => setSearchInput(text)} placeholder={placeholderContext}></TextInput>
                 {pressSearchBtn ? <Image style={styles.deleteBtn} source={require('../../assets/icon/deleteSearch.png')} onTouchEnd={() => pressDeleteSearchBtn()} /> : <View style={{width: 19, marginRight: 10}}/>}
                 <Image onTouchEnd={() => { getSearchResult() }} style={styles.icon} source={require('../../assets/icon/search.png')}></Image>
                 <Image style={styles.icon} source={require('../../assets/icon/line.png')}></Image>
