@@ -3,7 +3,7 @@ import { TextInput, StyleSheet,View } from 'react-native'
 import colors from '../../../../../theme/colors'
 
 const TiccleCreateTextInputTag = ({scrollRef, setTiccleTagList}) => {
-    const placeholder = "태그(20자 제한) ex. #경제 #마케팅"
+    const placeholder = "태그 (20자 제한)"
     const [tag, setTag] = useState('');
     const tagMaxLength = 20; 
     const initialTag = () => {
