@@ -34,7 +34,7 @@ const GroupUpdateInfo = ({mainImage, title, description, setModalActive, tempDat
                 description={description}></GroupUpdateDescriptionModal>
             <ImageBackground source={source} style={styles.headerImage}>
                 <ImageBackground source={require('../../../../assets/images/gradation2.png')} style={styles.headerImage}>
-                    <Image source={require('../../../../assets/images/groupUpdateGradation.png')} style={styles.headerImageGradation}></Image>
+                    <Image source={require('../../../../assets/images/blankImage.png')} style={styles.headerImageGradation}></Image>
                     <View style={styles.headerImageInner}>
                         <View style={styles.headerImageContainer1}>
                             <TouchableOpacity onPress={() => setPhotoModalVisible(true)}>

@@ -33,7 +33,7 @@ const HomeStackNavigatior = () => {
                                 navigateTo.navigate('SearchScreen');
                             }}
                             style={styles.searchBtn}
-                            source={require('../../assets/icon/searchBlack.png')}
+                            source={require('../../assets/icon/search.png')}
                         />
                     ),
                 })}
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 18,
-        paddingVertical:18,
+        paddingVertical: 18,
     },
     headerLeftImage: {
         width: 11,
@@ -138,17 +138,19 @@ const styles = StyleSheet.create({
         fontFamily: type.notoSansKR_Medium,
         fontSize: 20,
     },
-    logo:{
+    logo: {
         marginLeft: 18,
         width: 24,
+        height: 17,
+        resizeMode: 'contain',
+        tintColor: colors.main,
+    },
+    searchBtn: {
+        marginRight: 24,
+        padding: 4,
+        width: 19,
         resizeMode: 'contain',
     },
-    searchBtn:{
-        marginRight: 24,
-        padding: 4,  
-        width: 19, 
-        resizeMode: 'contain',
-    }
 });
 
 export default HomeStackNavigatior;
