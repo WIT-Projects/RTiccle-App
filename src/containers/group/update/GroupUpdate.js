@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, BackHandler} from 'react-native';
+import {View, StyleSheet, BackHandler, ScrollView} from 'react-native';
 import colors from '../../../theme/colors';
 import GroupUpdateSaveButton from './components/GroupUpdateSaveButton';
 import GroupUpdateInfo from './components/GroupUpdateInfo';
 import useGroupUpdate from '../../../context/hook/useGroupUpdate';
 import GroupUpdateHeader from './components/GroupUpdateHeader';
-import CustomModal from '../../common/CustomModal'
+import CustomModal from '../../common/CustomModal';
 import Spinner from '../../common/Spinner';
-
 
 const GroupUpdate = ({navigation, route}) => {
     const {groupUpdate, setGroupUpdate} = useGroupUpdate();
@@ -23,38 +22,35 @@ const GroupUpdate = ({navigation, route}) => {
         setTempData(route.params.groupData);
         // backButton
         const backButton = () => {
-            setCancelModal(true)
+            setCancelModal(true);
             return true;
-          };
-        const backHandler = BackHandler.addEventListener(
-            "hardwareBackPress",
-            backButton
-        ); 
+        };
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backButton);
         return () => backHandler.remove();
     }, []);
 
     const cancelModalEvent = () => {
         navigation.goBack();
-    }
+    };
 
     return (
         <>
             <CustomModal
-                isModalVisible={cancelModal} setModalVisible={setCancelModal}
-                title={"티끌 수정을 취소하시겠어요?"} leftButton={"취소"}
-                rightButton={"확인"} rightButtonFunction={cancelModalEvent}
+                isModalVisible={cancelModal}
+                setModalVisible={setCancelModal}
+                title={'티끌 수정을 취소하시겠어요?'}
+                leftButton={'취소'}
+                rightButton={'확인'}
+                rightButtonFunction={cancelModalEvent}
             />
-            <View style={styles.container}>
-                <GroupUpdateHeader
-                    modalActive={modalActive}
-                    setCancelModal={setCancelModal}    
-                />
+            <ScrollView style={styles.container}>
+                <GroupUpdateHeader modalActive={modalActive} setCancelModal={setCancelModal} />
                 {isLoading && <Spinner></Spinner>}
                 <View style={styles.groupInfo}>
                     <GroupUpdateInfo
                         navigation={navigation}
                         style={styles.groupInfo}
-                        tempData={ tempData }
+                        tempData={tempData}
                         setTempData={setTempData}
                         mainImage={groupUpdate.imageUrl}
                         title={groupUpdate.title}
@@ -65,9 +61,8 @@ const GroupUpdate = ({navigation, route}) => {
                 <View style={styles.saveButton}>
                     <GroupUpdateSaveButton navigation={navigation} initialData={initialData} setIsLoading={setIsLoading}></GroupUpdateSaveButton>
                 </View>
-            </View>
+            </ScrollView>
         </>
-        
     );
 };
 

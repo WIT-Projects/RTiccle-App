@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
@@ -53,40 +53,42 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
                 inputRef.current.blur();
                 inputRef.current.focus();
             }}>
-            <View style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            cancelGroupUpdateTitle();
-                        }}>
-                        <Text style={styles.defaultText}>취소</Text>
-                    </TouchableOpacity>
-                    <Text style={[styles.defaultText, styles.bold]}>그룹 제목</Text>
-                    <TouchableOpacity
-                        disabled={buttonDisabled}
-                        onPress={() => {
-                            saveGroupUpdateTitle();
-                        }}>
-                        <Text style={[styles.defaultText, buttonDisabled ? styles.disabledButton : null]}>저장</Text>
-                    </TouchableOpacity>
+            <ScrollView>
+                <View style={styles.container}>
+                    <View style={styles.headerContainer}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                cancelGroupUpdateTitle();
+                            }}>
+                            <Text style={styles.defaultText}>취소</Text>
+                        </TouchableOpacity>
+                        <Text style={[styles.defaultText, styles.bold]}>그룹 제목</Text>
+                        <TouchableOpacity
+                            disabled={buttonDisabled}
+                            onPress={() => {
+                                saveGroupUpdateTitle();
+                            }}>
+                            <Text style={[styles.defaultText, buttonDisabled ? styles.disabledButton : null]}>저장</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.underline}>
+                        <TextInput ref={inputRef} autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateTitle} maxLength={maxLength}>
+                            {title}
+                        </TextInput>
+                        <TouchableOpacity
+                            style={styles.deleteButton}
+                            onPress={() => {
+                                setGroupUpdateTitle('');
+                            }}>
+                            <Image style={styles.xBtn} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.textCount}>
+                        {groupTitleLength}/{maxLength}
+                    </Text>
+                    <Text style={[styles.createFailText, isExistGroup ? null : {opacity: 0}]}>이미 존재하는 그룹입니다!</Text>
                 </View>
-                <View style={styles.underline}>
-                    <TextInput ref={inputRef} autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateTitle} maxLength={maxLength}>
-                        {title}
-                    </TextInput>
-                    <TouchableOpacity
-                        style={styles.deleteButton}
-                        onPress={() => {
-                            setGroupUpdateTitle('');
-                        }}>
-                        <Image style={styles.xBtn} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.textCount}>
-                    {groupTitleLength}/{maxLength}
-                </Text>
-                <Text style={[styles.createFailText, isExistGroup ? null : {opacity: 0}]}>이미 존재하는 그룹입니다!</Text>
-            </View>
+            </ScrollView>
         </Modal>
     );
 };

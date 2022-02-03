@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, TouchableWithoutFeedback, Platform, Keyboard, KeyboardAvoidingView} from 'react-native';
+import {View, StyleSheet, TouchableWithoutFeedback, Platform, Keyboard, KeyboardAvoidingView, ScrollView} from 'react-native';
 import TextInfo from '../../common/TextInfo';
 import GroupTextInput from './components/GroupTextInput';
 import GroupCreateConfirmButton from './components/GroupCreateConfirmButton';
-import { BackHandler } from 'react-native';
+import {BackHandler} from 'react-native';
 import useGroupCreate from '../../../context/hook/useGroupCreate';
 import colors from '../../../theme/colors';
 
 const GroupCreateName = ({navigation}) => {
     const [buttonDisabled, setButtonDisable] = useState(true);
     const [isExistGroup, setIsExistGroup] = useState(false);
-    const { initialGroupCreate } = useGroupCreate();
+    const {initialGroupCreate} = useGroupCreate();
 
     useEffect(() => {
         //backButton
@@ -18,31 +18,28 @@ const GroupCreateName = ({navigation}) => {
             initialGroupCreate();
             navigation.goBack();
             return true;
-        }
-        const backHandler= BackHandler.addEventListener(
-            "hardwareBackPress",
-            initialGroupData
-        )
+        };
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', initialGroupData);
         return () => backHandler.remove();
-    }, [] );
+    }, []);
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null} style={styles.container}>
             <View style={styles.headerShadow}></View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.inner}>
+                <ScrollView style={styles.inner}>
                     <View style={styles.textContainer}>
                         <TextInfo title="그룹의 이름은 무엇인가요?" subtitle="나만의 그룹 이름을 입력해보세요!"></TextInfo>
                         <GroupTextInput setButtonDisable={setButtonDisable} isExistGroup={isExistGroup} setIsExistGroup={setIsExistGroup}></GroupTextInput>
                     </View>
-                    <GroupCreateConfirmButton
-                        text="확인"
-                        setButtonDisable={setButtonDisable}
-                        buttonDisabled={buttonDisabled}
-                        setIsExistGroup={setIsExistGroup}
-                        navigation={navigation}></GroupCreateConfirmButton>
-                </View>
+                </ScrollView>
             </TouchableWithoutFeedback>
+            <GroupCreateConfirmButton
+                text="확인"
+                setButtonDisable={setButtonDisable}
+                buttonDisabled={buttonDisabled}
+                setIsExistGroup={setIsExistGroup}
+                navigation={navigation}></GroupCreateConfirmButton>
         </KeyboardAvoidingView>
     );
 };
