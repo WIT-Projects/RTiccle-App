@@ -7,7 +7,7 @@ import { timeStampToFormatDate } from '../../../../service/CommonService';
 
 const GroupDetailTiccle = ({ item }) => {
     const navigateTo = useNavigation();
-    const [availableTag, setAvailableTag] = useState(0);
+    const [availableTag, setAvailableTag] = useState([]);
 
     let ticcleDate = timeStampToFormatDate(item.lastModifiedTime);
     const title = item.title
