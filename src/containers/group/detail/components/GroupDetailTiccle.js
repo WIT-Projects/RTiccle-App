@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from "react-native";
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
@@ -7,10 +7,26 @@ import { timeStampToFormatDate } from '../../../../service/CommonService';
 
 const GroupDetailTiccle = ({ item }) => {
     const navigateTo = useNavigation();
+    const [availableTag, setAvailableTag] = useState([]);
 
     let ticcleDate = timeStampToFormatDate(item.lastModifiedTime);
     const title = item.title
     const tag = item.tagList
+
+    useEffect(() => {
+        let lengthSum = 0;
+        let availableIndex = 0;
+        tag.map((item) => {
+            lengthSum += item.length;
+            if(lengthSum < 24) {
+                availableIndex++;
+            }
+        })
+        const newTag = tag.slice(0, availableIndex);
+        setAvailableTag(newTag);
+    },[item])
+
+
 
     const goToTiccleDetail = () => {
         navigateTo.navigate('TiccleDetail', {ticcleData: item, goBack: true});
@@ -21,7 +37,18 @@ const GroupDetailTiccle = ({ item }) => {
             <View style={styles.container2}>
                 <Text style={styles.font2}>{title}</Text>
                 <View style={styles.container3}>
-                    {tag.map((item, index) => { return (<Text style={styles.font3} key={index}>#{item} </Text>) })}
+                    {availableTag.map((item, index) => {
+                            return (
+                                <Text style={styles.font3} key={index}>
+                                    #{item + '  '}
+                                </Text>
+                            )}                               
+                    )}
+                    {(availableTag.length !== tag.length)
+                    ?
+                    <Text style={styles.font3}>...</Text>
+                    : null
+                    }           
                 </View>
             </View>
         </View>
@@ -41,6 +68,8 @@ const styles = StyleSheet.create({
     },
     container3: {
         flexDirection: 'row',
+        alignItems : 'center',
+        maxWidth: '75%',
     },
     font1: {
         fontSize: 12,
