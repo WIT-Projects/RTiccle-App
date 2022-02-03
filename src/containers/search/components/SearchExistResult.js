@@ -12,7 +12,9 @@ import { useErrorHandler } from 'react-error-boundary'
 const SearchExistResult = ({ ticcle, isGroupDetail }) => {
     const navigateTo = useNavigation();
     const [ticcleData, setTiccleData] = useState({});
+    const [availableTag, setAvailableTag] = useState([]);
     const handleError = useErrorHandler() // for error handling
+    const tag = ticcle.tagList
 
     useEffect(() => {
         if (isGroupDetail === true){
@@ -24,6 +26,19 @@ const SearchExistResult = ({ ticcle, isGroupDetail }) => {
             );
         }
     }, [ticcle])
+
+    useEffect(() => {
+        let lengthSum = 0;
+        let availableIndex = 0;
+        tag.map((item) => {
+            lengthSum += item.length;
+            if(lengthSum < 24) {
+                availableIndex++;
+            }
+        })
+        const newTag = tag.slice(0, availableIndex);
+        setAvailableTag(newTag);
+    },[ticcle])
 
     function getGroupTitle() {
         const idx = groupList.findIndex(obj => obj.id === ticcle.groupId);
@@ -46,7 +61,14 @@ const SearchExistResult = ({ ticcle, isGroupDetail }) => {
                 <Text style={styles.groupFont}>{getGroupTitle(ticcle.groupId)}</Text>
                 <Text style={styles.titleFont}>{ticcle.title}</Text>
                 <View style={styles.tagContainer}>
-                    {ticcle.tagList.map((item, index) => { return (<Text style={styles.tagFont} key={index}>#{item} </Text>) })}
+                    {availableTag.map((item, index) => {
+                        return (<Text style={styles.tagFont} key={index}>#{item + '  '}</Text>)
+                        })}
+                    {(availableTag.length !== tag.length)
+                    ?
+                    <Text style={styles.fontEllipsis}>...</Text>
+                    : null
+                    }       
                 </View>
             </View>
         </View>
@@ -66,6 +88,8 @@ const styles = StyleSheet.create({
     },
     tagContainer: {
         flexDirection: 'row',
+        alignItems: 'center',
+        maxWidth: '75%',
     },
     titleFont: {
         fontSize: 16,
@@ -91,6 +115,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         fontFamily: type.spoqaHanSansNeo_Regular,
     },
+    fontEllipsis:{
+        fontSize: 12,
+        color: colors.sub,
+        fontFamily: type.spoqaHanSansNeo_Regular,
+    }
 });
 
 export default SearchExistResult;
