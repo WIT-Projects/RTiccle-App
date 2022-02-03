@@ -26,13 +26,13 @@ const HomeStackNavigatior = () => {
                 component={Home}
                 options={({navigation}) => ({
                     title: 'RTICCLE',
-                    headerLeft: () => <Image style={{marginLeft: 18}} source={require('../../assets/images/logo.png')} />,
+                    headerLeft: () => <Image style={styles.logo} source={require('../../assets/images/logo.png')} />,
                     headerRight: () => (
                         <Image
                             onTouchEnd={() => {
                                 navigateTo.navigate('SearchScreen');
                             }}
-                            style={{marginRight: 24, padding: 4}}
+                            style={styles.searchBtn}
                             source={require('../../assets/icon/searchBlack.png')}
                         />
                     ),
@@ -138,6 +138,17 @@ const styles = StyleSheet.create({
         fontFamily: type.notoSansKR_Medium,
         fontSize: 20,
     },
+    logo:{
+        marginLeft: 18,
+        width: 24,
+        resizeMode: 'contain',
+    },
+    searchBtn:{
+        marginRight: 24,
+        padding: 4,  
+        width: 19, 
+        resizeMode: 'contain',
+    }
 });
 
 export default HomeStackNavigatior;

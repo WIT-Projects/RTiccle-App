@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
         top: 0,
         right: 18,
         zIndex: 1,
+        width: 14,
+        height: 18,
+        resizeMode: 'contain',
     },
     groupMainImage: {
         width: '100%',

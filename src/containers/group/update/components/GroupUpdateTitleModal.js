@@ -69,7 +69,7 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
                         onPress={() => {
                             setGroupUpdateTitle('');
                         }}>
-                        <Image source={require('../../../../assets/images/xCircleWhite.png')}></Image>
+                        <Image style={styles.xBtn} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.textCount}>
@@ -136,6 +136,11 @@ const styles = StyleSheet.create({
         color: '#FC6969',
         paddingTop: 4,
     },
+    xBtn:{
+        width: 16,
+        height: 16,
+        resizeMode: 'contain',
+    }
 });
 
 export default GroupUpdateTitleModal;

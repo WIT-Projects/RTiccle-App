@@ -50,7 +50,7 @@ const GroupUpdateInfo = ({mainImage, title, description, setModalActive, tempDat
                                         setTitleModalVisible(true);
                                         setModalActive(true);
                                     }}>
-                                    <Image source={require('../../../../assets/icon/pencil.png')}></Image>
+                                    <Image style={styles.pencilBtn} source={require('../../../../assets/icon/pencil.png')}></Image>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.underline}>
@@ -61,7 +61,7 @@ const GroupUpdateInfo = ({mainImage, title, description, setModalActive, tempDat
                                         setDescModalVisible(true);
                                         setModalActive(true);
                                     }}>
-                                    <Image source={require('../../../../assets/icon/pencil.png')}></Image>
+                                    <Image style={styles.pencilBtn} source={require('../../../../assets/icon/pencil.png')}></Image>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     cameraImage: {
         width: 35,
         height: 35,
+        resizeMode: 'contain',
     },
     headerImageInner: {
         paddingHorizontal: 18,
@@ -129,6 +130,12 @@ const styles = StyleSheet.create({
     editButton: {
         paddingLeft: 20,
         paddingVertical: 10,
+        paddingRight: 6,
+    },
+    pencilBtn:{
+        width: 12,
+        height: 12,
+        resizeMode: 'contain',
     },
 });
 
