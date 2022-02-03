@@ -1,7 +1,6 @@
-import React,{useState} from 'react'
-import { TextInput, StyleSheet,View } from 'react-native'
-import { useEffect } from 'react/cjs/react.development'
-import colors from '../../../../../theme/colors'
+import React,{useState, useEffect} from 'react';
+import { TextInput, StyleSheet, View } from 'react-native';
+import colors from '../../../../../theme/colors';
 
 const TiccleCreateTextInputTag = ({scrollRef, setTiccleTagList}) => {
     const placeholder = "태그 ex. #경제 #마케팅 (선택)"
