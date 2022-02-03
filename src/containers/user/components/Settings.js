@@ -5,19 +5,27 @@ import { logout, resetUserData, currentUser } from '../../../service/AuthService
 import CustomModal from '../../common/CustomModal';
 import PrivacyModal from './PrivacyModal';
 import { restartApp } from '../../../service/CommonService';
+import {useErrorHandler} from 'react-error-boundary';
+import Spinner from '../../common/Spinner';
 
 const Setting = ({isGuest, setIsGuest}) => {
-
     const [dataResetModal, setDataResetModal] = useState(false);
     const [privacyModalVisible, setPrivacyModalVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const handleError = useErrorHandler(); // for error handling
+    
     const logoutButtonEvent = () => {
         logout();
         setIsGuest(true);
         restartApp();
     }
     const resetButtonEvent = () => {
-        resetUserData(currentUser.uid)
-        restartApp();
+        setDataResetModal(false);
+        setIsLoading(true);
+        resetUserData(currentUser.uid).then(() => {
+            setIsLoading(false);
+            restartApp();
+        }).catch(err => handleError(err));
     }
     const PrivacyModalVisibleTrue = () => {
         setPrivacyModalVisible(true)
@@ -35,6 +43,7 @@ const Setting = ({isGuest, setIsGuest}) => {
                 rightButtonFunction={resetButtonEvent}
                 warning={true}
             />
+            {isLoading && <Spinner></Spinner>}
             <View style={styles.container}>
                 {isGuest ? null :
                 <SettingItem

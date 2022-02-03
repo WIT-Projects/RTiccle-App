@@ -2,6 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import {currentUser} from './AuthService';
 import {uploadImageToStorage, getDownloadURLByName, deleteImageFromStorage} from './ImageService';
 import { getKSTTime } from './CommonService';
+import { findTiccleListByGroupId } from './TiccleService';
 
 const collection = firestore().collection('RTiccle');
 
@@ -71,13 +72,40 @@ function updateGroupInfo(groupId, newInfo) {
  * Update ticcleNum
  * @param {string} groupId
  * @param {boolean} isPlus: true if +1 else -1
+ * @returns {Promise<Array>} group data
  */
 async function updateTiccleNumOfGroup(groupId, isPlus) {
     const ref = collection.doc(currentUser.uid).collection('Group').doc(groupId);
-    const group = (await ref.get()).data();
+    const snapshot = await ref.get();
+    const group = snapshot.data();
+    group.id = snapshot.id;
     var num = group.ticcleNum;
     num = isPlus ? num + 1 : num - 1;
     ref.update({ticcleNum: num});
+    return new Promise(resolve => {
+        resolve(group);
+    });
+}
+
+/**
+ * Check (deleted) latestTiccleTitle and update
+ * @param {Array} group 
+ * @param {string} deletedTiccleTitle 
+ * @returns {Promise<string>} new latestTiccleTitle if changed else null
+ */
+async function checkDeletedTiccleTitleAndUpdate(group, deletedTiccleTitle) {
+    if (group.latestTiccleTitle === deletedTiccleTitle) {
+        const ref = collection.doc(currentUser.uid).collection('Group').doc(group.id);
+        const ticcleList = await findTiccleListByGroupId(group.id);
+        var newLatestTiccleTitle = '';
+        if (ticcleList.length != 0)
+            newLatestTiccleTitle = ticcleList[0].title;
+        await ref.update({latestTiccleTitle: newLatestTiccleTitle});
+        return new Promise(resolve => {
+            resolve(newLatestTiccleTitle);
+        });
+    }
+    return null;
 }
 
 /**
@@ -164,4 +192,5 @@ export {
     deleteGroup,
     findAllGroupIncludeImage,
     findGroupById,
+    checkDeletedTiccleTitleAndUpdate,
 };

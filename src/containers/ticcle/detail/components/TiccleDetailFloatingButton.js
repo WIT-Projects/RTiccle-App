@@ -14,9 +14,9 @@ const TiccleDetailFloatingButton = ({ticcleData}) => {
     const handleError = useErrorHandler(); // for error handling
 
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-    const deleteModalEvent = () => {
+    const deleteModalEvent = async () => {
         try {
-            doDeleteTiccle( ticcleData );
+            await doDeleteTiccle( ticcleData );
             setIsTiccleListChanged( !isTiccleListChanged );
             setIsGroupChanged( !isGroupChanged );
             navigation.navigate( 'HomeStack' );

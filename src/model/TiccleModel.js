@@ -129,14 +129,19 @@ async function doUpdateTiccle(groupId, ticcleId, newInfo, isIncludingImage, imag
 /**
  * Delete one ticcle add apply to ticcleList
  * @param {Array} ticcleData 
+ * @returns {Promise<string>} newLatestTiccleTitle if changed, else null
  */
-function doDeleteTiccle(ticcleData) {
+async function doDeleteTiccle(ticcleData) {
     // to server
-    deleteTiccle(ticcleData);
+    const newLatestTiccleTitle = await deleteTiccle(ticcleData);
 
     // to local data
     deleteOneTiccleOfList(ticcleData.id);
-    updateGroupInfoOfList(ticcleData.groupId, null, true, false); // update ticcleNum at local group data
+    updateGroupInfoOfList(ticcleData.groupId, newLatestTiccleTitle, true, false); // update ticcleNum at local group data
+
+    return new Promise(resolve => {
+        resolve(newLatestTiccleTitle);
+    });
 }
 
 /**

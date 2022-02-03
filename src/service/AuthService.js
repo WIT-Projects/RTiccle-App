@@ -65,12 +65,9 @@ function logout () {
     return auth().signOut();
 }
 
-function resetUserData(uid) {
+async function resetUserData(uid) {
     const functions = firebase.app().functions('asia-northeast2');
-    functions.httpsCallable('clearDataOnCall')({uid: uid})
-        .then((res) => {
-          console.log(res);
-        })
+    return await functions.httpsCallable('clearDataOnCall')({uid: uid});
 }
 
 function getUserProfile(setState) {
