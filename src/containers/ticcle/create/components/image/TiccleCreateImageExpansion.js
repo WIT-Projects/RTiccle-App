@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import Modal from 'react-native-modal'
 import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native';
 import colors from '../../../../../theme/colors';
@@ -21,6 +21,7 @@ const TiccleCreateImageExpansion = ({isModalVisible, setModalVisible, imagePath,
             style={styles.modal}
             animationIn={'fadeIn'}
             animationOut={'fadeOut'}
+            onBackButtonPress={() => setModalVisible(false)}
             >
             <View style={styles.container}>
                 <CustomModal title={modalTitle} leftButton={modalLeftButton} rightButton={modalRightButton}
