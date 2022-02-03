@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
@@ -12,6 +12,7 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
     const maxLength = 15;
     const [buttonDisabled, setButtonDisable] = useState(false);
     const [isExistGroup, setIsExistGroup] = useState(false);
+    const inputRef = useRef(null);
 
     if (title != null) groupTitleLength = title.length;
 
@@ -29,7 +30,7 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
                 setIsExistGroup(true);
                 return;
             }
-            setTempData({...tempData, title: title})
+            setTempData({...tempData, title: title});
         }
         setModalVisible(false);
         setModalActive(false);
@@ -42,7 +43,16 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
     }, [title]);
 
     return (
-        <Modal style={styles.modal} isVisible={isModalVisible}>
+        <Modal
+            style={styles.modal}
+            isVisible={isModalVisible}
+            onBackButtonPress={() => {
+                cancelGroupUpdateTitle();
+            }}
+            onModalShow={() => {
+                inputRef.current.blur();
+                inputRef.current.focus();
+            }}>
             <View style={styles.container}>
                 <View style={styles.headerContainer}>
                     <TouchableOpacity
@@ -61,7 +71,7 @@ const GroupUpdateTitleModal = ({isModalVisible, setModalVisible, setModalActive,
                     </TouchableOpacity>
                 </View>
                 <View style={styles.underline}>
-                    <TextInput autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateTitle} maxLength={maxLength}>
+                    <TextInput ref={inputRef} autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateTitle} maxLength={maxLength}>
                         {title}
                     </TextInput>
                     <TouchableOpacity
@@ -136,11 +146,11 @@ const styles = StyleSheet.create({
         color: '#FC6969',
         paddingTop: 4,
     },
-    xBtn:{
+    xBtn: {
         width: 16,
         height: 16,
         resizeMode: 'contain',
-    }
+    },
 });
 
 export default GroupUpdateTitleModal;

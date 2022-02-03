@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
@@ -9,6 +9,7 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
     const {setGroupUpdateDescription} = useGroupUpdate();
     let groupDescriptionLength;
     const maxLength = 23;
+    const inputRef = useRef(null);
 
     if (description != null) groupDescriptionLength = description.length;
 
@@ -19,14 +20,22 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
     };
 
     const saveGroupUpdateDesc = () => {
-        if (description != tempData.description)
-            setTempData({ ...tempData, description: description})
+        if (description != tempData.description) setTempData({...tempData, description: description});
         setModalVisible(false);
         setModalActive(false);
     };
 
     return (
-        <Modal style={styles.modal} isVisible={isModalVisible}>
+        <Modal
+            style={styles.modal}
+            isVisible={isModalVisible}
+            onBackButtonPress={() => {
+                cancelGroupUpdateDesc();
+            }}
+            onModalShow={() => {
+                inputRef.current.blur();
+                inputRef.current.focus();
+            }}>
             <View style={styles.container}>
                 <View style={styles.headerContainer}>
                     <TouchableOpacity
@@ -44,7 +53,7 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
                     </TouchableOpacity>
                 </View>
                 <View style={styles.underline}>
-                    <TextInput autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateDescription} maxLength={maxLength}>
+                    <TextInput ref={inputRef} autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateDescription} maxLength={maxLength}>
                         {description}
                     </TextInput>
                     <TouchableOpacity
@@ -109,11 +118,11 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingVertical: 10,
     },
-    xBtn:{
+    xBtn: {
         width: 16,
         height: 16,
         resizeMode: 'contain',
-    }
+    },
 });
 
 export default GroupUpdateDescriptionModal;
