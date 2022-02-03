@@ -15,9 +15,11 @@ const Setting = ({isGuest, setIsGuest}) => {
     const handleError = useErrorHandler(); // for error handling
     
     const logoutButtonEvent = () => {
-        logout();
-        setIsGuest(true);
-        restartApp();
+        logout().then(() => {
+            setIsGuest(true);
+            restartApp();
+        })
+        .catch(err => handleError(err));
     }
     const resetButtonEvent = () => {
         setDataResetModal(false);

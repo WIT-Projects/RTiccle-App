@@ -3,11 +3,15 @@ import { View, Text, StyleSheet, } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 import { googleLoginAndLink } from '../../../../service/AuthService';
+import {useErrorHandler} from 'react-error-boundary';
 
 const GuestInfo = ({ setIsGuest }) => {
-
+    const handleError = useErrorHandler(); // for error handling
+    
     function linkWithGoogle() {
-        googleLoginAndLink().then(() => setIsGuest(false))
+        googleLoginAndLink()
+            .then(() => setIsGuest(false))
+            .catch(err => handleError(err));
     }
 
     return (

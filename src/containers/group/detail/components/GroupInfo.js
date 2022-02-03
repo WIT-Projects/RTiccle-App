@@ -23,10 +23,12 @@ const GroupInfo = ({groupData, navigation}) => {
     const setFirebaseBookmark = () => {
         if (isBookmark == true) {
             setIsBookmark(false);
-            doUpdateGroup(groupData.id, {bookmark: false}, false);
+            doUpdateGroup(groupData.id, {bookmark: false}, false)
+                .catch(err => handleError(err));
         } else {
             setIsBookmark(true);
-            doUpdateGroup(groupData.id, {bookmark: true}, false);
+            doUpdateGroup(groupData.id, {bookmark: true}, false)
+                .catch(err => handleError(err));
         }
         setIsGroupChanged(!isGroupChanged); // notify groupData changed
     };
@@ -37,10 +39,10 @@ const GroupInfo = ({groupData, navigation}) => {
             groupData: groupData,
         });
     };
-    const deleteGroup = () => {
+    const deleteGroup = async () => {
         try {
             setModalVisible(false);
-            doDeleteGroup(groupData);
+            await doDeleteGroup(groupData);
             setIsGroupChanged(!isGroupChanged);
             navigation.navigate('Home');
         } catch (err) {
