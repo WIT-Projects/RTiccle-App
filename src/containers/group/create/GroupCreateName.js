@@ -1,14 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, TouchableWithoutFeedback, Platform, Keyboard, KeyboardAvoidingView} from 'react-native';
 import TextInfo from '../../common/TextInfo';
 import GroupTextInput from './components/GroupTextInput';
 import GroupCreateConfirmButton from './components/GroupCreateConfirmButton';
-
+import { BackHandler } from 'react-native';
+import useGroupCreate from '../../../context/hook/useGroupCreate';
 import colors from '../../../theme/colors';
 
 const GroupCreateName = ({navigation}) => {
     const [buttonDisabled, setButtonDisable] = useState(true);
     const [isExistGroup, setIsExistGroup] = useState(false);
+    const { initialGroupCreate } = useGroupCreate();
+
+    useEffect(() => {
+        //backButton
+        const initialGroupData = () => {
+            initialGroupCreate();
+            navigation.goBack();
+            return true;
+        }
+        const backHandler= BackHandler.addEventListener(
+            "hardwareBackPress",
+            initialGroupData
+        )
+        return () => backHandler.remove();
+    }, [] );
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null} style={styles.container}>

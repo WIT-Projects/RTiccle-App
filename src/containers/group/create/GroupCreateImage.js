@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 import GroupSaveButton from './components/GroupSaveButton';
 import GroupSaveButtonSkip from './components/GroupSaveButtonSkip';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
+import { BackHandler } from 'react-native';
 
 import {type} from '../../../theme/fonts';
 import colors from '../../../theme/colors';
@@ -19,6 +20,21 @@ const GroupCreateImage = ({navigation}) => {
     let source;
     mainImage == '' || mainImage == null ? (source = require('../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
+
+    useEffect(() => {
+        //backButton
+        const initialGroupImage = () => {
+            setGroupImage('');
+            navigation.goBack();
+            return true;
+        }
+        const backHandler= BackHandler.addEventListener(
+            "hardwareBackPress",
+            initialGroupImage
+        )
+        return () => backHandler.remove();
+    }, [] );
+
     return (
         <View style={styles.container}>
             <PhotoModal setImage={setGroupImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible} width={412} height={256}></PhotoModal>
