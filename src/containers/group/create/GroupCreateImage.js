@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {View, ScrollView, Text, Image, ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, ScrollView, Text, Image, ImageBackground, StyleSheet, TouchableOpacity, BackHandler} from 'react-native';
 import GroupSaveButton from './components/GroupSaveButton';
 import GroupSaveButtonSkip from './components/GroupSaveButtonSkip';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
-import {BackHandler} from 'react-native';
 
 import {type} from '../../../theme/fonts';
 import colors from '../../../theme/colors';

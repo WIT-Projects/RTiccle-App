@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, TouchableWithoutFeedback, Platform, Keyboard, KeyboardAvoidingView, ScrollView} from 'react-native';
+import {View, StyleSheet, TouchableWithoutFeedback, Platform, Keyboard, KeyboardAvoidingView, ScrollView, BackHandler} from 'react-native';
 import TextInfo from '../../common/TextInfo';
 import GroupTextInput from './components/GroupTextInput';
 import GroupCreateConfirmButton from './components/GroupCreateConfirmButton';
-import {BackHandler} from 'react-native';
 import useGroupCreate from '../../../context/hook/useGroupCreate';
 import colors from '../../../theme/colors';
 
