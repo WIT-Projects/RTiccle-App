@@ -1,19 +1,18 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import colors from '../../../../../theme/colors';
-import GroupCreateModal from './GroupCreateModal';
 import GroupListModalTitle from './list/GroupListModalTitle';
 import GroupListModalGroupList from './list/GroupListModalGroupList';
 import GroupListModalCreateButton from './list/GroupListModalCreateButton';
 
-const GroupListModal = ({isModalVisible, setModalVisible, ticcleGroup, setTiccleGroup}) => {
-    const [groupCreateModalVisible, setGroupCreateModalVisible] = useState(false)
+const GroupListModal = ({groupListModalVisible, setGroupListModalVisible, ticcleGroup, setTiccleGroup
+, setGroupCreateModalVisible}) => {
 
     return(
         <Modal
-            isVisible={isModalVisible}
-            onBackdropPress={() => setModalVisible(false)}
+            isVisible={groupListModalVisible}
+            onBackdropPress={() => setGroupListModalVisible(false)}
             backdropOpacity={0.5}
             style={styles.modal}
             animationIn={'fadeIn'}
@@ -21,17 +20,18 @@ const GroupListModal = ({isModalVisible, setModalVisible, ticcleGroup, setTiccle
             backdropTransitionInTiming={0}
             hideModalContentWhileAnimating={true}
         >
-            {/* Modal */}
-            <GroupCreateModal isModalVisible={groupCreateModalVisible} setModalVisible={setGroupCreateModalVisible}/>
             {/* View */}
             <View style={styles.container}>
-                <GroupListModalTitle setModalVisible={setModalVisible}/>
+                <GroupListModalTitle setModalVisible={setGroupListModalVisible}/>
                 <GroupListModalGroupList
-                    setModalVisible={setModalVisible}
+                    setModalVisible={setGroupListModalVisible}
                     ticcleGroup={ticcleGroup} setTiccleGroup={setTiccleGroup}
                 />
             </View>
-            <GroupListModalCreateButton setGroupCreateModalVisible={setGroupCreateModalVisible}/>
+            <GroupListModalCreateButton
+                setGroupCreateModalVisible={setGroupCreateModalVisible}
+                setGroupListModalVisible={setGroupListModalVisible}
+            />
         </Modal>
     )
 }

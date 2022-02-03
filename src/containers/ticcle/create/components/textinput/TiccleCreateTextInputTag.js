@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import { TextInput, StyleSheet,View } from 'react-native'
+import { useEffect } from 'react/cjs/react.development'
 import colors from '../../../../../theme/colors'
 
 const TiccleCreateTextInputTag = ({scrollRef, setTiccleTagList}) => {
@@ -9,8 +10,19 @@ const TiccleCreateTextInputTag = ({scrollRef, setTiccleTagList}) => {
         setTag('')
     }
     const pressEnter = () => {
+        setTiccleTagList(tag);
         scrollRef.current.scrollToEnd();
+        initialTag();
     }
+
+    useEffect(() => {
+        let lastChar = tag.substring(tag.length-1);
+        if(lastChar === ' ') { 
+            setTiccleTagList(tag);
+            scrollRef.current.scrollToEnd();
+        initialTag();
+        }
+    }, [tag]);
 
     return (
         <View style={styles.container}>
@@ -19,11 +31,7 @@ const TiccleCreateTextInputTag = ({scrollRef, setTiccleTagList}) => {
             placeholderTextColor = {colors.gray3}
             onChangeText = {setTag}
             value= {tag}
-            onSubmitEditing={() => {
-                setTiccleTagList(tag);
-                pressEnter();
-                initialTag();
-            }}
+            onSubmitEditing={pressEnter}
             blurOnSubmit={false}
             style={styles.textInput}
             >
