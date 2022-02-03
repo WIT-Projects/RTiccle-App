@@ -24,7 +24,7 @@ const GroupDetailTiccle = ({ item }) => {
         })
         const newTag = tag.slice(0, availableIndex);
         setAvailableTag(newTag);
-    },[])
+    },[item])
 
 
 
