@@ -10,7 +10,7 @@ const NotExistTiccle = () => {
   return(
     <>
         <View style={styles.container}>
-        <Image source={require('../../../../assets/images/noTiccle.png')} style={styles.image}></Image>
+        <Image source={require('../../../../assets/images/logo.png')} style={styles.image}></Image>
             <Text style={styles.font1}>관련된 티끌이 없어요</Text>
             <Text style={styles.font1}>생성해보시겠어요?</Text>
         </View>
@@ -32,9 +32,10 @@ const styles = StyleSheet.create({
     },
     image:{
         width:68,
-        height:68,
+        height:43,
         marginBottom: 10,
         resizeMode: 'contain',
+        tintColor: colors.gray2,
     },
 })
 

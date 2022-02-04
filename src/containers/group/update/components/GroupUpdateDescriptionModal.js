@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import React, {useRef} from 'react';
+import {View, Text, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
@@ -9,6 +9,7 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
     const {setGroupUpdateDescription} = useGroupUpdate();
     let groupDescriptionLength;
     const maxLength = 23;
+    const inputRef = useRef(null);
 
     if (description != null) groupDescriptionLength = description.length;
 
@@ -19,46 +20,56 @@ const GroupUpdateDescriptionModal = ({isModalVisible, setModalVisible, setModalA
     };
 
     const saveGroupUpdateDesc = () => {
-        if (description != tempData.description)
-            setTempData({ ...tempData, description: description})
+        if (description != tempData.description) setTempData({...tempData, description: description});
         setModalVisible(false);
         setModalActive(false);
     };
 
     return (
-        <Modal style={styles.modal} isVisible={isModalVisible}>
-            <View style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            cancelGroupUpdateDesc();
-                        }}>
-                        <Text style={styles.defaultText}>취소</Text>
-                    </TouchableOpacity>
-                    <Text style={[styles.defaultText, styles.bold]}>그룹 설명</Text>
-                    <TouchableOpacity
-                        onPress={() => {
-                            saveGroupUpdateDesc();
-                        }}>
-                        <Text style={styles.defaultText}>저장</Text>
-                    </TouchableOpacity>
+        <Modal
+            style={styles.modal}
+            isVisible={isModalVisible}
+            onBackButtonPress={() => {
+                cancelGroupUpdateDesc();
+            }}
+            onModalShow={() => {
+                inputRef.current.blur();
+                inputRef.current.focus();
+            }}>
+            <ScrollView>
+                <View style={styles.container}>
+                    <View style={styles.headerContainer}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                cancelGroupUpdateDesc();
+                            }}>
+                            <Text style={styles.defaultText}>취소</Text>
+                        </TouchableOpacity>
+                        <Text style={[styles.defaultText, styles.bold]}>그룹 설명</Text>
+                        <TouchableOpacity
+                            onPress={() => {
+                                saveGroupUpdateDesc();
+                            }}>
+                            <Text style={styles.defaultText}>저장</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.underline}>
+                        <TextInput ref={inputRef} autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateDescription} maxLength={maxLength}>
+                            {description}
+                        </TextInput>
+                        <TouchableOpacity
+                            style={styles.deleteButton}
+                            onPress={() => {
+                                setGroupUpdateDescription('');
+                            }}>
+                            <Image style={styles.xBtn} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.textCount}>
+                        {groupDescriptionLength}/{maxLength}
+                    </Text>
                 </View>
-                <View style={styles.underline}>
-                    <TextInput autoFocus={true} style={styles.defaultText} onChangeText={setGroupUpdateDescription} maxLength={maxLength}>
-                        {description}
-                    </TextInput>
-                    <TouchableOpacity
-                        style={styles.deleteButton}
-                        onPress={() => {
-                            setGroupUpdateDescription('');
-                        }}>
-                        <Image style={styles.xBtn} source={require('../../../../assets/images/xCircleWhite.png')}></Image>
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.textCount}>
-                    {groupDescriptionLength}/{maxLength}
-                </Text>
-            </View>
+            </ScrollView>
         </Modal>
     );
 };
@@ -109,11 +120,11 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingVertical: 10,
     },
-    xBtn:{
+    xBtn: {
         width: 16,
         height: 16,
         resizeMode: 'contain',
-    }
+    },
 });
 
 export default GroupUpdateDescriptionModal;

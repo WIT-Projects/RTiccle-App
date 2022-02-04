@@ -62,7 +62,7 @@ const NewTiccleGroupList = () => {
                 </View>
             ) : (
                 <View style={styles.noTiccle}>
-                    <Image source={require('../../../assets/images/noTiccle.png')} style={styles.noTiccleImage}></Image>
+                    <Image source={require('../../../assets/images/logo.png')} style={styles.noTiccleImage}></Image>
                     <Text style={styles.noTiccleText}>생성된 티끌이 없어요</Text>
                     <Text style={styles.noTiccleText}>첫 티끌을 생성해보세요!</Text>
                 </View>
@@ -109,6 +109,10 @@ const styles = StyleSheet.create({
     },
     noTiccleImage: {
         marginBottom: 20,
+        width: 68,
+        height: 43,
+        resizeMode: 'contain',
+        tintColor: colors.gray2,
     },
     noTiccleText: {
         fontFamily: type.spoqaHanSansNeo_Regular,

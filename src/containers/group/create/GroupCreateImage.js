@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, ScrollView, Text, Image, ImageBackground, StyleSheet, TouchableOpacity, BackHandler} from 'react-native';
 import GroupSaveButton from './components/GroupSaveButton';
 import GroupSaveButtonSkip from './components/GroupSaveButtonSkip';
 import PhotoModal from '../../common/PhotoModal';
@@ -19,8 +19,20 @@ const GroupCreateImage = ({navigation}) => {
     let source;
     mainImage == '' || mainImage == null ? (source = require('../../../assets/images/blankImage.png')) : (source = {uri: mainImage});
     const [isModalVisible, setModalVisible] = useState(false);
+
+    useEffect(() => {
+        //backButton
+        const initialGroupImage = () => {
+            setGroupImage('');
+            navigation.goBack();
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', initialGroupImage);
+        return () => backHandler.remove();
+    }, []);
+
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <PhotoModal setImage={setGroupImage} isModalVisible={isModalVisible} setModalVisible={setModalVisible} width={412} height={256}></PhotoModal>
             {isLoading && <Spinner></Spinner>}
             <View style={styles.headerShadow}></View>
@@ -40,7 +52,7 @@ const GroupCreateImage = ({navigation}) => {
             </ImageBackground>
             <GroupSaveButton text="저장하기" navigation={navigation} setIsLoading={setIsLoading} isLoading={isLoading}></GroupSaveButton>
             <GroupSaveButtonSkip text="건너뛰기" navigation={navigation} setIsLoading={setIsLoading}></GroupSaveButtonSkip>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -89,11 +101,11 @@ const styles = StyleSheet.create({
         color: colors.white,
     },
     camera: {
-        marginBottom:8,
-        width:35,
-        height:35,
+        marginBottom: 8,
+        width: 35,
+        height: 35,
         resizeMode: 'contain',
-    }
+    },
 });
 
 export default GroupCreateImage;

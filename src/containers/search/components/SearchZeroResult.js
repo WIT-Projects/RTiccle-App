@@ -5,7 +5,7 @@ import colors from '../../../theme/colors';
 const SearchZeroResult = () => {
     return (
         <View style={styles.container}>
-            <Image style={styles.logoImage} source={require('../../../assets/images/logo2.png')}></Image>
+            <Image style={styles.logoImage} source={require('../../../assets/images/logo.png')}></Image>
         </View>
     );
 };
@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
     },
     logoImage: {
         marginTop: '60%',
+        width: 88,
+        height: 56,
+        tintColor:colors.gray2,
     },
 });
 

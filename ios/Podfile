@@ -12,8 +12,6 @@ target 'RTiccle' do
     :hermes_enabled => false
   )
 
-  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
-
   pod 'react-native-restart', :path => '../node_modules/react-native-restart'
 
   target 'RTiccleTests' do

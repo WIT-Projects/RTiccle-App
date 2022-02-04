@@ -3,13 +3,11 @@ import {StyleSheet, Text, Dimensions, View, Image} from "react-native";
 import colors from '../../../theme/colors';
 import { type } from '../../../theme/fonts';
 
-const windowHeight = Dimensions.get('window').height;
-
-const NotExistTiccle = () => {
+const SearchNotExistTiccle = () => {
   return(
     <>
         <View style={styles.container}>
-        <Image source={require('../../../assets/images/noTiccle.png')} style={styles.image}></Image>
+        <Image source={require('../../../assets/images/logo.png')} style={styles.image}></Image>
             <Text style={styles.font1}>관련된 티끌이 없어요</Text>
             <Text style={styles.font1}>생성해보시겠어요?</Text>
         </View>
@@ -18,10 +16,10 @@ const NotExistTiccle = () => {
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
+        flex:1,
         alignItems: 'center',
         justifyContent: 'center',
-        height: windowHeight,
         backgroundColor: colors.white,
     },
     font1:{
@@ -34,7 +32,8 @@ const styles = StyleSheet.create({
         height:68,
         marginBottom: 10,
         resizeMode: 'contain',
+        tintColor: colors.gray2,
     },
 })
 
-export default NotExistTiccle;
+export default SearchNotExistTiccle;

@@ -27,7 +27,7 @@ const GroupListModalCreateButton = ({ setGroupCreateModalVisible, setGroupListMo
             rightButtonFunction={() => setGroupAlertModal(false)}
             rightButtonStyle={{marginLeft: 20}} />
             <TouchableOpacity style={styles.newGroupButtonContainer} onPress={groupCreateButtonEvent}>
-                <Image source={require('../../../../../../assets/icon/plus_circle.png')} style={styles.newGroupButtonImage}/>
+                <Image source={require('../../../../../../assets/images/groupCreateButton.png')} style={styles.newGroupButtonImage}/>
                 <Text style={styles.newGroupButtonText}>새로운 그룹 생성하기</Text>
             </TouchableOpacity>
         </>

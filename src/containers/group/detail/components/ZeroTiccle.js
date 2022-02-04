@@ -10,7 +10,7 @@ const ZeroTiccle = () => {
   return(
     <>
         <View style={styles.container}>
-            <Image source={require('../../../../assets/images/noTiccle.png')} style={styles.image}></Image>
+            <Image source={require('../../../../assets/images/logo.png')} style={styles.image}></Image>
             <Text style={styles.font1}>작성된 티끌이 없네요.</Text>
             <Text style={styles.font1}>첫 티끌을 생성해보세요!</Text>
         </View>
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         height:68,
         marginBottom: 10,
         resizeMode: 'contain',
+        tintColor: colors.gray2,
     },
 })
 

@@ -8,7 +8,7 @@ const ErrorFallback = () => {
     return (
         <View style={styles.container}>
             <View style={styles.info}>
-                <Image source={require('../../assets/images/errorFallbackLogo.png')} style={styles.logo}></Image>
+                <Image source={require('../../assets/images/logo.png')} style={styles.logo}></Image>
                 <Text style={styles.infoText}>예상치 못한 문제가 발생했어요.</Text>
                 <Text style={styles.infoText}>네트워크 연결 상태를 확인해주세요.</Text>
             </View>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     info: {
-      alignItems:'center'
+        alignItems: 'center',
     },
     infoText: {
         fontFamily: type.notoSansKR_Regular,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         width: 168,
         height: 40,
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         marginTop: 74,
         backgroundColor: colors.main,
         borderRadius: 24,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         fontFamily: type.notoSansKR_Regular,
         color: colors.white,
         fontSize: 16,
-        lineHeight:20
+        lineHeight: 20,
     },
     report: {
         position: 'absolute',
