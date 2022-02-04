@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     },
     logo:{
         resizeMode: 'contain',
-        width: 16, 
-        height: 16,
+        width: 14, 
+        height: 14,
         top: 2,
     },
     checkIcon:{
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         width: 14,
         height: 14,
-
     }
 });
 
