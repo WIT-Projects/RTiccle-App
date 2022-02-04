@@ -69,15 +69,14 @@ const styles = StyleSheet.create({
     titleText :{
         fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize : 16,
-        lineHeight : 20,
+        lineHeight : 24,
         color: colors.main,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     buttonContainer:{
         flexDirection : 'row',
         justifyContent : 'space-between',
         marginHorizontal: 4,
-
     },
     buttonTouchable: {
         width:'50%',

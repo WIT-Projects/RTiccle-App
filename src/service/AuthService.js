@@ -65,7 +65,8 @@ function logout () {
     return auth().signOut();
 }
 
-async function resetUserData(uid) {
+async function resetUserData() {
+    const uid = auth().currentUser.uid;
     const functions = firebase.app().functions('asia-northeast2');
     return await functions.httpsCallable('clearDataOnCall')({uid: uid});
 }
@@ -84,6 +85,10 @@ function getUserProfile(setState) {
   }
 }
 
+async function unregister() {
+    return await auth().currentUser.delete()
+}
+
 export {
   currentUser,
   anonSignIn,
@@ -94,4 +99,5 @@ export {
   getUserProfile,
   logout,
   resetUserData,
+  unregister,
 };

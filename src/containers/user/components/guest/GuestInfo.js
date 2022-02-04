@@ -1,25 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
 import colors from '../../../../theme/colors';
 import { type } from '../../../../theme/fonts';
 import { googleLoginAndLink } from '../../../../service/AuthService';
 import {useErrorHandler} from 'react-error-boundary';
+import Spinner from '../../../common/Spinner';
 
 const GuestInfo = ({ setIsGuest }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleError = useErrorHandler(); // for error handling
     
     function linkWithGoogle() {
-        googleLoginAndLink()
-            .then(() => setIsGuest(false))
-            .catch(err => handleError(err));
+        setIsLoading(true);
+        googleLoginAndLink().then(() => {
+            setIsLoading(false);
+            setIsGuest(false);
+        }).catch(err => handleError(err));
     }
 
     return (
-        <View style={styles.rowContainer}>
-            <Text style={styles.font1}>Guest</Text>
-            <Text style={styles.font2}>님</Text>
-            <Text style={styles.font3} onPress={() => linkWithGoogle()}>계정연동</Text>
-        </View>
+        <>
+            {isLoading && <Spinner></Spinner>}
+            <View style={styles.rowContainer}>
+                <Text style={styles.font1}>Guest</Text>
+                <Text style={styles.font2}>님</Text>
+                <Text style={styles.font3} onPress={() => linkWithGoogle()}>계정연동</Text>
+            </View>
+        </>
     )
 }
 
