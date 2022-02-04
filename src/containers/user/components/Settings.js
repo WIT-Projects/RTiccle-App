@@ -57,7 +57,7 @@ const Setting = ({isGuest, setIsGuest}) => {
             />
             <CustomModal
                 isModalVisible={isUnregisterAlert} setModalVisible={setIsUnregisterAlert}
-                title={`회원 탈퇴 시 사용자가 작성한 콘텐츠와 연동된 계정 정보가 영구 삭제되며 복구가 불가능합니다.\n 탈퇴 하시겠습니까?`}
+                title={`회원 탈퇴 시 사용자가 작성한 콘텐츠와\n연동된 계정 정보가 영구 삭제됩니다.\n탈퇴 하시겠습니까? `}
                 leftButton={"취소"} rightButton={"탈퇴"}
                 rightButtonFunction={unregisterButtonEvent}
                 warning={true}

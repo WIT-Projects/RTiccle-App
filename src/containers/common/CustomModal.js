@@ -73,13 +73,11 @@ const styles = StyleSheet.create({
         lineHeight : 24,
         color: colors.main,
         textAlign: 'center',
-        marginHorizontal: 20,
     },
     buttonContainer:{
         flexDirection : 'row',
         justifyContent : 'space-between',
         marginHorizontal: 4,
-
     },
     buttonTouchable: {
         width:'50%',
