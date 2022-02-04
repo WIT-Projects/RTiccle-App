@@ -70,9 +70,10 @@ const styles = StyleSheet.create({
     titleText :{
         fontFamily: type.spoqaHanSansNeo_Regular,
         fontSize : 16,
-        lineHeight : 20,
+        lineHeight : 24,
         color: colors.main,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginHorizontal: 20,
     },
     buttonContainer:{
         flexDirection : 'row',

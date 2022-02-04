@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { View, StyleSheet, } from 'react-native';
 import SettingItem from './SettingItem';
-import { logout, resetUserData, currentUser } from '../../../service/AuthService';
+import { logout, resetUserData, unregister } from '../../../service/AuthService';
 import CustomModal from '../../common/CustomModal';
 import PrivacyModal from './PrivacyModal';
 import { restartApp } from '../../../service/CommonService';
@@ -11,7 +11,9 @@ import Spinner from '../../common/Spinner';
 const Setting = ({isGuest, setIsGuest}) => {
     const [dataResetModal, setDataResetModal] = useState(false);
     const [privacyModalVisible, setPrivacyModalVisible] = useState(false);
+    const [isUnregisterAlert, setIsUnregisterAlert] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
     const handleError = useErrorHandler(); // for error handling
     
     const logoutButtonEvent = () => {
@@ -24,13 +26,21 @@ const Setting = ({isGuest, setIsGuest}) => {
     const resetButtonEvent = () => {
         setDataResetModal(false);
         setIsLoading(true);
-        resetUserData(currentUser.uid).then(() => {
+        resetUserData().then(() => {
             setIsLoading(false);
             restartApp();
         }).catch(err => handleError(err));
     }
     const PrivacyModalVisibleTrue = () => {
         setPrivacyModalVisible(true)
+    }
+    const unregisterButtonEvent = () => {
+        setIsUnregisterAlert(false);
+        setIsLoading(true);
+        unregister().then(() => {
+            setIsLoading(false);
+            restartApp();
+        }).catch(err => handleError(err));
     }
 
     return (
@@ -43,6 +53,13 @@ const Setting = ({isGuest, setIsGuest}) => {
                 isModalVisible={dataResetModal} setModalVisible={setDataResetModal}
                 leftButton={"취소"} rightButton={"삭제"}
                 rightButtonFunction={resetButtonEvent}
+                warning={true}
+            />
+            <CustomModal
+                isModalVisible={isUnregisterAlert} setModalVisible={setIsUnregisterAlert}
+                title={`회원 탈퇴 시 사용자가 작성한 콘텐츠와 연동된 계정 정보가 영구 삭제되며 복구가 불가능합니다.\n 탈퇴 하시겠습니까?`}
+                leftButton={"취소"} rightButton={"탈퇴"}
+                rightButtonFunction={unregisterButtonEvent}
                 warning={true}
             />
             {isLoading && <Spinner></Spinner>}
@@ -64,6 +81,13 @@ const Setting = ({isGuest, setIsGuest}) => {
                     text={"개인정보처리방침"}
                     pressEvent={PrivacyModalVisibleTrue}
                 />
+                {isGuest ? null :
+                <SettingItem
+                    icon={require('../../../assets/icon/unregister.png')}
+                    text={"회원 탈퇴"}
+                    pressEvent={() => setIsUnregisterAlert(true)}
+                />
+                }
             </View>
         </>
         
