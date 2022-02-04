@@ -7,7 +7,7 @@ import colors from '../../theme/colors';
 import CustomModal from '../common/CustomModal';
 import { initAlgolia } from '../../service/SearchService';
 
-const Home = ({navigation}) => {
+const Home = () => {
     const [appExitModal, setAppExitModal] = useState(false)
     
     useEffect(() => {

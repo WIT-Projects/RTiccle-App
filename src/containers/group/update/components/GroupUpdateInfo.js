@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 import PhotoModal from '../../../common/PhotoModal';
-
 import {type} from '../../../../theme/fonts';
 import colors from '../../../../theme/colors';
 import useGroupUpdate from '../../../../context/hook/useGroupUpdate';

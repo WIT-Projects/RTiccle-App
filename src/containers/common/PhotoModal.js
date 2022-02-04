@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import ImagePicker from 'react-native-image-crop-picker';
-
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 

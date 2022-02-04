@@ -4,7 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import colors from '../../theme/colors';
 import {type} from '../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
-
 import Home from '../../containers/home/Home';
 import GroupDetail from '../../containers/group/detail/GroupDetail';
 import GroupUpdate from '../../containers/group/update/GroupUpdate';

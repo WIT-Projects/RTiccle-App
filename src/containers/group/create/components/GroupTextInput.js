@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 18,
         paddingTop: 46,
+        paddingBottom: 46
     },
 });
 

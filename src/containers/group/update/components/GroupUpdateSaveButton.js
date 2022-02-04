@@ -43,7 +43,7 @@ const GroupUpdateSaveButton = ({navigation, initialData, setIsLoading}) => {
     };
 
     return (
-        <View style={{alignItems: 'center'}}>
+        <View style={styles.container}>
             <TouchableOpacity
                 style={[styles.touchableOpacitiy, styles.touchableColor]}
                 onPress={() => {
@@ -56,6 +56,10 @@ const GroupUpdateSaveButton = ({navigation, initialData, setIsLoading}) => {
 };
 
 const styles = StyleSheet.create({
+    container:{
+        alignItems: 'center',
+        paddingBottom:30,
+    },
     touchableOpacitiy: {
         alignItems: 'center',
         justifyContent: 'center',

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {checkIsExistingGroup} from '../../../../model/GroupModel';
-
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';

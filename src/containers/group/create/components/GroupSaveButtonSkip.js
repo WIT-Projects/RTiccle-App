@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';
@@ -40,7 +39,7 @@ const GroupSaveButtonSkip = ({navigation, text, setIsLoading}) => {
     };
 
     return (
-        <View style={{alignItems: 'center'}}>
+        <View style={styles.container}>
             {buttonDisable ? null : (
                 <TouchableOpacity
                     style={styles.button}
@@ -55,6 +54,10 @@ const GroupSaveButtonSkip = ({navigation, text, setIsLoading}) => {
 };
 
 const styles = StyleSheet.create({
+    container:{
+        alignItems: 'center',
+        paddingBottom: 30,
+    },
     button: {
         alignItems: 'center',
         justifyContent: 'center',
