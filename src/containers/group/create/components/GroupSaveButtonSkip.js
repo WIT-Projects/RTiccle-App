@@ -40,7 +40,7 @@ const GroupSaveButtonSkip = ({navigation, text, setIsLoading}) => {
     };
 
     return (
-        <View style={{alignItems: 'center'}}>
+        <View style={styles.container}>
             {buttonDisable ? null : (
                 <TouchableOpacity
                     style={styles.button}
@@ -55,6 +55,10 @@ const GroupSaveButtonSkip = ({navigation, text, setIsLoading}) => {
 };
 
 const styles = StyleSheet.create({
+    container:{
+        alignItems: 'center',
+        paddingBottom: 30,
+    },
     button: {
         alignItems: 'center',
         justifyContent: 'center',

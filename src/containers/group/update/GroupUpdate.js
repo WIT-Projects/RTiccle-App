@@ -38,7 +38,7 @@ const GroupUpdate = ({navigation, route}) => {
             <CustomModal
                 isModalVisible={cancelModal}
                 setModalVisible={setCancelModal}
-                title={'티끌 수정을 취소하시겠어요?'}
+                title={'그룹 수정을 취소하시겠어요?'}
                 leftButton={'취소'}
                 rightButton={'확인'}
                 rightButtonFunction={cancelModalEvent}
