@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
-
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';

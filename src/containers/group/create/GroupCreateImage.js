@@ -4,7 +4,6 @@ import GroupSaveButton from './components/GroupSaveButton';
 import GroupSaveButtonSkip from './components/GroupSaveButtonSkip';
 import PhotoModal from '../../common/PhotoModal';
 import TextInfo from '../../common/TextInfo';
-
 import {type} from '../../../theme/fonts';
 import colors from '../../../theme/colors';
 import useGroupCreate from '../../../context/hook/useGroupCreate';

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, TextInput, View, Text} from 'react-native';
-
 import colors from '../../../../theme/colors';
 import {type} from '../../../../theme/fonts';
 import useGroupCreate from '../../../../context/hook/useGroupCreate';

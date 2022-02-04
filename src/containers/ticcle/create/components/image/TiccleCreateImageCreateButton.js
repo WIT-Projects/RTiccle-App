@@ -2,7 +2,6 @@ import React from 'react'
 import { TouchableOpacity, Text, StyleSheet,Image } from 'react-native'
 import colors from '../../../../../theme/colors'
 
-
 const TiccleCreateImageCreateButton = ({setPhotoModalVisible}) => {
     const photoModalVisibleTrue = () => {
         setPhotoModalVisible(true)
