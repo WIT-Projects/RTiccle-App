@@ -49,7 +49,7 @@ const Setting = ({isGuest, setIsGuest}) => {
                 isModalVisible={privacyModalVisible} setModalVisible={setPrivacyModalVisible}
             />
             <CustomModal
-                title={"데이터를 초기화할 경우 복구가 불가능합니다.\n 초기화 하시겠습니까?"}
+                title={"초기화할 경우 복구가 불가능합니다.\n 초기화 하시겠습니까?"}
                 isModalVisible={dataResetModal} setModalVisible={setDataResetModal}
                 leftButton={"취소"} rightButton={"삭제"}
                 rightButtonFunction={resetButtonEvent}
