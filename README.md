@@ -14,7 +14,6 @@ or
 ### Setting up the development environment
 This is React Native app. Follow the official documentation guide [here](https://reactnative.dev/docs/environment-setup)  
 1. Install dependencies  
-
 ```bash
 # Using npm
 npm i
@@ -33,7 +32,7 @@ yarn run android
 **Note**: Don't forget to add `google-service.json` for Firebase!
 
 ## Architecture
-<img src='https://user-images.githubusercontent.com/51810552/153759209-9be3488e-1788-403b-97b4-aa3aeadbee7a.png' width='600'>
+<img src='https://user-images.githubusercontent.com/51810552/153796431-d3c32eae-57b6-4c32-9ac5-f6e88cd14eb3.png' width='600'>
 
 ## Contributors
 - [0JIEUN0](https://github.com/0JIEUN0)
