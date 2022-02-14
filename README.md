@@ -2,7 +2,7 @@
 RTiccle is an Android application that allows users to write notes easily and quickly.  
 Through this app, users can gather their thoughts and get a sense of accomplishment.
 
-## Examples
+## RTiccle
 <img src='https://user-images.githubusercontent.com/51810552/153765938-abcff20f-c5c4-4659-98cb-a406ddaee8d0.gif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='https://user-images.githubusercontent.com/51810552/153765840-0f984665-1f30-4d34-953d-37cdc49a38f4.gif'>
 
 ## Getting started
