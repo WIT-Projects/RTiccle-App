@@ -26,7 +26,8 @@ const Setting = ({isGuest, setIsGuest}) => {
     const resetButtonEvent = () => {
         setDataResetModal(false);
         setIsLoading(true);
-        resetUserData().then(() => {
+        let promise = isGuest ? unregister() : resetUserData()
+        promise.then(() => {
             setIsLoading(false);
             restartApp();
         }).catch(err => handleError(err));
