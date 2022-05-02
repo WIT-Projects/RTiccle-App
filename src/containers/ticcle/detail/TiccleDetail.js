@@ -6,7 +6,6 @@ import TiccleDetailImageSwiper from './components/TiccleDetailImageSwiper';
 import TiccleDetailText from './components/TiccleDetailText';
 import TiccleDetailTags from './components/TiccleDetailTags';
 import TiccleDetailImageExpansion from './components/TiccleDetailImageExpansion';
-import TiccleDetailFloatingButton from './components/TiccleDetailFloatingButton';
 import { useNavigation } from '@react-navigation/native';
 import TiccleDetailHeader from './components/header/TiccleDetailHeader';
 import { getTiccleIncludeImages } from '../../../model/TiccleModel';
@@ -79,7 +78,6 @@ const TiccleDetail = ({route}) => {
                     tagList={ticcleDetail.tagList}
                 />
             </ScrollView>
-            <TiccleDetailFloatingButton ticcleData={ticcleDetail}/>
         </>
 
     )
