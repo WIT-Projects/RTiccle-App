@@ -1431,14 +1431,6 @@
   "resolved" "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.2.1.tgz"
   "version" "1.2.1"
 
-"@react-navigation/native-stack@^6.2.5":
-  "integrity" "sha512-XCtwl4LEr06nzxMG4aXbYfbO/pAjyhGOR3QtBVBq/uGfVGkeK8utKUe925reqd1x099CiEfSJLpgeR2KzzYp+Q=="
-  "resolved" "https://registry.npmjs.org/@react-navigation/native-stack/-/native-stack-6.2.5.tgz"
-  "version" "6.2.5"
-  dependencies:
-    "@react-navigation/elements" "^1.2.1"
-    "warn-once" "^0.1.0"
-
 "@react-navigation/native@^6.0.0", "@react-navigation/native@6.0.6":
   "integrity" "sha512-XzL7YPsaRRQgdCQSXbA8PJWLN2I4lhUUvSFoKQPNO4DS6y8eqZI1V8COPYlJg8+tsetGV5J8jt+jVjWL7h6ZrQ=="
   "resolved" "https://registry.npmjs.org/@react-navigation/native/-/native-6.0.6.tgz"
@@ -3291,11 +3283,6 @@
     "regex-not" "^1.0.0"
     "snapdragon" "^0.8.1"
     "to-regex" "^3.0.1"
-
-"fast-base64-decode@^1.0.0":
-  "integrity" "sha512-qwaScUgUGBYeDNRnbc/KyllVU88Jk1pRHPStuF/lO7B0/RTRLj7U0lkdTAutlBblY08rwZDff6tNU9cjv6j//Q=="
-  "resolved" "https://registry.npmjs.org/fast-base64-decode/-/fast-base64-decode-1.0.0.tgz"
-  "version" "1.0.0"
 
 "fast-deep-equal@^3.1.1", "fast-deep-equal@^3.1.3":
   "integrity" "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q=="
@@ -6237,13 +6224,6 @@
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
 
-"react-native-get-random-values@1.7.1":
-  "integrity" "sha512-VXWdk73N7pQMEAcM9pvZv+yuWmu2qQrS0QldhdgYmo7dmPHb3x/7tvQKDxkR9gy9/+SoS2uQq9eq06sZ200piA=="
-  "resolved" "https://registry.npmjs.org/react-native-get-random-values/-/react-native-get-random-values-1.7.1.tgz"
-  "version" "1.7.1"
-  dependencies:
-    "fast-base64-decode" "^1.0.0"
-
 "react-native-image-crop-picker@0.37.2":
   "integrity" "sha512-YwZXW21Km8+3tSt0smTaLVgY4398c0/OJcpcH6EP0JDOt1BNNxl/R8m6qdvnwdXdIoa0CCnMVW6TL9IN5ia9OA=="
   "resolved" "https://registry.npmjs.org/react-native-image-crop-picker/-/react-native-image-crop-picker-0.37.2.tgz"
@@ -6253,11 +6233,6 @@
   "integrity" "sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg=="
   "resolved" "https://registry.npmjs.org/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz"
   "version" "1.3.1"
-
-"react-native-linear-gradient@2.5.6":
-  "integrity" "sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg=="
-  "resolved" "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz"
-  "version" "2.5.6"
 
 "react-native-modal@^13.0.0":
   "integrity" "sha512-k6r9T31mc7HIDFj1V53ceAAN1dwc8052c4JLtDVEmEQ19Bbq9yiLXoDsQuNb+hB8A+2tVOXmo5Gq4IQfb11upw=="
@@ -6307,11 +6282,6 @@
   dependencies:
     "prop-types" "^15.5.10"
 
-"react-native-uuid@2.0.1":
-  "integrity" "sha512-cptnoIbL53GTCrWlb/+jrDC6tvb7ypIyzbXNJcpR3Vab0mkeaaVd5qnB3f0whXYzS+SMoSQLcUUB0gEWqkPC0g=="
-  "resolved" "https://registry.npmjs.org/react-native-uuid/-/react-native-uuid-2.0.1.tgz"
-  "version" "2.0.1"
-
 "react-native-vector-icons@^7.0.0":
   "integrity" "sha512-V2a1zJ4i+kS8O4j183gIwX14St9AxxXabxwYpFBgRhvr2NDXyFcjHDEAgrOYYlt2W57e20aN1tBDU/I+wn9WtQ=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-7.1.0.tgz"
@@ -6326,21 +6296,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^15.0.2"
 
-"react-native-vector-icons@9.0.0":
-  "integrity" "sha512-qKX5d5/TafHmI4B7UOSZCL3BAGh7ZfF30iLwRgxBkKfZl2lKSuHp8Ottj9OyWh9b5fFtlg+LtyvZrns3g2kh+w=="
-  "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-9.0.0.tgz"
-  "version" "9.0.0"
-  dependencies:
-    "lodash.frompairs" "^4.0.1"
-    "lodash.isequal" "^4.5.0"
-    "lodash.isstring" "^4.0.1"
-    "lodash.omit" "^4.5.0"
-    "lodash.pick" "^4.4.0"
-    "lodash.template" "^4.5.0"
-    "prop-types" "^15.7.2"
-    "yargs" "^16.1.1"
-
-"react-native@*", "react-native@>=0.38.0", "react-native@>=0.40.0", "react-native@>=0.42.0", "react-native@>=0.43.0", "react-native@>=0.55", "react-native@>=0.56", "react-native@>=0.56.0", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.63.0", "react-native@>=0.65.0", "react-native@0.65.1":
+"react-native@*", "react-native@>=0.38.0", "react-native@>=0.40.0", "react-native@>=0.42.0", "react-native@>=0.43.0", "react-native@>=0.56.0", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.63.0", "react-native@>=0.65.0", "react-native@0.65.1":
   "integrity" "sha512-0UOVSnlssweQZjuaUtzViCifE/4tXm8oRbxwakopc8GavPu9vLulde145GOw6QVYiOy4iL50f+2XXRdX9NmMeQ=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.65.1.tgz"
   "version" "0.65.1"
@@ -7861,7 +7817,7 @@
     "y18n" "^4.0.0"
     "yargs-parser" "^18.1.2"
 
-"yargs@^16.0.3", "yargs@^16.1.1":
+"yargs@^16.0.3":
   "integrity" "sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw=="
   "resolved" "https://registry.npmjs.org/yargs/-/yargs-16.2.0.tgz"
   "version" "16.2.0"
